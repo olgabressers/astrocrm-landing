@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AstroCRM — The CRM Built for Coaches, Astrologers & Practitioners</title>
+  <meta name="description" content="AstroCRM helps coaches, astrologers, therapists and beauty professionals get more clients, earn more and spend less time on admin.">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    :root{
+      --red:#c02122; --red2:#a81b1c; --red3:#e8334a;
+      --redbg:rgba(192,33,34,0.07); --redborder:rgba(192,33,34,0.2);
+      --bg:#ffffff; --bg2:#fafafa; --bg3:#f4f4f4;
+      --card:#ffffff; --border:#e8e8e8;
+      --text:#1a1a1a; --text2:#555555; --text3:#999999;
+      --green:#1a8f4c; --gold:#b8860b;
+      --radius:14px;
+    }
+    html{scroll-behavior:smooth;}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden;}
+
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:14px 48px;background:rgba(255,255,255,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+    .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+    .logo-astro{font-size:22px;font-weight:700;color:#8B0000;font-style:italic;letter-spacing:-0.5px;}
+    .logo-divider{width:2px;height:24px;background:#e5e7eb;flex-shrink:0;}
+    .logo-right{display:flex;flex-direction:column;line-height:1;}
+    .logo-crm{font-size:12px;font-weight:800;color:#1a1f36;letter-spacing:3px;text-transform:uppercase;}
+    .logo-tag{font-size:7px;color:#9ca3af;letter-spacing:1.5px;text-transform:uppercase;margin-top:2px;}
+    .nav-links{display:flex;align-items:center;gap:28px;}
+    .nav-links a{color:var(--text2);text-decoration:none;font-size:14px;transition:color .2s;}
+    .nav-links a:hover{color:var(--red);}
+    .lang-toggle{display:flex;gap:3px;margin-left:4px;}
+    .lang-btn{background:transparent;border:1px solid var(--border);color:var(--text3);padding:4px 8px;border-radius:5px;font-size:11px;font-weight:700;cursor:pointer;transition:all .2s;text-transform:uppercase;}
+    .lang-btn.active,.lang-btn:hover{border-color:var(--redborder);color:var(--red);background:var(--redbg);}
+    .nav-cta{background:var(--red);color:#fff;border:none;padding:10px 22px;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;}
+    .nav-cta:hover{background:var(--red2);transform:translateY(-1px);}
+
+    /* HERO */
+    .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 24px 80px;background:var(--bg);}
+    .hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--redbg);border:1px solid var(--redborder);color:var(--red);padding:6px 18px;border-radius:100px;font-size:13px;font-weight:600;margin-bottom:28px;}
+    .hero-badge .dot{width:6px;height:6px;background:var(--red);border-radius:50%;animation:pulse 2s infinite;flex-shrink:0;}
+    @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
+    .hero h1{font-size:clamp(36px,6vw,68px);font-weight:800;line-height:1.1;letter-spacing:-2px;max-width:880px;margin-bottom:24px;color:var(--text);}
+    .hero h1 .highlight{color:var(--red);}
+    .hero-sub{font-size:clamp(16px,2vw,19px);color:var(--text2);max-width:580px;margin-bottom:48px;line-height:1.7;}
+    .hero-actions{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;}
+    .btn-primary{background:var(--red);color:#fff;padding:16px 32px;border-radius:10px;font-size:16px;font-weight:700;border:none;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-block;}
+    .btn-primary:hover{background:var(--red2);transform:translateY(-2px);box-shadow:0 8px 24px rgba(192,33,34,0.3);}
+    .btn-secondary{background:transparent;color:var(--text);padding:16px 32px;border-radius:10px;font-size:16px;font-weight:600;border:1.5px solid var(--border);cursor:pointer;transition:all .2s;text-decoration:none;display:inline-block;}
+    .btn-secondary:hover{border-color:var(--red);color:var(--red);}
+    .hero-social-proof{margin-top:56px;display:flex;align-items:center;gap:16px;color:var(--text3);font-size:14px;flex-wrap:wrap;justify-content:center;}
+    .avatars{display:flex;}
+    .avatar{width:36px;height:36px;border-radius:50%;border:2px solid #fff;margin-right:-8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;}
+
+    /* SECTION BASE */
+    .section{padding:90px 24px;}
+    .section-inner{max-width:1100px;margin:0 auto;}
+    .section-label{font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--red);margin-bottom:14px;}
+    .section-title{font-size:clamp(26px,4vw,44px);font-weight:800;line-height:1.2;letter-spacing:-1px;margin-bottom:18px;color:var(--text);}
+    .section-sub{font-size:17px;color:var(--text2);max-width:620px;line-height:1.7;margin-bottom:52px;}
+    .section-gray{background:var(--bg2);}
+    .section-red{background:var(--red);}
+
+    /* STATS BAR */
+    .stats-bar{display:flex;justify-content:center;gap:0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--bg);}
+    .stat{flex:1;text-align:center;padding:40px 20px;border-right:1px solid var(--border);}
+    .stat:last-child{border-right:none;}
+    .stat-value{font-size:38px;font-weight:800;letter-spacing:-1.5px;color:var(--red);}
+    .stat-label{font-size:13px;color:var(--text3);margin-top:4px;line-height:1.4;}
+
+    /* WHY CRM */
+    .why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;margin-top:48px;}
+    .why-card{background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--radius);padding:32px;transition:border-color .2s,box-shadow .2s;}
+    .why-card:hover{border-color:var(--redborder);box-shadow:0 4px 20px rgba(192,33,34,0.08);}
+    .why-card h3{font-size:17px;font-weight:700;margin-bottom:10px;color:var(--text);}
+    .why-card p{font-size:14px;color:var(--text2);line-height:1.6;}
+    .why-card .result{display:inline-block;margin-top:14px;background:var(--redbg);border:1px solid var(--redborder);color:var(--red);font-size:12px;font-weight:700;padding:5px 12px;border-radius:100px;}
+
+    /* PROFESSIONS */
+    .prof-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;}
+    .prof-category{background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--radius);padding:24px;}
+    .prof-category-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--red);margin-bottom:14px;}
+    .prof-list{list-style:none;}
+    .prof-list li{font-size:13px;color:var(--text2);padding:4px 0;border-bottom:1px solid var(--bg3);display:flex;align-items:center;gap:7px;}
+    .prof-list li:last-child{border-bottom:none;}
+    .prof-list li::before{content:'·';color:var(--red);font-weight:700;font-size:18px;line-height:1;}
+
+    /* FEATURES */
+    .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px;}
+    .feature-card{background:var(--bg);border:1.5px solid var(--border);border-radius:var(--radius);padding:32px;transition:border-color .2s,box-shadow .2s;}
+    .feature-card:hover{border-color:var(--redborder);box-shadow:0 4px 20px rgba(192,33,34,0.08);}
+    .feature-card.accent{border-color:var(--redborder);background:linear-gradient(135deg,#fff,var(--redbg));}
+    .feature-card h3{font-size:17px;font-weight:700;margin-bottom:10px;}
+    .feature-card p{font-size:14px;color:var(--text2);line-height:1.7;}
+    .feature-list{list-style:none;margin-top:14px;}
+    .feature-list li{font-size:13px;color:var(--text2);padding:5px 0;display:flex;align-items:flex-start;gap:8px;border-bottom:1px solid var(--bg3);}
+    .feature-list li:last-child{border-bottom:none;}
+    .feature-list li::before{content:'✓';color:var(--red);font-weight:700;flex-shrink:0;margin-top:1px;}
+
+    /* COMPARE */
+    .compare-wrap{overflow-x:auto;}
+    .compare-table{width:100%;border-collapse:collapse;font-size:14px;margin-top:32px;}
+    .compare-table th{padding:14px 16px;text-align:left;border-bottom:2px solid var(--border);color:var(--text2);font-weight:600;font-size:13px;}
+    .compare-table th.astro{color:var(--red);background:var(--redbg);border-bottom-color:var(--redborder);}
+    .compare-table td{padding:13px 16px;border-bottom:1px solid var(--border);color:var(--text2);}
+    .compare-table td:first-child{color:var(--text);font-weight:500;}
+    .compare-table td.astro{background:var(--redbg);color:var(--red2);font-weight:600;}
+    .compare-table tr:last-child td{border-bottom:none;}
+    .check{color:var(--green);font-weight:700;}
+    .cross{color:#ccc;}
+    .partial{color:var(--gold);}
+
+    /* PRICING */
+    .pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;max-width:860px;margin:0 auto;}
+    .pricing-card{background:var(--bg);border:1.5px solid var(--border);border-radius:var(--radius);padding:36px;}
+    .pricing-card.featured{border-color:var(--red);position:relative;box-shadow:0 8px 32px rgba(192,33,34,0.12);}
+    .pricing-badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--red);color:#fff;padding:4px 16px;border-radius:100px;font-size:12px;font-weight:700;}
+    .pricing-name{font-size:12px;font-weight:700;color:var(--text3);margin-bottom:12px;text-transform:uppercase;letter-spacing:1px;}
+    .pricing-price{font-size:48px;font-weight:800;letter-spacing:-2px;color:var(--text);margin-bottom:4px;}
+    .pricing-price span{font-size:18px;font-weight:400;color:var(--text3);}
+    .pricing-desc{font-size:14px;color:var(--text2);margin-bottom:24px;line-height:1.5;}
+    .pricing-features{list-style:none;margin-bottom:28px;}
+    .pricing-features li{font-size:14px;color:var(--text2);padding:8px 0;display:flex;align-items:flex-start;gap:10px;border-bottom:1px solid var(--border);}
+    .pricing-features li:last-child{border-bottom:none;}
+    .pricing-features li::before{content:'✓';color:var(--red);font-weight:700;flex-shrink:0;margin-top:1px;}
+    .pricing-btn{width:100%;padding:14px;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;text-align:center;display:block;text-decoration:none;}
+    .pricing-btn.outline{background:transparent;border:1.5px solid var(--border);color:var(--text);}
+    .pricing-btn.outline:hover{border-color:var(--red);color:var(--red);}
+    .pricing-btn.filled{background:var(--red);border:none;color:#fff;}
+    .pricing-btn.filled:hover{background:var(--red2);transform:translateY(-1px);}
+
+    /* MOCKUP */
+    .screenshot-section{padding:80px 24px;background:var(--bg3);}
+    .screenshot-wrap{max-width:1060px;margin:0 auto;background:#fff;border:1px solid var(--border);border-radius:20px;overflow:hidden;box-shadow:0 20px 80px rgba(0,0,0,0.1);}
+    .screenshot-bar{background:var(--bg2);padding:13px 18px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border);}
+    .dot-r{width:12px;height:12px;border-radius:50%;background:#ef4444;}
+    .dot-y{width:12px;height:12px;border-radius:50%;background:#f59e0b;}
+    .dot-g{width:12px;height:12px;border-radius:50%;background:#22c55e;}
+    .screenshot-url{margin:0 auto;background:#fff;border:1px solid var(--border);border-radius:5px;padding:3px 14px;font-size:12px;color:var(--text3);}
+    .mock-app{display:flex;height:440px;}
+    .mock-sidebar{width:185px;background:var(--bg2);border-right:1px solid var(--border);padding:18px 0;flex-shrink:0;}
+    .mock-logo-wrap{padding:0 16px 18px;display:flex;align-items:center;gap:8px;}
+    .mock-logo-astro{font-size:17px;font-weight:700;color:#8B0000;font-style:italic;}
+    .mock-logo-div{width:1.5px;height:20px;background:#e5e7eb;}
+    .mock-logo-right{display:flex;flex-direction:column;line-height:1;}
+    .mock-logo-crm{font-size:10px;font-weight:800;color:#1a1f36;letter-spacing:2.5px;text-transform:uppercase;}
+    .mock-logo-tag{font-size:6px;color:#9ca3af;letter-spacing:1.2px;text-transform:uppercase;margin-top:2px;}
+    .mock-biz{margin:0 10px 14px;background:var(--redbg);border:1px solid var(--redborder);border-radius:7px;padding:7px 11px;font-size:12px;color:var(--red);display:flex;align-items:center;gap:7px;}
+    .mock-biz-dot{width:7px;height:7px;border-radius:50%;background:var(--red);flex-shrink:0;}
+    .mock-nav-item{display:flex;align-items:center;gap:9px;padding:9px 18px;font-size:12px;color:var(--text3);}
+    .mock-nav-item.active{color:var(--text);background:var(--redbg);border-left:2.5px solid var(--red);padding-left:15.5px;}
+    .mock-nav-icon{width:14px;height:14px;opacity:0.5;flex-shrink:0;}
+    .mock-main{flex:1;overflow:hidden;display:flex;flex-direction:column;}
+    .mock-topbar{padding:14px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+    .mock-topbar-title{font-size:16px;font-weight:700;color:var(--text);}
+    .mock-topbar-right{display:flex;gap:8px;}
+    .mock-pill{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:5px 12px;font-size:12px;color:var(--text2);}
+    .mock-pill.red{background:var(--red);color:#fff;border-color:var(--red);}
+    .mock-kanban{flex:1;display:flex;overflow-x:auto;padding:18px;gap:12px;}
+    .mock-col{flex:0 0 168px;}
+    .mock-col-head{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.7px;color:var(--text3);padding:0 4px 10px;display:flex;align-items:center;justify-content:space-between;}
+    .mock-col-count{background:var(--bg3);color:var(--text3);width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;}
+    .mock-card{background:#fff;border:1px solid var(--border);border-radius:8px;padding:11px;margin-bottom:8px;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
+    .mock-card-name{font-size:12px;font-weight:700;color:var(--text);margin-bottom:3px;}
+    .mock-card-sub{font-size:11px;color:var(--text3);}
+    .mock-card-tags{display:flex;gap:4px;margin-top:7px;flex-wrap:wrap;}
+    .mock-tag{font-size:10px;padding:2px 7px;border-radius:4px;background:var(--redbg);color:var(--red);border:1px solid var(--redborder);}
+    .mock-tag.green{background:rgba(26,143,76,0.08);color:var(--green);border-color:rgba(26,143,76,0.2);}
+    .mock-tag.gold{background:rgba(184,134,11,0.08);color:var(--gold);border-color:rgba(184,134,11,0.2);}
+    .mock-card-amount{font-size:12px;color:var(--gold);font-weight:700;margin-top:5px;}
+
+    /* CTA */
+    .cta-section{background:#8B0000;color:#fff;text-align:center;padding:56px 24px;}
+    .cta-section h2{font-size:clamp(20px,3vw,32px);font-weight:800;letter-spacing:-0.5px;margin-bottom:12px;}
+    .cta-section p{font-size:15px;opacity:.8;margin-bottom:28px;}
+    .waitlist-form{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;max-width:480px;margin:0 auto;}
+    .waitlist-input{flex:1;min-width:230px;background:rgba(255,255,255,0.15);border:1.5px solid rgba(255,255,255,0.3);border-radius:10px;padding:14px 18px;color:#fff;font-size:15px;outline:none;transition:border-color .2s;}
+    .waitlist-input:focus{border-color:rgba(255,255,255,0.7);}
+    .waitlist-input::placeholder{color:rgba(255,255,255,0.55);}
+    .btn-white{background:#fff;color:var(--red);padding:14px 28px;border-radius:10px;font-size:15px;font-weight:700;border:none;cursor:pointer;transition:all .2s;}
+    .btn-white:hover{background:#f5f5f5;transform:translateY(-1px);}
+    .waitlist-note{font-size:13px;opacity:.6;margin-top:14px;}
+
+    /* FOOTER */
+    footer{border-top:1px solid var(--border);padding:44px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;background:var(--bg);}
+    .footer-links{display:flex;gap:24px;flex-wrap:wrap;}
+    .footer-links a{color:var(--text3);font-size:13px;text-decoration:none;transition:color .2s;}
+    .footer-links a:hover{color:var(--red);}
+    .footer-copy{font-size:12px;color:var(--text3);}
+
+    @media(max-width:768px){
+      nav{padding:12px 18px;}
+      .nav-links{display:none;}
+      .mock-sidebar{display:none;}
+      .mock-app{height:320px;}
+      .stats-bar{flex-wrap:wrap;}
+      .stat{flex:1 1 40%;}
+      footer{flex-direction:column;text-align:center;}
+      .footer-links{justify-content:center;}
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">
+    <span class="logo-astro">Astro</span>
+    <div class="logo-divider"></div>
+    <div class="logo-right">
+      <span class="logo-crm">CRM</span>
+      <span class="logo-tag">Client Manager</span>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="#why" data-i18n="nav_why">Why CRM</a>
+    <a href="#features" data-i18n="nav_features">Features</a>
+    <a href="#compare" data-i18n="nav_compare">Compare</a>
+    <a href="#pricing" data-i18n="nav_pricing">Pricing</a>
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" onclick="setLang('nl')">NL</button>
+      <button class="lang-btn" onclick="setLang('de')">DE</button>
+      <button class="lang-btn" onclick="setLang('ru')">RU</button>
+      <button class="lang-btn" onclick="setLang('es')">ES</button>
+    </div>
+  </div>
+  <button class="nav-cta" onclick="document.getElementById('waitlist-email').focus()" data-i18n="nav_cta">Join Early Access</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge"><span class="dot"></span><span data-i18n="hero_badge">Now in early access — limited spots</span></div>
+  <h1>
+    <span data-i18n="hero_h1a">Your practice deserves</span><br>
+    <span class="highlight" data-i18n="hero_h1b">more clients, more revenue</span>
+  </h1>
+  <p class="hero-sub" data-i18n="hero_sub">AstroCRM is a simple client manager built for coaches, astrologers, therapists and beauty professionals. Stop losing leads in WhatsApp threads and spreadsheets — and start growing.</p>
+  <div class="hero-actions">
+    <a href="#waitlist" class="btn-primary" data-i18n="hero_cta1">Get Early Access →</a>
+    <a href="#why" class="btn-secondary" data-i18n="hero_cta2">Why do I need a CRM?</a>
+  </div>
+  <div class="hero-social-proof">
+    <div class="avatars">
+      <div class="avatar" style="background:#c02122">A</div>
+      <div class="avatar" style="background:#a81b1c">B</div>
+      <div class="avatar" style="background:#8B0000">J</div>
+      <div class="avatar" style="background:#7a1616">S</div>
+    </div>
+    <span data-i18n="hero_social">Trusted by practitioners across Europe & CIS</span>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat"><div class="stat-value">+40%</div><div class="stat-label" data-i18n="stat1">Average revenue growth<br>in first 6 months</div></div>
+  <div class="stat"><div class="stat-value">2×</div><div class="stat-label" data-i18n="stat2">More clients handled<br>in the same hours</div></div>
+  <div class="stat"><div class="stat-value">5</div><div class="stat-label" data-i18n="stat3">Languages:<br>EN · NL · DE · RU · ES</div></div>
+  <div class="stat"><div class="stat-value">€25</div><div class="stat-label" data-i18n="stat4">Starting price<br>per month</div></div>
+</div>
+
+<!-- WHY CRM -->
+<section class="section section-gray" id="why">
+  <div class="section-inner">
+    <div class="section-label" data-i18n="why_label">Why You Need a CRM</div>
+    <h2 class="section-title" data-i18n="why_title">Most solo practitioners lose 30–50% of potential revenue — without realising it</h2>
+    <p class="section-sub" data-i18n="why_sub">A CRM (Client Relationship Manager) is simply a tool that remembers every client, every conversation, and every follow-up — so you don't have to. Here's what changes when you use one:</p>
+    <div class="why-grid">
+      <div class="why-card">
+        <h3 data-i18n="w1t">You're losing leads you forgot about</h3>
+        <p data-i18n="w1b">Someone messaged you 3 weeks ago about a consultation. You meant to reply. You forgot. That's €150–500 gone. A CRM never forgets — every new inquiry is captured and tracked until it becomes a client or a clear "no".</p>
+        <span class="result" data-i18n="w1r">Result: 20–40% more conversions</span>
+      </div>
+      <div class="why-card">
+        <h3 data-i18n="w2t">Returning clients are your biggest revenue source</h3>
+        <p data-i18n="w2b">A client who came for a natal chart 6 months ago is your warmest lead for a solar return reading. Without a CRM you have no systematic way to reach them. With one, a single click sends a personalised follow-up to 50 past clients.</p>
+        <span class="result" data-i18n="w2r">Result: 2–3× more repeat bookings</span>
+      </div>
+      <div class="why-card">
+        <h3 data-i18n="w3t">Your client history is scattered everywhere</h3>
+        <p data-i18n="w3b">Session notes in a notebook. Files in Google Drive. Messages in Telegram. Payment confirmations in email. A CRM puts everything — notes, files, charts, history — in one place for each client. You look professional and remember everything.</p>
+        <span class="result" data-i18n="w3r">Result: 1–2 hrs saved per day</span>
+      </div>
+      <div class="why-card">
+        <h3 data-i18n="w4t">You can't grow what you can't measure</h3>
+        <p data-i18n="w4b">How many new leads did you get this month? What's your conversion rate? Which service makes the most money? Without a CRM you're flying blind. With one, your reports answer these questions in 10 seconds — so you know where to focus.</p>
+        <span class="result" data-i18n="w4r">Result: Smarter business decisions</span>
+      </div>
+      <div class="why-card">
+        <h3 data-i18n="w5t">Admin is eating your billable hours</h3>
+        <p data-i18n="w5b">Every hour you spend chasing payments, copying client details between apps, or manually writing follow-up messages is an hour not spent with a paying client. CRM automates the repetitive parts so you do them once, not every week.</p>
+        <span class="result" data-i18n="w5r">Result: 5–8 hrs/week back</span>
+      </div>
+      <div class="why-card">
+        <h3 data-i18n="w6t">Clients feel the difference immediately</h3>
+        <p data-i18n="w6b">When you remember a client's daughter's name, the topic from last session, and send a follow-up exactly when they need it — they tell their friends. A CRM makes every client feel like your only client, even when you have 100.</p>
+        <span class="result" data-i18n="w6r">Result: More referrals & reviews</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROFESSIONS -->
+<section class="section" id="who">
+  <div class="section-inner">
+    <div class="section-label" data-i18n="prof_label">Who It's For</div>
+    <h2 class="section-title" data-i18n="prof_title">Built for every practitioner who works with people</h2>
+    <p class="section-sub" data-i18n="prof_sub">If your business is built on personal, long-term client relationships — AstroCRM is built for you.</p>
+    <div class="prof-grid">
+      <div class="prof-category">
+        <div class="prof-category-title"><span data-i18n="cat1">Spiritual & Esoteric</span></div>
+        <ul class="prof-list">
+          <li>Astrologers</li><li>Numerologists</li><li>Tarot readers</li>
+          <li>Human Design analysts</li><li>Feng Shui consultants</li>
+          <li>Energy healers (Reiki)</li><li>Shamanic practitioners</li>
+          <li>Vedic astrologers</li><li>Psychics & mediums</li>
+        </ul>
+      </div>
+      <div class="prof-category">
+        <div class="prof-category-title"><span data-i18n="cat2">Coaching & Mentoring</span></div>
+        <ul class="prof-list">
+          <li>Life coaches</li><li>Business coaches</li><li>Executive coaches</li>
+          <li>Career coaches</li><li>Relationship coaches</li>
+          <li>Health coaches</li><li>Mindset coaches</li>
+          <li>Sports coaches</li><li>Academic mentors</li>
+        </ul>
+      </div>
+      <div class="prof-category">
+        <div class="prof-category-title"><span data-i18n="cat3">Psychology & Therapy</span></div>
+        <ul class="prof-list">
+          <li>Psychologists</li><li>Psychotherapists</li><li>CBT therapists</li>
+          <li>Family therapists</li><li>Trauma therapists</li>
+          <li>Hypnotherapists</li><li>NLP practitioners</li>
+          <li>Art therapists</li><li>Addiction counselors</li>
+        </ul>
+      </div>
+      <div class="prof-category">
+        <div class="prof-category-title"><span data-i18n="cat4">Body & Wellness</span></div>
+        <ul class="prof-list">
+          <li>Nutritionists</li><li>Personal trainers</li>
+          <li>Yoga instructors (private)</li><li>Pilates instructors</li>
+          <li>Massage therapists</li><li>Osteopaths</li>
+          <li>Acupuncturists</li><li>Ayurvedic practitioners</li>
+          <li>Naturopaths</li>
+        </ul>
+      </div>
+      <div class="prof-category">
+        <div class="prof-category-title"><span data-i18n="cat5">Beauty & Aesthetics</span></div>
+        <ul class="prof-list">
+          <li>Lash & brow artists</li><li>Permanent makeup artists</li>
+          <li>Nail artists</li><li>Tattoo artists</li>
+          <li>Hair stylists (private)</li><li>Skincare specialists</li>
+          <li>Aesthetic nurses</li><li>Cosmetologists</li>
+          <li>Waxing specialists</li>
+        </ul>
+      </div>
+      <div class="prof-category">
+        <div class="prof-category-title"><span data-i18n="cat6">Creative & Consulting</span></div>
+        <ul class="prof-list">
+          <li>Private music teachers</li><li>Voice coaches</li>
+          <li>Language tutors</li><li>Image consultants</li>
+          <li>Interior designers</li><li>Wedding planners</li>
+          <li>Financial & crypto advisors</li>
+          <li>Photography coaches</li><li>Writing coaches</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="section section-gray" id="features">
+  <div class="section-inner">
+    <div class="section-label" data-i18n="feat_label">Features</div>
+    <h2 class="section-title" data-i18n="feat_title">Everything you need. Nothing you don't.</h2>
+    <p class="section-sub" data-i18n="feat_sub">Built for 1-person and small-team practices. No enterprise complexity, no IT required.</p>
+    <div class="features-grid">
+      <div class="feature-card accent">
+        <h3 data-i18n="f1t">Built for your niche</h3>
+        <p data-i18n="f1b">The only CRM with fields designed for practitioners — not sales teams.</p>
+        <ul class="feature-list">
+          <li data-i18n="f1_1">Upload natal charts, client photos & session docs</li>
+          <li data-i18n="f1_2">Session notes with timestamps</li>
+          <li data-i18n="f1_3">Birth date & birth time fields</li>
+          <li data-i18n="f1_4">Full consultation history per client</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <h3 data-i18n="f2t">Visual pipeline — see every client at a glance</h3>
+        <p data-i18n="f2b">Drag clients through stages: Inquiry → Proposal → Paid → Done. Never lose track of where anyone is.</p>
+        <ul class="feature-list">
+          <li data-i18n="f2_1">Kanban board — like Trello but built for practitioners</li>
+          <li data-i18n="f2_2">Multiple pipelines per business</li>
+          <li data-i18n="f2_3">Auto-send emails when a client moves to a new stage</li>
+          <li data-i18n="f2_4">Custom stage names in any language</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <h3 data-i18n="f3t">Email campaigns that bring clients back</h3>
+        <p data-i18n="f3b">Send one personalised message to 100 past clients in 3 clicks. "It's been 3 months — ready for your next session?"</p>
+        <ul class="feature-list">
+          <li data-i18n="f3_1">Filter by source, stage, service type</li>
+          <li data-i18n="f3_2">Personal variables: name, last session, deal title</li>
+          <li data-i18n="f3_3">Stage automation: auto-send on deal movement</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <h3 data-i18n="f4t">5 languages — serve clients anywhere</h3>
+        <p data-i18n="f4b">Switch instantly between English, Dutch, German, Russian and Spanish. The only niche CRM with Russian language support.</p>
+        <ul class="feature-list">
+          <li data-i18n="f4_1">Full UI in all 5 languages</li>
+          <li data-i18n="f4_2">Import contacts from multilingual spreadsheets</li>
+          <li data-i18n="f4_3">More languages coming</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <h3 data-i18n="f5t">Reports that show you where the money is</h3>
+        <p data-i18n="f5b">See conversion rates, revenue by service, best lead sources and top clients — updated in real time.</p>
+        <ul class="feature-list">
+          <li data-i18n="f5_1">Revenue & deal count by period</li>
+          <li data-i18n="f5_2">Best performing lead sources</li>
+          <li data-i18n="f5_3">Pipeline conversion funnel</li>
+          <li data-i18n="f5_4">Filter by business, pipeline, time range</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <h3 data-i18n="f6t">Two businesses, one account</h3>
+        <p data-i18n="f6b">Run your astrology practice and coaching business from one dashboard. Separate pipelines, contacts and reports — one subscription.</p>
+        <ul class="feature-list">
+          <li data-i18n="f6_1">Isolated data per business</li>
+          <li data-i18n="f6_2">Switch with one click</li>
+          <li data-i18n="f6_3">Separate email campaigns per brand</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <h3 data-i18n="f7t">Import your existing clients in minutes</h3>
+        <p data-i18n="f7b">Bring contacts from any spreadsheet, CRM or phone. We auto-map columns and catch duplicates.</p>
+        <ul class="feature-list">
+          <li data-i18n="f7_1">CSV, Excel (.xlsx), vCard (.vcf)</li>
+          <li data-i18n="f7_2">Smart column auto-mapping (EN & RU headers)</li>
+          <li data-i18n="f7_3">Duplicate detection</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <h3 data-i18n="f8t">Never miss a follow-up or deadline</h3>
+        <p data-i18n="f8b">Deadlines view shows every upcoming session, payment due and follow-up in one place. Integrate your Calendly link per client with one click.</p>
+        <ul class="feature-list">
+          <li data-i18n="f8_1">Deadline tracker across all clients</li>
+          <li data-i18n="f8_2">Calendly & Google Meet integration (link per client)</li>
+          <li data-i18n="f8_3">Telegram lead capture — coming soon</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARE -->
+<section class="section" id="compare">
+  <div class="section-inner">
+    <div class="section-label" data-i18n="cmp_label">Comparison</div>
+    <h2 class="section-title" data-i18n="cmp_title">AstroCRM vs the alternatives</h2>
+    <p class="section-sub" data-i18n="cmp_sub">How we compare to the tools practitioners actually use today.</p>
+    <div class="compare-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th data-i18n="cmp_feat">Feature</th>
+            <th class="astro">AstroCRM</th>
+            <th>amoCRM <span style="font-size:11px;color:var(--text3)">(RU)</span></th>
+            <th>Teamleader <span style="font-size:11px;color:var(--text3)">(NL/BE)</span></th>
+            <th>HoneyBook <span style="font-size:11px;color:var(--text3)">(US)</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td data-i18n="c1">Built for spiritual / coaching niche</td><td class="astro"><span class="check">✓</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td></tr>
+          <tr><td data-i18n="c2">Client file attachments (charts, docs)</td><td class="astro"><span class="check">✓</span></td><td><span class="cross">✗</span></td><td><span class="partial">~</span></td><td><span class="cross">✗</span></td></tr>
+          <tr><td data-i18n="c3">Session notes per client</td><td class="astro"><span class="check">✓</span></td><td><span class="partial">~</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td></tr>
+          <tr><td data-i18n="c4">Kanban pipeline</td><td class="astro"><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
+          <tr><td data-i18n="c5">Russian language</td><td class="astro"><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td></tr>
+          <tr><td data-i18n="c6">Dutch / German / Spanish</td><td class="astro"><span class="check">✓</span></td><td><span class="cross">✗</span></td><td><span class="partial">~</span></td><td><span class="cross">✗</span></td></tr>
+          <tr><td data-i18n="c7">Two businesses in one account</td><td class="astro"><span class="check">✓</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td></tr>
+          <tr><td data-i18n="c8">CSV / Excel / vCard import</td><td class="astro"><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="partial">~</span></td></tr>
+          <tr><td data-i18n="c9">Email campaigns</td><td class="astro"><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="partial">~</span></td><td><span class="cross">✗</span></td></tr>
+          <tr><td data-i18n="c10">Simple setup — ready in 5 min</td><td class="astro"><span class="check">✓</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="partial">~</span></td></tr>
+          <tr><td data-i18n="c11">Starting price</td><td class="astro">€25/mo</td><td>€15/mo</td><td>€25/mo</td><td>$19/mo</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:13px;color:var(--text3);margin-top:12px">~ = partial or requires workaround</p>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section section-gray" id="pricing">
+  <div class="section-inner" style="text-align:center">
+    <div class="section-label" data-i18n="price_label">Pricing</div>
+    <h2 class="section-title" data-i18n="price_title">Simple pricing. No surprises.</h2>
+    <p class="section-sub" style="margin:0 auto 52px" data-i18n="price_sub">One flat price. Both businesses included. No per-seat fees.</p>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <div class="pricing-name" data-i18n="t1n">Starter</div>
+        <div class="pricing-price">€25<span>/mo</span></div>
+        <div class="pricing-desc" data-i18n="t1d">For solo practitioners just getting started</div>
+        <ul class="pricing-features">
+          <li data-i18n="t1f1">1 business workspace</li>
+          <li data-i18n="t1f2">Up to 500 contacts</li>
+          <li data-i18n="t1f3">Kanban pipeline</li>
+          <li data-i18n="t1f4">Session notes & file uploads</li>
+          <li data-i18n="t1f5">CSV / Excel import</li>
+          <li data-i18n="t1f6">Email campaigns (500/mo)</li>
+        </ul>
+        <a href="#waitlist" class="pricing-btn outline" data-i18n="t1btn">Join Waitlist</a>
+      </div>
+      <div class="pricing-card featured">
+        <div class="pricing-badge" data-i18n="t2badge">Most Popular</div>
+        <div class="pricing-name" data-i18n="t2n">Professional</div>
+        <div class="pricing-price">€45<span>/mo</span></div>
+        <div class="pricing-desc" data-i18n="t2d">For practitioners with multiple offerings and a growing client base</div>
+        <ul class="pricing-features">
+          <li data-i18n="t2f1">2 business workspaces</li>
+          <li data-i18n="t2f2">Unlimited contacts</li>
+          <li data-i18n="t2f3">Multiple pipelines per business</li>
+          <li data-i18n="t2f4">Full session notes & file uploads</li>
+          <li data-i18n="t2f5">Email campaigns (3,000/mo)</li>
+          <li data-i18n="t2f6">Pipeline automations</li>
+          <li data-i18n="t2f7">Reports & analytics</li>
+          <li data-i18n="t2f8">Telegram lead capture (coming soon)</li>
+        </ul>
+        <a href="#waitlist" class="pricing-btn filled" data-i18n="t2btn">Get Early Access</a>
+      </div>
+    </div>
+    <p style="font-size:13px;color:var(--text3);margin-top:28px" data-i18n="price_note">Early access pricing — locked in for life when you join now</p>
+  </div>
+</section>
+
+<!-- APP MOCKUP -->
+<section class="screenshot-section">
+  <div class="section-inner" style="text-align:center;margin-bottom:32px">
+    <div class="section-label" data-i18n="mock_label">See It In Action</div>
+    <h2 class="section-title" data-i18n="mock_title">Your client pipeline, beautifully organised</h2>
+  </div>
+  <div class="screenshot-wrap">
+    <div class="screenshot-bar">
+      <div class="dot-r"></div><div class="dot-y"></div><div class="dot-g"></div>
+      <div class="screenshot-url">app.astrocrm.app — Pipeline</div>
+    </div>
+    <div class="mock-app">
+      <div class="mock-sidebar">
+        <div class="mock-logo-wrap">
+          <span class="mock-logo-astro">Astro</span>
+          <div class="mock-logo-div"></div>
+          <div class="mock-logo-right">
+            <span class="mock-logo-crm">CRM</span>
+            <span class="mock-logo-tag">Client Manager</span>
+          </div>
+        </div>
+        <div class="mock-biz"><div class="mock-biz-dot"></div>Successcode</div>
+        <div class="mock-nav-item active">
+          <svg class="mock-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="5" height="18" rx="1"/><rect x="10" y="3" width="5" height="14" rx="1"/><rect x="17" y="3" width="5" height="10" rx="1"/></svg>Pipeline
+        </div>
+        <div class="mock-nav-item">
+          <svg class="mock-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="7" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Contacts
+        </div>
+        <div class="mock-nav-item">
+          <svg class="mock-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Campaigns
+        </div>
+        <div class="mock-nav-item">
+          <svg class="mock-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Reports
+        </div>
+      </div>
+      <div class="mock-main">
+        <div class="mock-topbar">
+          <div class="mock-topbar-title">Pipeline — Astrology Consults</div>
+          <div class="mock-topbar-right">
+            <div class="mock-pill">Search</div>
+            <div class="mock-pill red">+ Add Deal</div>
+          </div>
+        </div>
+        <div class="mock-kanban">
+          <div class="mock-col">
+            <div class="mock-col-head">New Lead <div class="mock-col-count">3</div></div>
+            <div class="mock-card">
+              <div class="mock-card-name">Angelina Jolie</div>
+              <div class="mock-card-sub">Via Instagram</div>
+              <div class="mock-card-tags"><span class="mock-tag">Natal chart</span></div>
+              <div class="mock-card-amount">€150</div>
+            </div>
+            <div class="mock-card">
+              <div class="mock-card-name">Jennifer Lopez</div>
+              <div class="mock-card-sub">Via Telegram</div>
+              <div class="mock-card-tags"><span class="mock-tag gold">Synastry</span></div>
+              <div class="mock-card-amount">€220</div>
+            </div>
+          </div>
+          <div class="mock-col">
+            <div class="mock-col-head">Proposal Sent <div class="mock-col-count">2</div></div>
+            <div class="mock-card">
+              <div class="mock-card-name">Scarlett Johansson</div>
+              <div class="mock-card-sub">Returning client</div>
+              <div class="mock-card-tags"><span class="mock-tag">Solar return</span></div>
+              <div class="mock-card-amount">€180</div>
+            </div>
+          </div>
+          <div class="mock-col">
+            <div class="mock-col-head">Payment Received <div class="mock-col-count">4</div></div>
+            <div class="mock-card">
+              <div class="mock-card-name">Gwen Stefani</div>
+              <div class="mock-card-sub">Session: Apr 5</div>
+              <div class="mock-card-tags"><span class="mock-tag green">Paid ✓</span></div>
+              <div class="mock-card-amount">€200</div>
+            </div>
+            <div class="mock-card">
+              <div class="mock-card-name">Brad Pitt</div>
+              <div class="mock-card-sub">Session: Apr 8</div>
+              <div class="mock-card-tags"><span class="mock-tag green">Paid ✓</span></div>
+              <div class="mock-card-amount">€150</div>
+            </div>
+          </div>
+          <div class="mock-col">
+            <div class="mock-col-head">Session Done <div class="mock-col-count">7</div></div>
+            <div class="mock-card">
+              <div class="mock-card-name">Leonardo DiCaprio</div>
+              <div class="mock-card-sub">Follow-up sent</div>
+              <div class="mock-card-tags"><span class="mock-tag">VIP client</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="waitlist">
+  <h2 data-i18n="cta_title">Ready to grow your practice?</h2>
+  <p data-i18n="cta_sub">Join the waitlist. Early access opens May 2026.</p>
+  <div class="waitlist-form">
+    <input type="email" id="waitlist-email" class="waitlist-input" placeholder="your@email.com">
+    <button class="btn-white" onclick="joinWaitlist()" data-i18n="cta_btn">Join Waitlist →</button>
+  </div>
+  <p class="waitlist-note" data-i18n="cta_note">No spam. Just a heads-up when early access opens.</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a class="nav-logo" href="#">
+    <span class="logo-astro">Astro</span>
+    <div class="logo-divider"></div>
+    <div class="logo-right">
+      <span class="logo-crm">CRM</span>
+      <span class="logo-tag">Client Manager</span>
+    </div>
+  </a>
+  <div class="footer-links">
+    <a href="#why" data-i18n="nav_why">Why CRM</a>
+    <a href="#features" data-i18n="nav_features">Features</a>
+    <a href="#pricing" data-i18n="nav_pricing">Pricing</a>
+    <a href="mailto:hello@astrocrm.app">hello@astrocrm.app</a>
+  </div>
+  <div class="footer-copy">© 2026 AstroCRM. Built for practitioners, by practitioners.</div>
+</footer>
+
+<script>
+const T = {
+  en:{
+    nav_why:"Why CRM",nav_features:"Features",nav_compare:"Compare",nav_pricing:"Pricing",nav_cta:"Join Early Access",
+    hero_badge:"Now in early access — limited spots",hero_h1a:"Your practice deserves",hero_h1b:"more clients, more revenue",
+    hero_sub:"AstroCRM is a simple client manager built for coaches, astrologers, therapists and beauty professionals. Stop losing leads in WhatsApp threads and spreadsheets — and start growing.",
+    hero_cta1:"Get Early Access →",hero_cta2:"Why do I need a CRM?",hero_social:"Trusted by practitioners across Europe & CIS",
+    stat1:"Average revenue growth\nin first 6 months",stat2:"More clients handled\nin the same hours",stat3:"Languages:\nEN · NL · DE · RU · ES",stat4:"Starting price\nper month",
+    why_label:"Why You Need a CRM",why_title:"Most solo practitioners lose 30–50% of potential revenue — without realising it",why_sub:"A CRM (Client Relationship Manager) is simply a tool that remembers every client, every conversation, and every follow-up — so you don't have to. Here's what changes when you use one:",
+    w1t:"You're losing leads you forgot about",w1b:"Someone messaged you 3 weeks ago about a consultation. You meant to reply. You forgot. That's €150–500 gone. A CRM captures every inquiry and tracks it until it becomes a client or a clear 'no'.",w1r:"Result: 20–40% more conversions",
+    w2t:"Returning clients are your biggest revenue source",w2b:"A client who came 6 months ago is your warmest lead for a follow-up session. Without a CRM you have no systematic way to reach them. With one, a single click sends a personalised follow-up to 50 past clients.",w2r:"Result: 2–3× more repeat bookings",
+    w3t:"Your client history is scattered everywhere",w3b:"Session notes in a notebook. Files in Google Drive. Messages in Telegram. A CRM puts everything — notes, files, charts, history — in one place for each client.",w3r:"Result: 1–2 hrs saved per day",
+    w4t:"You can't grow what you can't measure",w4b:"How many new leads did you get this month? What's your conversion rate? Without a CRM you're flying blind. With one, your reports answer these questions in 10 seconds.",w4r:"Result: Smarter business decisions",
+    w5t:"Admin is eating your billable hours",w5b:"Every hour chasing payments or writing follow-ups manually is an hour not spent with a paying client. CRM automates the repetitive parts so you do them once, not every week.",w5r:"Result: 5–8 hrs/week back",
+    w6t:"Clients feel the difference immediately",w6b:"When you remember details from last session and follow up at exactly the right moment — clients tell their friends. A CRM makes every client feel like your only client.",w6r:"Result: More referrals & reviews",
+    prof_label:"Who It's For",prof_title:"Built for every practitioner who works with people",prof_sub:"If your business is built on personal, long-term client relationships — AstroCRM is built for you.",
+    cat1:"Spiritual & Esoteric",cat2:"Coaching & Mentoring",cat3:"Psychology & Therapy",cat4:"Body & Wellness",cat5:"Beauty & Aesthetics",cat6:"Creative & Consulting",
+    feat_label:"Features",feat_title:"Everything you need. Nothing you don't.",feat_sub:"Built for 1-person and small-team practices. No enterprise complexity, no IT required.",
+    f1t:"Built for your niche",f1b:"The only CRM with fields designed for practitioners — not sales teams.",f1_1:"Upload natal charts, client photos & session docs",f1_2:"Session notes with timestamps",f1_3:"Birth date & birth time fields",f1_4:"Full consultation history per client",
+    f2t:"Visual pipeline — see every client at a glance",f2b:"Drag clients through stages: Inquiry → Proposal → Paid → Done. Never lose track of where anyone is.",f2_1:"Kanban board — like Trello but built for practitioners",f2_2:"Multiple pipelines per business",f2_3:"Auto-send emails when a client moves to a new stage",f2_4:"Custom stage names in any language",
+    f3t:"Email campaigns that bring clients back",f3b:"Send one personalised message to 100 past clients in 3 clicks.",f3_1:"Filter by source, stage, service type",f3_2:"Personal variables: name, last session, deal title",f3_3:"Stage automation: auto-send on deal movement",
+    f4t:"5 languages — serve clients anywhere",f4b:"Switch instantly between English, Dutch, German, Russian and Spanish. The only niche CRM with Russian language support.",f4_1:"Full UI in all 5 languages",f4_2:"Import contacts from multilingual spreadsheets",f4_3:"More languages coming",
+    f5t:"Reports that show you where the money is",f5b:"See conversion rates, revenue by service, best lead sources and top clients — updated in real time.",f5_1:"Revenue & deal count by period",f5_2:"Best performing lead sources",f5_3:"Pipeline conversion funnel",f5_4:"Filter by business, pipeline, time range",
+    f6t:"Two businesses, one account",f6b:"Run your practices from one dashboard. Separate pipelines, contacts and reports — one subscription.",f6_1:"Isolated data per business",f6_2:"Switch with one click",f6_3:"Separate email campaigns per brand",
+    f7t:"Import your existing clients in minutes",f7b:"Bring contacts from any spreadsheet, CRM or phone. We auto-map columns and catch duplicates.",f7_1:"CSV, Excel (.xlsx), vCard (.vcf)",f7_2:"Smart column auto-mapping (EN & RU headers)",f7_3:"Duplicate detection",
+    f8t:"Never miss a follow-up or deadline",f8b:"Deadlines view shows every upcoming session, payment due and follow-up in one place.",f8_1:"Deadline tracker across all clients",f8_2:"Calendly & Google Meet integration",f8_3:"Telegram lead capture — coming soon",
+    cmp_label:"Comparison",cmp_title:"AstroCRM vs the alternatives",cmp_sub:"How we compare to the tools practitioners actually use today.",
+    cmp_feat:"Feature",c1:"Built for spiritual / coaching niche",c2:"Client file attachments (charts, docs)",c3:"Session notes per client",c4:"Kanban pipeline",c5:"Russian language",c6:"Dutch / German / Spanish",c7:"Two businesses in one account",c8:"CSV / Excel / vCard import",c9:"Email campaigns",c10:"Simple setup — ready in 5 min",c11:"Starting price",
+    price_label:"Pricing",price_title:"Simple pricing. No surprises.",price_sub:"One flat price. Both businesses included. No per-seat fees.",
+    t1n:"Starter",t1d:"For solo practitioners just getting started",t1f1:"1 business workspace",t1f2:"Up to 500 contacts",t1f3:"Kanban pipeline",t1f4:"Session notes & file uploads",t1f5:"CSV / Excel import",t1f6:"Email campaigns (500/mo)",t1btn:"Join Waitlist",
+    t2badge:"Most Popular",t2n:"Professional",t2d:"For practitioners with multiple offerings and a growing client base",t2f1:"2 business workspaces",t2f2:"Unlimited contacts",t2f3:"Multiple pipelines per business",t2f4:"Full session notes & file uploads",t2f5:"Email campaigns (3,000/mo)",t2f6:"Pipeline automations",t2f7:"Reports & analytics",t2f8:"Telegram lead capture (coming soon)",t2btn:"Get Early Access",
+    price_note:"Early access pricing — locked in for life when you join now",
+    mock_label:"See It In Action",mock_title:"Your client pipeline, beautifully organised",
+    cta_title:"Ready to grow your practice?",cta_sub:"Join the waitlist. Early access opens May 2026.",cta_btn:"Join Waitlist →",cta_note:"No spam. Just a heads-up when early access opens."
+  },
+  ru:{
+    nav_why:"Зачем CRM",nav_features:"Возможности",nav_compare:"Сравнение",nav_pricing:"Цены",nav_cta:"Ранний доступ",
+    hero_badge:"Ранний доступ — ограниченное количество мест",hero_h1a:"Ваша практика заслуживает",hero_h1b:"больше клиентов и больше дохода",
+    hero_sub:"AstroCRM — простой менеджер клиентов для коучей, астрологов, терапевтов и бьюти-мастеров. Перестаньте терять лиды в чатах и таблицах — начните расти.",
+    hero_cta1:"Получить ранний доступ →",hero_cta2:"Зачем мне CRM?",hero_social:"Используют практики по всей Европе и СНГ",
+    stat1:"Рост выручки в среднем\nза первые 6 месяцев",stat2:"Больше клиентов\nза те же часы",stat3:"Языков:\nEN · NL · DE · RU · ES",stat4:"Стартовая цена\nв месяц",
+    why_label:"Зачем вам CRM",why_title:"Большинство практиков теряют 30–50% потенциального дохода — и не замечают этого",why_sub:"CRM — это инструмент, который помнит каждого клиента, каждый разговор и каждый follow-up вместо вас. Вот что меняется когда вы его используете:",
+    w1t:"Вы теряете лиды, о которых забыли",w1b:"Кто-то написал вам 3 недели назад насчёт консультации. Вы собирались ответить. Забыли. Это €150–500 потеряно. CRM фиксирует каждый запрос и отслеживает его до результата.",w1r:"Результат: на 20–40% больше конверсий",
+    w2t:"Постоянные клиенты — ваш главный источник дохода",w2b:"Клиент, который приходил 6 месяцев назад — самый тёплый лид на следующую сессию. Без CRM нет системы для повторного контакта. С CRM — один клик и письмо уходит 50 клиентам.",w2r:"Результат: в 2–3 раза больше повторных записей",
+    w3t:"История клиентов разбросана везде",w3b:"Заметки в блокноте. Файлы в Google Drive. Переписка в Telegram. CRM собирает всё — заметки, файлы, карты, историю — в одном месте для каждого клиента.",w3r:"Результат: 1–2 часа в день свободнее",
+    w4t:"Нельзя управлять тем, что не измеряешь",w4b:"Сколько новых лидов пришло в этом месяце? Какова конверсия? CRM отвечает на эти вопросы за 10 секунд.",w4r:"Результат: более умные бизнес-решения",
+    w5t:"Административная работа съедает ваши рабочие часы",w5b:"Каждый час на ручные follow-up и перенос данных — это час не с платящим клиентом. CRM автоматизирует рутину.",w5r:"Результат: 5–8 часов в неделю обратно",
+    w6t:"Клиенты сразу чувствуют разницу",w6b:"Когда вы помните детали последней сессии и пишете в нужный момент — клиенты рекомендуют вас друзьям. CRM делает каждого клиента единственным.",w6r:"Результат: больше рекомендаций и отзывов",
+    prof_label:"Для кого",prof_title:"Для каждого практика, который работает с людьми",prof_sub:"Если ваш бизнес строится на личных долгосрочных отношениях с клиентами — AstroCRM создан для вас.",
+    cat1:"Духовные практики",cat2:"Коучинг и менторство",cat3:"Психология и терапия",cat4:"Тело и велнес",cat5:"Бьюти и эстетика",cat6:"Творчество и консалтинг",
+    feat_label:"Возможности",feat_title:"Всё необходимое. Ничего лишнего.",feat_sub:"Создан для практиков-одиночек и небольших команд. Без сложностей, без IT.",
+    f1t:"Создан для вашей ниши",f1b:"Единственный CRM с полями для практиков, а не для отделов продаж.",f1_1:"Загрузка натальных карт, фото и документов",f1_2:"Заметки по сессиям с временными метками",f1_3:"Поля для даты и времени рождения",f1_4:"Полная история консультаций",
+    f2t:"Визуальная воронка — все клиенты как на ладони",f2b:"Перетаскивайте клиентов по этапам: Запрос → Предложение → Оплата → Готово.",f2_1:"Канбан-доска — как Trello, но для практиков",f2_2:"Несколько воронок на бизнес",f2_3:"Авторассылка при смене этапа",f2_4:"Названия этапов на вашем языке",
+    f3t:"Email-кампании, которые возвращают клиентов",f3b:"Одно персонализированное письмо 100 прошлым клиентам — 3 клика.",f3_1:"Фильтр по источнику, этапу, типу услуги",f3_2:"Переменные: имя, последняя сессия, название сделки",f3_3:"Авто-триггер при движении сделки",
+    f4t:"5 языков — работайте с клиентами из любой страны",f4b:"Мгновенное переключение между EN, NL, DE, RU, ES. Единственный нишевый CRM с русским языком.",f4_1:"Полный интерфейс на всех 5 языках",f4_2:"Импорт из таблиц на русском и английском",f4_3:"Скоро добавим другие языки",
+    f5t:"Отчёты, которые показывают где деньги",f5b:"Конверсии, выручка по услугам, лучшие источники лидов — в реальном времени.",f5_1:"Выручка и количество сделок по периодам",f5_2:"Лучшие источники лидов",f5_3:"Воронка конверсии",f5_4:"Фильтр по бизнесу, воронке, периоду",
+    f6t:"Два бизнеса в одном аккаунте",f6b:"Управляйте несколькими практиками из одной панели. Раздельные данные — одна подписка.",f6_1:"Изолированные данные по бизнесам",f6_2:"Переключение в один клик",f6_3:"Отдельные рассылки для каждого бренда",
+    f7t:"Импортируйте клиентов за несколько минут",f7b:"Контакты из любой таблицы, CRM или телефона. Автоматическое сопоставление колонок.",f7_1:"CSV, Excel (.xlsx), vCard (.vcf)",f7_2:"Умное сопоставление колонок (EN и RU)",f7_3:"Обнаружение дублей",
+    f8t:"Никогда не пропустите follow-up или дедлайн",f8b:"Раздел дедлайнов показывает все предстоящие сессии, оплаты и follow-up в одном месте.",f8_1:"Трекер дедлайнов по всем клиентам",f8_2:"Интеграция Calendly и Google Meet",f8_3:"Захват лидов из Telegram — скоро",
+    cmp_label:"Сравнение",cmp_title:"AstroCRM vs альтернативы",cmp_sub:"Как мы выглядим на фоне инструментов, которые практики используют сегодня.",
+    cmp_feat:"Функция",c1:"Создан для духовных практиков / коучей",c2:"Файлы клиента (карты, документы)",c3:"Заметки по сессиям",c4:"Канбан-воронка",c5:"Русский язык",c6:"Нидерландский / Немецкий / Испанский",c7:"Два бизнеса в одном аккаунте",c8:"Импорт CSV / Excel / vCard",c9:"Email-кампании",c10:"Простая настройка — готово за 5 мин",c11:"Стартовая цена",
+    price_label:"Цены",price_title:"Простые цены. Без сюрпризов.",price_sub:"Фиксированная цена. Оба бизнеса включены. Никакой платы за пользователя.",
+    t1n:"Старт",t1d:"Для начинающих практиков-одиночек",t1f1:"1 рабочее пространство",t1f2:"До 500 контактов",t1f3:"Канбан-воронка",t1f4:"Заметки и загрузка файлов",t1f5:"Импорт CSV / Excel",t1f6:"Email-кампании (500/мес)",t1btn:"Встать в очередь",
+    t2badge:"Популярный",t2n:"Профессиональный",t2d:"Для практиков с несколькими направлениями и растущей базой",t2f1:"2 рабочих пространства",t2f2:"Неограниченное количество контактов",t2f3:"Несколько воронок на бизнес",t2f4:"Полные заметки и загрузка файлов",t2f5:"Email-кампании (3000/мес)",t2f6:"Автоматизация воронки",t2f7:"Отчёты и аналитика",t2f8:"Захват лидов из Telegram (скоро)",t2btn:"Получить ранний доступ",
+    price_note:"Цены раннего доступа — фиксируются навсегда при регистрации сейчас",
+    mock_label:"Посмотрите как это работает",mock_title:"Ваши клиенты — красиво организованы",
+    cta_title:"Готовы развивать свою практику?",cta_sub:"Встаньте в очередь. Ранний доступ открывается в мае 2026.",cta_btn:"Встать в очередь →",cta_note:"Никакого спама. Только уведомление, когда откроется доступ."
+  }
+};
+
+// Copy EN keys to NL/DE/ES as fallback (full translations can be added later)
+['nl','de','es'].forEach(l => { T[l] = Object.assign({}, T.en); });
+T.nl.nav_why="Waarom CRM";T.nl.nav_features="Functies";T.nl.nav_compare="Vergelijk";T.nl.nav_pricing="Prijzen";T.nl.nav_cta="Vroege toegang";T.nl.hero_h1a="Jouw praktijk verdient";T.nl.hero_h1b="meer klanten, meer omzet";T.nl.cta_title="Klaar om je praktijk te laten groeien?";T.nl.cta_btn="Inschrijven →";
+T.de.nav_why="Warum CRM";T.de.nav_features="Funktionen";T.de.nav_compare="Vergleich";T.de.nav_pricing="Preise";T.de.nav_cta="Früher Zugang";T.de.hero_h1a="Deine Praxis verdient";T.de.hero_h1b:"mehr Kunden, mehr Umsatz";T.de.cta_title="Bereit, deine Praxis zu vergrößern?";T.de.cta_btn="Eintragen →";
+T.es.nav_why="Por qué CRM";T.es.nav_features="Funciones";T.es.nav_compare="Comparar";T.es.nav_pricing="Precios";T.es.nav_cta="Acceso anticipado";T.es.hero_h1a="Tu práctica merece";T.es.hero_h1b="más clientes, más ingresos";T.es.cta_title="¿Listo para hacer crecer tu práctica?";T.es.cta_btn="Unirse →";
+
+let currentLang='en';
+function setLang(lang){
+  currentLang=lang;
+  const t=T[lang]||T.en;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const k=el.getAttribute('data-i18n');
+    if(t[k]!==undefined) el.textContent=t[k];
+  });
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.textContent.toLowerCase()===lang));
+}
+
+function joinWaitlist(){
+  const email=document.getElementById('waitlist-email').value.trim();
+  if(!email||!email.includes('@')){document.getElementById('waitlist-email').style.borderColor='rgba(255,255,255,0.8)';return;}
+  const msgs={en:`Thank you! We'll notify ${email} when early access opens.`,ru:`Спасибо! Мы сообщим вам на ${email}.`,nl:`Bedankt! We sturen een bericht naar ${email}.`,de:`Danke! Wir benachrichtigen ${email}.`,es:`¡Gracias! Te avisaremos a ${email}.`};
+  alert(msgs[currentLang]||msgs.en);
+  document.getElementById('waitlist-email').value='';
+}
+</script>
+</body>
+</html>

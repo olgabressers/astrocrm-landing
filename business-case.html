@@ -1,0 +1,1503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AstroCRM — Business Case & Go-To-Market Strategy</title>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    :root{
+      --red:#c02122;--red2:#a81b1c;--redbg:rgba(192,33,34,0.07);--redborder:rgba(192,33,34,0.2);
+      --bg:#fff;--bg2:#fafafa;--bg3:#f4f4f4;--border:#e8e8e8;
+      --text:#1a1a1a;--text2:#555;--text3:#999;
+      --green:#1a8f4c;--greenbg:rgba(26,143,76,0.07);--greenborder:rgba(26,143,76,0.2);
+      --amber:#b8860b;--amberbg:rgba(184,134,11,0.07);--amberborder:rgba(184,134,11,0.25);
+      --blue:#1a5fb4;--bluebg:rgba(26,95,180,0.07);--blueborder:rgba(26,95,180,0.2);
+      --radius:14px;
+    }
+    html{scroll-behavior:smooth;}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden;}
+
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:14px 48px;background:rgba(255,255,255,0.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+    .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+    .logo-astro{font-size:20px;font-weight:700;color:#8B0000;font-style:italic;letter-spacing:-0.5px;}
+    .logo-divider{width:2px;height:22px;background:#e5e7eb;}
+    .logo-right{display:flex;flex-direction:column;line-height:1;}
+    .logo-crm{font-size:11px;font-weight:800;color:#1a1f36;letter-spacing:3px;text-transform:uppercase;}
+    .logo-tag{font-size:7px;color:#9ca3af;letter-spacing:1.5px;text-transform:uppercase;margin-top:2px;}
+    .nav-links{display:flex;gap:24px;}
+    .nav-links a{color:var(--text2);text-decoration:none;font-size:13px;transition:color .2s;}
+    .nav-links a:hover{color:var(--red);}
+    .nav-back{background:var(--red);color:#fff;border:none;padding:9px 20px;border-radius:7px;font-size:13px;font-weight:700;cursor:pointer;text-decoration:none;}
+
+    /* HERO */
+    .hero{padding:120px 48px 64px;background:var(--bg2);border-bottom:1px solid var(--border);}
+    .hero-inner{max-width:900px;}
+    .doc-label{display:inline-flex;align-items:center;gap:8px;background:var(--redbg);border:1px solid var(--redborder);color:var(--red);padding:5px 14px;border-radius:100px;font-size:12px;font-weight:700;margin-bottom:20px;text-transform:uppercase;letter-spacing:1px;}
+    .hero h1{font-size:clamp(28px,4vw,48px);font-weight:800;letter-spacing:-1.5px;line-height:1.15;margin-bottom:16px;}
+    .hero h1 span{color:var(--red);}
+    .hero-meta{font-size:14px;color:var(--text3);margin-top:16px;}
+    .hero p{font-size:17px;color:var(--text2);max-width:700px;line-height:1.7;}
+
+    /* TOC */
+    .toc{background:var(--bg);border:1.5px solid var(--border);border-radius:var(--radius);padding:28px 32px;margin:40px 0;max-width:520px;}
+    .toc-title{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text3);margin-bottom:14px;}
+    .toc ol{padding-left:20px;}
+    .toc li{font-size:14px;padding:5px 0;border-bottom:1px solid var(--bg3);}
+    .toc li:last-child{border-bottom:none;}
+    .toc a{color:var(--text2);text-decoration:none;transition:color .2s;}
+    .toc a:hover{color:var(--red);}
+
+    /* CONTENT */
+    .content{max-width:1000px;margin:0 auto;padding:0 48px 80px;}
+    .section-block{padding:60px 0;border-bottom:1px solid var(--border);}
+    .section-block:last-child{border-bottom:none;}
+    .block-number{display:inline-block;background:var(--red);color:#fff;font-size:11px;font-weight:800;padding:3px 10px;border-radius:100px;margin-bottom:12px;letter-spacing:0.5px;}
+    .block-title{font-size:clamp(22px,3vw,34px);font-weight:800;letter-spacing:-0.8px;margin-bottom:16px;}
+    .block-sub{font-size:16px;color:var(--text2);line-height:1.7;margin-bottom:32px;max-width:740px;}
+    h3{font-size:18px;font-weight:700;margin:28px 0 12px;}
+    h4{font-size:15px;font-weight:700;color:var(--text2);margin:20px 0 8px;text-transform:uppercase;letter-spacing:0.5px;}
+    p{font-size:15px;color:var(--text2);line-height:1.7;margin-bottom:14px;}
+    ul,ol{padding-left:20px;margin-bottom:14px;}
+    li{font-size:15px;color:var(--text2);line-height:1.7;padding:3px 0;}
+
+    /* CARDS */
+    .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:24px 0;}
+    .card{background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--radius);padding:24px;}
+    .card.red{background:var(--redbg);border-color:var(--redborder);}
+    .card.green{background:var(--greenbg);border-color:var(--greenborder);}
+    .card.amber{background:var(--amberbg);border-color:var(--amberborder);}
+    .card.blue{background:var(--bluebg);border-color:var(--blueborder);}
+    .card-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;}
+    .card.red .card-label{color:var(--red);}
+    .card.green .card-label{color:var(--green);}
+    .card.amber .card-label{color:var(--amber);}
+    .card.blue .card-label{color:var(--blue);}
+    .card-value{font-size:28px;font-weight:800;letter-spacing:-1px;margin-bottom:4px;}
+    .card.red .card-value{color:var(--red);}
+    .card.green .card-value{color:var(--green);}
+    .card.amber .card-value{color:var(--amber);}
+    .card.blue .card-value{color:var(--blue);}
+    .card-desc{font-size:13px;color:var(--text3);line-height:1.5;}
+
+    /* TABLE */
+    .tbl-wrap{overflow-x:auto;margin:20px 0;}
+    table{width:100%;border-collapse:collapse;font-size:14px;}
+    th{padding:12px 14px;text-align:left;border-bottom:2px solid var(--border);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--text3);}
+    td{padding:12px 14px;border-bottom:1px solid var(--border);color:var(--text2);}
+    tr:last-child td{border-bottom:none;}
+    td:first-child{color:var(--text);font-weight:600;}
+    td.red{color:var(--red);font-weight:700;}
+    td.green{color:var(--green);font-weight:700;}
+    td.amber{color:var(--amber);font-weight:600;}
+    .tr-total{background:var(--redbg);}
+    .tr-total td{font-weight:700;color:var(--text);}
+    .tr-total td.red{color:var(--red);}
+
+    /* PHASE */
+    .phases{display:flex;flex-direction:column;gap:16px;margin:24px 0;}
+    .phase{display:flex;gap:20px;background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--radius);padding:24px;}
+    .phase-num{flex-shrink:0;width:44px;height:44px;border-radius:50%;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;}
+    .phase-body h4{margin:0 0 6px;font-size:16px;font-weight:700;color:var(--text);text-transform:none;letter-spacing:0;}
+    .phase-body p{margin:0;font-size:14px;}
+    .phase-meta{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;}
+    .phase-tag{font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;}
+    .phase-tag.red{background:var(--redbg);color:var(--red);border:1px solid var(--redborder);}
+    .phase-tag.green{background:var(--greenbg);color:var(--green);border:1px solid var(--greenborder);}
+    .phase-tag.amber{background:var(--amberbg);color:var(--amber);border:1px solid var(--amberborder);}
+
+    /* RISK */
+    .risk{display:flex;gap:16px;padding:20px;border-radius:var(--radius);margin:12px 0;border:1.5px solid;}
+    .risk.high{background:rgba(192,33,34,0.05);border-color:var(--redborder);}
+    .risk.medium{background:rgba(184,134,11,0.05);border-color:var(--amberborder);}
+    .risk.low{background:rgba(26,143,76,0.05);border-color:var(--greenborder);}
+    .risk-badge{flex-shrink:0;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;padding:4px 10px;border-radius:100px;height:fit-content;margin-top:2px;}
+    .risk.high .risk-badge{background:var(--redbg);color:var(--red);}
+    .risk.medium .risk-badge{background:var(--amberbg);color:var(--amber);}
+    .risk.low .risk-badge{background:var(--greenbg);color:var(--green);}
+    .risk-body h4{font-size:15px;font-weight:700;color:var(--text);margin:0 0 6px;text-transform:none;letter-spacing:0;}
+    .risk-body p{margin:0;font-size:14px;}
+
+    /* CALLOUT */
+    .callout{background:var(--redbg);border-left:4px solid var(--red);border-radius:0 var(--radius) var(--radius) 0;padding:20px 24px;margin:20px 0;}
+    .callout p{margin:0;color:var(--text);}
+    .callout strong{color:var(--red);}
+    .callout.green{background:var(--greenbg);border-left-color:var(--green);}
+    .callout.green strong{color:var(--green);}
+    .callout.amber{background:var(--amberbg);border-left-color:var(--amber);}
+    .callout.amber strong{color:var(--amber);}
+
+    /* FLAG */
+    .flag{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;padding:4px 12px;border-radius:100px;border:1.5px solid;margin:4px 4px 4px 0;}
+    .flag.nl{border-color:#21468b;color:#21468b;background:rgba(33,70,139,0.06);}
+    .flag.ru{border-color:#d52b1e;color:#d52b1e;background:rgba(213,43,30,0.06);}
+    .flag.kz{border-color:#00afca;color:#007a8f;background:rgba(0,175,202,0.06);}
+    .flag.de{border-color:#555;color:#333;background:#f5f5f5;}
+    .flag.es{border-color:#c60b1e;color:#c60b1e;background:rgba(198,11,30,0.06);}
+
+    .divider{border:none;border-top:2px solid var(--border);margin:0;}
+
+    @media(max-width:768px){
+      nav{padding:12px 18px;}
+      .hero{padding:100px 20px 48px;}
+      .content{padding:0 20px 60px;}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">
+    <span class="logo-astro">Astro</span>
+    <div class="logo-divider"></div>
+    <div class="logo-right">
+      <span class="logo-crm">CRM</span>
+      <span class="logo-tag">Client Manager</span>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="#opportunity">Opportunity</a>
+    <a href="#market">Market Size</a>
+    <a href="#financials">Financials</a>
+    <a href="#gtm">Go-To-Market</a>
+    <a href="#salesmarketing">Sales & Marketing</a>
+    <a href="#russia-restrictions">Russia Risks</a>
+    <a href="#mvp">MVP</a>
+    <a href="#support">Support</a>
+    <a href="#technical">Technical</a>
+    <a href="#verdict">Next Steps</a>
+  </div>
+  <a href="tasks.html" class="nav-back">Task List →</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="doc-label">Internal Document · April 2026</div>
+    <h1>AstroCRM — <span>Business Case</span><br>& Go-To-Market Strategy</h1>
+    <p>Market sizing, revenue projections, launch sequencing and risk assessment for a niche CRM targeting solo practitioners. Primary focus: Russian-speaking market across CIS and Europe.</p>
+    <div class="hero-meta">Prepared by: Olga · AstroCRM · April 2026 · Confidential</div>
+    <div class="toc">
+      <div class="toc-title">Contents</div>
+      <ol>
+        <li><a href="#opportunity">The Opportunity & Competitive Landscape</a></li>
+        <li><a href="#market">Market Size — NL, Russia, Kazakhstan</a></li>
+        <li><a href="#tam">TAM / SAM / SOM</a></li>
+        <li><a href="#financials">Financial Projections (3 Years)</a></li>
+        <li><a href="#gtm">Go-To-Market Strategy</a></li>
+        <li><a href="#salesmarketing">Sales & Marketing Plan</a></li>
+        <li><a href="#russia-payments">Russia: Payment Links for Practitioners</a></li>
+        <li><a href="#russia-restrictions">Russia: Compliance Risks</a></li>
+        <li><a href="#mvp">MVP — What to Build First</a></li>
+        <li><a href="#support">Customer Support Strategy</a></li>
+        <li><a href="#technical">Technical Resilience — Running Without IT</a></li>
+        <li><a href="#verdict">Verdict & Next Steps</a></li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- 1. OPPORTUNITY -->
+<div class="section-block" id="opportunity">
+  <div class="block-number">01</div>
+  <h2 class="block-title">The Opportunity</h2>
+  <p class="block-sub">Two independent market gaps — one in Europe, one in the Russian-speaking world — converge at the same unserved audience: solo practitioners who work 1-on-1 with clients and have no CRM built for them.</p>
+
+  <div class="card-grid">
+    <div class="card red">
+      <div class="card-label">EU Gap</div>
+      <div class="card-value">0</div>
+      <div class="card-desc">European CRMs built for solo coaches, astrologers, or beauty masters. Dutch ZZP tools (PerfectView, Alexion, Cirqll) are generic contact managers — no pipeline, no sessions, no campaigns.</div>
+    </div>
+    <div class="card red">
+      <div class="card-label">Russian Gap</div>
+      <div class="card-value">0</div>
+      <div class="card-desc">Russian CRMs built for solo practitioners. Битрикс24 and amoCRM are built for sales teams of 5–50 people. No product serves the self-employed coach or beauty master.</div>
+    </div>
+    <div class="card green">
+      <div class="card-label">Target Audience</div>
+      <div class="card-value">5–8M</div>
+      <div class="card-desc">Estimated Russian-speaking solo practitioners globally across Russia, Kazakhstan, and CIS diaspora in Europe. Plus 500K+ Dutch/EU ZZP practitioners in coaching, wellness, and beauty.</div>
+    </div>
+    <div class="card blue">
+      <div class="card-label">Legal Advantage</div>
+      <div class="card-value">NL Co.</div>
+      <div class="card-desc">Dutch-registered company. GDPR-compliant. Stripe payments. Trusted in both EU and CIS markets. No Russian entity needed.</div>
+    </div>
+  </div>
+
+  <div class="callout green">
+    <p><strong>Core thesis:</strong> Solo practitioners across Europe and the Russian-speaking world are moving their businesses online. European CRMs are too generic or built for teams. Russian CRMs are built for sales departments. The €15–25/month sweet spot — niche-specific, simple, bilingual — is completely unoccupied. AstroCRM fills this gap from a Dutch legal base.</p>
+  </div>
+
+  <h3>Competitive Landscape — Why the Gap Exists</h3>
+  <p style="margin-bottom:16px">A full competitor analysis was conducted across European and Russian CRM markets (April 2026). Key finding: every existing CRM either serves the wrong audience or the wrong price point.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Competitor</th><th>Market</th><th>Price</th><th>Why It Doesn't Serve Our Audience</th><th>AstroCRM Advantage</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Битрикс24</strong></td><td>Russia</td><td>Free–₽19,990/mo</td><td>Massive platform: CRM + HR + video + intranet. Built for companies of 5–200. Like handing a Boeing manual to a solo astrologer.</td><td>10× simpler. Built for one person.</td></tr>
+        <tr><td><strong>amoCRM / Kommo</strong></td><td>Russia/Global</td><td>₽599–1,499/user/mo</td><td>Sales pipeline for B2B sales teams. No session notes, no file attachments, annual billing only. Setup requires IT consultant.</td><td>No consultant needed. Monthly billing. Niche fields included.</td></tr>
+        <tr><td><strong>YClients</strong></td><td>Russia</td><td>From ₽2,100/mo</td><td>Appointment booking tool — not a CRM. No lead pipeline, no campaigns, no client history. Assumes you already have clients.</td><td>Full pipeline from first inquiry. Email campaigns. Client history.</td></tr>
+        <tr><td><strong>Teamleader</strong></td><td>Belgium/NL</td><td>€50+/user/mo</td><td>Project management + invoicing + CRM for agencies and service teams. No Russian language. No practitioner-specific features.</td><td>2× cheaper. Russian language. Designed for solo, not teams.</td></tr>
+        <tr><td><strong>PerfectView / Alexion / Cirqll</strong></td><td>Netherlands</td><td>€8–13/mo</td><td>Dutch ZZP contact managers. No pipeline, no email campaigns, no file uploads, no niche fields. Glorified digital Rolodex.</td><td>Full CRM pipeline + campaigns + session notes at €25/mo.</td></tr>
+        <tr><td><strong>EviCare</strong></td><td>Netherlands</td><td>Quote-based</td><td>Practice management for regulated healthcare (psychologists with KIWA certification). Not for coaches, astrologers, or beauty masters.</td><td>No certification required. Works for all practitioner types.</td></tr>
+        <tr><td><strong>Quenza</strong></td><td>Netherlands</td><td>$47–87/mo</td><td>Coaching homework and exercise tool — not a CRM. No pipeline, no contacts list, no campaigns, no analytics. Different product entirely.</td><td>Complete CRM: pipeline + contacts + campaigns + reports.</td></tr>
+        <tr><td><strong>HoneyBook / Dubsado</strong></td><td>US</td><td>$19–40/mo</td><td>US-centric. Payment in USD. No Russian language. No pipeline/kanban. Built around contracts and invoices, not client relationships.</td><td>European hosting. Russian language. Pipeline-first design.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout amber" style="margin-top:20px">
+    <p><strong>Pricing sweet spot confirmed by competition:</strong> Below €15/month = too basic (no pipeline, no campaigns). Above €50/month = built for teams. The €25–45/month range for a niche, full-featured solo CRM is completely unoccupied in both EU and Russian markets.</p>
+  </div>
+</div>
+
+<!-- 2. MARKET SIZE -->
+<div class="section-block" id="market">
+  <div class="block-number">02</div>
+  <h2 class="block-title">Market Size by Country</h2>
+  <p class="block-sub">Three priority markets, assessed independently. Starting focus: Russia (largest addressable audience) + NL/Europe (easiest payments, legal base).</p>
+
+  <!-- RUSSIA -->
+  <h3>🇷🇺 Russia</h3>
+  <p><strong>Population:</strong> 144 million. <strong>Internet users:</strong> ~130 million. <strong>Self-employed registered:</strong> 12.17 million (end of 2024, growing rapidly).</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Profession</th><th>Estimated Count</th><th>Source / Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Psychologists & psychotherapists</td><td>~200,000</td><td>Title unprotected; large informal market. CBT, trauma, NLP practitioners included</td></tr>
+        <tr><td>Life & business coaches</td><td>~50,000–80,000</td><td>ICF Russia: 413 certified (2019) but unregulated market is 100× larger. Fast-growing.</td></tr>
+        <tr><td>Astrologers, numerologists, tarot practitioners</td><td>~300,000–500,000</td><td>Occult services market: 2.4 trillion rubles/year. 1 in 7 Russians has had a tarot reading.</td></tr>
+        <tr><td>Beauty masters (lash, PMU, nail, cosmetology)</td><td>~1,500,000</td><td>Beauty salon market exceeded ₽159B in 2021. Majority are self-employed masters.</td></tr>
+        <tr><td>Personal trainers & nutritionists</td><td>~200,000</td><td>Personal trainers market: $1.85B (2024). Largely freelance.</td></tr>
+        <tr><td>Yoga & wellness instructors</td><td>~80,000</td><td>Estimate based on studio count + freelance. Market growing post-2020.</td></tr>
+        <tr><td>Other (image, tutors, etc.)</td><td>~200,000</td><td>Fragmented across multiple categories</td></tr>
+        <tr class="tr-total"><td>Total addressable practitioners</td><td class="red">~2.5–3M</td><td>Conservative estimate of solo/micro-business practitioners</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout amber">
+    <p><strong>Important nuance:</strong> The beauty master segment alone (lash, PMU, nail) is likely 1M+ in Russia. These practitioners have exactly the right profile: repeat clients every 3–6 weeks, need client cards, no good Russian CRM exists for them. This may be the fastest entry point.</p>
+  </div>
+
+  <!-- KAZAKHSTAN -->
+  <h3>🇰🇿 Kazakhstan</h3>
+  <p><strong>Population:</strong> 19 million. <strong>Self-employed:</strong> 2.2 million (24% of employed — one of the highest rates in the region). Russian is a co-official language and the dominant business language.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Profession</th><th>Estimated Count</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Beauty masters (lash, PMU, nail, cosmetology)</td><td>~80,000–120,000</td><td>Beauty & personal care market: $1.13B (2025), growing at 5.4%/year</td></tr>
+        <tr><td>Psychologists & coaches</td><td>~15,000–25,000</td><td>Growing urban market especially Almaty, Astana</td></tr>
+        <tr><td>Astrologers & spiritual practitioners</td><td>~20,000–40,000</td><td>Strong tradition; Russian-language content dominates</td></tr>
+        <tr><td>Personal trainers & nutritionists</td><td>~20,000</td><td>Fast-growing segment, fitness culture expanding</td></tr>
+        <tr class="tr-total"><td>Total addressable practitioners</td><td class="red">~150,000–200,000</td><td>Estimate; Russian-speaking, CRM-underserved</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout green">
+    <p><strong>Kazakhstan advantage:</strong> No payment restrictions, Stripe works, no data localisation law for foreign SaaS. Payments in USD/EUR accepted freely. Much easier than Russia from a technical standpoint.</p>
+  </div>
+
+  <!-- NETHERLANDS + DIASPORA -->
+  <h3>🇳🇱 Netherlands + Russian-Speaking Diaspora in Europe</h3>
+  <p><strong>Netherlands:</strong> 17.8M population. 1.2M ZZP (self-employed). 175,000 Russian-speaking residents (Ukrainians, Russians, Baltics, CIS).</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Country / Segment</th>
+          <th>Russian-Speaking Pop.</th>
+          <th>Practitioners (est.)</th>
+          <th>2026 Clients (realistic)<br><span style="font-weight:400;text-transform:none;letter-spacing:0">@ €15/mo</span></th>
+          <th>2026 Revenue</th>
+          <th>2027 Clients (realistic)<br><span style="font-weight:400;text-transform:none;letter-spacing:0">@ €25/mo</span></th>
+          <th>2027 Revenue</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>🇳🇱 Netherlands — NL practitioners</td>
+          <td>—</td>
+          <td>~25,000–35,000</td>
+          <td>3–5<br><span style="font-size:11px;color:var(--text3)">No RU language advantage here. Cold audience. Very slow start.</span></td>
+          <td class="amber">€540–900</td>
+          <td>10–20<br><span style="font-size:11px;color:var(--text3)">NL/EN product improving, some word-of-mouth</span></td>
+          <td class="amber">€3,000–6,000</td>
+        </tr>
+        <tr>
+          <td>🇳🇱 Netherlands — RU-speaking practitioners</td>
+          <td>175,000</td>
+          <td>~3,000–5,000</td>
+          <td>15–25<br><span style="font-size:11px;color:var(--text3)">Your warmest audience. Successcode/TOF network. Direct outreach.</span></td>
+          <td class="green">€2,700–4,500</td>
+          <td>40–60<br><span style="font-size:11px;color:var(--text3)">Word-of-mouth in RU diaspora communities NL</span></td>
+          <td class="green">€12,000–18,000</td>
+        </tr>
+        <tr>
+          <td>🇩🇪 Germany — RU-speaking practitioners</td>
+          <td>3,000,000</td>
+          <td>~15,000–25,000</td>
+          <td>5–10<br><span style="font-size:11px;color:var(--text3)">Reachable via Telegram but no existing network. Slow organic.</span></td>
+          <td class="amber">€900–1,800</td>
+          <td>30–50<br><span style="font-size:11px;color:var(--text3)">Largest EU diaspora market. Grows as content scales.</span></td>
+          <td class="green">€9,000–15,000</td>
+        </tr>
+        <tr>
+          <td>🇪🇸 Spain — RU-speaking practitioners</td>
+          <td>~300,000</td>
+          <td>~3,000–5,000</td>
+          <td>2–5<br><span style="font-size:11px;color:var(--text3)">Small but growing post-2022 community. Via shared Telegram groups.</span></td>
+          <td class="amber">€360–900</td>
+          <td>10–20<br><span style="font-size:11px;color:var(--text3)">Especially coaches and astrologers in Barcelona, Málaga</span></td>
+          <td class="amber">€3,000–6,000</td>
+        </tr>
+        <tr>
+          <td>Other EU (Czech, Austria, France)</td>
+          <td>~400,000</td>
+          <td>~4,000–6,000</td>
+          <td>0–2<br><span style="font-size:11px;color:var(--text3)">Not a focus in 2026. Reached passively via content.</span></td>
+          <td style="color:var(--text3)">€0–360</td>
+          <td>5–10<br><span style="font-size:11px;color:var(--text3)">Small tail, organic only</span></td>
+          <td class="amber">€1,500–3,000</td>
+        </tr>
+        <tr class="tr-total">
+          <td><strong>Total EU</strong></td>
+          <td>~4M+</td>
+          <td>~25,000–41,000</td>
+          <td class="red"><strong>25–47 clients</strong></td>
+          <td class="red"><strong>€4,500–8,460/yr</strong></td>
+          <td class="red"><strong>95–160 clients</strong></td>
+          <td class="red"><strong>€28,500–48,000/yr</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:12px;color:var(--text3);margin-top:8px">2026 revenue = clients × €15 × avg 8 months active (June–Dec + churn buffer). 2027 revenue = clients × €25 × 12 months.</p>
+</div>
+
+<!-- 6. FINANCIALS -->
+<div class="section-block" id="financials">
+  <div class="block-number">06</div>
+  <h2 class="block-title">Financial Projections — 3 Years</h2>
+  <p class="block-sub">Realistic (conservative) estimates. Pricing: Year 1 = €15/user/month (early adopter price). Year 2 = €25/user/month. Year 3 = 50% at €25 + 50% at €45. No paid ads assumed. Growth from personal network + organic Telegram/YouTube only.</p>
+
+  <h3>Pricing Rationale — Validated by Competition</h3>
+  <div class="tbl-wrap" style="margin-bottom:24px">
+    <table>
+      <thead><tr><th>Price Point</th><th>What exists at this price</th><th>AstroCRM tier</th><th>Positioning</th></tr></thead>
+      <tbody>
+        <tr><td><strong>€8–13/mo</strong></td><td>Dutch ZZP basic tools (PerfectView, Alexion, Cirqll) — contact lists only, no pipeline, no campaigns</td><td>—</td><td>We are better than this, priced accordingly</td></tr>
+        <tr><td><strong>€15/mo</strong></td><td>Nothing niche-specific at this price in EU or RU</td><td>Early Adopter (Year 1)</td><td>Entry price to build community and trust. Locked for life for early users.</td></tr>
+        <tr><td><strong>€25/mo</strong></td><td>Pipedrive lite (sales teams), amoCRM entry. Nothing for solo practitioners.</td><td>Starter (Year 2+)</td><td>Sweet spot. Full CRM for one person. 2× cheaper than Teamleader. No team required.</td></tr>
+        <tr><td><strong>€45/mo</strong></td><td>Teamleader (€50, teams), Quenza ($47–87, no CRM features)</td><td>Professional (Year 3)</td><td>Still cheaper than any comparable EU tool. Adds 2 businesses, unlimited contacts, automations.</td></tr>
+        <tr><td><strong>€50–80+/mo</strong></td><td>Teamleader, EviCare, HoneyBook Pro — all built for teams or wrong niche</td><td>—</td><td>AstroCRM stays below this ceiling intentionally</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Year 1 — 2026 (Launch + First Traction)</h3>
+  <p style="margin-bottom:16px">Reality check: Auth + deploy takes until end of May. First paying clients in June from personal network. Growth is slow at first — no one knows you exist yet. Target audience needs to discover and trust you before paying €15/month for a new product. At €15/month, AstroCRM is already more expensive than Dutch basic ZZP tools (€8–13) — but meaningfully better. Early adopters need to see the difference quickly.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Month</th><th>New Clients</th><th>Total Paying</th><th>Price</th><th>MRR</th><th>Cumulative Revenue</th></tr></thead>
+      <tbody>
+        <tr><td>May 2026</td><td>0</td><td>0</td><td>€15</td><td>€0</td><td>€0</td></tr>
+        <tr><td>June 2026</td><td>3</td><td>3</td><td>€15</td><td>€45</td><td>€45</td></tr>
+        <tr><td>July 2026</td><td>4</td><td>7</td><td>€15</td><td>€105</td><td>€150</td></tr>
+        <tr><td>August 2026</td><td>5</td><td>12</td><td>€15</td><td>€180</td><td>€330</td></tr>
+        <tr><td>September 2026</td><td>6</td><td>18</td><td>€15</td><td>€270</td><td>€600</td></tr>
+        <tr><td>October 2026</td><td>7</td><td>25</td><td>€15</td><td>€375</td><td>€975</td></tr>
+        <tr><td>November 2026</td><td>8</td><td>33</td><td>€15</td><td>€495</td><td>€1,470</td></tr>
+        <tr><td>December 2026</td><td>7</td><td>40</td><td>€15</td><td>€600</td><td>€2,100</td></tr>
+        <tr class="tr-total"><td colspan="4"><strong>Full Year 2026 Total</strong></td><td><strong>€600 MRR</strong></td><td class="red"><strong>~€2,100</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout amber">
+    <p><strong>Year 1 is about proof, not profit.</strong> €2K revenue is not the goal — 40 users who actually use the product, leave feedback, and tell their friends is. EU diaspora accounts for ~35 of these; Kazakhstan adds ~5 more. These users become your community, your testimonials, and your word-of-mouth engine for Year 2.</p>
+  </div>
+
+  <h3>Year 2 — 2027 (Growth Phase, €25/month)</h3>
+  <p style="margin-bottom:16px">Price increases to €25 for all new users. Existing users migrated to €25 from January (fair — they had 7 months at launch price). Kazakhstan expansion Q1. Russia organic traction from YouTube/Telegram content.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Quarter</th><th>New Clients</th><th>Total Paying</th><th>Price</th><th>MRR</th><th>Quarterly Revenue</th></tr></thead>
+      <tbody>
+        <tr><td>Q1 2027</td><td>30</td><td>~70</td><td>€25</td><td>€1,750</td><td>€4,725</td></tr>
+        <tr><td>Q2 2027</td><td>40</td><td>~105</td><td>€25</td><td>€2,625</td><td>€6,563</td></tr>
+        <tr><td>Q3 2027</td><td>50</td><td>~150</td><td>€25</td><td>€3,750</td><td>€9,113</td></tr>
+        <tr><td>Q4 2027</td><td>55</td><td>~200</td><td>€25</td><td>€5,000</td><td>€12,500</td></tr>
+        <tr class="tr-total"><td colspan="4"><strong>Full Year 2027 Total</strong></td><td><strong>€5,000 MRR exit</strong></td><td class="red"><strong>~€32,900</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Year 3 — 2028 (Scale, Mixed Pricing)</h3>
+  <p style="margin-bottom:16px">50% of users on €25/month (existing), 50% on €45/month (new users, Professional tier with full features). Average revenue per user: €35.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Quarter</th><th>New Clients</th><th>Total Paying</th><th>Avg Price</th><th>MRR</th><th>Quarterly Revenue</th></tr></thead>
+      <tbody>
+        <tr><td>Q1 2028</td><td>70</td><td>~265</td><td>€35</td><td>€9,275</td><td>€22,013</td></tr>
+        <tr><td>Q2 2028</td><td>80</td><td>~340</td><td>€35</td><td>€11,900</td><td>€26,138</td></tr>
+        <tr><td>Q3 2028</td><td>90</td><td>~425</td><td>€35</td><td>€14,875</td><td>€31,588</td></tr>
+        <tr><td>Q4 2028</td><td>90</td><td>~510</td><td>€35</td><td>€17,850</td><td>€38,588</td></tr>
+        <tr class="tr-total"><td colspan="4"><strong>Full Year 2028 Total</strong></td><td><strong>€17,850 MRR exit</strong></td><td class="red"><strong>~€118,325</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>3-Year Revenue Summary</h3>
+  <div class="card-grid">
+    <div class="card amber">
+      <div class="card-label">2026 — Year 1</div>
+      <div class="card-value">€2,100</div>
+      <div class="card-desc">40 users @ €15/month. Proof of concept. 7 months of active selling.</div>
+    </div>
+    <div class="card blue">
+      <div class="card-label">2027 — Year 2</div>
+      <div class="card-value">€32,900</div>
+      <div class="card-desc">200 users @ €25/month by year end. Growing MRR. First meaningful income.</div>
+    </div>
+    <div class="card green">
+      <div class="card-label">2028 — Year 3</div>
+      <div class="card-value">€118,325</div>
+      <div class="card-desc">510 users, mixed pricing. €17.8K/month MRR. Lifestyle business territory.</div>
+    </div>
+    <div class="card red">
+      <div class="card-label">3-Year Total</div>
+      <div class="card-value">~€153K</div>
+      <div class="card-desc">Cumulative revenue. Without paid ads. Based on organic growth only.</div>
+    </div>
+  </div>
+
+  <h3>Full Cost Table — All 3 Years</h3>
+  <p style="margin-bottom:16px">Includes infrastructure, implementation, people, and tools. All figures are monthly unless noted.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Cost Item</th><th>2026 (monthly)</th><th>2027 (monthly)</th><th>2028 (monthly)</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td colspan="5" style="background:var(--bg3);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--text3);padding:10px 14px;">Infrastructure</td></tr>
+        <tr><td>VPS hosting (Hetzner)</td><td>€6</td><td>€15</td><td>€30</td><td>Start CX11 (€6), upgrade as users grow</td></tr>
+        <tr><td>Domain (astrocrm.app)</td><td>€1</td><td>€1</td><td>€1</td><td>~€15/year, billed annually</td></tr>
+        <tr><td>SSL certificate</td><td>€0</td><td>€0</td><td>€0</td><td>Free via Let's Encrypt</td></tr>
+        <tr><td>Email sending (Resend)</td><td>€0</td><td>€20</td><td>€40</td><td>Free to 3K/month, then €20/month Pro</td></tr>
+        <tr><td>Backups / monitoring</td><td>€2</td><td>€5</td><td>€10</td><td>Hetzner snapshots (€2/mo from launch). Uptime Robot free tier.</td></tr>
+        <tr><td colspan="5" style="background:var(--bg3);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--text3);padding:10px 14px;">Payment Processing</td></tr>
+        <tr><td>Stripe fees</td><td>~€12</td><td>~€110</td><td>~€360</td><td>~2.9% + €0.30 per transaction. Est. on revenue.</td></tr>
+        <tr><td colspan="5" style="background:var(--bg3);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--text3);padding:10px 14px;">Tools & Software</td></tr>
+        <tr><td>GitHub (code hosting)</td><td>€0</td><td>€0</td><td>€4</td><td>Free tier sufficient through 2027</td></tr>
+        <tr><td>Claude Code — build phase (Max $200 plan + 21% VAT)</td><td>€242/mo × 5 months</td><td>—</td><td>—</td><td>Jan–May 2026: heavy daily development. Max 20× plan needed for this volume.</td></tr>
+        <tr><td>Claude Code — maintenance (Pro $20 plan + 21% VAT)</td><td>€24/mo × 7 months</td><td>€24/mo</td><td>€24/mo</td><td>Jun 2026 onward: bug fixes, small improvements. Pro plan sufficient. Upgrade to Max 5× (~€114/mo) for 1–2 months/year when building major features.</td></tr>
+        <tr><td>Claude Code — feature sprints (Max 5× plan, occasional)</td><td>—</td><td>€114/mo × 2 months</td><td>€114/mo × 2 months</td><td>2 months/year for significant new features (Telegram integration, scheduling, etc.)</td></tr>
+        <tr><td>Customer support chat (Crisp.chat)</td><td>€0</td><td>€25</td><td>€25</td><td>Free in 2026 (Telegram button). Crisp from Q1 2027 when user base grows.</td></tr>
+        <tr><td>Status page (Instatus/Freshstatus)</td><td>€0</td><td>€0</td><td>€0</td><td>Free tier. Shows users system status during outages.</td></tr>
+        <tr><td>Design tools (Figma etc.)</td><td>€0</td><td>€15</td><td>€15</td><td>Free tier in Year 1; upgrade when doing marketing</td></tr>
+        <tr><td>Analytics (Plausible/Posthog)</td><td>€0</td><td>€9</td><td>€9</td><td>Plausible free or €9/month for privacy-focused analytics</td></tr>
+        <tr><td colspan="5" style="background:var(--bg3);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--text3);padding:10px 14px;">People — Freelance</td></tr>
+        <tr><td>Support — Russian-language (freelance, RU/BY/UA)</td><td>€0</td><td>€300</td><td>€600</td><td>Part-time from Q1 2027. Native Russian speaker. Hired via Deel or Upwork — invoiced to your NL company, fully deductible.</td></tr>
+        <tr><td>Support — English-language (freelance)</td><td>€0</td><td>€150</td><td>€300</td><td>Part-time from Q2 2027 when EU user base grows. Same hiring model via Deel/Upwork.</td></tr>
+        <tr><td>Content creation (RU YouTube/Instagram)</td><td>€0</td><td>€200</td><td>€400</td><td>Video editor / thumbnail designer. 1–2 videos/month from Q2 2027.</td></tr>
+        <tr><td>NL/EU marketing copywriter</td><td>€0</td><td>€0</td><td>€200</td><td>Dutch/German content from 2028 when EU expansion serious.</td></tr>
+        <tr><td>QA / testing (occasional)</td><td>€0</td><td>€100</td><td>€100</td><td>Freelance, sporadic. Testing new features before release.</td></tr>
+        <tr><td colspan="5" style="background:var(--bg3);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--text3);padding:10px 14px;">Legal & Admin</td></tr>
+        <tr><td>Accountant (NL)</td><td>€50</td><td>€75</td><td>€100</td><td>Annual filing + quarterly VAT. Estimate per month amortised.</td></tr>
+        <tr><td>Privacy policy / T&C (one-time)</td><td>€200 one-time</td><td>€0</td><td>€0</td><td>Legal template for GDPR compliance. Pay once.</td></tr>
+        <tr><td colspan="5" style="background:var(--bg3);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--text3);padding:10px 14px;">Marketing</td></tr>
+        <tr><td>Landing page hosting</td><td>€0</td><td>€0</td><td>€0</td><td>GitHub Pages — free</td></tr>
+        <tr><td>Instagram/Facebook ads — RU-speaking EU practitioners</td><td>€0</td><td>€250/mo</td><td>€300/mo</td><td>Start Q1 2027. Custom audience targeting. €250/mo generates ~15–25 trials/mo at €10–17 cost per trial.</td></tr>
+        <tr><td>Instagram/Facebook ads — NL ZZP retargeting</td><td>€0</td><td>€100/mo</td><td>€150/mo</td><td>Retargeting visitors who didn't sign up. Cheapest conversions. Start Q2 2027.</td></tr>
+        <tr><td>Google Ads — NL ZZP coaches/therapists</td><td>€0</td><td>€0</td><td>€300/mo</td><td>From 2028 when NL market expansion is active. Keywords: "CRM voor coaches NL", "CRM therapeuten".</td></tr>
+        <tr><td>YouTube video production (editing)</td><td>€0</td><td>€200/mo</td><td>€400/mo</td><td>Already in People line — video editor. RU YouTube is primary organic channel.</td></tr>
+        <tr><td>School/academy affiliate programme</td><td>€0</td><td>€0</td><td>€100/mo</td><td>20–30% commission on referred subscriptions. Cost only when it generates revenue.</td></tr>
+        <tr><td>Canva Pro (social media design)</td><td>€0</td><td>€13/mo</td><td>€13/mo</td><td>Instagram posts, YouTube thumbnails, story templates. From Q2 2027.</td></tr>
+        <tr class="tr-total"><td><strong>Total monthly cost (blended)</strong></td><td><strong>~€191</strong></td><td><strong>~€1,277</strong></td><td><strong>~€2,578</strong></td><td>2026 blended: heavy Jan–May build (€242 Claude Max), light Jun–Dec maintenance (€24 Claude Pro)</td></tr>
+        <tr class="tr-total"><td><strong>Total annual cost</strong></td><td class="red"><strong>~€2,430</strong></td><td class="red"><strong>~€15,324</strong></td><td class="red"><strong>~€30,936</strong></td><td>Incl. €200 one-time legal + full Claude costs with VAT + paid marketing from Q1 2027</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Profit / Loss Summary</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Year</th><th>Revenue</th><th>Total Costs</th><th>Net Profit</th><th>Margin</th></tr></thead>
+      <tbody>
+        <tr><td>2026</td><td>€2,100</td><td>€2,430</td><td class="red">−€330</td><td>—</td></tr>
+        <tr><td>2027</td><td>€32,900</td><td>€15,324</td><td class="green">€17,576</td><td>53%</td></tr>
+        <tr><td>2028</td><td>€118,325</td><td>€30,936</td><td class="green">€87,389</td><td>74%</td></tr>
+        <tr class="tr-total"><td><strong>3-Year Total</strong></td><td><strong>€153,325</strong></td><td><strong>€48,690</strong></td><td class="red"><strong>€104,635</strong></td><td><strong>68%</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Freelance Resource Plan</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Role</th><th>When Needed</th><th>Hours/Month</th><th>Rate</th><th>Cost/Month</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Russian-language support</td><td>Q1 2027 (70+ users)</td><td>15–20 hrs</td><td>€15/hr</td><td>€225–300</td><td>Freelancer from Russia, Belarus, or Ukraine. Hired via Deel or Upwork — invoiced to your NL company, VAT-deductible. Native Russian speaker.</td></tr>
+        <tr><td>English-language support</td><td>Q2 2027 (100+ users)</td><td>10–15 hrs</td><td>€15/hr</td><td>€150–225</td><td>Freelancer from Ukraine or Belarus preferred (English + Russian backup). Same Deel/Upwork model.</td></tr>
+        <tr><td>Video editor (RU content)</td><td>Q2 2027</td><td>8–10 hrs/video × 2</td><td>€20/hr</td><td>€320–400</td><td>Freelance on Kwork.ru or Upwork. Edit screen recordings you film.</td></tr>
+        <tr><td>QA tester</td><td>Q2 2027</td><td>5–8 hrs per release</td><td>€15/hr</td><td>€75–120</td><td>Test new features before launch. Can be same person as support.</td></tr>
+        <tr><td>NL/EU copywriter</td><td>Q1 2028</td><td>10 hrs/month</td><td>€30/hr</td><td>€300</td><td>Dutch/German landing page content, blog posts for EU market</td></tr>
+        <tr><td>Full-time support hire</td><td>Q3 2028 (400+ users)</td><td>Full time</td><td>€1,500/mo</td><td>€1,500</td><td>When support volume exceeds what part-time can handle</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout green">
+    <p><strong>You need 0 additional people in 2026.</strong> In 2027 you need 2 part-time freelancers (support + video editor). In 2028 you need 3–4. All on freelance contracts. No full-time employees until 400+ users — and even then, it's one person. This is a solo-founder-friendly business model.</p>
+  </div>
+
+  <h3>Break-even Milestones</h3>
+  <div class="card-grid">
+    <div class="card red">
+      <div class="card-label">Cover all running costs</div>
+      <div class="card-value">6 users</div>
+      <div class="card-desc">6 × €15 = €90/month covers infrastructure in Year 1. Profitable immediately.</div>
+    </div>
+    <div class="card amber">
+      <div class="card-label">First real income</div>
+      <div class="card-value">57 users</div>
+      <div class="card-desc">End of 2026 target. €855 MRR. Proves the market, funds Year 2 growth.</div>
+    </div>
+    <div class="card green">
+      <div class="card-label">Replace a salary</div>
+      <div class="card-value">215 users</div>
+      <div class="card-desc">End of 2027. €5,375 MRR = €64K/year gross. Lifestyle business.</div>
+    </div>
+    <div class="card blue">
+      <div class="card-label">Strong independent business</div>
+      <div class="card-value">525 users</div>
+      <div class="card-desc">End of 2028. €18K/month. €97K net profit. Could raise capital or sell at 3–5× ARR.</div>
+    </div>
+  </div>
+</div>
+
+<!-- 3. TAM/SAM/SOM -->
+<div class="section-block" id="tam">
+  <div class="block-number">03</div>
+  <h2 class="block-title">TAM / SAM / SOM</h2>
+  <p class="block-sub">Two independent markets — EU practitioners and Russian-speaking practitioners — both converge on the same product. Combined TAM is larger than either alone.</p>
+
+  <h3>Russian-Speaking Market (CIS + EU Diaspora)</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Level</th><th>Definition</th><th>Count</th><th>Revenue @ €35 avg/mo</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>TAM</td>
+          <td>All Russian-speaking solo practitioners globally who could use a CRM</td>
+          <td>~3–4M practitioners</td>
+          <td>~€1.3B/year</td>
+        </tr>
+        <tr>
+          <td>SAM</td>
+          <td>Practitioners in Russia, KZ, EU diaspora with internet access + digital tools awareness + ability to pay</td>
+          <td>~200,000–400,000</td>
+          <td>~€84–168M/year</td>
+        </tr>
+        <tr class="tr-total">
+          <td>SOM</td>
+          <td>Realistic capture in 3 years with current resources (1% of SAM)</td>
+          <td>2,000–4,000 paying clients</td>
+          <td class="red">€840K–1.7M/year</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 style="margin-top:28px">Netherlands / EU Practitioner Market (Dutch-language)</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Level</th><th>Definition</th><th>Count</th><th>Revenue @ €35 avg/mo</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>TAM</td>
+          <td>All solo ZZP practitioners in NL in coaching, therapy, wellness, beauty — who need a client CRM</td>
+          <td>~300,000–500,000 ZZP</td>
+          <td>~€126–210M/year</td>
+        </tr>
+        <tr>
+          <td>SAM</td>
+          <td>NL practitioners digitally active, paying for software tools, dissatisfied with generic ZZP CRMs</td>
+          <td>~30,000–60,000</td>
+          <td>~€12.6–25M/year</td>
+        </tr>
+        <tr class="tr-total">
+          <td>SOM</td>
+          <td>Realistic NL capture in 3 years (0.5% of SAM, English+Dutch UI)</td>
+          <td>150–300 paying clients</td>
+          <td class="red">€63K–126K/year</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout">
+    <p><strong>Key insight:</strong> The Russian-speaking market is the primary growth engine. The Dutch ZZP market is a validated bonus — it's smaller but easier to convert (Stripe payments, no legal friction, no language barrier for EN content). Both are served by the same product with zero additional development cost. You don't need 1% of either market — <strong>2,000 paying clients at €45/month = €1.1M ARR.</strong> That's 0.07% of the combined SAM.</p>
+  </div>
+</div>
+
+<!-- 5. RUSSIA PAYMENT FEATURE -->
+<div class="section-block" id="russia-payments">
+  <div class="block-number">05</div>
+  <h2 class="block-title">Russia: Can Practitioners Send Payment Links to Their Clients?</h2>
+  <p class="block-sub">You asked a very specific and important question: can an astrologer or coach in Russia use AstroCRM to send a payment link to their own client? This is a different question from "can a Russian user pay for AstroCRM subscription." Here is the full answer.</p>
+
+  <h3>What You're Actually Building</h3>
+  <p>A feature where a practitioner clicks "Send payment link" in CRM → their client receives a link → pays → deal automatically moves to "Paid" stage. This requires <strong>the CRM to integrate with a payment processor</strong> that the practitioner has a merchant account with. The CRM acts as a connector — like Stripe Connect, but for Russia.</p>
+
+  <div class="risk high">
+    <div class="risk-badge">Key fact</div>
+    <div class="risk-body">
+      <h4>Your NL company does NOT need to handle the money</h4>
+      <p>In this model, money flows from the practitioner's client → directly into the practitioner's payment account. AstroCRM never touches the funds. You are building a connector, not a payment processor. This removes most legal complexity for you.</p>
+    </div>
+  </div>
+
+  <h3>Which Russian Payment Systems to Build</h3>
+  <p style="font-size:13px;color:var(--text3);margin-bottom:12px">This table is about what <strong>your customers</strong> (Russian practitioners) need on their side — not you. You only need your NL company to build and maintain the API integration.</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Payment System</th><th>Works for самозанятые?</th><th>Build Effort</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td><strong>YooKassa</strong> (ЮКасса)</td><td class="green">✓ Yes — dedicated самозанятые product</td><td>3–5 days</td><td>Most widely used. Good API. Auto-reports taxes to FNS. <strong>Build first.</strong></td></tr>
+        <tr><td><strong>Prodamus</strong></td><td class="green">✓ Yes — built for coaches/experts</td><td>1–2 days</td><td>Designed exactly for your target audience. Easiest setup for practitioners. <strong>Build second.</strong></td></tr>
+        <tr><td>USDT / crypto</td><td class="green">✓ No registration needed</td><td>1–2 days</td><td>Via CryptoCloud or NOWPayments. Optional — niche but some practitioners prefer it.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout green">
+    <p><strong>Recommended integration: YooKassa + Prodamus.</strong> YooKassa is the most trusted (Yandex brand), fully supports самозанятые, and auto-reports taxes to FNS — practitioners love this. Prodamus is built specifically for coaches/experts and is the fastest to integrate. Build YooKassa first (largest audience), Prodamus second (niche-specific).</p>
+  </div>
+
+  <h3>Does This Require a Russian Legal Entity?</h3>
+  <div class="risk low">
+    <div class="risk-badge">No</div>
+    <div class="risk-body">
+      <h4>You do not need a Russian entity to build this integration</h4>
+      <p>The practitioner connects <em>their own</em> YooKassa/Tinkoff account to AstroCRM. Your NL company just builds and maintains the API integration. You are a software tool, not a payment agent. No Russian entity required. This is identical to how a European SaaS integrates with Stripe — you don't need to be a bank.</p>
+    </div>
+  </div>
+
+  <h3>✅ Recommended Solution for Russia Payments</h3>
+  <div class="phases">
+    <div class="phase">
+      <div class="phase-num">1</div>
+      <div class="phase-body">
+        <h4>Build YooKassa Connect integration (Q4 2026)</h4>
+        <p>Practitioner goes to CRM Settings → connects their YooKassa API keys → CRM generates payment links for their clients. Client clicks link → pays → webhook fires → deal moves to "Paid." Works for самозанятые — no ИП or company registration required. 3–5 days to build.</p>
+        <div class="phase-meta"><span class="phase-tag green">Best ROI</span><span class="phase-tag amber">3–5 days build</span></div>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-num">2</div>
+      <div class="phase-body">
+        <h4>Add Prodamus integration (Q1 2027)</h4>
+        <p>Prodamus is built exactly for online coaches and experts. Very fast API integration, automatic receipts, supports самозанятые. Second integration after YooKassa.</p>
+        <div class="phase-meta"><span class="phase-tag green">Niche fit</span><span class="phase-tag amber">1–2 days build</span></div>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-num">3</div>
+      <div class="phase-body">
+        <h4>Hire on-demand support team (Q1 2027)</h4>
+        <p>Two part-time freelancers: one native Russian speaker (RU/BY/UA), one English. Hired via <strong>Deel</strong> or <strong>Upwork</strong> — both platforms issue proper invoices to your NL company, handle contractor tax compliance in their country, and the cost is fully deductible as a business expense. No entity needed in Russia or Ukraine.</p>
+        <div class="phase-meta"><span class="phase-tag green">Clean & deductible</span><span class="phase-tag amber">From Q1 2027</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 5b. RUSSIA COMPLIANCE RISKS -->
+<div class="section-block" id="russia-restrictions">
+  <div class="block-number">5b</div>
+  <h2 class="block-title">Russia: Compliance Risks for AstroCRM as a SaaS</h2>
+  <p class="block-sub">Separate from the payment feature — risks for running AstroCRM itself for Russian users from your Dutch company.</p>
+
+  <div class="risk high">
+    <div class="risk-badge">Critical</div>
+    <div class="risk-body">
+      <h4>Collecting subscription fees from Russia — payment friction</h4>
+      <p>Russian practitioners paying <em>you</em> for AstroCRM subscription: Stripe doesn't work for Russian bank cards. Solutions: (1) Most target practitioners already have Georgian/Kazakh/EU cards — they pay via Stripe normally. (2) Add USDT payment option via CryptoCloud. (3) If volume justifies it: integrate a Russian payment aggregator that wires to your EU account (Prodamus, ЮMoney). This is manageable, not a blocker.</p>
+    </div>
+  </div>
+
+  <div class="risk high">
+    <div class="risk-badge">Important</div>
+    <div class="risk-body">
+      <h4>Data Localisation — Federal Law 152-FZ</h4>
+      <p>Russian law requires personal data of Russian citizens to be stored on servers in Russia. Your Hetzner VPS in Germany technically violates this. Enforcement: near-zero for small foreign SaaS under ~10,000 Russian users. If Russia becomes significant: add a Yandex Cloud node (~€20/month) and route Russian users there. Not a Day 1 problem.</p>
+    </div>
+  </div>
+
+  <div class="risk medium">
+    <div class="risk-badge">Medium</div>
+    <div class="risk-body">
+      <h4>VAT registration ("Google Tax" — Law 244-FZ)</h4>
+      <p>Technically required for any foreign digital service with Russian B2C customers. In practice: no enforcement against small providers. Register when Russia ARR exceeds €15–20K/year. Registration is possible without a Russian entity — via nalog.ru directly.</p>
+    </div>
+  </div>
+
+  <div class="risk low">
+    <div class="risk-badge">Low</div>
+    <div class="risk-body">
+      <h4>Site blocking & sanctions</h4>
+      <p>Blocking risk is negligible for a niche B2B SaaS. Sanctions: receiving payment from regular individuals (not listed entities) is permissible from your NL company. Practitioners are not on any sanctions list.</p>
+    </div>
+  </div>
+
+  <div class="tbl-wrap" style="margin-top:24px">
+    <table>
+      <thead><tr><th>Issue</th><th>Blocker?</th><th>When to address</th><th>Solution</th></tr></thead>
+      <tbody>
+        <tr><td>Subscription payment from RU banks</td><td class="amber">Partial</td><td>From launch</td><td>Non-RU cards + USDT + Prodamus intermediary</td></tr>
+        <tr><td>Data localisation (152-FZ)</td><td class="green">No — at &lt;10K users</td><td>2027+</td><td>Add Yandex Cloud Russian node</td></tr>
+        <tr><td>VAT / Google Tax</td><td class="green">No — initially</td><td>When RU ARR &gt;€15K</td><td>Register on nalog.ru</td></tr>
+        <tr><td>Site blocking</td><td class="green">Very low</td><td>Never likely</td><td>Use international CDN</td></tr>
+        <tr><td>No Russian legal entity</td><td class="green">Not required</td><td>2028+ if warranted</td><td>Register ООО only at significant scale</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- 4. GO-TO-MARKET -->
+<div class="section-block" id="gtm">
+  <div class="block-number">04</div>
+  <h2 class="block-title">Go-To-Market Strategy</h2>
+  <p class="block-sub">Focused sequencing: start with the easiest-to-reach, fastest-to-pay segment. Expand from there. Do not try to enter Russia directly first.</p>
+
+  <h3>Phase 0 — Foundation (Now → May 2026)</h3>
+  <div class="phases">
+    <div class="phase">
+      <div class="phase-num">0</div>
+      <div class="phase-body">
+        <h4>Build the SaaS foundation</h4>
+        <p>Add user login/auth + deploy to VPS. Without this, no one can use it except you. This is the only blocker between now and a sellable product.</p>
+        <div class="phase-meta">
+          <span class="phase-tag red">Critical path</span>
+          <span class="phase-tag amber">2–3 weeks</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Phase 1 — Russian-Speaking Europe (May–August 2026)</h3>
+  <p><strong>Target:</strong> Russian-speaking practitioners in NL, Germany, Spain. <strong>Why first:</strong> EU payments work perfectly (Stripe), no legal complexity, you have existing networks, your NL company is fully trusted.</p>
+  <div class="phases">
+    <div class="phase">
+      <div class="phase-num">1</div>
+      <div class="phase-body">
+        <h4>Community seeding — astrology & coaching Telegram groups</h4>
+        <p>Russian-language Telegram channels for astrologers, coaches, and beauty masters in Europe have 10K–100K members each. Join genuinely, share value, mention AstroCRM when relevant. This costs €0 and reaches exactly your target. Target: 5–10 communities, offer beta access for free.</p>
+        <div class="phase-meta">
+          <span class="phase-tag green">Free</span>
+          <span class="phase-tag amber">Ongoing</span>
+        </div>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-num">2</div>
+      <div class="phase-body">
+        <h4>Personal network — Successcode & TrendsonFire audience</h4>
+        <p>You already have a warm audience of Russian-speaking practitioners through your businesses. Offer a founding member deal: first 50 clients get €25/month locked forever. Promote in your existing channels first before spending on ads.</p>
+        <div class="phase-meta">
+          <span class="phase-tag green">Free</span>
+          <span class="phase-tag amber">1–2 weeks</span>
+        </div>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-num">3</div>
+      <div class="phase-body">
+        <h4>Content marketing — Russian-language YouTube & Instagram</h4>
+        <p>"How I manage 50 clients as an astrologer" — 3-minute demo video. Post on YouTube (Russian) and Instagram Reels. Russian-language CRM content is essentially zero on YouTube — this is a blue ocean. One good video can generate leads for years.</p>
+        <div class="phase-meta">
+          <span class="phase-tag green">Low cost</span>
+          <span class="phase-tag amber">1 video/month</span>
+        </div>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-num">4</div>
+      <div class="phase-body">
+        <h4>Partner with Russian-speaking astrology/coaching schools</h4>
+        <p>Astrology schools, coaching certification programs, and beauty master academies all train new practitioners. Become their recommended CRM. Offer affiliate commission (20–30%). Schools in NL, Germany, and online (Russian) are the target.</p>
+        <div class="phase-meta">
+          <span class="phase-tag amber">Revenue share</span>
+          <span class="phase-tag amber">Medium term</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Phase 2 — Kazakhstan (September–December 2026)</h3>
+  <p><strong>Why Kazakhstan second:</strong> Russian language, no payment restrictions, growing digital economy, almost no local CRM competition. Almaty and Astana have a large, educated, digitally active practitioner market.</p>
+  <div class="phases">
+    <div class="phase">
+      <div class="phase-num">5</div>
+      <div class="phase-body">
+        <h4>KZ-specific landing + local Telegram communities</h4>
+        <p>Add a Kazakhstan-specific onboarding note. Join KZ astrology/beauty master Telegram groups (Almaty, Astana). Local influencer partnership — a well-known Kazakhstani astrologer with 50K+ followers can drive hundreds of signups in one story.</p>
+        <div class="phase-meta">
+          <span class="phase-tag green">Low cost</span>
+          <span class="phase-tag amber">Q4 2026</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Phase 3 — Russia Proper (2027)</h3>
+  <p><strong>Why third:</strong> Significant technical and legal complexity (see Section 5). Revenue arrives via EU channels anyway for most Russian practitioners with international clients. Do Phase 1 & 2 first — if you have 500 paying EU clients by end of 2026, Russia becomes much easier to evaluate calmly.</p>
+  <div class="phases">
+    <div class="phase">
+      <div class="phase-num">6</div>
+      <div class="phase-body">
+        <h4>Russia entry — organic only, no direct payments initially</h4>
+        <p>Russian practitioners with European clients will find AstroCRM via Telegram/YouTube content naturally. They can pay via a payment agent or crypto. Formal Russia entry (local payments, data localisation) requires a local entity — evaluate after €200K ARR.</p>
+        <div class="phase-meta">
+          <span class="phase-tag red">Complex</span>
+          <span class="phase-tag amber">2027+</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>How to Find Contacts — Per Target Group</h3>
+  <p style="margin-bottom:16px">Each profession has a different realistic path to finding and reaching practitioners. This maps effort, data quality, and best method per group.</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Profession Group</th><th>Best Source</th><th>Data Available</th><th>Effort</th><th>GDPR Risk</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Psychologists (NL)</strong></td>
+          <td>BIG-register (bigregister.nl)</td>
+          <td>Name, city, registration status</td>
+          <td class="green">Low — bulk export exists</td>
+          <td class="amber">Medium</td>
+          <td>~15,000 GZ-psychologen. No email in registry — need website lookup to enrich. Regulated = receptive to professional tools.</td>
+        </tr>
+        <tr>
+          <td><strong>Psychotherapists (NL)</strong></td>
+          <td>BIG-register</td>
+          <td>Name, city, status</td>
+          <td class="green">Low</td>
+          <td class="amber">Medium</td>
+          <td>Same registry as psychologists. ~5,000 records. High willingness to pay for practice tools.</td>
+        </tr>
+        <tr>
+          <td><strong>Astrologers / Tarot / Numerologists</strong></td>
+          <td>Instagram hashtags, Telegram groups, Google Maps</td>
+          <td>Handle, bio, sometimes email/website</td>
+          <td class="amber">Medium — manual + scraping</td>
+          <td class="green">Low (public profiles)</td>
+          <td>No registry. Search #astrologienl #tarotnederland #астролог on Instagram. RU Telegram communities have thousands of them. Best reached via content, not cold outreach.</td>
+        </tr>
+        <tr>
+          <td><strong>Life / Business Coaches</strong></td>
+          <td>ICF directory (coachfederation.org), LinkedIn, Instagram</td>
+          <td>Name, city, website, sometimes email</td>
+          <td class="amber">Medium</td>
+          <td class="amber">Medium</td>
+          <td>ICF Netherlands chapter has a public member directory. LinkedIn search "life coach Amsterdam" returns hundreds. Very digitally active — Instagram/LinkedIn ads work well.</td>
+        </tr>
+        <tr>
+          <td><strong>Beauty professionals (lash, PMU, nails)</strong></td>
+          <td>Instagram, Google Maps, Fresha/Treatwell profiles</td>
+          <td>Name, location, booking link, sometimes email</td>
+          <td class="amber">Medium</td>
+          <td class="green">Low (public)</td>
+          <td>Extremely active on Instagram — easiest group to find. Fresha and Treatwell list thousands of NL beauty professionals with contact info. Russian-speaking beauty masters have dedicated Telegram groups in every EU city.</td>
+        </tr>
+        <tr>
+          <td><strong>Yoga / Pilates instructors</strong></td>
+          <td>Google Maps, studio websites, Mindbody listings</td>
+          <td>Name, studio, phone, sometimes email</td>
+          <td class="amber">Medium</td>
+          <td class="green">Low</td>
+          <td>Many are self-employed and list themselves on Google Maps individually. Mindbody and Momoyoga have NL instructor directories.</td>
+        </tr>
+        <tr>
+          <td><strong>Nutritionists / Dietitians (NL)</strong></td>
+          <td>BIG-register (diëtisten), NVD member directory</td>
+          <td>Name, city, registration</td>
+          <td class="green">Low</td>
+          <td class="amber">Medium</td>
+          <td>Dietitians are in BIG-register. NVD (Dutch Dietitians Association) has a public "find a dietitian" search. ~4,000 registered in NL.</td>
+        </tr>
+        <tr>
+          <td><strong>Feng Shui / Ba Zi consultants</strong></td>
+          <td>Telegram groups, Instagram, Google, Marktplaats</td>
+          <td>Handle, sometimes website/email</td>
+          <td class="red">High — no registry, scattered</td>
+          <td class="green">Low</td>
+          <td>No official registry anywhere. Best found in Russian-speaking Telegram communities. Marktplaats "alternatief & spiritueel" lists many active ones in NL. Reach via content (your bazi-ru.html page is exactly right for this).</td>
+        </tr>
+        <tr>
+          <td><strong>Russian-speaking practitioners (EU-wide)</strong></td>
+          <td>Telegram communities, Instagram RU expat groups</td>
+          <td>Handle, bio, location tag</td>
+          <td class="green">Low — communities already assembled</td>
+          <td class="green">Low</td>
+          <td>This is your fastest path. Groups like "Астрологи в Европе", "Мастера в Нидерландах", "Коучи СНГ в Германии" — already assembled audiences of 1,000–30,000 people each. Join, share value, don't spam.</td>
+        </tr>
+        <tr>
+          <td><strong>Kazakhstan practitioners</strong></td>
+          <td>Instagram (very active market), local Telegram groups</td>
+          <td>Handle, city tag, bio</td>
+          <td class="green">Low</td>
+          <td class="green">Low</td>
+          <td>KZ Instagram is extremely active for coaches, astrologers, beauty masters. Almaty and Astana tags return thousands of results. One local influencer partnership can outperform 3 months of cold outreach.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout amber" style="margin-top:20px">
+    <p><strong>Key insight:</strong> Don't build a lead list and cold-email it. For this audience, cold outreach has near-zero conversion. The right model is: publish content they find useful → they come to you → they sign up. The sources above are useful for understanding market size and for targeted paid ads (upload list to Instagram/Facebook as a custom audience), not for bulk email.</p>
+  </div>
+
+  <h3>Channel Priority Matrix</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Channel</th><th>Cost</th><th>Speed</th><th>Quality of Leads</th><th>Priority</th></tr></thead>
+      <tbody>
+        <tr><td>Telegram community seeding</td><td>Free</td><td>Fast</td><td>High (warm audience)</td><td class="red">⭐⭐⭐⭐⭐</td></tr>
+        <tr><td>Personal network (Successcode/TOF)</td><td>Free</td><td>Immediate</td><td>Highest</td><td class="red">⭐⭐⭐⭐⭐</td></tr>
+        <tr><td>Russian YouTube tutorials</td><td>Low (time)</td><td>Slow but compounding</td><td>Very high</td><td class="red">⭐⭐⭐⭐</td></tr>
+        <tr><td>Instagram Reels (RU)</td><td>Low</td><td>Medium</td><td>High</td><td class="red">⭐⭐⭐⭐</td></tr>
+        <tr><td>School/academy partnerships</td><td>Revenue share</td><td>Medium</td><td>High (trained users)</td><td class="red">⭐⭐⭐⭐</td></tr>
+        <tr><td>Google Ads (RU)</td><td>Medium €</td><td>Fast</td><td>Medium</td><td class="amber">⭐⭐⭐</td></tr>
+        <tr><td>Cold outreach</td><td>Time</td><td>Slow</td><td>Low</td><td class="amber">⭐⭐</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- SALES & MARKETING -->
+<div class="section-block" id="salesmarketing">
+  <div class="block-number">09</div>
+  <h2 class="block-title">Sales & Marketing Plan</h2>
+  <p class="block-sub">The biggest unfair advantage: you are your own customer. You run Successcode — an astrology and feng shui practice. You can show a real CRM in real use. Most SaaS founders spend €50K trying to reach their audience. You already have it.</p>
+
+  <h3>The Core Sales Principle — No Cold Outreach</h3>
+  <div class="risk low">
+    <div class="risk-badge">Key insight</div>
+    <div class="risk-body">
+      <p>Practitioners — coaches, astrologers, beauty masters — do not respond to cold emails or cold ads. They buy from people they trust: colleagues who recommend, communities they belong to, content creators they follow. <strong>The entire marketing strategy is built around trust, not reach.</strong> One warm recommendation converts 10× better than 1,000 cold impressions.</p>
+    </div>
+  </div>
+
+  <h3>Channel Strategy by Phase</h3>
+
+  <h4>Phase 1 — Free Organic (May–December 2026, budget: €0)</h4>
+  <div class="phases">
+    <div class="phase">
+      <div class="phase-num">1</div>
+      <div class="phase-body">
+        <h4>Successcode & TrendsonFire existing audience</h4>
+        <p>Your warmest leads. People who already know you, trust you, and are exactly the target user. Post about AstroCRM in your own channels first. Offer founding member price (€15/month locked forever). Target: <strong>5–10 clients in Month 1.</strong> Cost: €0.</p>
+        <div class="phase-meta"><span class="phase-tag green">Highest conversion</span><span class="phase-tag green">Free</span><span class="phase-tag amber">Month 1</span></div>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-num">2</div>
+      <div class="phase-body">
+        <h4>Russian Telegram communities — value seeding</h4>
+        <p>There are 50+ active Russian-language Telegram groups for astrologers, coaches, ba-zi masters, and beauty professionals in Europe — each with 1,000–30,000 members. Join 10. Spend 2 weeks contributing genuinely. Then share: "I built a CRM for our niche — happy to give free access to first 5 people who try it." This converts at 20–40%. <strong>Do not post ads. Post value.</strong> Target: 10–20 clients from this channel.</p>
+        <div class="phase-meta"><span class="phase-tag green">Free</span><span class="phase-tag amber">Month 2–4</span><span class="phase-tag amber">Ongoing</span></div>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-num">3</div>
+      <div class="phase-body">
+        <h4>Russian YouTube — screen recording demos</h4>
+        <p>Zero competition for "CRM для астролога" / "CRM для коуча" on Russian YouTube. One 3-minute screen recording demo has a 3–5 year shelf life. You film, Claude writes the script and SEO metadata. Target: 1 video/month from Month 3. First results in Month 4–5. Compound traffic over time. Target: 5–15 clients over the year from this channel.</p>
+        <div class="phase-meta"><span class="phase-tag green">Free</span><span class="phase-tag amber">Month 3+</span><span class="phase-tag green">Compounds over time</span></div>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-num">4</div>
+      <div class="phase-body">
+        <h4>Instagram posts & Reels — fully produced by Claude</h4>
+        <p>Claude generates both the <strong>image and the caption</strong> for every post — no Canva, no designer needed. Format mix: educational carousels ("5 signs you need a CRM"), product demo Reels (60-second screen recording narrated), practitioner case stories. 8–12 posts/month, all in Russian. Scheduling via Buffer (~€15/month) or posted manually. The only human task: approve and hit publish. Target: 5–10 clients from this channel in Year 1.</p>
+        <div class="phase-meta"><span class="phase-tag green">Images generated by Claude</span><span class="phase-tag green">Free except €15/mo Buffer</span><span class="phase-tag amber">From Month 1</span></div>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-num">5</div>
+      <div class="phase-body">
+        <h4>Referral programme — built into the product</h4>
+        <p>"Give a friend 1 free month, get 1 free month yourself." Every happy user becomes a salesperson. This costs nothing when it doesn't work and pays for itself when it does. Build it into the onboarding email from Day 1. Target: 20–30% of new clients to come from referrals by Month 6.</p>
+        <div class="phase-meta"><span class="phase-tag green">Free until it works</span><span class="phase-tag amber">From launch</span></div>
+      </div>
+    </div>
+  </div>
+
+  <h4 style="margin-top:28px">Phase 2 — Paid Amplification (Q1 2027+, budget: €250–350/month)</h4>
+  <div class="phases">
+    <div class="phase">
+      <div class="phase-num">6</div>
+      <div class="phase-body">
+        <h4>Instagram / Facebook ads — Russian-speaking EU practitioners</h4>
+        <p>Target: Russian language + location in NL/DE/ES/FR + interests: astrology, coaching, self-development, beauty. This is a very specific, small audience — which makes ads cheap. Estimated CPM (cost per 1,000 views): €3–6. Cost per trial signup: €8–15. At €250/month budget: <strong>~15–30 trial signups per month.</strong> Converting at 30–40% = 5–12 new paying clients/month. Budget: €250/month.</p>
+        <div class="phase-meta"><span class="phase-tag amber">€250/mo</span><span class="phase-tag green">High relevance targeting</span><span class="phase-tag amber">From Q1 2027</span></div>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-num">7</div>
+      <div class="phase-body">
+        <h4>Retargeting — visitors who didn't sign up</h4>
+        <p>Anyone who visited astrocrm.app but didn't register gets followed by a retargeting ad for 14 days. These are the cheapest conversions possible — they already know the product. Budget: €100/month. Expected cost per conversion: €5–8. This is the highest ROI paid channel.</p>
+        <div class="phase-meta"><span class="phase-tag amber">€100/mo</span><span class="phase-tag green">Highest ROI paid channel</span><span class="phase-tag amber">From Q2 2027</span></div>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-num">8</div>
+      <div class="phase-body">
+        <h4>School & academy partnerships — affiliate model</h4>
+        <p>Astrology schools, coaching certification programs, and beauty master academies train new practitioners who immediately need a CRM. Pitch: "Recommend AstroCRM to your graduates, earn 20–30% of their first year subscription." One partnership with a school of 200 graduates/year = 20–40 potential clients. No upfront cost — commission only.</p>
+        <div class="phase-meta"><span class="phase-tag green">Commission only — no risk</span><span class="phase-tag amber">From Month 5</span></div>
+      </div>
+    </div>
+  </div>
+
+  <h4 style="margin-top:28px">Phase 3 — NL Market Expansion (2028, budget: €300–450/month)</h4>
+  <div class="phases">
+    <div class="phase">
+      <div class="phase-num">9</div>
+      <div class="phase-body">
+        <h4>Google Ads — Dutch ZZP coaches and therapists</h4>
+        <p>Target keywords: "CRM voor coaches", "CRM therapeuten Nederland", "CRM ZZP". Dutch market actively searches these terms. CPC (cost per click): €1–3. Budget: €300/month = ~100–300 visitors/month. Converting at 3–5% = 3–15 new NL clients/month. Requires Dutch language UI to be built first (Q1 2027).</p>
+        <div class="phase-meta"><span class="phase-tag amber">€300/mo</span><span class="phase-tag red">Requires Dutch UI first</span><span class="phase-tag amber">From 2028</span></div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Will Instagram & Facebook Ads Work? — Honest Assessment</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Question</th><th>Answer</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Will the targeting find the right people?</strong></td><td>Yes — Meta's interest targeting for "astrology", "coaching", "self-development" + Russian language + EU location is very precise. This is a small audience (~200K–500K people in EU) which makes it cheap and relevant.</td></tr>
+        <tr><td><strong>What will the ads show?</strong></td><td>Short video: 30-second screen recording of AstroCRM in action. "Веду 50 клиентов — показываю как." Real product, real use. No fancy production. This format converts best with this audience.</td></tr>
+        <tr><td><strong>What does a conversion cost?</strong></td><td>Estimated €8–15 per trial signup. At 30–40% trial-to-paid rate: €20–50 per paying client. At €25/month = payback in 1–2 months. Excellent unit economics.</td></tr>
+        <tr><td><strong>What's the minimum viable budget?</strong></td><td>€150/month to test properly. Below €100/month Meta's algorithm doesn't get enough data to optimise. Start at €150, scale to €250 when you see what's working.</td></tr>
+        <tr><td><strong>Will it work in Russia?</strong></td><td>No. Facebook and Instagram are blocked in Russia. For Russian practitioners inside Russia: YouTube + Telegram only. For Russian-speaking diaspora in EU: Instagram ads work fine.</td></tr>
+        <tr><td><strong>Biggest risk?</strong></td><td>Wrong creative. If the video is boring or unclear, ads won't convert regardless of budget. The script matters more than the budget. Claude writes the scripts.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Full Marketing Budget — 3 Years</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Channel</th><th>2026</th><th>2027</th><th>2028</th><th>Expected clients from channel</th></tr></thead>
+      <tbody>
+        <tr><td>Successcode/TOF audience + personal network</td><td class="green">€0</td><td class="green">€0</td><td class="green">€0</td><td>8–18 clients (Year 1 only — diminishing)</td></tr>
+        <tr><td>Telegram community seeding</td><td class="green">€0</td><td class="green">€0</td><td class="green">€0</td><td>10–20 clients/year ongoing</td></tr>
+        <tr><td>YouTube videos (your time + editor)</td><td class="green">€0</td><td>€2,400/yr (editor)</td><td>€4,800/yr</td><td>5–15 clients/yr compounding</td></tr>
+        <tr><td>Instagram Reels organic</td><td class="green">€0</td><td class="green">€0</td><td class="green">€0</td><td>5–10 clients/year</td></tr>
+        <tr><td>Referral programme</td><td class="green">€0</td><td>~€375 (free months given)</td><td>~€900</td><td>20–30% of all new clients</td></tr>
+        <tr><td>Instagram/Facebook paid ads (EU diaspora)</td><td class="green">€0</td><td>€3,000/yr</td><td>€3,600/yr</td><td>60–120 clients/year at scale</td></tr>
+        <tr><td>Retargeting ads</td><td class="green">€0</td><td>€600/yr</td><td>€1,800/yr</td><td>15–30 clients/year</td></tr>
+        <tr><td>School/academy affiliate (commission)</td><td class="green">€0</td><td>~€500 (commissions paid)</td><td>~€1,200</td><td>20–40 clients/year</td></tr>
+        <tr><td>Google Ads NL</td><td class="green">€0</td><td class="green">€0</td><td>€3,600/yr</td><td>36–60 clients/year</td></tr>
+        <tr><td>Canva Pro + design tools</td><td class="green">€0</td><td>€156/yr</td><td>€156/yr</td><td>Supports all channels</td></tr>
+        <tr class="tr-total"><td><strong>Total marketing spend</strong></td><td class="green"><strong>€0</strong></td><td><strong>~€7,031/yr</strong></td><td><strong>~€16,056/yr</strong></td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>What Claude Delivers for Marketing</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Asset</th><th>Format</th><th>When</th></tr></thead>
+      <tbody>
+        <tr><td>YouTube video scripts (RU)</td><td>Word-for-word script + screen plan + SEO title/description/tags</td><td>Monthly, before each video</td></tr>
+        <tr><td>Instagram Reels scripts (RU)</td><td>60-second narration + what to show on screen</td><td>2–3×/month</td></tr>
+        <tr><td>Telegram community posts (RU)</td><td>Value posts that naturally mention AstroCRM — not ads</td><td>Weekly per community</td></tr>
+        <tr><td>Facebook/Instagram ad copy (RU+EN)</td><td>3–5 ad variations per campaign for A/B testing</td><td>Per campaign launch</td></tr>
+        <tr><td>Email onboarding sequence</td><td>3-email series: welcome → feature tour → day-7 check-in</td><td>One-time setup</td></tr>
+        <tr><td>Referral programme copy (RU+EN)</td><td>In-app message + email invite template</td><td>Pre-launch</td></tr>
+        <tr><td>School partnership pitch (RU+EN)</td><td>One-page email + affiliate terms</td><td>Month 4–5</td></tr>
+        <tr><td>YouTube thumbnail concepts</td><td>Layout brief + text for designer or Canva</td><td>Monthly</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout green">
+    <p><strong>Sales reality check:</strong> 40 clients in Year 1 requires no paid marketing at all. Every client in 2026 comes from organic channels — your existing network, Telegram communities, and early YouTube videos. Paid ads only start in 2027 once the product is proven and you have testimonials to show. <strong>The product sells itself if you show it to the right people in the right communities.</strong></p>
+  </div>
+</div>
+
+<!-- MVP -->
+<div class="section-block" id="mvp">
+  <div class="block-number">09</div>
+  <h2 class="block-title">MVP — What to Build First</h2>
+  <p class="block-sub">The product already exists as a local app. Three things stand between now and a sellable SaaS. Everything else is nice-to-have for 2027.</p>
+
+  <h3>The Three MVP Blockers</h3>
+  <div class="phases">
+    <div class="phase">
+      <div class="phase-num">1</div>
+      <div class="phase-body">
+        <h4>User login / authentication</h4>
+        <p>Right now the app has no login — it runs locally on your Mac. Adding email + password login is the only technical requirement before anyone else can use it. This is the #1 blocker. Without it, nothing else matters.</p>
+        <div class="phase-meta"><span class="phase-tag red">Critical path</span><span class="phase-tag amber">2 weeks</span></div>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-num">2</div>
+      <div class="phase-body">
+        <h4>Deploy to VPS + domain</h4>
+        <p>Register astrocrm.app. Rent a Hetzner server (~€6/mo). Deploy the app. Add HTTPS (free, Let's Encrypt). From this moment, anyone in the world can open a browser and use AstroCRM without installing anything.</p>
+        <div class="phase-meta"><span class="phase-tag red">Critical path</span><span class="phase-tag amber">1 day</span></div>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-num">3</div>
+      <div class="phase-body">
+        <h4>Stripe payment integration</h4>
+        <p>Connect Stripe so clients can pay €15/month by card. Set up monthly subscription billing. Issue invoices automatically. This is what makes it a real business, not a free tool.</p>
+        <div class="phase-meta"><span class="phase-tag red">Critical path</span><span class="phase-tag amber">3–5 days</span></div>
+      </div>
+    </div>
+  </div>
+
+  <h3>What's Already Built (Does Not Need Rebuilding)</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Feature</th><th>Status</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Kanban pipeline (multiple pipelines per business)</td><td class="green">✓ Done</td><td>Fully functional, drag-and-drop</td></tr>
+        <tr><td>Client contacts with full profile</td><td class="green">✓ Done</td><td>Notes, files, tags, session history</td></tr>
+        <tr><td>File attachments (natal charts, docs)</td><td class="green">✓ Done</td><td>Upload per client</td></tr>
+        <tr><td>Email campaigns</td><td class="green">✓ Done</td><td>Draft + send to filtered contacts</td></tr>
+        <tr><td>Email templates + pipeline automation</td><td class="green">✓ Done</td><td>Auto-send when deal moves stage</td></tr>
+        <tr><td>Reports & analytics</td><td class="green">✓ Done</td><td>Revenue, conversions, lead sources</td></tr>
+        <tr><td>CSV / Excel / vCard import</td><td class="green">✓ Done</td><td>Smart column mapping, duplicate detection</td></tr>
+        <tr><td>Two businesses in one account</td><td class="green">✓ Done</td><td>TrendsonFire + Successcode tested</td></tr>
+        <tr><td>Russian + English language</td><td class="green">✓ Done</td><td>Full UI switcher</td></tr>
+        <tr><td>Deadlines view</td><td class="green">✓ Done</td><td>All upcoming tasks across clients</td></tr>
+        <tr><td>User login / auth</td><td class="amber">⚡ In progress</td><td>The last blocker</td></tr>
+        <tr><td>Stripe billing</td><td class="amber">⚡ Next</td><td>3–5 days after auth</td></tr>
+        <tr><td>Telegram lead capture</td><td class="red">Planned Q3 2026</td><td>Post-launch feature</td></tr>
+        <tr><td>Instagram lead capture</td><td class="red">Planned Q4 2026</td><td>Requires Meta developer approval</td></tr>
+        <tr><td>YooKassa (Russia payments for practitioners)</td><td class="red">Planned Q4 2026</td><td>3–5 days build</td></tr>
+        <tr><td>Mobile app</td><td class="red">2027+</td><td>PWA or native — after 200+ users</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout green">
+    <p><strong>The MVP is 90% built.</strong> Total remaining work to reach a sellable product: approximately 3 weeks. The product is not a concept — it is running, tested, and used by two real businesses today. Auth + deploy + Stripe is the finish line, not the starting line.</p>
+  </div>
+
+  <h3>Marketing MVP — Starts Immediately (Before Product Launch)</h3>
+  <div class="phases">
+    <div class="phase">
+      <div class="phase-num">1</div>
+      <div class="phase-body">
+        <h4>Instagram content — fully produced by Claude, starting Month 1</h4>
+        <p>Claude generates both the <strong>image and the caption</strong> for every post — no designer, no Canva, no extra tools. 8–12 posts/month in Russian: educational carousels, product demo Reels, practitioner case stories. Schedule via Buffer (€15/mo) or post manually. This builds an audience before launch so the product has an existing community to sell to on day one.</p>
+        <div class="phase-meta"><span class="phase-tag green">Starts now — before product is live</span><span class="phase-tag green">Zero production cost</span><span class="phase-tag amber">€15/mo Buffer optional</span></div>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-num">2</div>
+      <div class="phase-body">
+        <h4>Waitlist landing page — already live</h4>
+        <p>astrocrm.app landing page captures emails before launch. Every Instagram post drives to this page. Goal: 100+ waitlist signups before the product goes live. Warm audience = faster conversion at launch.</p>
+        <div class="phase-meta"><span class="phase-tag green">Already built</span><span class="phase-tag amber">Drive traffic from Instagram</span></div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Post-MVP Roadmap (Priority Order)</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Feature</th><th>When</th><th>Why</th><th>Build time</th></tr></thead>
+      <tbody>
+        <tr><td>Telegram lead capture bot</td><td>Q3 2026</td><td>Most requested. Practitioners live in Telegram. Auto-creates contact when someone messages their bot.</td><td>2–3 days</td></tr>
+        <tr><td>YooKassa payment links (Russia)</td><td>Q4 2026</td><td>Enables Russian practitioners to collect payments from their own clients inside CRM.</td><td>3–5 days</td></tr>
+        <tr><td>Instagram DM lead capture</td><td>Q4 2026</td><td>Auto-creates contact when someone DMs on Instagram. Requires Meta app approval.</td><td>1–2 weeks</td></tr>
+        <tr><td>Session scheduling (Calendly-style)</td><td>Q1 2027</td><td>Currently practitioners paste Calendly links per client. Native scheduling = higher retention.</td><td>3–4 weeks</td></tr>
+        <tr><td>Client portal</td><td>Q2 2027</td><td>Clients can view their own session notes and files. Premium differentiator.</td><td>2–3 weeks</td></tr>
+        <tr><td>Dutch language UI</td><td>Q1 2027</td><td>Unlock full NL ZZP market. Currently EN+RU only.</td><td>2–3 days</td></tr>
+        <tr><td>Mobile-responsive layout</td><td>Q2 2027</td><td>Many practitioners work from phone. Required for broad adoption.</td><td>1–2 weeks</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- SUPPORT -->
+<div class="section-block" id="support">
+  <div class="block-number">10</div>
+  <h2 class="block-title">Customer Support Strategy</h2>
+  <p class="block-sub">Solo practitioners are used to chat-based support — WhatsApp, Telegram, Instagram DMs. They expect to be able to ask a question and get a human answer. AstroCRM needs to meet this expectation without requiring a full-time support team in Year 1.</p>
+
+  <h3>The Problem</h3>
+  <p>AstroCRM currently has no in-app support channel. Users who hit a problem have no way to ask for help — which increases churn and reduces trust. This must be solved before public launch.</p>
+
+  <h3>Recommended Approach — Phased by Growth Stage</h3>
+  <div class="phases">
+    <div class="phase">
+      <div class="phase-num">1</div>
+      <div class="phase-body">
+        <h4>Launch (May–December 2026) — Telegram button, zero cost</h4>
+        <p>Add a "Write to us in Telegram" button inside the app and on the landing page. Users click → opens your support Telegram. You respond from your phone within a few hours. Your target audience already lives in Telegram — this feels completely natural to them. Cost: <strong>€0.</strong> Setup time: 10 minutes.</p>
+        <div class="phase-meta"><span class="phase-tag green">Free</span><span class="phase-tag amber">10 min setup</span><span class="phase-tag green">Recommended for launch</span></div>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-num">2</div>
+      <div class="phase-body">
+        <h4>Growth (Q1–Q2 2027) — Live chat widget with bot</h4>
+        <p>Add a chat widget (Crisp or Tawk.to) to the app and landing page. Configure a chatbot that answers the 10 most common questions automatically 24/7. You handle everything else from the Crisp mobile app. Bot covers nights and weekends. At 70+ users, hand off Russian-language tickets to the freelance support hire.</p>
+        <div class="phase-meta"><span class="phase-tag amber">€0–25/mo</span><span class="phase-tag amber">From Q1 2027</span></div>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-num">3</div>
+      <div class="phase-body">
+        <h4>Scale (2028) — Dedicated support hire</h4>
+        <p>At 400+ users, support volume justifies a part-time hire. One person handles all tickets in RU + EN, manages the bot knowledge base, and runs onboarding calls for new users. Already budgeted at €1,500/month from Q3 2028.</p>
+        <div class="phase-meta"><span class="phase-tag amber">€1,500/mo</span><span class="phase-tag amber">From Q3 2028</span></div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Support Tool Comparison</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Tool</th><th>Free Tier</th><th>Chatbot</th><th>Mobile App</th><th>Russian</th><th>Monthly Cost</th><th>Best For</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Telegram button</strong></td><td class="green">✓ Free</td><td>—</td><td class="green">✓ Native</td><td class="green">✓</td><td class="green"><strong>€0</strong></td><td>Launch phase. Zero setup. Audience already there.</td></tr>
+        <tr><td><strong>Crisp.chat</strong></td><td class="green">✓ 2 agents</td><td class="green">✓ Built-in</td><td class="green">✓</td><td class="green">✓</td><td>Free or €25/mo</td><td>Growth phase. Best balance of features + price.</td></tr>
+        <tr><td><strong>Tawk.to</strong></td><td class="green">✓ Unlimited</td><td class="green">✓</td><td class="green">✓</td><td class="green">✓</td><td>Free (with ads) or €15/mo</td><td>Budget option. Fully free if ads acceptable.</td></tr>
+        <tr><td><strong>Tidio</strong></td><td class="amber">Limited</td><td class="green">✓ AI</td><td class="green">✓</td><td class="green">✓</td><td>Free or €29/mo</td><td>AI-powered bot. Better for high volume.</td></tr>
+        <tr><td><strong>Intercom</strong></td><td class="red">No</td><td class="green">✓ Advanced</td><td class="green">✓</td><td class="green">✓</td><td>€39–139/mo</td><td>Scale only. Overkill for Year 1–2.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>What the Bot Handles Automatically (set up once)</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Question</th><th>Bot response</th></tr></thead>
+      <tbody>
+        <tr><td>How do I import my contacts?</td><td>Link to import guide + short video</td></tr>
+        <tr><td>I forgot my password</td><td>Link to password reset</td></tr>
+        <tr><td>Does it work in Russian?</td><td>Yes — switch language in the bottom-left corner</td></tr>
+        <tr><td>How much does it cost?</td><td>€15/month (early access) or €25/month standard. Link to pricing.</td></tr>
+        <tr><td>Can I use it for two businesses?</td><td>Yes — Professional plan includes 2 business workspaces</td></tr>
+        <tr><td>Does it work on mobile?</td><td>Current version is desktop browser. Mobile layout coming Q2 2027.</td></tr>
+        <tr><td>Anything else</td><td>"We'll reply within a few hours. Our team is in European timezone."</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Support Cost in Financial Model</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Phase</th><th>Tool</th><th>Monthly Cost</th><th>Your Time</th></tr></thead>
+      <tbody>
+        <tr><td>Launch 2026 (0–40 users)</td><td>Telegram button</td><td class="green"><strong>€0</strong></td><td>~30 min/day answering messages</td></tr>
+        <tr><td>Growth 2027 (40–200 users)</td><td>Crisp chat + freelance support hire (RU)</td><td>€25 + €300 = <strong>€325/mo</strong></td><td>~15 min/day oversight</td></tr>
+        <tr><td>Scale 2028 (200–500 users)</td><td>Crisp Pro + full freelance team</td><td>€25 + €900 = <strong>€925/mo</strong></td><td>Weekly review only</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout amber">
+    <p><strong>Note on the 2026 cost table:</strong> The Crisp/Tawk.to cost of €25/month has been added to the 2027 infrastructure line. In 2026, the Telegram button is free and requires no budget update. Your time answering support in 2026 (~30 min/day) is the real cost — approximately 180 hours for the year, worth €2,700 at €15/hr. This is already included in the break-even calculation above.</p>
+  </div>
+</div>
+
+<!-- TECHNICAL RESILIENCE -->
+<div class="section-block" id="technical">
+  <div class="block-number">11</div>
+  <h2 class="block-title">Technical Resilience — Running Without an IT Team</h2>
+  <p class="block-sub">Do you need a developer on call? How long can the app run without intervention? What do users see when something breaks? Honest answers.</p>
+
+  <h3>How Long Can It Run Without Updates?</h3>
+  <p>The stack — Python/Flask + SQLite database on a Hetzner VPS — is one of the most stable combinations in existence. It has no moving parts that auto-break. A properly deployed AstroCRM can run for <strong>months without any intervention</strong>, as long as no new features are being added and no external APIs change their behaviour.</p>
+  <p>Realistically: plan for a monthly check-in (30 minutes with Claude — review logs, check disk space, apply any security patches). Between check-ins, the app runs itself.</p>
+
+  <h3>What Can Break — And What Users See</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>What breaks</th><th>How often</th><th>What user sees</th><th>Fix time (with Claude)</th><th>Prevention</th></tr></thead>
+      <tbody>
+        <tr><td>Server crash or restart</td><td class="green">Very rare — ~1×/year</td><td>"Site can't be reached" for a few minutes, then auto-recovers</td><td>5 min — one restart command</td><td>Uptime Robot alert → you restart</td></tr>
+        <tr><td>SSL certificate expires</td><td class="green">Rare — auto-renews</td><td>Browser shows "Your connection is not private" warning</td><td>10 min — renew command</td><td>Auto-renewal via Let's Encrypt</td></tr>
+        <tr><td>Disk space full</td><td class="green">Rare — grows slowly</td><td>App stops responding, errors on all pages</td><td>15 min — clear old logs</td><td>Monthly disk check</td></tr>
+        <tr><td>Code bug on specific action</td><td class="amber">Occasional — new features</td><td>Error message or frozen button for that action only</td><td>1–4 hrs with Claude</td><td>Testing before release</td></tr>
+        <tr><td>Stripe API change</td><td class="green">Rare — Stripe is stable</td><td>Payment button fails</td><td>1–2 hrs with Claude</td><td>Stripe sends advance notice</td></tr>
+        <tr><td>Resend email API change</td><td class="green">Rare</td><td>Emails stop sending silently</td><td>1–2 hrs with Claude</td><td>Email delivery monitoring</td></tr>
+        <tr><td>Database corruption</td><td class="green">Extremely rare with SQLite</td><td>Data appears missing or app crashes</td><td>30 min — restore from backup</td><td>Daily Hetzner snapshots (€2/mo)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout green">
+    <p><strong>Key fact:</strong> The vast majority of "incidents" are resolved in under 4 hours with Claude. You describe what's happening, share the error message, and Claude writes the fix. No human developer needed. This is exactly the WAT framework — Claude as the agent layer, deterministic tools for execution.</p>
+  </div>
+
+  <h3>Do You Need a Human IT Expert?</h3>
+  <p><strong>No — with three low-cost safety nets in place:</strong></p>
+  <div class="phases">
+    <div class="phase">
+      <div class="phase-num">1</div>
+      <div class="phase-body">
+        <h4>Uptime Robot — free monitoring</h4>
+        <p>Checks your site every 5 minutes. If it goes down, sends you an instant Telegram or email alert. You know before your users do. Free plan covers everything you need. Setup: 10 minutes.</p>
+        <div class="phase-meta"><span class="phase-tag green">Free</span><span class="phase-tag amber">10 min setup</span></div>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-num">2</div>
+      <div class="phase-body">
+        <h4>Hetzner automatic backups — €2/month</h4>
+        <p>Daily snapshots of your entire server. If anything catastrophic happens (database corruption, accidental deletion, server failure), you restore to yesterday's state in one click from the Hetzner dashboard. No technical knowledge needed for restore.</p>
+        <div class="phase-meta"><span class="phase-tag green">€2/month</span><span class="phase-tag green">One-click restore</span></div>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-num">3</div>
+      <div class="phase-body">
+        <h4>Status page — free</h4>
+        <p>A simple page at <strong>status.astrocrm.app</strong> showing "All systems operational" or "We are investigating an issue — estimated fix: 2 hours." Built on Instatus or Freshstatus (both free tiers). When something breaks, you post an update there in 2 minutes. Users check it instead of flooding your Telegram with "is the site down?"</p>
+        <div class="phase-meta"><span class="phase-tag green">Free</span><span class="phase-tag amber">30 min setup</span></div>
+      </div>
+    </div>
+  </div>
+
+  <h3>What Happens When Claude Is the Developer</h3>
+  <p>Unlike a human developer who might be on holiday, sick, or simply unavailable — Claude is available 24/7. When a bug happens:</p>
+  <div class="phases">
+    <div class="phase">
+      <div class="phase-num">→</div>
+      <div class="phase-body">
+        <h4>The typical incident flow</h4>
+        <p><strong>User reports:</strong> "When I try to move a deal to a new stage, I get an error."<br>
+        <strong>You open Claude Code and describe it.</strong> Claude reads the relevant code, identifies the issue, writes the fix, and you apply it. In 95% of cases this takes <strong>under 2 hours</strong>. For the remaining 5% (complex bugs, third-party API changes), it may take up to half a day.<br>
+        <strong>You post on the status page:</strong> "Bug fixed — please refresh your browser."<br>
+        Total user impact: 2–4 hours of a broken feature. Not ideal, but acceptable for a €15–25/month product in Year 1.</p>
+        <div class="phase-meta"><span class="phase-tag amber">Avg resolution: 2 hrs</span><span class="phase-tag green">No developer salary needed</span></div>
+      </div>
+    </div>
+  </div>
+
+  <h3>What Users Expect at This Price Point</h3>
+  <p>Your users pay €15–25/month for a niche solo CRM. They are not enterprise customers with SLA contracts. They are individual practitioners who also use free tools like Google Calendar and WhatsApp. Their expectations are proportionate:</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Expectation</th><th>Enterprise SaaS (€200+/mo)</th><th>AstroCRM (€25/mo)</th><th>Your obligation</th></tr></thead>
+      <tbody>
+        <tr><td>Uptime guarantee</td><td>99.9% SLA, credits if missed</td><td>Best effort, no formal SLA</td><td>Communicate outages clearly. Fix fast.</td></tr>
+        <tr><td>Bug response time</td><td>Hours (dedicated team)</td><td>Same day / next day</td><td>Acknowledge on Telegram within 2 hrs, fix within 24 hrs</td></tr>
+        <tr><td>Data loss</td><td>Zero tolerance</td><td>Zero tolerance</td><td>Daily backups are non-negotiable. €2/month.</td></tr>
+        <tr><td>New features</td><td>Regular release cycle</td><td>Monthly or as needed</td><td>Communicate roadmap. Don't overpromise.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout">
+    <p><strong>The honest answer to "what if the CRM breaks and you have no IT knowledge?"</strong> Open a conversation with Claude Code, describe what you see (copy the error message), and Claude will diagnose and fix it. This is exactly the model that has built AstroCRM to this point. The same model maintains it. You don't need to understand the code — you need to be able to describe the problem clearly and apply the fix Claude provides.</p>
+  </div>
+
+  <h3>Technical Cost Summary for Financial Model</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Item</th><th>2026</th><th>2027</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Uptime Robot monitoring</td><td class="green">€0</td><td class="green">€0</td><td>Free plan sufficient through 500+ users</td></tr>
+        <tr><td>Hetzner backups</td><td>€2/mo</td><td>€2/mo</td><td>Already included in infrastructure line</td></tr>
+        <tr><td>Status page (Instatus/Freshstatus)</td><td class="green">€0</td><td class="green">€0</td><td>Free tier covers all needs in Year 1–2</td></tr>
+        <tr><td>Claude Code (bug fixes + features)</td><td>€20/mo</td><td>€20/mo</td><td>Already in tools line. Replaces €3,000–8,000/month developer salary.</td></tr>
+        <tr><td>Human IT consultant</td><td class="green">€0</td><td class="green">€0</td><td>Not needed. Claude handles all technical work.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- 8. VERDICT -->
+<div class="section-block" id="verdict">
+  <div class="block-number">08</div>
+  <h2 class="block-title">Verdict & Next Steps</h2>
+  <p class="block-sub">The opportunity is real, the market is underserved, the unit economics are exceptional. The only question is execution speed.</p>
+
+  <h3>Why This Works</h3>
+  <ul>
+    <li><strong>No real competitor</strong> at the intersection of Russian-language + practitioner niche + European legal base</li>
+    <li><strong>Timing is right</strong> — Russian practitioners are moving online, earning in EUR/USD, and actively looking for professional tools</li>
+    <li><strong>You have distribution</strong> — Successcode and TrendsonFire audiences are exactly the target market</li>
+    <li><strong>The product is mostly built</strong> — 2–3 weeks to auth + hosting = sellable SaaS</li>
+    <li><strong>Near-zero operating costs</strong> — profitable from 2 clients, no external funding needed</li>
+  </ul>
+
+  <h3>Recommended Sequence — Next 90 Days</h3>
+  <div class="phases">
+    <div class="phase">
+      <div class="phase-num">1</div>
+      <div class="phase-body">
+        <h4>Week 1–2: Build login/auth</h4>
+        <p>The only technical blocker. Once done, the product is sellable.</p>
+        <div class="phase-meta"><span class="phase-tag red">Do this first</span></div>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-num">2</div>
+      <div class="phase-body">
+        <h4>Week 3: Deploy to Hetzner VPS + domain</h4>
+        <p>Register astrocrm.app. Deploy. Set up HTTPS. Share with first 5 test users from your network.</p>
+        <div class="phase-meta"><span class="phase-tag red">Critical</span><span class="phase-tag amber">1 day setup</span></div>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-num">3</div>
+      <div class="phase-body">
+        <h4>Week 4: First 10 paying clients</h4>
+        <p>Offer founding member pricing (€25 locked forever) to first 50 sign-ups. Post in your Successcode/TrendsonFire channels. Set up Stripe. Issue first invoices.</p>
+        <div class="phase-meta"><span class="phase-tag green">Revenue</span></div>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-num">4</div>
+      <div class="phase-body">
+        <h4>Month 2–3: Community expansion</h4>
+        <p>Join 10 Russian-language Telegram communities for astrologers, coaches, and beauty masters. Post value, not ads. Film first Russian YouTube demo. Launch landing page at astrocrm.app.</p>
+        <div class="phase-meta"><span class="phase-tag green">Growth</span><span class="phase-tag amber">Ongoing</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <p><strong>The real risk is not legal or technical — it's speed.</strong> The Russian-language practitioner CRM gap is real but it won't stay empty forever. amoCRM could add niche features. A Telegram-native CRM could emerge. The window is open <strong>now</strong>. Building auth and deploying in the next 3 weeks is the highest-leverage action possible.</p>
+  </div>
+
+  <p style="margin-top:32px;font-size:13px;color:var(--text3)"><em>Document prepared April 2026. Market figures are estimates based on available public data. All projections are illustrative and not guarantees of performance. Consult a legal advisor before formal entry into the Russian market.</em></p>
+</div>
+
+</div><!-- /content -->
+
+</body>
+</html>

@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Почему мастеру ба-цзы и фэн-шуй нужна система ведения клиентов</title>
+  <meta name="description" content="Большинство мастеров ба-цзы и фэн-шуй ведут клиентов в телефоне и блокноте — и теряют 40% дохода. Вот как это исправить.">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    :root{
+      --red:#c02122;--red2:#a81b1c;--dark:#8B0000;
+      --redbg:rgba(192,33,34,0.07);--redborder:rgba(192,33,34,0.2);
+      --bg:#ffffff;--bg2:#fafafa;--bg3:#f4f4f4;--border:#e8e8e8;
+      --text:#1a1a1a;--text2:#555555;--text3:#999999;
+      --green:#1a8f4c;--greenbg:rgba(26,143,76,0.07);--greenborder:rgba(26,143,76,0.2);
+      --amber:#b8860b;--amberbg:rgba(184,134,11,0.07);--amberborder:rgba(184,134,11,0.25);
+      --radius:14px;
+    }
+    html{scroll-behavior:smooth;}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden;}
+
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:14px 48px;background:rgba(255,255,255,0.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+    .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+    .logo-astro{font-size:20px;font-weight:700;color:#8B0000;font-style:italic;letter-spacing:-0.5px;}
+    .logo-divider{width:2px;height:22px;background:#e5e7eb;}
+    .logo-right{display:flex;flex-direction:column;line-height:1;}
+    .logo-crm{font-size:11px;font-weight:800;color:#1a1f36;letter-spacing:3px;text-transform:uppercase;}
+    .logo-tag{font-size:7px;color:#9ca3af;letter-spacing:1.5px;text-transform:uppercase;margin-top:2px;}
+    .nav-back{background:var(--dark);color:#fff;border:none;padding:9px 20px;border-radius:7px;font-size:13px;font-weight:700;cursor:pointer;text-decoration:none;transition:opacity .2s;}
+    .nav-back:hover{opacity:.85;}
+
+    /* HERO */
+    .hero{padding:130px 48px 80px;background:var(--bg2);border-bottom:1px solid var(--border);}
+    .hero-inner{max-width:820px;margin:0 auto;}
+    .hero-tag{display:inline-block;background:var(--redbg);border:1px solid var(--redborder);color:var(--red);padding:5px 16px;border-radius:100px;font-size:12px;font-weight:700;margin-bottom:24px;text-transform:uppercase;letter-spacing:1px;}
+    .hero h1{font-size:clamp(28px,4.5vw,52px);font-weight:800;letter-spacing:-1.5px;line-height:1.15;margin-bottom:24px;color:var(--text);}
+    .hero h1 em{font-style:normal;color:var(--dark);}
+    .hero-lead{font-size:18px;color:var(--text2);line-height:1.8;max-width:680px;margin-bottom:32px;}
+    .hero-note{font-size:13px;color:var(--text3);border-left:3px solid var(--border);padding-left:14px;line-height:1.6;}
+
+    /* SECTIONS */
+    .section{padding:80px 48px;}
+    .section-inner{max-width:900px;margin:0 auto;}
+    .section-gray{background:var(--bg2);}
+    .label{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--red);margin-bottom:14px;}
+    h2{font-size:clamp(22px,3.5vw,38px);font-weight:800;letter-spacing:-1px;line-height:1.2;margin-bottom:18px;color:var(--text);}
+    h2 em{font-style:normal;color:var(--dark);}
+    .lead{font-size:17px;color:var(--text2);line-height:1.8;margin-bottom:32px;max-width:760px;}
+    p{font-size:15px;color:var(--text2);line-height:1.7;margin-bottom:14px;}
+    p:last-child{margin-bottom:0;}
+
+    /* MIRROR — recognise yourself */
+    .mirror-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:36px;}
+    @media(max-width:640px){.mirror-grid{grid-template-columns:1fr;}}
+    .mirror-card{background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--radius);padding:26px 28px;}
+    .mirror-card.highlight{background:var(--redbg);border-color:var(--redborder);}
+    .mirror-q{font-size:15px;font-weight:600;color:var(--text);margin-bottom:6px;}
+    .mirror-a{font-size:14px;color:var(--text2);line-height:1.6;}
+    .mirror-card.highlight .mirror-q{color:var(--dark);}
+
+    /* MONEY LOSS */
+    .loss-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin:36px 0;}
+    @media(max-width:640px){.loss-row{grid-template-columns:1fr;}}
+    .loss-card{background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--radius);padding:28px;}
+    .loss-amount{font-size:34px;font-weight:800;letter-spacing:-1.5px;color:var(--dark);margin-bottom:6px;}
+    .loss-label{font-size:13px;font-weight:600;color:var(--text);margin-bottom:8px;}
+    .loss-desc{font-size:13px;color:var(--text2);line-height:1.5;}
+
+    /* EXPLAINER — what is CRM */
+    .explainer-steps{margin-top:36px;display:flex;flex-direction:column;gap:20px;}
+    .step{display:flex;gap:22px;align-items:flex-start;}
+    .step-num{flex-shrink:0;width:38px;height:38px;border-radius:50%;background:var(--dark);color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;}
+    .step-body{}
+    .step-title{font-size:16px;font-weight:700;color:var(--text);margin-bottom:4px;}
+    .step-text{font-size:14px;color:var(--text2);line-height:1.6;}
+
+    /* BEFORE / AFTER */
+    .ba-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:36px;}
+    @media(max-width:640px){.ba-grid{grid-template-columns:1fr;}}
+    .ba-col{border-radius:var(--radius);padding:28px 30px;}
+    .ba-col.before{background:var(--bg2);border:1.5px solid var(--border);}
+    .ba-col.after{background:var(--greenbg);border:1.5px solid var(--greenborder);}
+    .ba-heading{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:20px;}
+    .ba-col.before .ba-heading{color:var(--text3);}
+    .ba-col.after .ba-heading{color:var(--green);}
+    .ba-list{list-style:none;}
+    .ba-list li{font-size:14px;color:var(--text2);padding:9px 0;border-bottom:1px solid rgba(0,0,0,0.06);display:flex;gap:10px;line-height:1.5;}
+    .ba-list li:last-child{border-bottom:none;}
+    .ba-list li::before{flex-shrink:0;margin-top:1px;font-weight:700;}
+    .ba-col.before .ba-list li::before{content:'—';color:var(--text3);}
+    .ba-col.after .ba-list li::before{content:'✓';color:var(--green);}
+
+    /* USE CASES — specific Ba Zi / FengShui */
+    .usecase-list{margin-top:36px;display:flex;flex-direction:column;gap:24px;}
+    .usecase{background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--radius);padding:28px 30px;}
+    .usecase-title{font-size:16px;font-weight:700;color:var(--text);margin-bottom:10px;}
+    .usecase-situation{font-size:14px;color:var(--text3);margin-bottom:12px;font-style:italic;line-height:1.6;}
+    .usecase-solution{font-size:14px;color:var(--text2);line-height:1.7;}
+    .usecase-solution strong{color:var(--dark);}
+    .usecase-tag{display:inline-block;margin-top:12px;background:var(--redbg);border:1px solid var(--redborder);color:var(--red);font-size:11px;font-weight:700;padding:4px 11px;border-radius:100px;text-transform:uppercase;letter-spacing:0.5px;}
+
+    /* NUMBERS */
+    .numbers-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:36px;}
+    .num-card{background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--radius);padding:28px;text-align:center;}
+    .num-val{font-size:40px;font-weight:800;letter-spacing:-2px;color:var(--dark);margin-bottom:6px;}
+    .num-label{font-size:13px;color:var(--text2);line-height:1.5;}
+
+    /* OBJECTIONS */
+    .obj-list{margin-top:32px;display:flex;flex-direction:column;gap:16px;}
+    .obj{border-radius:var(--radius);overflow:hidden;border:1.5px solid var(--border);}
+    .obj-q{background:var(--bg2);padding:16px 20px;font-size:15px;font-weight:600;color:var(--text);}
+    .obj-q::before{content:'"';color:var(--text3);margin-right:4px;}
+    .obj-q::after{content:'"';color:var(--text3);margin-left:4px;}
+    .obj-a{background:#fff;padding:16px 20px;font-size:14px;color:var(--text2);line-height:1.7;border-top:1px solid var(--border);}
+    .obj-a strong{color:var(--dark);}
+
+    /* CTA */
+    .cta-section{background:var(--dark);color:#fff;text-align:center;padding:64px 24px;}
+    .cta-section h2{font-size:clamp(22px,3vw,36px);font-weight:800;letter-spacing:-0.5px;margin-bottom:14px;}
+    .cta-section p{font-size:16px;opacity:.8;margin-bottom:32px;}
+    .waitlist-form{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;max-width:480px;margin:0 auto;}
+    .waitlist-input{flex:1;min-width:230px;background:rgba(255,255,255,0.12);border:1.5px solid rgba(255,255,255,0.3);border-radius:10px;padding:14px 18px;color:#fff;font-size:15px;outline:none;transition:border-color .2s;}
+    .waitlist-input:focus{border-color:rgba(255,255,255,0.7);}
+    .waitlist-input::placeholder{color:rgba(255,255,255,0.5);}
+    .btn-white{background:#fff;color:var(--dark);padding:14px 28px;border-radius:10px;font-size:15px;font-weight:700;border:none;cursor:pointer;transition:all .2s;}
+    .btn-white:hover{background:#f5f5f5;transform:translateY(-1px);}
+    .cta-note{font-size:13px;opacity:.55;margin-top:14px;}
+
+    /* FOOTER */
+    footer{border-top:1px solid var(--border);padding:36px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;background:var(--bg);}
+    .footer-links{display:flex;gap:24px;flex-wrap:wrap;}
+    .footer-links a{color:var(--text3);font-size:13px;text-decoration:none;}
+    .footer-copy{font-size:12px;color:var(--text3);}
+
+    /* DIVIDER */
+    .section-divider{height:1px;background:var(--border);max-width:900px;margin:0 auto;}
+
+    @media(max-width:768px){
+      nav{padding:12px 18px;}
+      .hero{padding:100px 24px 60px;}
+      .section{padding:60px 24px;}
+      footer{flex-direction:column;text-align:center;}
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="index.html">
+    <span class="logo-astro">Astro</span>
+    <div class="logo-divider"></div>
+    <div class="logo-right">
+      <span class="logo-crm">CRM</span>
+      <span class="logo-tag">Client Manager</span>
+    </div>
+  </a>
+  <a class="nav-back" href="index.html">← На главную</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">Для мастеров ба-цзы и фэн-шуй</div>
+    <h1>Вы ведёте клиентов<br>в телефоне и блокноте.<br><em>И теряете деньги каждую неделю.</em></h1>
+    <p class="hero-lead">Слово «CRM» вы, скорее всего, слышали — и сразу решили, что это не для вас. Для больших компаний, для менеджеров по продажам, для тех, кто продаёт что-то массовое. Не для мастера ба-цзы, у которого 30–80 клиентов в год.</p>
+    <p class="hero-note">На этой странице мы разберём конкретно: что происходит в практике без системы, сколько это стоит, и как простой инструмент меняет ситуацию — без технических знаний, за один вечер.</p>
+  </div>
+</section>
+
+<!-- УЗНАЙТЕ СЕБЯ -->
+<section class="section">
+  <div class="section-inner">
+    <div class="label">Узнайте себя</div>
+    <h2>Это знакомо?</h2>
+    <p class="lead">Прочитайте эти ситуации. Если хотя бы три из них звучат как ваша жизнь — эта страница написана для вас.</p>
+    <div class="mirror-grid">
+      <div class="mirror-card highlight">
+        <div class="mirror-q">«Мне написали насчёт консультации, я собиралась ответить...»</div>
+        <div class="mirror-a">...и вспомнила об этом через две недели. Человек уже нашёл другого мастера.</div>
+      </div>
+      <div class="mirror-card highlight">
+        <div class="mirror-q">«Клиент был полгода назад, надо бы написать ему»</div>
+        <div class="mirror-a">Но вы не помните точно, что делали на той сессии. Неловко писать вслепую — и не пишете.</div>
+      </div>
+      <div class="mirror-card highlight">
+        <div class="mirror-q">«У меня где-то записан его бацзы, но не могу найти»</div>
+        <div class="mirror-a">Карты в одном чате, заметки в другом, дата рождения в третьем. Тратите 15 минут перед каждым звонком.</div>
+      </div>
+      <div class="mirror-card highlight">
+        <div class="mirror-q">«Сколько я заработала в прошлом месяце?»</div>
+        <div class="mirror-a">Нужно открыть переписку, посчитать переводы, сложить вручную. Полчаса — и цифра всё равно приблизительная.</div>
+      </div>
+      <div class="mirror-card">
+        <div class="mirror-q">«Я работаю через рекомендации»</div>
+        <div class="mirror-a">Рекомендации — хорошо. Но вы никогда систематически не просили отзывы и не напоминали о себе. Люди просто забывают вас рекомендовать.</div>
+      </div>
+      <div class="mirror-card">
+        <div class="mirror-q">«Когда у меня нет клиентов — я не знаю, что делать»</div>
+        <div class="mirror-a">Потому что нет списка «тёплых» контактов, которым можно написать прямо сейчас. Каждый раз начинаете с нуля.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- СКОЛЬКО ВЫ ТЕРЯЕТЕ -->
+<section class="section section-gray">
+  <div class="section-inner">
+    <div class="label">Цена хаоса</div>
+    <h2>Сколько это стоит в деньгах</h2>
+    <p class="lead">Давайте посчитаем конкретно. Предположим, ваша консультация стоит 150€ (или эквивалент в рублях). Вот типичные потери за год:</p>
+    <div class="loss-row">
+      <div class="loss-card">
+        <div class="loss-amount">3–5</div>
+        <div class="loss-label">забытых запросов в месяц</div>
+        <div class="loss-desc">Вам написали, но вы не ответили вовремя. Люди ушли. При стоимости консультации 150€ — это 450–750€ в месяц.</div>
+      </div>
+      <div class="loss-card">
+        <div class="loss-amount">60%</div>
+        <div class="loss-label">прошлых клиентов не возвращаются</div>
+        <div class="loss-desc">Не потому что недовольны — а потому что вы никогда не написали. Повторная консультация — это уже тёплый клиент, без затрат на привлечение.</div>
+      </div>
+      <div class="loss-card">
+        <div class="loss-amount">5–8 ч</div>
+        <div class="loss-label">в неделю на ручную работу</div>
+        <div class="loss-desc">Поиск записей, ручные ответы, перенос данных. За год — это 300+ часов, которые можно было провести с клиентами или отдыхать.</div>
+      </div>
+    </div>
+    <p style="font-size:14px;color:var(--text3);margin-top:8px">Реальные потери у практиков с 30–50 клиентами в год обычно составляют €3 000–8 000 упущенного дохода. Это не теория — это клиенты, которые были, но не вернулись.</p>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ЧТО ТАКОЕ CRM ПРОСТЫМИ СЛОВАМИ -->
+<section class="section">
+  <div class="section-inner">
+    <div class="label">Простыми словами</div>
+    <h2>Что такое CRM — <em>без технического языка</em></h2>
+    <p class="lead">CRM — это просто цифровая папка на каждого клиента плюс список дел. Ничего больше. Представьте, что у вас есть очень умный ассистент, который:</p>
+    <div class="explainer-steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">Записывает каждого, кто к вам обратился</div>
+          <div class="step-text">Написали в Telegram, WhatsApp, Instagram — неважно. Вы добавляете человека за 30 секунд: имя, дата рождения, откуда пришёл. Больше никто не потеряется.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">Хранит всё про клиента в одном месте</div>
+          <div class="step-text">Карта ба-цзы, фэн-шуй схема дома, заметки после сессии, дата рождения супруга, история обращений. Открываете карточку — и видите всё. Перед консультацией освежаете память за 2 минуты.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">Показывает, кому давно не писали</div>
+          <div class="step-text">«Вот 12 клиентов, у которых консультация была больше 6 месяцев назад». Вы видите список — и можете написать всем сразу или по одному. Не нужно ничего помнить.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <div class="step-title">Считает деньги за вас</div>
+          <div class="step-text">Сколько заработали за месяц, квартал, год. Какая услуга приносит больше всего. Откуда приходят лучшие клиенты. Всё это — одна кнопка, 10 секунд.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <div class="step-title">Напоминает о follow-up</div>
+          <div class="step-text">Поставили задачу «написать через месяц» — система напомнит. Не нужны стикеры, будильники и заметки на телефоне.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ДО И ПОСЛЕ -->
+<section class="section section-gray">
+  <div class="section-inner">
+    <div class="label">До и после</div>
+    <h2>Один день мастера ба-цзы — <em>две версии</em></h2>
+    <p class="lead">Один и тот же понедельник. Одни и те же клиенты. Разный инструмент.</p>
+    <div class="ba-grid">
+      <div class="ba-col before">
+        <div class="ba-heading">Без системы — сейчас</div>
+        <ul class="ba-list">
+          <li>Пришёл новый запрос в Telegram. Ответили «ок, напишу позже». Записали на бумажке. Бумажка потерялась.</li>
+          <li>Перед звонком тратите 20 минут на поиск карты клиента — она в разных чатах и папках.</li>
+          <li>Клиент спрашивает «а что мы делали в прошлый раз?» — вспоминаете по памяти, что-то забыли.</li>
+          <li>В конце месяца вручную считаете доход, открывая банковское приложение и переписку.</li>
+          <li>Знаете, что надо написать тем, кто давно не приходил — но не знаете кому и что говорить.</li>
+          <li>Рекомендации случайные. Не просите отзывы систематически.</li>
+        </ul>
+      </div>
+      <div class="ba-col after">
+        <div class="ba-heading">С AstroCRM — как могло бы быть</div>
+        <ul class="ba-list">
+          <li>Новый запрос — добавили карточку за 30 секунд. Статус «новый лид». Система напомнит ответить.</li>
+          <li>Перед консультацией открываете карточку: карта ба-цзы, схема дома, заметки прошлых сессий — всё здесь.</li>
+          <li>«В прошлый раз мы разбирали сектор здоровья и я рекомендовала убрать зеркало» — вы читаете свои заметки.</li>
+          <li>Доход за месяц — один клик, три секунды. Видите по услугам, по источникам.</li>
+          <li>Фильтр: «клиенты без контакта больше 6 месяцев» — список готов. Отправляете сообщение всем сразу.</li>
+          <li>После каждой сессии — автоматическое письмо с просьбой оставить отзыв.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- КОНКРЕТНЫЕ КЕЙСЫ -->
+<section class="section">
+  <div class="section-inner">
+    <div class="label">Конкретные ситуации</div>
+    <h2>Как это работает для вашей практики</h2>
+    <p class="lead">Не абстрактно, а конкретно: вот реальные ситуации из жизни мастеров ба-цзы и фэн-шуй — и как система их решает.</p>
+    <div class="usecase-list">
+
+      <div class="usecase">
+        <div class="usecase-title">Клиент хочет консультацию для всей семьи</div>
+        <div class="usecase-situation">«Сначала пришла Марина насчёт ба-цзы. Потом попросила сделать карту мужу. Потом — детям. Всё это в разных переписках, даты рождения где-то записаны, а карты — вообще непонятно где.»</div>
+        <div class="usecase-solution">В AstroCRM вы создаёте карточку на Марину и прикрепляете к ней файлы карт всей семьи. В заметках — что обсуждали, что рекомендовали, когда планируется следующая сессия. Всё в одном месте. Через год, когда Марина напишет снова, вы откроете её карточку и мгновенно вспомните всё. <strong>Клиенты чувствуют эту разницу.</strong></div>
+        <span class="usecase-tag">Хранение карт и истории семьи</span>
+      </div>
+
+      <div class="usecase">
+        <div class="usecase-title">Сезонные консультации по фэн-шуй</div>
+        <div class="usecase-situation">«Каждый год перед Китайским новым годом или в начале солнечного года у меня всплеск запросов. Но я никогда не знаю, кому из прошлых клиентов написать заранее — просто жду, кто сам вспомнит.»</div>
+        <div class="usecase-solution">За 3 недели до события вы открываете фильтр: все клиенты, у которых последняя консультация была год назад. Список готов. Пишете одно письмо с подстановкой имени — <strong>«Привет, [Имя], в этом году я готовлю обновлённый анализ сектора здоровья...»</strong> — и отправляете всем сразу. Часть из них запишется без дополнительных напоминаний.</div>
+        <span class="usecase-tag">Сезонные рассылки</span>
+      </div>
+
+      <div class="usecase">
+        <div class="usecase-title">Клиент «потерялся» после первой сессии</div>
+        <div class="usecase-situation">«Она пришла на ба-цзы, всё прошло хорошо, говорила что хочет вернуться. Прошло полгода — молчание. Я думаю, может обиделась? Может нашла другого? Неловко писать.»</div>
+        <div class="usecase-solution">Когда в карточке клиента стоит дата последней сессии, система показывает вам, что прошло 6 месяцев. Это не навязчивость — это забота. <strong>«Привет, Анна, мы общались полгода назад. Хочу узнать, как всё складывается после нашей консультации — и напомнить, что в этом году есть интересные транзиты для вашего дня рождения...»</strong> Такое письмо открывают и на него отвечают.</div>
+        <span class="usecase-tag">Follow-up без неловкости</span>
+      </div>
+
+      <div class="usecase">
+        <div class="usecase-title">Вы работаете из разных мессенджеров</div>
+        <div class="usecase-situation">«Одни клиенты пишут в Telegram, другие — в WhatsApp, третьи — через Instagram. Кто-то нашёл через сайт, кто-то через подругу. Всё это в разных местах, и я постоянно что-то теряю.»</div>
+        <div class="usecase-solution">В карточке клиента есть поле «источник» — Instagram, Telegram, рекомендация, лекция, YouTube. Через 6 месяцев вы открываете отчёт и видите: <strong>70% лучших клиентов пришли через Instagram, а не через сайт.</strong> Значит, именно туда стоит вкладывать время. Без системы вы никогда не узнаете эту цифру.</div>
+        <span class="usecase-tag">Аналитика источников клиентов</span>
+      </div>
+
+      <div class="usecase">
+        <div class="usecase-title">Онлайн-консультации для разных часовых поясов</div>
+        <div class="usecase-situation">«У меня клиенты из России, Казахстана, Европы, иногда из США. Времена разные, договорённости теряются, забываю кому что обещала.»</div>
+        <div class="usecase-solution">Для каждого клиента — карточка с заметками, история договорённостей, ссылка на Calendly или Google Meet. В разделе «дедлайны» вы видите все запланированные сессии на этой неделе сразу. <strong>Больше не нужно держать расписание в голове.</strong></div>
+        <span class="usecase-tag">Расписание и дедлайны</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ЦИФРЫ -->
+<section class="section section-gray">
+  <div class="section-inner">
+    <div class="label">Что меняется</div>
+    <h2>Что происходит, когда система появляется</h2>
+    <p class="lead">Это не фантастика. Это то, что происходит, когда практик переходит от блокнота к системе — даже самой простой.</p>
+    <div class="numbers-grid">
+      <div class="num-card">
+        <div class="num-val">+30%</div>
+        <div class="num-label">повторных консультаций — от системных follow-up</div>
+      </div>
+      <div class="num-card">
+        <div class="num-val">0</div>
+        <div class="num-label">забытых запросов — каждый новый лид зафиксирован</div>
+      </div>
+      <div class="num-card">
+        <div class="num-val">5 мин</div>
+        <div class="num-label">вместо 20 — подготовка к каждой сессии</div>
+      </div>
+      <div class="num-card">
+        <div class="num-val">1 клик</div>
+        <div class="num-label">чтобы узнать доход за любой период</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ВОЗРАЖЕНИЯ -->
+<section class="section">
+  <div class="section-inner">
+    <div class="label">Честные вопросы</div>
+    <h2>«Но у меня это не сработает, потому что...»</h2>
+    <p class="lead">Вот самые частые возражения — и честные ответы на них.</p>
+    <div class="obj-list">
+      <div class="obj">
+        <div class="obj-q">У меня мало клиентов, мне это не нужно</div>
+        <div class="obj-a">Как раз наоборот. Когда клиентов 10–30 в год — каждый на счету. Потеря одного — это 2–5% годового дохода. <strong>Система окупается с первого возвращённого клиента.</strong> При консультации в 150€ и стоимости AstroCRM в 15€ в месяц — это одна дополнительная консультация раз в три месяца.</div>
+      </div>
+      <div class="obj">
+        <div class="obj-q">Я не технический человек, мне будет сложно</div>
+        <div class="obj-a">AstroCRM создан именно для нетехнических людей. Если вы умеете пользоваться Telegram и Google Таблицами — вы справитесь. <strong>Первый клиент добавляется за 60 секунд.</strong> Никакого обучения, никаких инструкций. Интерфейс полностью на русском языке.</div>
+      </div>
+      <div class="obj">
+        <div class="obj-q">Я и так всё помню о своих клиентах</div>
+        <div class="obj-a">Помните — пока их 10. При 30–50 клиентах память начинает подводить. <strong>Но дело не только в памяти.</strong> Дело в системе: когда последний раз писали этому человеку? Какая услуга приносит вам больше всего? Кто из клиентов не вернулся и почему? На эти вопросы память не отвечает — отвечает система.</div>
+      </div>
+      <div class="obj">
+        <div class="obj-q">Это нарушает приватность моих клиентов</div>
+        <div class="obj-a">Ваши данные хранятся на защищённом сервере, к которому есть доступ только у вас. <strong>Это безопаснее, чем переписка в Telegram или файл в Google Drive</strong> — которые вы уже используете. Никакая третья сторона не видит ваши данные.</div>
+      </div>
+      <div class="obj">
+        <div class="obj-q">У меня нет времени на это разбираться</div>
+        <div class="obj-a">Вы уже тратите время — просто хаотично. Поиск записей, ручной подсчёт, повторный ввод данных. <strong>Первоначальная настройка занимает один вечер.</strong> После этого — экономия 5–8 часов в неделю. Это не трата времени, это инвестиция с возвратом уже в первый месяц.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- С ЧЕГО НАЧАТЬ -->
+<section class="section section-gray">
+  <div class="section-inner">
+    <div class="label">С чего начать</div>
+    <h2>Три шага, чтобы попробовать</h2>
+    <p class="lead">Не нужно переносить всех клиентов сразу. Начните с малого — и через неделю почувствуете разницу.</p>
+    <div class="explainer-steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">Добавьте 5 последних клиентов</div>
+          <div class="step-text">Имя, дата рождения, откуда пришёл, что делали. Это займёт 10–15 минут. После этого все их данные — в одном месте, а не в трёх чатах.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">Напишите тем, кого давно не было</div>
+          <div class="step-text">Используйте фильтр «последняя консультация — больше 3 месяцев». Отправьте одно тёплое сообщение. Посмотрите, кто откликнется. Обычно — 30–40% людей.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">Добавляйте каждый новый запрос сразу</div>
+          <div class="step-text">Пришёл новый человек — 30 секунд, карточка создана. Через месяц у вас будет полная картина: кто интересовался, кто стал клиентом, откуда они все.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="waitlist">
+  <h2>Попробуйте — первый месяц бесплатно</h2>
+  <p>Ранний доступ открывается в мае 2026. Оставьте email — мы напишем первыми.</p>
+  <div class="waitlist-form">
+    <input type="email" id="waitlist-email" class="waitlist-input" placeholder="ваш@email.com">
+    <button class="btn-white" onclick="joinWaitlist()">Хочу попробовать →</button>
+  </div>
+  <p class="cta-note">Никакого спама. Только одно письмо, когда откроется доступ.</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a class="nav-logo" href="index.html">
+    <span class="logo-astro">Astro</span>
+    <div class="logo-divider"></div>
+    <div class="logo-right">
+      <span class="logo-crm">CRM</span>
+      <span class="logo-tag">Client Manager</span>
+    </div>
+  </a>
+  <div class="footer-links">
+    <a href="index.html">Главная</a>
+    <a href="index.html#pricing">Цены</a>
+  </div>
+  <div class="footer-copy">© 2026 AstroCRM. Создан для практиков.</div>
+</footer>
+
+<script>
+function joinWaitlist(){
+  const email = document.getElementById('waitlist-email').value.trim();
+  if(!email || !email.includes('@')){
+    alert('Пожалуйста, введите корректный email');
+    return;
+  }
+  alert('Спасибо! Мы напишем вам, когда откроется ранний доступ.');
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AstroCRM — Launch Task List 2026</title>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    :root{
+      --red:#c02122;--redbg:rgba(192,33,34,0.07);--redborder:rgba(192,33,34,0.2);
+      --bg:#fff;--bg2:#fafafa;--bg3:#f4f4f4;--border:#e8e8e8;
+      --text:#1a1a1a;--text2:#555;--text3:#999;
+      --green:#1a8f4c;--greenbg:rgba(26,143,76,0.07);--greenborder:rgba(26,143,76,0.2);
+      --amber:#b8860b;--amberbg:rgba(184,134,11,0.07);--amberborder:rgba(184,134,11,0.25);
+      --blue:#1a5fb4;--bluebg:rgba(26,95,180,0.07);--blueborder:rgba(26,95,180,0.2);
+      --radius:14px;
+    }
+    html{scroll-behavior:smooth;}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden;}
+
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:14px 48px;background:rgba(255,255,255,0.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+    .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+    .logo-astro{font-size:20px;font-weight:700;color:#8B0000;font-style:italic;letter-spacing:-0.5px;}
+    .logo-divider{width:2px;height:22px;background:#e5e7eb;}
+    .logo-right{display:flex;flex-direction:column;line-height:1;}
+    .logo-crm{font-size:11px;font-weight:800;color:#1a1f36;letter-spacing:3px;text-transform:uppercase;}
+    .logo-tag{font-size:7px;color:#9ca3af;letter-spacing:1.5px;text-transform:uppercase;margin-top:2px;}
+    .nav-links{display:flex;gap:18px;flex-wrap:wrap;}
+    .nav-links a{color:var(--text2);text-decoration:none;font-size:12px;transition:color .2s;}
+    .nav-links a:hover{color:var(--red);}
+    .nav-back{background:var(--red);color:#fff;border:none;padding:9px 20px;border-radius:7px;font-size:13px;font-weight:700;cursor:pointer;text-decoration:none;white-space:nowrap;}
+
+    .hero{padding:120px 48px 52px;background:var(--bg2);border-bottom:1px solid var(--border);}
+    .hero-inner{max-width:900px;}
+    .doc-label{display:inline-flex;align-items:center;gap:8px;background:var(--redbg);border:1px solid var(--redborder);color:var(--red);padding:5px 14px;border-radius:100px;font-size:12px;font-weight:700;margin-bottom:20px;text-transform:uppercase;letter-spacing:1px;}
+    .hero h1{font-size:clamp(24px,4vw,42px);font-weight:800;letter-spacing:-1.5px;line-height:1.15;margin-bottom:12px;}
+    .hero h1 span{color:var(--red);}
+    .hero p{font-size:15px;color:var(--text2);max-width:680px;line-height:1.7;}
+    .hero-meta{font-size:13px;color:var(--text3);margin-top:12px;}
+
+    /* OVERALL PROGRESS */
+    .progress-overall{margin-top:28px;max-width:600px;background:var(--bg);border:1.5px solid var(--border);border-radius:var(--radius);padding:20px 24px;}
+    .progress-overall-label{font-size:13px;font-weight:700;margin-bottom:14px;color:var(--text);}
+    .prog-row{display:flex;align-items:center;gap:12px;margin-bottom:8px;}
+    .prog-row:last-child{margin-bottom:0;}
+    .prog-name{font-size:12px;color:var(--text3);width:100px;flex-shrink:0;}
+    .prog-track{flex:1;height:7px;background:var(--bg3);border-radius:100px;overflow:hidden;}
+    .prog-fill{height:100%;border-radius:100px;transition:width .4s ease;}
+    .prog-fill.overall{background:#8B0000;}
+    .prog-fill.month{background:var(--blue);}
+    .prog-fill.done-month{background:var(--green);}
+    .prog-count{font-size:12px;color:var(--text3);width:60px;text-align:right;flex-shrink:0;}
+
+    /* MONTH JUMP NAV */
+    .month-nav{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:36px;}
+    .month-nav a{font-size:12px;font-weight:600;padding:6px 14px;border-radius:100px;border:1.5px solid var(--border);color:var(--text2);text-decoration:none;transition:all .15s;}
+    .month-nav a:hover{border-color:var(--red);color:var(--red);}
+    .month-nav a.overdue{border-color:var(--redborder);color:var(--red);background:var(--redbg);}
+    .month-nav a.current{border-color:var(--amber);color:var(--amber);background:var(--amberbg);}
+    .month-nav a.future{color:var(--text3);}
+
+    /* CONTENT */
+    .content{max-width:900px;margin:0 auto;padding:48px 48px 100px;}
+
+    /* MONTH BLOCK */
+    .month-block{margin-bottom:56px;}
+    .month-header{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;margin-bottom:6px;}
+    .month-title-wrap{display:flex;align-items:center;gap:14px;}
+    .month-badge{display:inline-flex;padding:5px 16px;border-radius:100px;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;white-space:nowrap;}
+    .month-badge.overdue{background:#8B0000;color:#fff;}
+    .month-badge.current{background:var(--amberbg);color:var(--amber);border:1px solid var(--amberborder);}
+    .month-badge.upcoming{background:var(--bluebg);color:var(--blue);border:1px solid var(--blueborder);}
+    .month-badge.later{background:var(--bg3);color:var(--text3);border:1px solid var(--border);}
+    .month-badge.launch{background:var(--greenbg);color:var(--green);border:1px solid var(--greenborder);}
+    .month-title{font-size:22px;font-weight:800;letter-spacing:-0.5px;}
+    .month-goal{font-size:13px;color:var(--text3);margin-top:2px;}
+    .month-prog-wrap{display:flex;align-items:center;gap:10px;min-width:160px;}
+    .month-prog-track{flex:1;height:6px;background:var(--bg3);border-radius:100px;overflow:hidden;}
+    .month-prog-fill{height:100%;border-radius:100px;background:var(--blue);transition:width .4s;}
+    .month-prog-text{font-size:12px;color:var(--text3);white-space:nowrap;}
+    .month-divider{height:2px;background:var(--border);margin:12px 0 20px;}
+
+    /* CATEGORY */
+    .category{margin-bottom:18px;}
+    .category-title{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:2px;color:var(--text3);margin-bottom:8px;padding:0 4px;}
+
+    /* TASK */
+    .task{display:flex;align-items:flex-start;gap:14px;padding:13px 16px;border-radius:10px;border:1.5px solid var(--border);background:var(--bg);margin-bottom:7px;cursor:pointer;transition:border-color .15s,background .15s;}
+    .task:hover{border-color:#ccc;background:var(--bg2);}
+    .task.done{background:var(--bg2);opacity:.5;}
+    .task.done .task-title{text-decoration:line-through;color:var(--text3);}
+    .task-check{flex-shrink:0;width:20px;height:20px;border-radius:6px;border:2px solid var(--border);margin-top:1px;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+    .task.done .task-check{background:var(--green);border-color:var(--green);}
+    .task-check svg{display:none;width:12px;height:12px;}
+    .task.done .task-check svg{display:block;}
+    .task-body{flex:1;min-width:0;}
+    .task-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;}
+    .task-title{font-size:14px;font-weight:600;color:var(--text);line-height:1.4;margin-bottom:2px;}
+    .task-deadline{font-size:11px;font-weight:700;color:var(--text3);white-space:nowrap;flex-shrink:0;padding:2px 8px;border-radius:100px;background:var(--bg3);}
+    .task-deadline.overdue{background:var(--redbg);color:var(--red);}
+    .task-deadline.soon{background:var(--amberbg);color:var(--amber);}
+    .task-note{font-size:13px;color:var(--text3);line-height:1.5;}
+    .task-tags{display:flex;gap:6px;margin-top:7px;flex-wrap:wrap;}
+    .tag{font-size:11px;font-weight:700;padding:2px 8px;border-radius:100px;}
+    .tag.red{background:var(--redbg);color:var(--red);}
+    .tag.amber{background:var(--amberbg);color:var(--amber);}
+    .tag.green{background:var(--greenbg);color:var(--green);}
+    .tag.blue{background:var(--bluebg);color:var(--blue);}
+    .tag.grey{background:var(--bg3);color:var(--text3);}
+
+    /* MILESTONE */
+    .milestone{display:flex;align-items:center;gap:12px;padding:14px 18px;border-radius:10px;background:var(--greenbg);border:1.5px solid var(--greenborder);margin:16px 0;}
+    .milestone-icon{font-size:20px;flex-shrink:0;}
+    .milestone-text{font-size:14px;font-weight:700;color:var(--green);}
+    .milestone-sub{font-size:13px;color:var(--green);opacity:.8;}
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <span class="logo-astro">Astro</span>
+    <div class="logo-divider"></div>
+    <div class="logo-right">
+      <span class="logo-crm">CRM</span>
+      <span class="logo-tag">Client Manager</span>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="#apr">April</a>
+    <a href="#may">May</a>
+    <a href="#jun">June</a>
+    <a href="#jul">July</a>
+    <a href="#aug">August</a>
+    <a href="#sep">September</a>
+    <a href="#oct">October</a>
+    <a href="#nov">Nov–Dec</a>
+    <a href="#2027">2027+</a>
+  </div>
+  <a href="business-case.html" class="nav-back">← Business Case</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="doc-label">Internal · 2026 Roadmap</div>
+    <h1>AstroCRM — <span>Task List & Timeline</span></h1>
+    <p>Every task needed to build, launch, and grow AstroCRM in 2026. Assigned by month with deadlines. Check off tasks as you complete them — progress saves in your browser.</p>
+
+    <div class="progress-overall">
+      <div class="progress-overall-label">2026 Overall Progress</div>
+      <div class="prog-row">
+        <span class="prog-name">All of 2026</span>
+        <div class="prog-track"><div class="prog-fill overall" id="fill-overall" style="width:0%"></div></div>
+        <span class="prog-count" id="count-overall">0 / 0</span>
+      </div>
+      <div class="prog-row">
+        <span class="prog-name">April</span>
+        <div class="prog-track"><div class="prog-fill month" id="fill-apr" style="width:0%"></div></div>
+        <span class="prog-count" id="count-apr">0 / 0</span>
+      </div>
+      <div class="prog-row">
+        <span class="prog-name">May</span>
+        <div class="prog-track"><div class="prog-fill month" id="fill-may" style="width:0%"></div></div>
+        <span class="prog-count" id="count-may">0 / 0</span>
+      </div>
+      <div class="prog-row">
+        <span class="prog-name">June</span>
+        <div class="prog-track"><div class="prog-fill month" id="fill-jun" style="width:0%"></div></div>
+        <span class="prog-count" id="count-jun">0 / 0</span>
+      </div>
+      <div class="prog-row">
+        <span class="prog-name">July</span>
+        <div class="prog-track"><div class="prog-fill month" id="fill-jul" style="width:0%"></div></div>
+        <span class="prog-count" id="count-jul">0 / 0</span>
+      </div>
+      <div class="prog-row">
+        <span class="prog-name">Aug–Dec</span>
+        <div class="prog-track"><div class="prog-fill month" id="fill-rest" style="width:0%"></div></div>
+        <span class="prog-count" id="count-rest">0 / 0</span>
+      </div>
+    </div>
+    <div class="hero-meta">Click any task to mark complete · Last updated: April 2026</div>
+  </div>
+</div>
+
+<div class="content">
+
+  <div class="month-nav">
+    <a href="#apr" class="current">April — Blockers</a>
+    <a href="#may" class="upcoming">May — Build</a>
+    <a href="#jun" class="upcoming">June — Beta</a>
+    <a href="#jul" class="upcoming">July — Launch</a>
+    <a href="#aug" class="future">August</a>
+    <a href="#sep" class="future">September</a>
+    <a href="#oct" class="future">October</a>
+    <a href="#nov" class="future">Nov–Dec</a>
+    <a href="#2027" class="future">2027+</a>
+  </div>
+
+  <!-- ═══════════════════════════════ APRIL ═══════════════════════════════ -->
+  <div class="month-block" id="apr" data-month="apr">
+    <div class="month-header">
+      <div class="month-title-wrap">
+        <span class="month-badge current">April 2026</span>
+        <div>
+          <div class="month-title">Foundation — Nothing Else Moves Without This</div>
+          <div class="month-goal">Goal: domain registered, server running, auth building</div>
+        </div>
+      </div>
+      <div class="month-prog-wrap">
+        <div class="month-prog-track"><div class="month-prog-fill" id="mfill-apr" style="width:0%"></div></div>
+        <span class="month-prog-text" id="mcount-apr">0/0</span>
+      </div>
+    </div>
+    <div class="month-divider"></div>
+
+    <div class="category">
+      <div class="category-title">Domain & Hosting</div>
+
+      <div class="task" data-id="a1" data-month="apr">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Register astrocrm.app domain</div><span class="task-deadline soon">5 Apr</span></div>
+          <div class="task-note">Namecheap or Hetzner. ~€15/year. Clean record, works in EU and Russia, HTTPS enforced. This is the confirmed domain.</div>
+          <div class="task-tags"><span class="tag red">Blocker</span><span class="tag grey">€15/yr</span><span class="tag grey">You handle · 30 min</span></div>
+        </div>
+      </div>
+
+      <div class="task" data-id="a2" data-month="apr">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Rent Hetzner VPS server (CX21)</div><span class="task-deadline soon">5 Apr</span></div>
+          <div class="task-note">hetzner.com — €6–15/month. Create account, choose CX21 plan, pick Frankfurt location. Share server credentials with Claude for deployment.</div>
+          <div class="task-tags"><span class="tag red">Blocker</span><span class="tag grey">€6–15/mo</span><span class="tag grey">You handle · 20 min</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category">
+      <div class="category-title">Product — Authentication (the #1 blocker)</div>
+
+      <div class="task" data-id="a3" data-month="apr">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Build user registration (email + password signup)</div><span class="task-deadline soon">10 Apr</span></div>
+          <div class="task-note">New user signs up → creates account → lands in their own empty CRM. Includes email verification. Claude builds this.</div>
+          <div class="task-tags"><span class="tag red">Blocker</span><span class="tag blue">Claude builds</span><span class="tag grey">3–4 days</span></div>
+        </div>
+      </div>
+
+      <div class="task" data-id="a4" data-month="apr">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Build login / logout / session management</div><span class="task-deadline soon">12 Apr</span></div>
+          <div class="task-note">Secure login, persistent sessions, logout. Password reset via email. Claude builds this.</div>
+          <div class="task-tags"><span class="tag red">Blocker</span><span class="tag blue">Claude builds</span><span class="tag grey">2 days</span></div>
+        </div>
+      </div>
+
+      <div class="task" data-id="a5" data-month="apr">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Multi-tenant data isolation — each user sees only their data</div><span class="task-deadline soon">14 Apr</span></div>
+          <div class="task-note">Critical. Every database query must be scoped to the logged-in user. No user should ever see another user's contacts, deals, or files. Claude builds and tests this.</div>
+          <div class="task-tags"><span class="tag red">Critical — security</span><span class="tag blue">Claude builds</span><span class="tag grey">2–3 days</span></div>
+        </div>
+      </div>
+
+      <div class="task" data-id="a6" data-month="apr">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Build onboarding flow — business setup after signup</div><span class="task-deadline soon">16 Apr</span></div>
+          <div class="task-note">After registration: step 1 — enter business name; step 2 — choose profession (astrologer, coach, etc); step 3 — CRM is ready with example pipeline. First impression must be instant value.</div>
+          <div class="task-tags"><span class="tag red">Blocker</span><span class="tag blue">Claude builds</span><span class="tag grey">2 days</span></div>
+        </div>
+      </div>
+
+      <div class="task" data-id="a7" data-month="apr">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Deploy app to Hetzner VPS + HTTPS certificate</div><span class="task-deadline soon">20 Apr</span></div>
+          <div class="task-note">Deploy running app to server. Set up Let's Encrypt SSL (free, auto-renewal). Connect astrocrm.app domain. From this point: anyone in the world can open a browser and use AstroCRM. Claude handles the full deployment.</div>
+          <div class="task-tags"><span class="tag red">Blocker</span><span class="tag blue">Claude deploys</span><span class="tag grey">1 day</span></div>
+        </div>
+      </div>
+
+      <div class="task" data-id="a8" data-month="apr">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Set up Resend API for transactional emails</div><span class="task-deadline soon">20 Apr</span></div>
+          <div class="task-note">Sign up at resend.com. Free: 3,000 emails/month. Add API key to server .env. Required for: email verification, password reset, campaign sending, automation triggers.</div>
+          <div class="task-tags"><span class="tag red">Blocker</span><span class="tag green">Free</span><span class="tag grey">You sign up · 30 min</span></div>
+        </div>
+      </div>
+
+      <div class="task" data-id="a9" data-month="apr">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Enable Hetzner automatic daily backups</div><span class="task-deadline">20 Apr</span></div>
+          <div class="task-note">In Hetzner dashboard: Servers → Backups → Enable. Daily snapshots, one-click restore. €2/month. Takes 5 minutes. Do immediately after deployment.</div>
+          <div class="task-tags"><span class="tag amber">Do immediately</span><span class="tag grey">€2/mo</span><span class="tag grey">5 min</span></div>
+        </div>
+      </div>
+
+      <div class="task" data-id="a10" data-month="apr">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Set up Uptime Robot monitoring + Telegram alerts</div><span class="task-deadline">22 Apr</span></div>
+          <div class="task-note">Free. Checks every 5 min if site is live. Sends Telegram message if it goes down. You know before clients do. uptimerobot.com — 15 minutes to set up.</div>
+          <div class="task-tags"><span class="tag green">Free</span><span class="tag grey">15 min</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category">
+      <div class="category-title">Finance & Legal — Start Now</div>
+
+      <div class="task" data-id="a11" data-month="apr">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Book Dutch accountant consultation (ZZP + SaaS income)</div><span class="task-deadline soon">15 Apr</span></div>
+          <div class="task-note">You need advice before the first paying client: VAT (OSS scheme for EU digital services), invoicing, whether to register a business entity. ~€200–300 for initial session. Do not skip this.</div>
+          <div class="task-tags"><span class="tag red">Do before first client</span><span class="tag grey">€200–300</span><span class="tag grey">You handle</span></div>
+        </div>
+      </div>
+
+      <div class="task" data-id="a12" data-month="apr">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Create Stripe account + bank verification</div><span class="task-deadline soon">15 Apr</span></div>
+          <div class="task-note">stripe.com — verify identity and bank account. Takes 1–3 business days for approval. Start early — this blocks payment integration in May.</div>
+          <div class="task-tags"><span class="tag amber">Start early — approval takes time</span><span class="tag green">Free</span><span class="tag grey">You handle</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category">
+      <div class="category-title">Marketing — Start Building Audience Now</div>
+
+      <div class="task" data-id="a13" data-month="apr">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Create AstroCRM Instagram account</div><span class="task-deadline">20 Apr</span></div>
+          <div class="task-note">@astrocrm or @astrocrm.app. Profile photo, bio in Russian + English. Link: astrocrm.app. Start before the product launches to build an audience first.</div>
+          <div class="task-tags"><span class="tag green">Free</span><span class="tag grey">You handle · 20 min</span></div>
+        </div>
+      </div>
+
+      <div class="task" data-id="a14" data-month="apr">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Generate first batch of Instagram posts (8 posts + images)</div><span class="task-deadline">25 Apr</span></div>
+          <div class="task-note">Claude generates both images and captions. Mix: "what is CRM" educational, "5 signs you're losing clients", product teaser. All Russian. Publish 2/week from late April.</div>
+          <div class="task-tags"><span class="tag green">Free</span><span class="tag blue">Claude generates images + captions</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════ MAY ═══════════════════════════════ -->
+  <div class="month-block" id="may" data-month="may">
+    <div class="month-header">
+      <div class="month-title-wrap">
+        <span class="month-badge upcoming">May 2026</span>
+        <div>
+          <div class="month-title">Build — Payments, Legal, Beta Prep</div>
+          <div class="month-goal">Goal: Stripe live, T&C written, beta testers recruited</div>
+        </div>
+      </div>
+      <div class="month-prog-wrap">
+        <div class="month-prog-track"><div class="month-prog-fill" id="mfill-may" style="width:0%"></div></div>
+        <span class="month-prog-text" id="mcount-may">0/0</span>
+      </div>
+    </div>
+    <div class="month-divider"></div>
+
+    <div class="category">
+      <div class="category-title">Product — Payments & Subscriptions</div>
+
+      <div class="task" data-id="b1" data-month="may">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Build Stripe subscription billing (€15 founding / €25 standard)</div><span class="task-deadline">10 May</span></div>
+          <div class="task-note">Monthly subscriptions via Stripe. Handle: new subscription, failed payment retry, cancellation, invoice generation. Claude builds the full integration.</div>
+          <div class="task-tags"><span class="tag red">Blocker for revenue</span><span class="tag blue">Claude builds</span><span class="tag grey">3–5 days</span></div>
+        </div>
+      </div>
+
+      <div class="task" data-id="b2" data-month="may">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Build subscription management page (user can upgrade/cancel)</div><span class="task-deadline">15 May</span></div>
+          <div class="task-note">Inside the CRM: settings page where user sees their plan, next billing date, can upgrade to annual or cancel. Must be self-serve — no support ticket needed to cancel.</div>
+          <div class="task-tags"><span class="tag amber">Required before launch</span><span class="tag blue">Claude builds</span><span class="tag grey">2 days</span></div>
+        </div>
+      </div>
+
+      <div class="task" data-id="b3" data-month="may">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Build trial period — 14 days free, no card required</div><span class="task-deadline">15 May</span></div>
+          <div class="task-note">New users get 14 days free without entering a card. Day 10: reminder email. Day 14: prompt to subscribe. This dramatically increases signups — no friction to try.</div>
+          <div class="task-tags"><span class="tag amber">Conversion critical</span><span class="tag blue">Claude builds</span><span class="tag grey">1–2 days</span></div>
+        </div>
+      </div>
+
+      <div class="task" data-id="b4" data-month="may">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Connect waitlist form — save emails to database</div><span class="task-deadline">5 May</span></div>
+          <div class="task-note">The "Join Waitlist" button on index.html and bazi-ru.html must save emails. When product launches, send all waitlist signups an invite. Every pre-launch signup = warm lead on launch day.</div>
+          <div class="task-tags"><span class="tag amber">Pre-launch</span><span class="tag blue">Claude builds</span><span class="tag grey">1 day</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category">
+      <div class="category-title">Product — Email & Automation Polish</div>
+
+      <div class="task" data-id="b5" data-month="may">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Write and implement 3-email onboarding sequence</div><span class="task-deadline">20 May</span></div>
+          <div class="task-note">Email 1 (signup): welcome + 3 first steps. Email 2 (Day 2): how to add your first client. Email 3 (Day 7): "Are you getting value? Here's the referral offer." Claude writes all three, connects to Resend automation.</div>
+          <div class="task-tags"><span class="tag amber">Reduces early churn</span><span class="tag blue">Claude writes + builds</span></div>
+        </div>
+      </div>
+
+      <div class="task" data-id="b6" data-month="may">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Build referral programme — "give 1 month, get 1 month"</div><span class="task-deadline">25 May</span></div>
+          <div class="task-note">Each user gets a unique referral link. When a friend signs up via their link and pays for month 1, both get 1 free month. Built into Day 7 onboarding email. Claude builds + writes copy.</div>
+          <div class="task-tags"><span class="tag amber">Before launch</span><span class="tag blue">Claude builds + writes</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category">
+      <div class="category-title">Legal</div>
+
+      <div class="task" data-id="b7" data-month="may">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Copy Pipedrive T&C → Claude rewrites for AstroCRM</div><span class="task-deadline">15 May</span></div>
+          <div class="task-note">Go to pipedrive.com/terms, copy the text, share with Claude. Claude rewrites for AstroCRM: your data types (charts, notes), your pricing, NL jurisdiction, GDPR.</div>
+          <div class="task-tags"><span class="tag amber">Before launch</span><span class="tag green">Free</span><span class="tag blue">Claude rewrites</span></div>
+        </div>
+      </div>
+
+      <div class="task" data-id="b8" data-month="may">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Write Privacy Policy (GDPR) + add to website</div><span class="task-deadline">20 May</span></div>
+          <div class="task-note">Covers: what data stored (name, email, session notes, astrology charts), retention period, user rights (delete/export). Claude writes and builds the page at astrocrm.app/privacy.</div>
+          <div class="task-tags"><span class="tag amber">Before accepting payments</span><span class="tag blue">Claude writes + builds</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category">
+      <div class="category-title">Support Infrastructure</div>
+
+      <div class="task" data-id="b9" data-month="may">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Set up Crisp live chat + FAQ bot on landing + CRM</div><span class="task-deadline">25 May</span></div>
+          <div class="task-note">Free tier: 2 agents, bot, mobile app, Russian UI. Claude writes the FAQ bot script (top 15 questions + answers). Widget appears inside the product and on the landing page.</div>
+          <div class="task-tags"><span class="tag amber">Before launch</span><span class="tag green">Free</span><span class="tag blue">Claude writes FAQ</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category">
+      <div class="category-title">Beta Testing Preparation</div>
+
+      <div class="task" data-id="b10" data-month="may">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Recruit 8–10 practitioners for beta focus group</div><span class="task-deadline">31 May</span></div>
+          <div class="task-note">Mix of: 2–3 astrologers, 2 ba-zi/feng shui, 2 coaches, 1–2 other practitioners. From your Successcode network and Telegram communities. Offer: free access in exchange for honest feedback. Claude writes the recruitment message.</div>
+          <div class="task-tags"><span class="tag amber">Recruit in May, test in June</span><span class="tag green">Free</span><span class="tag blue">Claude writes invite</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category">
+      <div class="category-title">Marketing</div>
+
+      <div class="task" data-id="b11" data-month="may">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Join 10 Russian Telegram practitioner communities</div><span class="task-deadline">10 May</span></div>
+          <div class="task-note">Astrologers, ba-zi, coaches, beauty, numerologists — EU and CIS. Spend 2 weeks contributing genuinely before mentioning AstroCRM. Claude writes value posts per community.</div>
+          <div class="task-tags"><span class="tag green">Free</span><span class="tag grey">You join</span><span class="tag blue">Claude writes posts</span></div>
+        </div>
+      </div>
+
+      <div class="task" data-id="b12" data-month="may">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Build landing pages for numerologists, coaches, tarot</div><span class="task-deadline">25 May</span></div>
+          <div class="task-note">Same format as bazi-ru.html — education-first, "you've never heard of CRM" tone, niche-specific use cases. Claude builds. Decide which 2 professions to target first.</div>
+          <div class="task-tags"><span class="tag blue">Claude builds</span><span class="tag grey">2–3 days each</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════ JUNE ═══════════════════════════════ -->
+  <div class="month-block" id="jun" data-month="jun">
+    <div class="month-header">
+      <div class="month-title-wrap">
+        <span class="month-badge upcoming">June 2026</span>
+        <div>
+          <div class="month-title">Beta — Test with Real Practitioners</div>
+          <div class="month-goal">Goal: 8–10 beta users testing, bugs fixed, ready to launch</div>
+        </div>
+      </div>
+      <div class="month-prog-wrap">
+        <div class="month-prog-track"><div class="month-prog-fill" id="mfill-jun" style="width:0%"></div></div>
+        <span class="month-prog-text" id="mcount-jun">0/0</span>
+      </div>
+    </div>
+    <div class="month-divider"></div>
+
+    <div class="category">
+      <div class="category-title">Product — Beta Testing</div>
+
+      <div class="task" data-id="c1" data-month="jun">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Onboard beta group — give access, set expectations</div><span class="task-deadline">5 Jun</span></div>
+          <div class="task-note">Send each beta user their login. Provide a short task list: "Add 5 contacts, create a pipeline, send one test email." Give them 2 weeks. Claude writes the onboarding guide for beta users.</div>
+          <div class="task-tags"><span class="tag amber">Critical</span><span class="tag blue">Claude writes guide</span></div>
+        </div>
+      </div>
+
+      <div class="task" data-id="c2" data-month="jun">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Collect beta feedback — structured survey</div><span class="task-deadline">20 Jun</span></div>
+          <div class="task-note">After 2 weeks of use: what worked, what confused them, what's missing, what they'd pay for. Claude designs the survey questions. Run via Typeform (free) or Google Forms.</div>
+          <div class="task-tags"><span class="tag amber">Shapes launch version</span><span class="tag blue">Claude designs survey</span></div>
+        </div>
+      </div>
+
+      <div class="task" data-id="c3" data-month="jun">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Focus group session — live call with beta users</div><span class="task-deadline">20 Jun</span></div>
+          <div class="task-note">60-minute Zoom call with 5–8 beta testers. Watch them use the product live, ask what confused them, what they loved, what's missing. This is the single most valuable hour before launch. Claude prepares the session guide and question list.</div>
+          <div class="task-tags"><span class="tag red">Do not skip</span><span class="tag grey">Zoom call · 60 min</span><span class="tag blue">Claude prepares questions</span></div>
+        </div>
+      </div>
+
+      <div class="task" data-id="c4" data-month="jun">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Fix critical bugs from beta feedback</div><span class="task-deadline">28 Jun</span></div>
+          <div class="task-note">Not all feedback — only what blocks people from getting value. Prioritise: things that caused confusion on first use, features that didn't work, anything that lost data. Claude fixes.</div>
+          <div class="task-tags"><span class="tag red">Before launch</span><span class="tag blue">Claude fixes</span><span class="tag grey">1–2 weeks</span></div>
+        </div>
+      </div>
+
+      <div class="task" data-id="c5" data-month="jun">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Deploy all landing pages to astrocrm.app</div><span class="task-deadline">10 Jun</span></div>
+          <div class="task-note">index.html, bazi-ru.html, and new profession pages go live at astrocrm.app. The main CRM app runs at app.astrocrm.app. Claude handles deployment.</div>
+          <div class="task-tags"><span class="tag amber">Before launch</span><span class="tag blue">Claude deploys</span></div>
+        </div>
+      </div>
+
+      <div class="task" data-id="c6" data-month="jun">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Collect 3–5 testimonials from beta users</div><span class="task-deadline">28 Jun</span></div>
+          <div class="task-note">Ask each beta user for a 2-sentence quote. "What problem did it solve?" "Would you recommend it?" These go on the landing page and in launch posts. Claude writes the request message.</div>
+          <div class="task-tags"><span class="tag amber">Needed for launch</span><span class="tag blue">Claude writes request</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category">
+      <div class="category-title">Marketing</div>
+
+      <div class="task" data-id="c7" data-month="jun">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Generate month 2 Instagram content (8 posts + images)</div><span class="task-deadline">5 Jun</span></div>
+          <div class="task-note">Claude generates images + captions. Theme this month: "beta is live", "behind the scenes of building", social proof from beta testers. All Russian.</div>
+          <div class="task-tags"><span class="tag green">Free</span><span class="tag blue">Claude generates</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════ JULY ═══════════════════════════════ -->
+  <div class="month-block" id="jul" data-month="jul">
+    <div class="month-header">
+      <div class="month-title-wrap">
+        <span class="month-badge launch">July 2026 — LAUNCH</span>
+        <div>
+          <div class="month-title">Public Launch — First Paying Clients</div>
+          <div class="month-goal">Goal: 5–10 founding clients by end of July</div>
+        </div>
+      </div>
+      <div class="month-prog-wrap">
+        <div class="month-prog-track"><div class="month-prog-fill" id="mfill-jul" style="width:0%"></div></div>
+        <span class="month-prog-text" id="mcount-jul">0/0</span>
+      </div>
+    </div>
+    <div class="month-divider"></div>
+
+    <div class="milestone">
+      <div class="milestone-icon">🚀</div>
+      <div><div class="milestone-text">Public launch — product goes live at app.astrocrm.app</div><div class="milestone-sub">Target: 5–10 founding clients in July at €15/month locked forever</div></div>
+    </div>
+
+    <div class="category">
+      <div class="category-title">Sales — First Clients</div>
+
+      <div class="task" data-id="d1" data-month="jul">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Launch announcement to Successcode + TrendsonFire audience</div><span class="task-deadline">1 Jul</span></div>
+          <div class="task-note">"I built a CRM for practitioners — €15/month locked forever for founding members." Your warmest leads. Target: 5–10 clients from this channel alone. Claude writes the announcement post.</div>
+          <div class="task-tags"><span class="tag green">Highest conversion</span><span class="tag green">Free</span><span class="tag blue">Claude writes</span></div>
+        </div>
+      </div>
+
+      <div class="task" data-id="d2" data-month="jul">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Email waitlist — invite to founding member offer</div><span class="task-deadline">1 Jul</span></div>
+          <div class="task-note">Everyone who signed up on the waitlist gets a personal invite. "You asked to be first — here it is. 14 days free, then €15/month founding price, locked forever." Claude writes the email.</div>
+          <div class="task-tags"><span class="tag green">Warm leads</span><span class="tag blue">Claude writes</span></div>
+        </div>
+      </div>
+
+      <div class="task" data-id="d3" data-month="jul">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Post in Telegram communities — launch announcement</div><span class="task-deadline">2 Jul</span></div>
+          <div class="task-note">"Happy to give free 30-day access to first 5 people who try it." Not a sales post — a genuine offer. Claude writes community-specific versions for each group you joined in May.</div>
+          <div class="task-tags"><span class="tag green">Free</span><span class="tag blue">Claude writes per community</span></div>
+        </div>
+      </div>
+
+      <div class="task" data-id="d4" data-month="jul">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Find and onboard 2 support freelancers via Deel</div><span class="task-deadline">15 Jul</span></div>
+          <div class="task-note">Russian/Belarusian/Ukrainian speakers with English. On-demand €10–15/hr. Post on Upwork. Claude writes the job description, onboarding guide, and support playbook.</div>
+          <div class="task-tags"><span class="tag amber">Month 2–3</span><span class="tag grey">€10–15/hr on-demand</span><span class="tag blue">Claude writes everything</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category">
+      <div class="category-title">Product — Post-Launch Stability</div>
+
+      <div class="task" data-id="d5" data-month="jul">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Fix any launch-week bugs immediately</div><span class="task-deadline">7 Jul</span></div>
+          <div class="task-note">First 7 days after launch: monitor Crisp for support questions, check Uptime Robot daily, fix any critical bugs within 24 hours. This is the most important week for retention.</div>
+          <div class="task-tags"><span class="tag red">Priority week</span><span class="tag blue">Claude fixes</span></div>
+        </div>
+      </div>
+
+      <div class="task" data-id="d6" data-month="jul">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Set up status page at status.astrocrm.app</div><span class="task-deadline">5 Jul</span></div>
+          <div class="task-note">Instatus or Freshstatus free tier. Public uptime history. Reduces support messages during downtime — clients check the page instead of DMing you.</div>
+          <div class="task-tags"><span class="tag green">Free</span><span class="tag grey">30 min</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════ AUGUST ═══════════════════════════════ -->
+  <div class="month-block" id="aug" data-month="rest">
+    <div class="month-header">
+      <div class="month-title-wrap">
+        <span class="month-badge upcoming">August 2026</span>
+        <div>
+          <div class="month-title">Grow — First Marketing Channel + Telegram Bot</div>
+          <div class="month-goal">Goal: 15–20 clients, Telegram bot live, YouTube started</div>
+        </div>
+      </div>
+      <div class="month-prog-wrap">
+        <div class="month-prog-track"><div class="month-prog-fill" id="mfill-aug" style="width:0%"></div></div>
+        <span class="month-prog-text" id="mcount-aug">0/0</span>
+      </div>
+    </div>
+    <div class="month-divider"></div>
+
+    <div class="category">
+      <div class="category-title">Product</div>
+
+      <div class="task" data-id="e1" data-month="rest">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Build Telegram lead capture bot</div><span class="task-deadline">20 Aug</span></div>
+          <div class="task-note">When someone messages a client's Telegram bot → contact auto-created in their CRM. Most requested feature by practitioners. Claude builds.</div>
+          <div class="task-tags"><span class="tag blue">Claude builds</span><span class="tag grey">2–3 days</span></div>
+        </div>
+      </div>
+
+      <div class="task" data-id="e2" data-month="rest">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Make layout mobile-responsive</div><span class="task-deadline">31 Aug</span></div>
+          <div class="task-note">Many practitioners work from phone. Currently desktop-only. Required for broad adoption beyond early adopters. Claude refactors CSS.</div>
+          <div class="task-tags"><span class="tag blue">Claude builds</span><span class="tag grey">1–2 weeks</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category">
+      <div class="category-title">Marketing</div>
+
+      <div class="task" data-id="e3" data-month="rest">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Film and publish YouTube video #1 — "Как я веду клиентов"</div><span class="task-deadline">15 Aug</span></div>
+          <div class="task-note">Screen recording + voiceover. 3 minutes. Claude writes full script, SEO title, description, tags. Zero competition on YouTube for "CRM для астролога". You record.</div>
+          <div class="task-tags"><span class="tag green">Free</span><span class="tag blue">Claude writes script</span><span class="tag grey">You record</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════ SEPT ═══════════════════════════════ -->
+  <div class="month-block" id="sep" data-month="rest">
+    <div class="month-header">
+      <div class="month-title-wrap">
+        <span class="month-badge upcoming">September 2026</span>
+        <div>
+          <div class="month-title">Expand — Instagram DM Capture + Affiliate Pitches</div>
+          <div class="month-goal">Goal: 25–30 clients, Instagram DM integration started</div>
+        </div>
+      </div>
+      <div class="month-prog-wrap">
+        <div class="month-prog-track"><div class="month-prog-fill" id="mfill-sep" style="width:0%"></div></div>
+        <span class="month-prog-text" id="mcount-sep">0/0</span>
+      </div>
+    </div>
+    <div class="month-divider"></div>
+
+    <div class="category">
+      <div class="category-title">Product</div>
+
+      <div class="task" data-id="f1" data-month="rest">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Apply for Meta developer app approval (Instagram DM)</div><span class="task-deadline">5 Sep</span></div>
+          <div class="task-note">Create Facebook Developer App, submit for Instagram Messenger API approval. Takes 1–3 business days. Must happen before building the integration.</div>
+          <div class="task-tags"><span class="tag amber">Apply early</span><span class="tag green">Free</span><span class="tag grey">You apply</span></div>
+        </div>
+      </div>
+
+      <div class="task" data-id="f2" data-month="rest">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Build Instagram DM lead capture (after Meta approval)</div><span class="task-deadline">25 Sep</span></div>
+          <div class="task-note">When someone DMs a client's Instagram → contact auto-created in CRM. Clients connect via "Connect Instagram" button — no technical knowledge needed. Claude builds.</div>
+          <div class="task-tags"><span class="tag blue">Claude builds</span><span class="tag grey">1–2 weeks</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category">
+      <div class="category-title">Marketing</div>
+
+      <div class="task" data-id="f3" data-month="rest">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Pitch 5 astrology/coaching schools for affiliate partnership</div><span class="task-deadline">15 Sep</span></div>
+          <div class="task-note">20–30% commission on first year subscription. One school with 200 graduates/year = 20–40 clients. Claude writes the one-page pitch email + affiliate terms.</div>
+          <div class="task-tags"><span class="tag green">Commission only — no risk</span><span class="tag blue">Claude writes pitch</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════ OCT ═══════════════════════════════ -->
+  <div class="month-block" id="oct" data-month="rest">
+    <div class="month-header">
+      <div class="month-title-wrap">
+        <span class="month-badge upcoming">October 2026</span>
+        <div>
+          <div class="month-title">Russia Unlock — YooKassa + Prodamus</div>
+          <div class="month-goal">Goal: 30–35 clients, Russian payment links working</div>
+        </div>
+      </div>
+      <div class="month-prog-wrap">
+        <div class="month-prog-track"><div class="month-prog-fill" id="mfill-oct" style="width:0%"></div></div>
+        <span class="month-prog-text" id="mcount-oct">0/0</span>
+      </div>
+    </div>
+    <div class="month-divider"></div>
+
+    <div class="category">
+      <div class="category-title">Product</div>
+
+      <div class="task" data-id="g1" data-month="rest">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Add YooKassa payment links for Russian practitioners</div><span class="task-deadline">20 Oct</span></div>
+          <div class="task-note">Practitioners can generate payment links to collect money from their own Russian clients, inside AstroCRM. Full Russia market unlock. Claude builds.</div>
+          <div class="task-tags"><span class="tag blue">Claude builds</span><span class="tag grey">3–5 days</span></div>
+        </div>
+      </div>
+
+      <div class="task" data-id="g2" data-month="rest">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Add Prodamus as backup payment option (Russia)</div><span class="task-deadline">31 Oct</span></div>
+          <div class="task-note">Alternative to YooKassa for Russian practitioners who can't or won't use it. Prodamus works without ИП registration.</div>
+          <div class="task-tags"><span class="tag blue">Claude builds</span><span class="tag grey">2–3 days</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════ NOV–DEC ═══════════════════════════════ -->
+  <div class="month-block" id="nov" data-month="rest">
+    <div class="month-header">
+      <div class="month-title-wrap">
+        <span class="month-badge later">Nov–Dec 2026</span>
+        <div>
+          <div class="month-title">Consolidate — Hit 40 Clients, Prepare 2027</div>
+          <div class="month-goal">Goal: 40 paying clients by Dec 31, plan 2027 features</div>
+        </div>
+      </div>
+      <div class="month-prog-wrap">
+        <div class="month-prog-track"><div class="month-prog-fill" id="mfill-nov" style="width:0%"></div></div>
+        <span class="month-prog-text" id="mcount-nov">0/0</span>
+      </div>
+    </div>
+    <div class="month-divider"></div>
+
+    <div class="category">
+      <div class="category-title">Product</div>
+
+      <div class="task" data-id="h1" data-month="rest">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Performance review — speed, errors, user complaints</div><span class="task-deadline">15 Nov</span></div>
+          <div class="task-note">Review Crisp support logs for recurring complaints. Fix top 5 most-reported issues. Check page load times on Hetzner. Claude diagnoses and fixes.</div>
+          <div class="task-tags"><span class="tag blue">Claude fixes</span></div>
+        </div>
+      </div>
+
+      <div class="task" data-id="h2" data-month="rest">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Plan 2027 feature roadmap based on user feedback</div><span class="task-deadline">1 Dec</span></div>
+          <div class="task-note">Compile what beta testers, early clients, and focus group said they need most. Prioritise for Q1 2027: Dutch UI, session scheduling, or client portal — decide based on real data.</div>
+          <div class="task-tags"><span class="tag blue">Claude helps prioritise</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category">
+      <div class="category-title">Marketing</div>
+
+      <div class="task" data-id="h3" data-month="rest">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Upgrade Crisp to paid (€25/mo) if 50+ support messages/month</div><span class="task-deadline">Dec</span></div>
+          <div class="task-note">Free tier handles up to ~50 conversations. If support volume is higher, upgrade Crisp to remove limits and add more bot automations.</div>
+          <div class="task-tags"><span class="tag grey">Only if needed</span><span class="tag grey">€25/mo</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="milestone">
+      <div class="milestone-icon">🎯</div>
+      <div><div class="milestone-text">Year-end target: 40 paying clients · MRR €600 · Break-even on track for Q2–Q3 2027</div></div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════ 2027+ ═══════════════════════════════ -->
+  <div class="month-block" id="2027" data-month="2027">
+    <div class="month-header">
+      <div class="month-title-wrap">
+        <span class="month-badge later">2027 & Beyond</span>
+        <div>
+          <div class="month-title">Scale to 200+ Clients</div>
+          <div class="month-goal">Paid marketing, NL expansion, Dutch UI, premium features</div>
+        </div>
+      </div>
+    </div>
+    <div class="month-divider"></div>
+
+    <div class="category">
+      <div class="category-title">Product</div>
+
+      <div class="task" data-id="z1" data-month="2027">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Add Dutch language UI</div><span class="task-deadline">Q1 2027</span></div>
+          <div class="task-note">Unlock full NL ZZP market. Currently EN + RU only. Required before running Dutch Google Ads. Claude builds.</div>
+          <div class="task-tags"><span class="tag blue">Claude builds</span><span class="tag grey">2–3 days</span></div>
+        </div>
+      </div>
+
+      <div class="task" data-id="z2" data-month="2027">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Native session scheduling (Calendly-style)</div><span class="task-deadline">Q1 2027</span></div>
+          <div class="task-note">Clients book directly in CRM. Currently practitioners paste Calendly links. Native = higher retention and premium pricing justification.</div>
+          <div class="task-tags"><span class="tag blue">Claude builds</span><span class="tag grey">3–4 weeks</span></div>
+        </div>
+      </div>
+
+      <div class="task" data-id="z3" data-month="2027">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Client portal — clients view their own session notes</div><span class="task-deadline">Q2 2027</span></div>
+          <div class="task-note">Premium differentiator. Clients log in to see their astrology charts, session summaries, next steps. Justifies higher tier pricing.</div>
+          <div class="task-tags"><span class="tag blue">Claude builds</span><span class="tag grey">2–3 weeks</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category">
+      <div class="category-title">Marketing</div>
+
+      <div class="task" data-id="z4" data-month="2027">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Launch Instagram / Facebook paid ads — EU diaspora</div><span class="task-deadline">Q1 2027</span></div>
+          <div class="task-note">Russian language + EU location + astrology/coaching. €250/month. Only start once you have testimonials. Claude writes ad copy and generates creatives.</div>
+          <div class="task-tags"><span class="tag grey">€250/mo</span><span class="tag blue">Claude writes + generates</span></div>
+        </div>
+      </div>
+
+      <div class="task" data-id="z5" data-month="2027">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Launch Google Ads — Dutch ZZP coaches and therapists</div><span class="task-deadline">2028</span></div>
+          <div class="task-note">"CRM voor coaches", "CRM therapeuten Nederland". Requires Dutch UI first. €300/month budget. Claude writes all ad copy.</div>
+          <div class="task-tags"><span class="tag grey">€300/mo · 2028</span><span class="tag blue">Claude writes</span></div>
+        </div>
+      </div>
+
+      <div class="task" data-id="z6" data-month="2027">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Have a lawyer review T&C and Privacy Policy</div><span class="task-deadline">When revenue allows</span></div>
+          <div class="task-note">At 50+ clients or if you receive a formal complaint. A review of the adapted documents costs €300–500 — much cheaper than drafting from scratch.</div>
+          <div class="task-tags"><span class="tag grey">€300–500</span><span class="tag grey">You handle</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const MONTHS_2026 = ['apr','may','jun','jul'];
+  const MONTHS_REST = ['rest'];
+  const ALL_MONTHS = ['apr','may','jun','jul','rest','2027'];
+
+  function getState() {
+    try { return JSON.parse(localStorage.getItem('astrocrm-tasks-v2') || '{}'); } catch(e) { return {}; }
+  }
+  function saveState(state) {
+    localStorage.setItem('astrocrm-tasks-v2', JSON.stringify(state));
+  }
+
+  function countMonth(month) {
+    const all = document.querySelectorAll(`.task[data-month="${month}"]`);
+    const done = document.querySelectorAll(`.task[data-month="${month}"].done`);
+    return { total: all.length, done: done.length };
+  }
+
+  function updateProgress() {
+    // Overall 2026 (all tasks)
+    const allTasks = document.querySelectorAll('.task');
+    const allDone = document.querySelectorAll('.task.done');
+    const overallPct = allTasks.length ? Math.round(allDone.length / allTasks.length * 100) : 0;
+    document.getElementById('fill-overall').style.width = overallPct + '%';
+    document.getElementById('count-overall').textContent = allDone.length + ' / ' + allTasks.length;
+
+    // Per month hero bars
+    ['apr','may','jun','jul'].forEach(m => {
+      const c = countMonth(m);
+      const pct = c.total ? Math.round(c.done / c.total * 100) : 0;
+      const el = document.getElementById('fill-' + m);
+      if (el) { el.style.width = pct + '%'; document.getElementById('count-' + m).textContent = c.done + ' / ' + c.total; }
+    });
+
+    // Rest (Aug–Dec)
+    const restTasks = document.querySelectorAll('.task[data-month="rest"]');
+    const restDone = document.querySelectorAll('.task[data-month="rest"].done');
+    const restPct = restTasks.length ? Math.round(restDone.length / restTasks.length * 100) : 0;
+    document.getElementById('fill-rest').style.width = restPct + '%';
+    document.getElementById('count-rest').textContent = restDone.length + ' / ' + restTasks.length;
+
+    // Per-month inline progress bars
+    ['apr','may','jun','jul'].forEach(m => {
+      const c = countMonth(m);
+      const pct = c.total ? Math.round(c.done / c.total * 100) : 0;
+      const fill = document.getElementById('mfill-' + m);
+      const count = document.getElementById('mcount-' + m);
+      if (fill) fill.style.width = pct + '%';
+      if (count) count.textContent = c.done + '/' + c.total;
+    });
+
+    // Aug–Nov–Dec separate month bars share data-month="rest"
+    ['aug','sep','oct','nov'].forEach(m => {
+      const fill = document.getElementById('mfill-' + m);
+      const count = document.getElementById('mcount-' + m);
+      if (fill) { fill.style.width = restPct + '%'; }
+      if (count) { count.textContent = restDone.length + '/' + restTasks.length; }
+    });
+  }
+
+  const state = getState();
+  document.querySelectorAll('.task').forEach(task => {
+    const id = task.dataset.id;
+    if (state[id]) task.classList.add('done');
+    task.addEventListener('click', () => {
+      task.classList.toggle('done');
+      state[id] = task.classList.contains('done');
+      saveState(state);
+      updateProgress();
+    });
+  });
+  updateProgress();
+</script>
+</body>
+</html>
