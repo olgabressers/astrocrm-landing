@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="robots" content="noindex, nofollow"/>
+  <title>Admin — AstroCRM Internal Documents</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #f1f5f9; color: #111827; line-height: 1.6; padding: 40px 24px 60px; }
+    .wrapper { max-width: 900px; margin: 0 auto; }
+
+    .top { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
+    .logo-astro { font-size: 20px; font-weight: 800; color: #8B0000; font-style: italic; }
+    .logo-crm { font-size: 11px; font-weight: 800; color: #1a1f36; letter-spacing: 3px; text-transform: uppercase; }
+    h1 { font-size: 20px; font-weight: 800; color: #1a1f36; margin-bottom: 4px; }
+    .meta { font-size: 13px; color: #6b7280; margin-bottom: 10px; }
+    .notice { background: #fef9c3; border: 1px solid #fde68a; border-radius: 8px; padding: 12px 16px; font-size: 13px; color: #92400e; margin-bottom: 36px; }
+
+    /* BLOCK */
+    .block { background: white; border-radius: 14px; box-shadow: 0 1px 6px rgba(0,0,0,.08); margin-bottom: 24px; overflow: hidden; }
+    .block-header { display: flex; align-items: center; gap: 14px; padding: 16px 22px; border-bottom: 1px solid #e5e7eb; }
+    .block-icon { width: 36px; height: 36px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 17px; flex-shrink: 0; }
+    .block-header h2 { font-size: 14px; font-weight: 800; color: #1a1f36; }
+    .block-header .sub { font-size: 12px; color: #9ca3af; margin-top: 1px; }
+
+    /* ROW */
+    .row { display: flex; align-items: flex-start; gap: 16px; padding: 13px 22px; border-bottom: 1px solid #f3f4f6; transition: background .1s; }
+    .row:last-child { border-bottom: none; }
+    .row:hover { background: #f9fafb; }
+    .row-left { flex: 1; min-width: 0; }
+    .row-left a { font-size: 14px; font-weight: 600; color: #8B0000; text-decoration: none; }
+    .row-left a:hover { text-decoration: underline; }
+    .row-note { font-size: 12.5px; color: #6b7280; margin-top: 4px; line-height: 1.5; }
+    .row-right { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; flex-shrink: 0; padding-top: 2px; }
+    .row-date { font-size: 11px; color: #9ca3af; white-space: nowrap; }
+
+    /* TAGS */
+    .tag { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 9px; border-radius: 10px; letter-spacing: .4px; white-space: nowrap; }
+    .tag-strategy  { background: #fef3c7; color: #92400e; }
+    .tag-tasks     { background: #d1fae5; color: #065f46; }
+    .tag-legal     { background: #fee2e2; color: #b91c1c; }
+    .tag-product   { background: #e0f2fe; color: #0369a1; }
+    .tag-marketing { background: #ede9fe; color: #5b21b6; }
+    .tag-research  { background: #dbeafe; color: #1e40af; }
+    .tag-finance   { background: #fef3c7; color: #b45309; }
+    .tag-content   { background: #f0fdf4; color: #166534; }
+
+    /* BLOCK ICON COLOURS */
+    .b-strategy .block-icon { background: #fef3c7; }
+    .b-product  .block-icon { background: #e0f2fe; }
+    .b-marketing .block-icon { background: #ede9fe; }
+    .b-legal    .block-icon { background: #fee2e2; }
+    .b-finance  .block-icon { background: #fef9c3; }
+    .b-content  .block-icon { background: #f0fdf4; }
+    .b-research .block-icon { background: #dbeafe; }
+
+    .home { display: inline-block; margin-top: 28px; font-size: 13px; color: #6b7280; text-decoration: none; }
+    .home:hover { color: #111827; }
+  </style>
+</head>
+<body>
+<div class="wrapper">
+
+  <div class="top">
+    <span class="logo-astro">Astro</span>
+    <span class="logo-crm">CRM</span>
+  </div>
+  <h1>Internal Documents — Admin Index</h1>
+  <div class="meta">Not indexed by Google · Not linked from navigation · April 2026</div>
+  <div class="notice">All internal pages listed here by topic. Add every new document when created so nothing gets lost.</div>
+
+  <!-- ══════════════════ STRATEGY ══════════════════ -->
+  <div class="block b-strategy">
+    <div class="block-header">
+      <div class="block-icon">📋</div>
+      <div>
+        <h2>Strategy & Business Planning</h2>
+        <div class="sub">Business case, financial projections, competitive analysis</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="row-left">
+        <a href="https://astrocrm.app/business-case.html" target="_blank">Business Case & Go-To-Market Strategy →</a>
+        <div class="row-note">Full business case: market opportunity (EU + Russian gap), 3-year financial projections, pricing rationale, TAM/SAM/SOM, Russia risks, competitive landscape, break-even analysis.</div>
+      </div>
+      <div class="row-right">
+        <span class="tag tag-strategy">Strategy</span>
+        <span class="row-date">Apr 2026</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="row-left">
+        <a href="https://astrocrm.app/tasks.html" target="_blank">Launch Task List & Timeline 2026 →</a>
+        <div class="row-note">All tasks organised by month (April–December 2026) with deadlines, owners, and progress tracking. Checkboxes save in browser.</div>
+      </div>
+      <div class="row-right">
+        <span class="tag tag-tasks">Tasks</span>
+        <span class="row-date">Apr 2026</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════ PRODUCT ══════════════════ -->
+  <div class="block b-product">
+    <div class="block-header">
+      <div class="block-icon">💻</div>
+      <div>
+        <h2>Product Development</h2>
+        <div class="sub">CRM app — build log, feature specs, technical docs</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="row-left">
+        <a href="#" style="color:#9ca3af;cursor:default">Email Campaigns & Pipeline Automation — Build Plan</a>
+        <div class="row-note">Spec for email templates, automation triggers, campaign sending, and "Next Stage" button. Stored locally — not yet deployed.</div>
+      </div>
+      <div class="row-right">
+        <span class="tag tag-product">Product spec</span>
+        <span class="row-date">Apr 2026</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════ MARKETING ══════════════════ -->
+  <div class="block b-marketing">
+    <div class="block-header">
+      <div class="block-icon">📣</div>
+      <div>
+        <h2>Marketing & Content</h2>
+        <div class="sub">Landing pages, Instagram content, YouTube scripts, Telegram posts</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="row-left">
+        <a href="https://astrocrm.app/index.html" target="_blank">Main Landing Page (EN/RU) →</a>
+        <div class="row-note">Primary landing page targeting Russian-speaking practitioners in EU. Waitlist signup form. Profession categories. Feature overview.</div>
+      </div>
+      <div class="row-right">
+        <span class="tag tag-marketing">Landing page</span>
+        <span class="row-date">Apr 2026</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="row-left">
+        <a href="https://astrocrm.app/bazi-ru.html" target="_blank">Ba-Zi & Feng Shui Practitioners — Russian Landing Page →</a>
+        <div class="row-note">Education-first page in Russian. "You've never heard of CRM" angle. 6 mirror situations, cost of chaos, before/after, 5 specific use cases for ba-zi masters.</div>
+      </div>
+      <div class="row-right">
+        <span class="tag tag-marketing">Landing page</span>
+        <span class="row-date">Apr 2026</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════ RESEARCH ══════════════════ -->
+  <div class="block b-research">
+    <div class="block-header">
+      <div class="block-icon">🔍</div>
+      <div>
+        <h2>Market Research & Competitive Analysis</h2>
+        <div class="sub">CRM competitor landscape, market gaps, pricing research</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="row-left">
+        <a href="#" style="color:#9ca3af;cursor:default">CRM Competitor Analysis — Niche Coaching & Spiritual Businesses</a>
+        <div class="row-note">HoneyBook, Dubsado, CoachAccountable, Practice, 17hats, Notion, Zoho, Airtable. Gap analysis vs AstroCRM. Stored as .md file locally.</div>
+      </div>
+      <div class="row-right">
+        <span class="tag tag-research">Research</span>
+        <span class="row-date">Apr 2026</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="row-left">
+        <a href="#" style="color:#9ca3af;cursor:default">CRM Competitor Analysis — European & Russian Markets (.docx)</a>
+        <div class="row-note">Deep research: NL/BE/DE/FR European CRMs + 9 Russian CRMs (Битрикс24, amoCRM, YClients etc). Market gap confirmed in both markets. Stored locally as .docx.</div>
+      </div>
+      <div class="row-right">
+        <span class="tag tag-research">Research</span>
+        <span class="row-date">Apr 2026</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="row-left">
+        <a href="#" style="color:#9ca3af;cursor:default">Hosting & Social Media Integration Plan</a>
+        <div class="row-note">Hetzner VPS setup, Telegram bot, Instagram OAuth, LinkedIn CSV approach, recommended build order. Stored as .md file locally.</div>
+      </div>
+      <div class="row-right">
+        <span class="tag tag-research">Planning</span>
+        <span class="row-date">Apr 2026</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════ FINANCE ══════════════════ -->
+  <div class="block b-finance">
+    <div class="block-header">
+      <div class="block-icon">💶</div>
+      <div>
+        <h2>Finance & Legal</h2>
+        <div class="sub">Costs, pricing, payments, T&C, GDPR</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="row-left">
+        <a href="https://astrocrm.app/business-case.html#financials" target="_blank">Financial Projections — 3 Years →</a>
+        <div class="row-note">Revenue tables, cost structure, P&L per year. 2026: -€330. 2027: +€17,576. 2028: +€87,389. Break-even Q2–Q3 2027 at 131 clients.</div>
+      </div>
+      <div class="row-right">
+        <span class="tag tag-finance">Finance</span>
+        <span class="row-date">Apr 2026</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="row-left">
+        <a href="#" style="color:#9ca3af;cursor:default">Terms of Service — Draft (not yet written)</a>
+        <div class="row-note">To be adapted from Pipedrive T&C. Claude rewrites for AstroCRM. Target: done by 20 May before first paying client.</div>
+      </div>
+      <div class="row-right">
+        <span class="tag tag-legal">Legal</span>
+        <span class="row-date">Due May 2026</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="row-left">
+        <a href="#" style="color:#9ca3af;cursor:default">Privacy Policy / GDPR — Draft (not yet written)</a>
+        <div class="row-note">Covers: names, emails, session notes, astrology charts. User rights (delete/export). Required before launch. Claude writes.</div>
+      </div>
+      <div class="row-right">
+        <span class="tag tag-legal">Legal</span>
+        <span class="row-date">Due May 2026</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════ CONTENT ══════════════════ -->
+  <div class="block b-content">
+    <div class="block-header">
+      <div class="block-icon">✍️</div>
+      <div>
+        <h2>Content Production</h2>
+        <div class="sub">YouTube scripts, Instagram posts, Telegram community posts, email sequences</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="row-left">
+        <a href="#" style="color:#9ca3af;cursor:default">YouTube Script #1 — "Как я веду клиентов по ба-цзы" (pending)</a>
+        <div class="row-note">3-minute screen recording script. Hook → problem → demo → money → CTA → outro. SEO title + description + tags. Ready to produce.</div>
+      </div>
+      <div class="row-right">
+        <span class="tag tag-content">YouTube</span>
+        <span class="row-date">Due Aug 2026</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="row-left">
+        <a href="#" style="color:#9ca3af;cursor:default">Instagram Content — Month 1 batch (pending)</a>
+        <div class="row-note">8 posts — images + captions in Russian. Generated by Claude. Educational + product demo + practitioner stories. To be produced in April.</div>
+      </div>
+      <div class="row-right">
+        <span class="tag tag-content">Instagram</span>
+        <span class="row-date">Due Apr 2026</span>
+      </div>
+    </div>
+  </div>
+
+  <a class="home" href="https://astrocrm.app">← Back to AstroCRM</a>
+
+</div>
+</body>
+</html>
