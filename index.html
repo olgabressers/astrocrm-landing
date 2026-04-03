@@ -270,7 +270,7 @@
   <div class="stat"><div class="stat-value">+40%</div><div class="stat-label" data-i18n="stat1">Average revenue growth<br>in first 6 months</div></div>
   <div class="stat"><div class="stat-value">2×</div><div class="stat-label" data-i18n="stat2">More clients handled<br>in the same hours</div></div>
   <div class="stat"><div class="stat-value">5</div><div class="stat-label" data-i18n="stat3">Languages:<br>EN · NL · DE · RU · ES</div></div>
-  <div class="stat"><div class="stat-value">€15</div><div class="stat-label" data-i18n="stat4">Early adopter price<br>per month in 2026</div></div>
+  <div class="stat"><div class="stat-value">€30</div><div class="stat-label" data-i18n="stat4">Early adopter price<br>per month in 2026</div></div>
 </div>
 
 <!-- WHY CRM -->
@@ -516,7 +516,7 @@
           <tr><td data-i18n="c8">CSV / Excel / vCard import</td><td class="astro"><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="partial">~</span></td></tr>
           <tr><td data-i18n="c9">Email campaigns</td><td class="astro"><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="partial">~</span></td><td><span class="cross">✗</span></td></tr>
           <tr><td data-i18n="c10">Simple setup — ready in 5 min</td><td class="astro"><span class="check">✓</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="partial">~</span></td></tr>
-          <tr><td data-i18n="c11">Starting price</td><td class="astro">€25/mo</td><td>€15/mo</td><td>€25/mo</td><td>$19/mo</td></tr>
+          <tr><td data-i18n="c11">Starting price</td><td class="astro">€30/mo</td><td>€15/mo</td><td>€25/mo</td><td>$19/mo</td></tr>
         </tbody>
       </table>
     </div>
@@ -532,17 +532,20 @@
     <p class="section-sub" style="margin:0 auto 40px" data-i18n="price_sub">Two business workspaces included. No per-seat fees. No hidden costs.</p>
 
     <!-- Two plan cards: early adopter first -->
-    <div class="pricing-grid" style="max-width:760px;margin:0 auto 44px;">
+    <div class="pricing-grid" style="max-width:800px;margin:0 auto 44px;">
 
-      <!-- Early Adopter — highlighted, goes first -->
+      <!-- Early Adopter — featured -->
       <div class="pricing-card featured" style="text-align:left;">
-        <div class="pricing-badge" data-i18n="t1badge">2026 Early Adopter Price</div>
+        <div class="pricing-badge" data-i18n="t1badge">⚡ 2026 Early Adopter — Limited Spots</div>
         <div class="pricing-name" data-i18n="t1n">Early Access</div>
-        <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:4px;">
-          <div class="pricing-price">€15<span>/mo</span></div>
-          <div style="font-size:15px;color:var(--text3);text-decoration:line-through;">€25/mo</div>
+
+        <!-- Price display: big new price + strikethrough old price same size -->
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:6px;">
+          <div style="font-size:52px;font-weight:800;letter-spacing:-2px;color:var(--red);line-height:1;">€30<span style="font-size:18px;font-weight:400;color:var(--text3);">/mo</span></div>
+          <div style="font-size:52px;font-weight:800;letter-spacing:-2px;color:var(--text3);text-decoration:line-through;line-height:1;opacity:0.45;">€45</div>
         </div>
-        <div class="pricing-desc" data-i18n="t1d">Join in 2026 and lock in €15/mo forever — that's 40% off the regular price, for life.</div>
+        <div style="display:inline-block;background:var(--red);color:#fff;font-size:11px;font-weight:800;padding:3px 10px;border-radius:6px;margin-bottom:14px;" data-i18n="t1save">Save €15/mo — locked in for life</div>
+        <div class="pricing-desc" data-i18n="t1d">Join in 2026 and this price is yours forever. Same full product, 33% off — every single month, for as long as you stay.</div>
         <ul class="pricing-features">
           <li data-i18n="t1f1">2 business workspaces included</li>
           <li data-i18n="t1f2">Unlimited contacts</li>
@@ -553,15 +556,16 @@
           <li data-i18n="t1f7">Reports & analytics</li>
           <li data-i18n="t1f8">Telegram lead capture <span style="font-size:11px;color:var(--text3)">(coming soon)</span></li>
         </ul>
-        <a href="#waitlist" class="pricing-btn filled" data-i18n="t1btn">Get Early Access — €15/mo</a>
+        <a href="#waitlist" class="pricing-btn filled" data-i18n="t1btn">Get Early Access — €30/mo</a>
       </div>
 
       <!-- Full Package -->
       <div class="pricing-card" style="text-align:left;">
         <div class="pricing-name" data-i18n="t2n">Full Package</div>
-        <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:4px;">
-          <div class="pricing-price">€25<span>/mo</span></div>
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:6px;">
+          <div style="font-size:52px;font-weight:800;letter-spacing:-2px;color:var(--text);line-height:1;">€45<span style="font-size:18px;font-weight:400;color:var(--text3);">/mo</span></div>
         </div>
+        <div style="height:26px;margin-bottom:14px;"></div>
         <div class="pricing-desc" data-i18n="t2d">Standard price from 2027. Everything included — no limits, no add-ons, no surprises.</div>
         <ul class="pricing-features">
           <li data-i18n="t2f1">2 business workspaces included</li>
@@ -605,7 +609,7 @@
       <p style="text-align:center;font-size:13px;color:var(--text3);margin-top:18px;" data-i18n="biz_note">Both workspaces are fully independent — separate pipelines, contacts, and automations — inside one subscription.</p>
     </div>
 
-    <p style="font-size:13px;color:var(--text3);margin-top:32px" data-i18n="price_note">Early adopter price of €15/mo is locked in for life — only for subscribers who join in 2026.</p>
+    <p style="font-size:13px;color:var(--text3);margin-top:32px" data-i18n="price_note">Early adopter price of €30/mo is locked in for life — only for subscribers who join in 2026. Regular price from 2027: €45/mo.</p>
   </div>
 </section>
 
@@ -765,13 +769,13 @@ const T = {
     cmp_label:"Comparison",cmp_title:"AstroCRM vs the alternatives",cmp_sub:"How we compare to the tools practitioners actually use today.",
     cmp_feat:"Feature",c1:"Built for spiritual / coaching niche",c2:"Client file attachments (charts, docs)",c3:"Session notes per client",c4:"Kanban pipeline",c5:"Russian language",c6:"Dutch / German / Spanish",c7:"Two businesses in one account",c8:"CSV / Excel / vCard import",c9:"Email campaigns",c10:"Simple setup — ready in 5 min",c11:"Starting price",
     price_label:"Pricing",price_title:"Simple pricing. No surprises.",price_sub:"Two business workspaces included. No per-seat fees. No hidden costs.",
-    t1badge:"2026 Early Adopter Price",t1n:"Early Access",t1d:"Join in 2026 and lock in €15/mo forever — that's 40% off the regular price, for life.",t1f1:"2 business workspaces included",t1f2:"Unlimited contacts",t1f3:"Kanban pipeline + multiple stages",t1f4:"Session notes & file uploads",t1f5:"Email campaigns (3,000/mo)",t1f6:"Pipeline automations",t1f7:"Reports & analytics",t1f8:"Telegram lead capture (coming soon)",t1btn:"Get Early Access — €15/mo",
+    t1badge:"⚡ 2026 Early Adopter — Limited Spots",t1n:"Early Access",t1save:"Save €15/mo — locked in for life",t1d:"Join in 2026 and this price is yours forever. Same full product, 33% off — every single month, for as long as you stay.",t1f1:"2 business workspaces included",t1f2:"Unlimited contacts",t1f3:"Kanban pipeline + multiple stages",t1f4:"Session notes & file uploads",t1f5:"Email campaigns (3,000/mo)",t1f6:"Pipeline automations",t1f7:"Reports & analytics",t1f8:"Telegram lead capture (coming soon)",t1btn:"Get Early Access — €30/mo",
     t2n:"Full Package",t2d:"Standard price from 2027. Everything included — no limits, no add-ons, no surprises.",t2f1:"2 business workspaces included",t2f2:"Unlimited contacts",t2f3:"Kanban pipeline + multiple stages",t2f4:"Session notes & file uploads",t2f5:"Email campaigns (3,000/mo)",t2f6:"Pipeline automations",t2f7:"Reports & analytics",t2f8:"Telegram lead capture (coming soon)",t2btn:"Join Waitlist",
     biz_unique_label:"What makes AstroCRM unique",biz_title:"What are the 2 business workspaces?",biz_sub:"Most practitioners run two fundamentally different types of work — and they need different pipelines. AstroCRM keeps them separate in one account.",
     biz1_label:"Workspace 1 — people & relationship model",biz1_title:"The cycle never ends at one sale",biz1_desc:"Your client pays, but the relationship doesn't close — it deepens. They come back for the next session, the next reading, the next program. You track the whole journey: consultation history, notes, follow-ups, life events. The relationship itself is the product.",biz1_ex:"Examples: astrology & ba-zi consultations, coaching programs, psychotherapy, energy healing, human design sessions, numerology, feng shui projects",
     biz2_label:"Workspace 2 — standard product or service sell",biz2_title:"Classic lead → close → next",biz2_desc:"Client enquires, gets a quote, pays, done. The deal closes and you move on. You still track buyers and follow up — but each sale is its own event, not part of a long-term journey. A standard pipeline: lead in, money out, repeat.",biz2_ex:"Examples: online courses, astrology reports, product packages, one-off workshops, digital downloads, merchandise, beauty or styling services with a fixed menu",
     biz_note:"Both workspaces are fully independent — separate pipelines, contacts, and automations — inside one subscription.",
-    price_note:"Early adopter price of €15/mo is locked in for life — only for subscribers who join in 2026.",
+    price_note:"Early adopter price of €30/mo is locked in for life — only for subscribers who join in 2026. Regular price from 2027: €45/mo.",
     mock_label:"See It In Action",mock_title:"Your client pipeline, beautifully organised",
     cta_title:"Ready to grow your practice?",cta_sub:"Join the waitlist. Early access opens May 2026.",cta_btn:"Join Waitlist →",cta_note:"No spam. Just a heads-up when early access opens."
   },
@@ -802,13 +806,13 @@ const T = {
     cmp_label:"Сравнение",cmp_title:"AstroCRM vs альтернативы",cmp_sub:"Как мы выглядим на фоне инструментов, которые практики используют сегодня.",
     cmp_feat:"Функция",c1:"Создан для духовных практиков / коучей",c2:"Файлы клиента (карты, документы)",c3:"Заметки по сессиям",c4:"Канбан-воронка",c5:"Русский язык",c6:"Нидерландский / Немецкий / Испанский",c7:"Два бизнеса в одном аккаунте",c8:"Импорт CSV / Excel / vCard",c9:"Email-кампании",c10:"Простая настройка — готово за 5 мин",c11:"Стартовая цена",
     price_label:"Цены",price_title:"Простые цены. Без сюрпризов.",price_sub:"Два рабочих пространства включены. Без платы за пользователя. Без скрытых расходов.",
-    t1badge:"Цена для ранних подписчиков 2026",t1n:"Ранний доступ",t1d:"Подключитесь в 2026 году и зафиксируйте €15/мес навсегда — это скидка 40% от обычной цены, пожизненно.",t1f1:"2 рабочих пространства включены",t1f2:"Неограниченное количество контактов",t1f3:"Канбан-воронка + несколько этапов",t1f4:"Заметки по сессиям и загрузка файлов",t1f5:"Email-кампании (3 000/мес)",t1f6:"Автоматизация воронки",t1f7:"Отчёты и аналитика",t1f8:"Захват лидов из Telegram (скоро)",t1btn:"Получить ранний доступ — €15/мес",
+    t1badge:"⚡ Ранний подписчик 2026 — ограниченные места",t1n:"Ранний доступ",t1save:"Экономия €15/мес — зафиксирована навсегда",t1d:"Подключитесь в 2026 году — и эта цена ваша навсегда. Тот же полный продукт, скидка 33% — каждый месяц, пока вы с нами.",t1f1:"2 рабочих пространства включены",t1f2:"Неограниченное количество контактов",t1f3:"Канбан-воронка + несколько этапов",t1f4:"Заметки по сессиям и загрузка файлов",t1f5:"Email-кампании (3 000/мес)",t1f6:"Автоматизация воронки",t1f7:"Отчёты и аналитика",t1f8:"Захват лидов из Telegram (скоро)",t1btn:"Получить ранний доступ — €30/мес",
     t2n:"Полный пакет",t2d:"Стандартная цена с 2027 года. Всё включено — без лимитов, без надстроек, без сюрпризов.",t2f1:"2 рабочих пространства включены",t2f2:"Неограниченное количество контактов",t2f3:"Канбан-воронка + несколько этапов",t2f4:"Заметки по сессиям и загрузка файлов",t2f5:"Email-кампании (3 000/мес)",t2f6:"Автоматизация воронки",t2f7:"Отчёты и аналитика",t2f8:"Захват лидов из Telegram (скоро)",t2btn:"Встать в очередь",
     biz_unique_label:"Что делает AstroCRM уникальным",biz_title:"Что такое 2 рабочих пространства?",biz_sub:"У большинства практиков есть два принципиально разных направления работы — и им нужны разные воронки. AstroCRM держит их отдельно в одном аккаунте.",
     biz1_label:"Пространство 1 — модель отношений с людьми",biz1_title:"Цикл не заканчивается на одной продаже",biz1_desc:"Клиент платит — но отношения не закрываются, они углубляются. Он возвращается на следующую сессию, следующую консультацию, следующую программу. Вы ведёте всю историю: консультации, заметки, follow-up, важные события. Сами отношения — это и есть ваш продукт.",biz1_ex:"Примеры: астрологические и ба-цзы консультации, коучинговые программы, психотерапия, энергетические практики, сессии Human Design, нумерология, проекты фэн-шуй",
     biz2_label:"Пространство 2 — стандартная продажа продукта или услуги",biz2_title:"Классический цикл: лид → закрытие → следующий",biz2_desc:"Клиент интересуется, получает предложение, платит — готово. Сделка закрывается, вы движетесь дальше. Вы всё равно отслеживаете покупателей и делаете follow-up — но каждая продажа самостоятельна, не часть длинного пути. Стандартная воронка: лид пришёл, деньги получены, повторить.",biz2_ex:"Примеры: онлайн-курсы, астрологические отчёты, пакеты услуг, разовые мастер-классы, цифровые продукты, товары, косметологические или стилистические услуги с фиксированным прайсом",
     biz_note:"Оба пространства полностью независимы — отдельные воронки, контакты и автоматизации — в рамках одной подписки.",
-    price_note:"Цена €15/мес для ранних подписчиков фиксируется навсегда — только для тех, кто подключится в 2026 году.",
+    price_note:"Цена €30/мес для ранних подписчиков фиксируется навсегда — только для тех, кто подключится в 2026 году. Обычная цена с 2027: €45/мес.",
     mock_label:"Посмотрите как это работает",mock_title:"Ваши клиенты — красиво организованы",
     cta_title:"Готовы развивать свою практику?",cta_sub:"Встаньте в очередь. Ранний доступ открывается в мае 2026.",cta_btn:"Встать в очередь →",cta_note:"Никакого спама. Только уведомление, когда откроется доступ."
   }
