@@ -15,48 +15,68 @@
     .logo-crm { font-size: 11px; font-weight: 800; color: #1a1f36; letter-spacing: 3px; text-transform: uppercase; }
     h1 { font-size: 20px; font-weight: 800; color: #1a1f36; margin-bottom: 4px; }
     .meta { font-size: 13px; color: #6b7280; margin-bottom: 10px; }
-    .notice { background: #fef9c3; border: 1px solid #fde68a; border-radius: 8px; padding: 12px 16px; font-size: 13px; color: #92400e; margin-bottom: 36px; }
+    .notice { background: #fef9c3; border: 1px solid #fde68a; border-radius: 8px; padding: 12px 16px; font-size: 13px; color: #92400e; margin-bottom: 32px; }
 
-    /* VERDICT BOX */
-    .verdict { background: #fff; border-radius: 14px; box-shadow: 0 1px 6px rgba(0,0,0,.08); padding: 24px 28px; margin-bottom: 28px; border-left: 4px solid #8B0000; }
-    .verdict h2 { font-size: 16px; font-weight: 800; color: #8B0000; margin-bottom: 16px; }
+    /* VERDICT */
+    .verdict { background: #fff; border-radius: 14px; box-shadow: 0 1px 6px rgba(0,0,0,.08); padding: 24px 28px; margin-bottom: 24px; border-left: 4px solid #8B0000; }
+    .verdict h2 { font-size: 15px; font-weight: 800; color: #8B0000; margin-bottom: 16px; }
     .verdict-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
     .verdict-card { background: #fafafa; border: 1.5px solid #e5e7eb; border-radius: 10px; padding: 16px; }
-    .verdict-card.winner { border-color: #8B0000; background: #fff5f5; }
+    .verdict-card.win { border-color: #8B0000; background: #fff5f5; }
     .verdict-label { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #9ca3af; margin-bottom: 4px; }
-    .verdict-label.win { color: #8B0000; }
-    .verdict-name { font-size: 16px; font-weight: 800; color: #1a1f36; margin-bottom: 4px; }
-    .verdict-price { font-size: 13px; color: #6b7280; margin-bottom: 6px; }
+    .verdict-label.r { color: #8B0000; }
+    .verdict-name { font-size: 16px; font-weight: 800; color: #1a1f36; margin-bottom: 3px; }
+    .verdict-price { font-size: 12px; color: #6b7280; margin-bottom: 6px; }
     .verdict-why { font-size: 12.5px; color: #374151; line-height: 1.5; }
 
-    /* WORKFLOW BOX */
-    .workflow { background: #fff; border-radius: 14px; box-shadow: 0 1px 6px rgba(0,0,0,.08); padding: 24px 28px; margin-bottom: 28px; }
+    /* WORKFLOW */
+    .workflow { background: #fff; border-radius: 14px; box-shadow: 0 1px 6px rgba(0,0,0,.08); padding: 24px 28px; margin-bottom: 24px; }
     .workflow h2 { font-size: 15px; font-weight: 800; color: #1a1f36; margin-bottom: 16px; }
     .steps { display: flex; flex-direction: column; gap: 10px; }
     .step { display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; background: #f9fafb; border-radius: 9px; border: 1px solid #e5e7eb; }
-    .step-num { width: 26px; height: 26px; border-radius: 50%; background: #8B0000; color: #fff; font-size: 12px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .step-num { width: 26px; height: 26px; border-radius: 50%; background: #8B0000; color: #fff; font-size: 12px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
     .step-body { font-size: 13.5px; color: #374151; line-height: 1.5; }
     .step-body strong { color: #1a1f36; }
 
-    /* COMPARISON TABLE */
+    /* BLOCK */
     .block { background: #fff; border-radius: 14px; box-shadow: 0 1px 6px rgba(0,0,0,.08); margin-bottom: 24px; overflow: hidden; }
     .block-header { padding: 18px 24px; border-bottom: 1px solid #e5e7eb; }
     .block-header h2 { font-size: 15px; font-weight: 800; color: #1a1f36; }
     .block-header .sub { font-size: 12px; color: #9ca3af; margin-top: 2px; }
     .tbl-wrap { overflow-x: auto; }
     table { width: 100%; border-collapse: collapse; font-size: 13px; }
-    th { padding: 10px 14px; text-align: left; border-bottom: 2px solid #e5e7eb; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: #9ca3af; background: #f9fafb; }
-    td { padding: 12px 14px; border-bottom: 1px solid #f3f4f6; color: #374151; vertical-align: top; }
+    th { padding: 10px 14px; text-align: left; border-bottom: 2px solid #e5e7eb; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: #9ca3af; background: #f9fafb; white-space: nowrap; }
+    td { padding: 11px 14px; border-bottom: 1px solid #f3f4f6; color: #374151; vertical-align: top; font-size: 13px; }
     tr:last-child td { border-bottom: none; }
     td:first-child { font-weight: 700; color: #1a1f36; white-space: nowrap; }
-    tr.winner-row td { background: #fff5f5; }
-    tr.winner-row td:first-child { color: #8B0000; }
+    tr.wr td { background: #fff5f5; }
+    tr.wr td:first-child { color: #8B0000; }
+    tr.skip td { opacity: .5; }
 
-    .tag { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 10px; white-space: nowrap; }
+    .tag { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 10px; white-space: nowrap; margin: 1px; }
     .tag-yes { background: #d1fae5; color: #065f46; }
     .tag-no { background: #fee2e2; color: #b91c1c; }
     .tag-partial { background: #fef3c7; color: #92400e; }
     .tag-win { background: #fee2e2; color: #8B0000; border: 1px solid #fecaca; }
+    .tag-skip { background: #f3f4f6; color: #9ca3af; }
+
+    /* TOOL CARDS */
+    .tool-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; padding: 20px 24px; }
+    .tool-card { border: 1.5px solid #e5e7eb; border-radius: 12px; padding: 18px; background: #fafafa; }
+    .tool-card.pick { border-color: #8B0000; background: #fff5f5; }
+    .tool-card.secondary { border-color: #b8860b; background: #fffbeb; }
+    .tool-card.broll { border-color: #1a5fb4; background: #eff6ff; }
+    .tool-card.skip-card { opacity: .55; }
+    .tool-name { font-size: 15px; font-weight: 800; color: #1a1f36; margin-bottom: 2px; }
+    .tool-type { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #9ca3af; margin-bottom: 8px; }
+    .tool-type.r { color: #8B0000; }
+    .tool-type.a { color: #b8860b; }
+    .tool-type.b { color: #1a5fb4; }
+    .tool-desc { font-size: 13px; color: #374151; line-height: 1.5; margin-bottom: 10px; }
+    .tool-meta { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 8px; }
+    .tool-verdict { font-size: 12px; color: #6b7280; font-style: italic; border-top: 1px solid #e5e7eb; padding-top: 8px; margin-top: 4px; }
+
+    .section-title { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: #9ca3af; padding: 20px 24px 4px; }
 
     .home { display: inline-block; margin-top: 28px; font-size: 13px; color: #6b7280; text-decoration: none; }
     .home:hover { color: #111827; }
@@ -71,223 +91,377 @@
     <span class="logo-astro">Astro</span>
     <span class="logo-crm">CRM</span>
   </div>
-  <h1>AI Video Content Creation — Tool Research</h1>
+  <h1>AI Video Generation — Tool Research</h1>
   <div class="meta">Internal research · Not indexed · April 2026 · <a href="admin.html" class="back">← Back to Admin Index</a></div>
-  <div class="notice">Goal: find best tool to create YouTube + Instagram videos with automatic translation into Russian, English, Dutch. Use case: screen recording of CRM + voiceover, auto-dubbed into 3 languages. Solo non-technical founder.</div>
+  <div class="notice">Goal: fully AI-generated promotional videos for AstroCRM — no filming, no screen recording, no human on camera. Paste a script → tool generates a complete video ready to post on YouTube and Instagram Reels in Russian, English, and Dutch.</div>
 
   <!-- VERDICT -->
   <div class="verdict">
-    <h2>Recommendation</h2>
+    <h2>Recommended Stack</h2>
     <div class="verdict-grid">
-      <div class="verdict-card winner">
-        <div class="verdict-label win">Best overall</div>
+      <div class="verdict-card win">
+        <div class="verdict-label r">Primary — Avatar videos</div>
         <div class="verdict-name">HeyGen</div>
-        <div class="verdict-price">Free tier · $29/mo Creator plan</div>
-        <div class="verdict-why">Screen recording + voiceover → auto-translated and dubbed in RU/EN/NL. All in one platform. Most intuitive for non-technical users. 70+ languages.</div>
+        <div class="verdict-price">Free tier · $29/mo Creator</div>
+        <div class="verdict-why">Paste script → AI avatar presents it on camera. Auto-translates and dubs the same video into Russian, English, Dutch. Best-in-class lip sync. 40+ languages. The translation feature alone justifies the price.</div>
+      </div>
+      <div class="verdict-card win">
+        <div class="verdict-label r">Secondary — Stock footage videos</div>
+        <div class="verdict-name">Invideo AI</div>
+        <div class="verdict-price">Free (10/week) · $25/mo Plus</div>
+        <div class="verdict-why">Type a one-sentence prompt, it writes the script AND builds the video from stock footage + AI voice. Best for Instagram Reels and ad-style content. Cinematic feel, no avatar needed.</div>
       </div>
       <div class="verdict-card">
-        <div class="verdict-label">Budget option</div>
-        <div class="verdict-name">CapCut + ElevenLabs</div>
-        <div class="verdict-price">CapCut free · ElevenLabs $5/mo</div>
-        <div class="verdict-why">CapCut edits video, ElevenLabs generates natural-sounding voices in RU/EN/NL. More manual work — but $5/month total. Good starting point.</div>
-      </div>
-      <div class="verdict-card">
-        <div class="verdict-label">Runner-up</div>
-        <div class="verdict-name">VEED.io</div>
-        <div class="verdict-price">Free (watermark) · $25/mo Plus</div>
-        <div class="verdict-why">Browser-based, no install. Excellent subtitle auto-translation. Best for quick edits. Dubbing is partial — subtitles only, not voice replacement.</div>
+        <div class="verdict-label">B-roll generator (free)</div>
+        <div class="verdict-name">Kling AI or Luma AI</div>
+        <div class="verdict-price">Free tiers available · from $10/mo</div>
+        <div class="verdict-why">Generate custom mystical/astrology visuals — zodiac wheels, celestial charts, starfields. Drop this b-roll into HeyGen or Invideo for a premium look. Use free tier only.</div>
       </div>
     </div>
   </div>
 
   <!-- WORKFLOW -->
   <div class="workflow">
-    <h2>Recommended Workflow — Screen Recording → 3-Language Video</h2>
+    <h2>Workflow — From Zero to 3-Language Video</h2>
     <div class="steps">
       <div class="step">
         <div class="step-num">1</div>
-        <div class="step-body"><strong>Claude writes the script</strong> in Russian — word for word, what to say on screen. Also writes SEO title, description, tags for YouTube.</div>
+        <div class="step-body"><strong>Claude writes the script</strong> — word for word, 60–90 seconds. Also generates 3–5 variations for A/B testing. SEO title, description, tags for YouTube included.</div>
       </div>
       <div class="step">
         <div class="step-num">2</div>
-        <div class="step-body"><strong>You record screen + voiceover in Russian</strong> — just follow the script. Any screen recorder works (QuickTime on Mac is free). No editing needed.</div>
+        <div class="step-body"><strong>Paste script into HeyGen</strong> — choose an AI avatar (professional female, Russian-speaking), choose background (office, abstract, branded). Render takes ~2 minutes.</div>
       </div>
       <div class="step">
         <div class="step-num">3</div>
-        <div class="step-body"><strong>Upload to HeyGen</strong> → Video Translation feature → select English + Dutch → HeyGen generates dubbed versions automatically. Your voice, translated.</div>
+        <div class="step-body"><strong>Use HeyGen Video Translation</strong> — select English and Dutch. HeyGen auto-dubs and lip-syncs the avatar into both languages. One click → 3 videos.</div>
       </div>
       <div class="step">
         <div class="step-num">4</div>
-        <div class="step-body"><strong>Upload 3 versions to YouTube</strong> — Russian on main channel, English and Dutch as separate videos or with subtitle tracks. One recording → 3 markets.</div>
+        <div class="step-body"><strong>For Reels/Shorts</strong> — use Invideo AI instead. One-sentence prompt: "60-second Instagram Reel for AstroCRM, CRM for astrology coaches, Russian language, mystical but professional tone." It writes + builds the full video.</div>
       </div>
       <div class="step">
         <div class="step-num">5</div>
-        <div class="step-body"><strong>For Instagram Reels</strong> — cut the 60-second highlight in CapCut (free), add auto-captions in Russian. Post on Instagram. Claude provides the caption text.</div>
+        <div class="step-body"><strong>Post:</strong> YouTube (Russian + EN + NL versions) · Instagram Reels (Russian primary) · Telegram (link to YouTube). Total time per video set: ~30 minutes once workflow is set up.</div>
       </div>
+    </div>
+  </div>
+
+  <!-- TOOL CARDS -->
+  <div class="block">
+    <div class="block-header">
+      <h2>All Tools Evaluated</h2>
+      <div class="sub">Script → video, fully automated, no human filming required</div>
+    </div>
+
+    <div class="section-title">Use These</div>
+    <div class="tool-grid">
+
+      <div class="tool-card pick">
+        <div class="tool-name">HeyGen ★</div>
+        <div class="tool-type r">Avatar video · Best pick</div>
+        <div class="tool-desc">AI avatar reads your script on camera. 100+ avatars (diverse, professional). Choose voice, background, language. The Video Translation feature dubs any finished video into 40+ languages with lip-sync.</div>
+        <div class="tool-meta">
+          <span class="tag tag-yes">Russian ✓</span>
+          <span class="tag tag-yes">Dutch ✓</span>
+          <span class="tag tag-yes">Full script-to-video</span>
+          <span class="tag tag-yes">Auto-dubbing</span>
+        </div>
+        <div class="tool-meta">
+          <span class="tag tag-win">Free tier (1 vid/mo)</span>
+          <span class="tag tag-win">$29/mo Creator</span>
+          <span class="tag tag-win">$89/mo Business</span>
+        </div>
+        <div class="tool-verdict">Best for: explainer videos, product demos, feature announcements. Record once → 3 languages automatically.</div>
+      </div>
+
+      <div class="tool-card pick">
+        <div class="tool-name">Invideo AI ★</div>
+        <div class="tool-type r">Stock footage + AI voice · Best for social</div>
+        <div class="tool-desc">Type a prompt or paste a script → AI writes the script (if needed), picks stock footage clips, adds transitions, music, and AI voiceover. Most automated tool in the list. Great for Reels and Shorts.</div>
+        <div class="tool-meta">
+          <span class="tag tag-yes">Russian ✓</span>
+          <span class="tag tag-yes">Dutch ✓</span>
+          <span class="tag tag-yes">Prompt → full video</span>
+          <span class="tag tag-yes">AI writes script</span>
+        </div>
+        <div class="tool-meta">
+          <span class="tag tag-win">Free (10 vids/week)</span>
+          <span class="tag tag-win">$25/mo Plus</span>
+          <span class="tag tag-win">$60/mo Max</span>
+        </div>
+        <div class="tool-verdict">Best for: Instagram Reels, YouTube Shorts, ad-style content. Fastest path from idea to posted video.</div>
+      </div>
+
+      <div class="tool-card secondary">
+        <div class="tool-name">Synthesia</div>
+        <div class="tool-type a">Avatar video · Strong alternative</div>
+        <div class="tool-desc">Same category as HeyGen — AI avatar presents your script. 160+ avatars, more corporate/polished templates. 130+ languages. Slightly better slide-style layouts (text + avatar together).</div>
+        <div class="tool-meta">
+          <span class="tag tag-yes">Russian ✓</span>
+          <span class="tag tag-yes">Dutch ✓</span>
+          <span class="tag tag-yes">Full script-to-video</span>
+        </div>
+        <div class="tool-meta">
+          <span class="tag">Free (3 vids/mo)</span>
+          <span class="tag">$29/mo Starter</span>
+          <span class="tag">$89/mo Creator</span>
+        </div>
+        <div class="tool-verdict">Nearly identical to HeyGen. Pick HeyGen for the translation/dubbing feature; pick Synthesia for more structured slide-style layouts.</div>
+      </div>
+
+      <div class="tool-card secondary">
+        <div class="tool-name">Fliki.ai</div>
+        <div class="tool-type a">Stock footage + voice · Budget option</div>
+        <div class="tool-desc">Paste your script → Fliki splits it into scenes, finds matching stock clips, adds AI voiceover in 75+ languages. Fast, affordable, social-media native output. 1,000+ AI voices including Russian.</div>
+        <div class="tool-meta">
+          <span class="tag tag-yes">Russian ✓</span>
+          <span class="tag tag-yes">Dutch ✓</span>
+          <span class="tag tag-yes">Full script-to-video</span>
+        </div>
+        <div class="tool-meta">
+          <span class="tag">Free (5 min/mo)</span>
+          <span class="tag">$28/mo Standard</span>
+        </div>
+        <div class="tool-verdict">Good budget alternative to Invideo AI. Slightly less automated but very affordable. Good for YouTube narration-style videos.</div>
+      </div>
+
+      <div class="tool-card secondary">
+        <div class="tool-name">Elai.io</div>
+        <div class="tool-type a">Avatar video · Unique URL feature</div>
+        <div class="tool-desc">Avatar-based like HeyGen. Unique feature: paste your website URL → it automatically generates a product video. 75+ languages. Slightly lower avatar realism than HeyGen/Synthesia.</div>
+        <div class="tool-meta">
+          <span class="tag tag-yes">Russian ✓</span>
+          <span class="tag tag-yes">Dutch ✓</span>
+          <span class="tag tag-yes">URL → video</span>
+        </div>
+        <div class="tool-meta">
+          <span class="tag">Free (limited)</span>
+          <span class="tag">$29/mo Basic</span>
+        </div>
+        <div class="tool-verdict">Interesting for auto-generating a video from astrocrm.app directly. Test the free tier for this specific use case.</div>
+      </div>
+
+      <div class="tool-card broll">
+        <div class="tool-name">Kling AI</div>
+        <div class="tool-type b">B-roll generator · Free tiers</div>
+        <div class="tool-desc">Chinese AI video generator (by Kuaishou). Text or image → cinematic AI-generated clips. Excellent quality. Use to generate custom astrology visuals: zodiac wheels, celestial charts, starfields, mystical imagery. Drop into HeyGen or Invideo.</div>
+        <div class="tool-meta">
+          <span class="tag tag-partial">Visual only — no voice</span>
+          <span class="tag tag-yes">Free tier available</span>
+        </div>
+        <div class="tool-meta"><span class="tag">Free tier · from $10/mo</span></div>
+        <div class="tool-verdict">Use free tier for b-roll only. Not a standalone solution — combine with HeyGen.</div>
+      </div>
+
+      <div class="tool-card broll">
+        <div class="tool-name">Luma AI (Dream Machine)</div>
+        <div class="tool-type b">B-roll generator · Free tiers</div>
+        <div class="tool-desc">Text/image → smooth cinematic AI video clips. Excellent motion quality. Great for generating ethereal astrology b-roll. No voiceover or language features — visual only.</div>
+        <div class="tool-meta">
+          <span class="tag tag-partial">Visual only</span>
+          <span class="tag tag-yes">Free tier</span>
+        </div>
+        <div class="tool-meta"><span class="tag">Free tier · $30/mo Pro</span></div>
+        <div class="tool-verdict">Use free tier for b-roll only alongside HeyGen or Invideo.</div>
+      </div>
+
+    </div>
+
+    <div class="section-title">Skip for Now</div>
+    <div class="tool-grid">
+
+      <div class="tool-card skip-card">
+        <div class="tool-name">D-ID</div>
+        <div class="tool-type">Avatar / talking photo</div>
+        <div class="tool-desc">Animates any photo to speak your script. Useful if you want a custom illustrated character. Lower quality than HeyGen for realistic avatars. Niche use case.</div>
+        <div class="tool-meta"><span class="tag tag-skip">Skip — HeyGen is better</span></div>
+      </div>
+
+      <div class="tool-card skip-card">
+        <div class="tool-name">Opus Clip</div>
+        <div class="tool-type">Repurposing tool only</div>
+        <div class="tool-desc">Takes existing long videos and cuts them into Shorts/Reels. Does NOT create videos. Come back once you have long-form content to repurpose.</div>
+        <div class="tool-meta"><span class="tag tag-skip">Skip — no content yet to repurpose</span></div>
+      </div>
+
+      <div class="tool-card skip-card">
+        <div class="tool-name">Sora (OpenAI)</div>
+        <div class="tool-type">Generative visual only</div>
+        <div class="tool-desc">Cinematic AI-generated footage from text prompts. No voiceover, no structured business video pipeline. Good only for b-roll — but Kling AI is cheaper and equally good.</div>
+        <div class="tool-meta"><span class="tag tag-skip">Skip — use Kling AI instead</span></div>
+      </div>
+
+      <div class="tool-card skip-card">
+        <div class="tool-name">Pika Labs</div>
+        <div class="tool-type">Short clip generator</div>
+        <div class="tool-desc">Generates 2–4 second stylized clips. Too short for business video. Creative/artistic use only.</div>
+        <div class="tool-meta"><span class="tag tag-skip">Skip for now</span></div>
+      </div>
+
     </div>
   </div>
 
   <!-- FULL COMPARISON TABLE -->
   <div class="block">
     <div class="block-header">
-      <h2>Full Tool Comparison</h2>
-      <div class="sub">Evaluated for: screen recording support · auto-dubbing RU/EN/NL · solo founder usability · price</div>
+      <h2>Quick Comparison Table</h2>
     </div>
     <div class="tbl-wrap">
       <table>
         <thead>
           <tr>
             <th>Tool</th>
-            <th>What it does</th>
+            <th>Type</th>
+            <th>Russian</th>
+            <th>Dutch</th>
+            <th>Script → full video</th>
+            <th>Auto-dubbing</th>
             <th>Free tier</th>
             <th>Paid from</th>
-            <th>RU/EN/NL dubbing</th>
-            <th>Screen recording</th>
-            <th>Verdict</th>
           </tr>
         </thead>
         <tbody>
-          <tr class="winner-row">
+          <tr class="wr">
             <td>HeyGen ★</td>
-            <td>AI video creation + video translation/dubbing</td>
-            <td>Yes (3–5 videos/mo)</td>
+            <td>Avatar</td>
+            <td><span class="tag tag-yes">Yes</span></td>
+            <td><span class="tag tag-yes">Yes</span></td>
+            <td><span class="tag tag-yes">Yes</span></td>
+            <td><span class="tag tag-yes">Yes</span></td>
+            <td>1 vid/mo</td>
             <td>$29/mo</td>
-            <td><span class="tag tag-yes">Full dubbing</span></td>
-            <td><span class="tag tag-yes">Yes</span></td>
-            <td><span class="tag tag-win">Best pick</span></td>
           </tr>
-          <tr>
-            <td>VEED.io</td>
-            <td>Browser video editor + subtitle translation</td>
-            <td>Yes (watermark)</td>
+          <tr class="wr">
+            <td>Invideo AI ★</td>
+            <td>Stock + voice</td>
+            <td><span class="tag tag-yes">Yes</span></td>
+            <td><span class="tag tag-yes">Yes</span></td>
+            <td><span class="tag tag-yes">Yes</span></td>
+            <td><span class="tag tag-partial">Partial</span></td>
+            <td>10/week</td>
             <td>$25/mo</td>
-            <td><span class="tag tag-partial">Subtitles only</span></td>
-            <td><span class="tag tag-yes">Yes</span></td>
-            <td>Good runner-up</td>
-          </tr>
-          <tr>
-            <td>ElevenLabs</td>
-            <td>AI voice generation — text to speech</td>
-            <td>Yes (10K chars/mo)</td>
-            <td>$5/mo</td>
-            <td><span class="tag tag-partial">Voice only</span></td>
-            <td><span class="tag tag-no">No</span></td>
-            <td>Pair with CapCut</td>
-          </tr>
-          <tr>
-            <td>CapCut</td>
-            <td>Video editing + AI captions</td>
-            <td>Fully free</td>
-            <td>$5/mo Pro</td>
-            <td><span class="tag tag-partial">Subtitles only</span></td>
-            <td><span class="tag tag-yes">Yes</span></td>
-            <td>Free editing tool</td>
           </tr>
           <tr>
             <td>Synthesia</td>
-            <td>AI avatar videos + multilingual</td>
-            <td>Trial only</td>
-            <td>$24/mo</td>
-            <td><span class="tag tag-yes">Full dubbing</span></td>
-            <td><span class="tag tag-no">No</span></td>
-            <td>Avatars, not screen rec</td>
-          </tr>
-          <tr>
-            <td>Descript</td>
-            <td>Screen recording editor + transcription</td>
-            <td>Yes</td>
-            <td>$24/mo</td>
-            <td><span class="tag tag-no">No</span></td>
-            <td><span class="tag tag-yes">Best in class</span></td>
-            <td>EN only — skip</td>
-          </tr>
-          <tr>
-            <td>Pictory</td>
-            <td>Text-to-video, social media clips</td>
-            <td>Trial only</td>
-            <td>$25/mo</td>
-            <td><span class="tag tag-no">No</span></td>
+            <td>Avatar</td>
+            <td><span class="tag tag-yes">Yes</span></td>
+            <td><span class="tag tag-yes">Yes</span></td>
+            <td><span class="tag tag-yes">Yes</span></td>
             <td><span class="tag tag-partial">Limited</span></td>
-            <td>Not for this use case</td>
+            <td>3 vids/mo</td>
+            <td>$29/mo</td>
           </tr>
           <tr>
-            <td>InVideo</td>
-            <td>AI video from text + templates</td>
-            <td>Yes</td>
-            <td>$25/mo</td>
-            <td><span class="tag tag-partial">Subtitles only</span></td>
-            <td><span class="tag tag-partial">Limited</span></td>
-            <td>Template-heavy</td>
+            <td>Fliki.ai</td>
+            <td>Stock + voice</td>
+            <td><span class="tag tag-yes">Yes</span></td>
+            <td><span class="tag tag-yes">Yes</span></td>
+            <td><span class="tag tag-yes">Yes</span></td>
+            <td><span class="tag tag-no">No</span></td>
+            <td>5 min/mo</td>
+            <td>$28/mo</td>
           </tr>
           <tr>
-            <td>Runway ML</td>
-            <td>Generative AI video effects</td>
-            <td>Yes</td>
-            <td>$15/mo</td>
+            <td>Elai.io</td>
+            <td>Avatar</td>
+            <td><span class="tag tag-yes">Yes</span></td>
+            <td><span class="tag tag-yes">Yes</span></td>
+            <td><span class="tag tag-yes">Yes</span></td>
+            <td><span class="tag tag-no">No</span></td>
+            <td>Limited</td>
+            <td>$29/mo</td>
+          </tr>
+          <tr>
+            <td>Kling AI</td>
+            <td>B-roll only</td>
             <td><span class="tag tag-no">No</span></td>
             <td><span class="tag tag-no">No</span></td>
-            <td>Wrong tool entirely</td>
-          </tr>
-          <tr>
-            <td>Captions.ai</td>
-            <td>Auto-captions and subtitles</td>
+            <td><span class="tag tag-no">No</span></td>
+            <td><span class="tag tag-no">No</span></td>
             <td>Yes</td>
             <td>$10/mo</td>
-            <td><span class="tag tag-partial">Subtitles only</span></td>
+          </tr>
+          <tr class="skip">
+            <td>D-ID</td>
+            <td>Talking photo</td>
+            <td><span class="tag tag-yes">Yes</span></td>
+            <td><span class="tag tag-yes">Yes</span></td>
+            <td><span class="tag tag-yes">Yes</span></td>
             <td><span class="tag tag-no">No</span></td>
-            <td>Captions only</td>
+            <td>Trial</td>
+            <td>$36/mo</td>
+          </tr>
+          <tr class="skip">
+            <td>Sora</td>
+            <td>Generative visual</td>
+            <td><span class="tag tag-no">No</span></td>
+            <td><span class="tag tag-no">No</span></td>
+            <td><span class="tag tag-no">No</span></td>
+            <td><span class="tag tag-no">No</span></td>
+            <td>Via ChatGPT</td>
+            <td>$20/mo</td>
+          </tr>
+          <tr class="skip">
+            <td>Opus Clip</td>
+            <td>Repurposing only</td>
+            <td><span class="tag tag-partial">Subtitles</span></td>
+            <td><span class="tag tag-partial">Subtitles</span></td>
+            <td><span class="tag tag-no">No</span></td>
+            <td><span class="tag tag-no">No</span></td>
+            <td>Limited</td>
+            <td>$19/mo</td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
 
-  <!-- COST SUMMARY -->
+  <!-- COST -->
   <div class="block">
     <div class="block-header">
-      <h2>Monthly Cost for Recommended Setup</h2>
-      <div class="sub">Two realistic options depending on budget</div>
+      <h2>Monthly Cost for Full Video Stack</h2>
     </div>
     <div class="tbl-wrap">
       <table>
         <thead>
-          <tr><th>Option</th><th>Tools</th><th>Cost/mo</th><th>Languages</th><th>Manual work</th></tr>
+          <tr><th>Option</th><th>Tools</th><th>Cost/mo</th><th>Output</th><th>Automation level</th></tr>
         </thead>
         <tbody>
-          <tr class="winner-row">
-            <td>Option A — Full auto</td>
-            <td>HeyGen Creator plan</td>
-            <td>$29/mo</td>
-            <td>RU + EN + NL auto-dubbed</td>
-            <td>Minimal — record once, platform does the rest</td>
+          <tr class="wr">
+            <td>Recommended</td>
+            <td>HeyGen $29 + Invideo AI $25 + Kling free</td>
+            <td>$54/mo</td>
+            <td>Avatar videos + Reels + custom b-roll</td>
+            <td>Fully automated — Claude writes, tools generate</td>
           </tr>
           <tr>
-            <td>Option B — Budget</td>
-            <td>CapCut (free) + ElevenLabs ($5/mo)</td>
-            <td>$5/mo</td>
-            <td>RU + EN + NL voices</td>
-            <td>More manual — sync voice to video yourself</td>
+            <td>Budget</td>
+            <td>Invideo AI $25 + Fliki $28</td>
+            <td>$53/mo</td>
+            <td>Stock footage videos + narrated content</td>
+            <td>Fully automated — no avatar</td>
           </tr>
           <tr>
-            <td>Option C — Free only</td>
-            <td>CapCut + VEED.io free tier</td>
+            <td>Minimal start</td>
+            <td>HeyGen free tier + Invideo AI free</td>
             <td>€0</td>
-            <td>Subtitles only (no dubbing)</td>
-            <td>Manual voiceover for each language — too slow</td>
+            <td>1 avatar video/mo + 10 Reels/week</td>
+            <td>Automated — limited output volume</td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
 
-  <!-- ACTION -->
+  <!-- NEXT STEP -->
   <div class="block">
-    <div class="block-header">
-      <h2>Next Step</h2>
-    </div>
-    <div style="padding:20px 24px;font-size:14px;color:#374151;line-height:1.7;">
-      <p><strong>Before spending any money:</strong> Sign up for HeyGen free tier → upload one test screen recording → try the Video Translation feature into English. If the quality is acceptable, upgrade to Creator ($29/mo) when you're ready to publish. No commitment needed to test.</p>
-      <p style="margin-top:12px;">Claude writes all scripts and SEO metadata. You record. HeyGen translates. Total time per video once set up: ~1 hour from script to published.</p>
+    <div class="block-header"><h2>Next Step — Test Before You Pay</h2></div>
+    <div style="padding:20px 24px;font-size:14px;color:#374151;line-height:1.8;">
+      <p><strong>1.</strong> Sign up for <strong>HeyGen free tier</strong> → paste a 60-second script → pick a female avatar → generate one test video in Russian → use Video Translation to get English version. Judge the quality.</p>
+      <p style="margin-top:8px;"><strong>2.</strong> Sign up for <strong>Invideo AI free tier</strong> → type: "60-second Instagram Reel promoting AstroCRM, a CRM for astrology coaches, Russian language, professional mystical tone" → see what it builds automatically.</p>
+      <p style="margin-top:8px;"><strong>3.</strong> If both pass your quality bar → subscribe to both ($54/mo total). Claude writes all scripts. Tools generate all videos. You review and post.</p>
+      <p style="margin-top:8px;"><em>Note: pricing verified as of mid-2025 — check current rates before subscribing.</em></p>
     </div>
   </div>
 
