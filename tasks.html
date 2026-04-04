@@ -303,6 +303,15 @@
         </div>
       </div>
 
+      <div class="task" data-id="a15" data-month="apr">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Set up staging environment (separate from production)</div><span class="task-deadline">20 Apr</span></div>
+          <div class="task-note">Three environments: (1) Local — Claude develops here. (2) Staging at staging.astrocrm.app — exact mirror of production, used to test every change before going live. (3) Production at app.astrocrm.app — what real users see. Rule: nothing goes to production without passing staging first. Claude sets up staging on the same Hetzner server as a separate app running on a different port. Cost: €0 extra.</div>
+          <div class="task-tags"><span class="tag red">Architecture requirement</span><span class="tag blue">Claude sets up</span><span class="tag grey">1 day</span></div>
+        </div>
+      </div>
+
       <div class="task" data-id="a10" data-month="apr">
         <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <div class="task-body">
@@ -402,6 +411,15 @@
           <div class="task-top"><div class="task-title">Build trial period — 14 days free, no card required</div><span class="task-deadline">15 May</span></div>
           <div class="task-note">New users get 14 days free without entering a card. Day 10: reminder email. Day 14: prompt to subscribe. This dramatically increases signups — no friction to try.</div>
           <div class="task-tags"><span class="tag amber">Conversion critical</span><span class="tag blue">Claude builds</span><span class="tag grey">1–2 days</span></div>
+        </div>
+      </div>
+
+      <div class="task" data-id="b18" data-month="may">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Build feature flags system — safe rollout to % of users</div><span class="task-deadline">20 May</span></div>
+          <div class="task-note">Allows releasing new features to a subset of users before everyone sees them. Example: test the new pipeline UI with 10% of users, watch for errors, then enable for all. Built as a simple DB field: each tenant has a list of enabled beta features. Claude builds. This is what protects users when something goes wrong — you push to 10% first, not everyone.</div>
+          <div class="task-tags"><span class="tag red">Architecture requirement</span><span class="tag blue">Claude builds</span><span class="tag grey">1 day</span></div>
         </div>
       </div>
 
@@ -798,9 +816,18 @@
       <div class="task" data-id="e2" data-month="rest">
         <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <div class="task-body">
-          <div class="task-top"><div class="task-title">Make layout mobile-responsive</div><span class="task-deadline">31 Aug</span></div>
-          <div class="task-note">Many practitioners work from phone. Currently desktop-only. Required for broad adoption beyond early adopters. Claude refactors CSS.</div>
-          <div class="task-tags"><span class="tag blue">Claude builds</span><span class="tag grey">1–2 weeks</span></div>
+          <div class="task-top"><div class="task-title">Mobile-first CSS — built in Phase 1 ✓ / verify on real devices</div><span class="task-deadline">31 Aug</span></div>
+          <div class="task-note">Architecture changed: CSS is now written mobile-first from day one (Phase 1), not retrofitted later. All target users work on phones. This August task = verify on real devices with real users, fix edge cases. Test: pipeline kanban scroll on iPhone, modals on small screens, form inputs. Claude fixes any phone-specific issues found during beta.</div>
+          <div class="task-tags"><span class="tag green">Built in Phase 1</span><span class="tag blue">Claude verifies + fixes edge cases</span></div>
+        </div>
+      </div>
+
+      <div class="task" data-id="e4" data-month="rest">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Set up CI/CD pipeline — auto-deploy to staging on every code push</div><span class="task-deadline">31 Aug</span></div>
+          <div class="task-note">GitHub Actions: every push to the main branch → automatically deploy to staging.astrocrm.app and run tests. One manual click → deploy to production. This replaces manual deployment steps and makes it safe to push code frequently. Claude sets up the GitHub Actions workflow. Cost: free (GitHub Actions free tier covers this volume).</div>
+          <div class="task-tags"><span class="tag amber">Dev workflow</span><span class="tag blue">Claude sets up</span><span class="tag green">Free</span></div>
         </div>
       </div>
     </div>
@@ -966,7 +993,7 @@
 
     <div class="milestone">
       <div class="milestone-icon">🎯</div>
-      <div><div class="milestone-text">Year-end target: 40 paying clients · MRR €600 · Break-even on track for Q2–Q3 2027</div></div>
+      <div><div class="milestone-text">Year-end 2026: 40 paying clients · MRR €600 · staging env live · feature flags ready · foundation set for 10,000 users in 2027</div></div>
     </div>
   </div>
 
@@ -976,24 +1003,108 @@
       <div class="month-title-wrap">
         <span class="month-badge later">2027 & Beyond</span>
         <div>
-          <div class="month-title">Scale to 200+ Clients</div>
-          <div class="month-goal">Paid marketing, NL expansion, Dutch UI, premium features</div>
+          <div class="month-title">Scale to 10,000 Users — RU · NL · ES · DE</div>
+          <div class="month-goal">Target: 10,000 paying users by end of 2027. Wave 1: Russia + Netherlands. Wave 2: Spain + Germany (Russian-speaking diaspora + local payment systems).</div>
         </div>
       </div>
     </div>
     <div class="month-divider"></div>
 
+    <div class="milestone">
+      <div class="milestone-icon">🎯</div>
+      <div><div class="milestone-text">2027 target: 10,000 paying users · MRR €150,000+</div><div class="milestone-sub">Wave 1 (H1): Russia + NL fully live. Wave 2 (H2): Spain + Germany launch.</div></div>
+    </div>
+
     <div class="category">
-      <div class="category-title">Product</div>
+      <div class="category-title">Infrastructure — Scale for 10,000 Users</div>
+
+      <div class="task" data-id="z8" data-month="2027">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Scale infrastructure for 10K users — load balancer + PostgreSQL tuning</div><span class="task-deadline">Q1 2027</span></div>
+          <div class="task-note">At 500+ concurrent users, single Hetzner VPS starts to slow. Action plan: (1) Add PgBouncer connection pooler in front of PostgreSQL — handles 10x more connections with same hardware. (2) Add Redis for caching frequent queries (pipeline view, contacts list). (3) Add second app instance behind nginx load balancer for zero-downtime deployments. Total extra cost: ~€30/mo. Claude handles all of this — no architecture change needed, just more instances of the same design.</div>
+          <div class="task-tags"><span class="tag red">Do at 500+ users</span><span class="tag blue">Claude configures</span><span class="tag grey">€30/mo extra</span></div>
+        </div>
+      </div>
+
+      <div class="task" data-id="z9" data-month="2027">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Add CDN for static assets (Cloudflare free)</div><span class="task-deadline">Q1 2027</span></div>
+          <div class="task-note">Users in Russia and Spain loading CSS/JS/images from Frankfurt VPS = slow. Cloudflare CDN (free plan) caches static files on edge servers worldwide. Result: ~3x faster load time for international users. Claude configures DNS + Cloudflare rules. 30 minutes to set up.</div>
+          <div class="task-tags"><span class="tag green">Free</span><span class="tag blue">Claude configures</span><span class="tag grey">30 min</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category">
+      <div class="category-title">Product — Wave 1: Netherlands</div>
 
       <div class="task" data-id="z1" data-month="2027">
         <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <div class="task-body">
-          <div class="task-top"><div class="task-title">Add Dutch language UI</div><span class="task-deadline">Q1 2027</span></div>
-          <div class="task-note">Unlock full NL ZZP market. Currently EN + RU only. Required before running Dutch Google Ads. Claude builds.</div>
+          <div class="task-top"><div class="task-title">Add Dutch language UI (NL)</div><span class="task-deadline">Q1 2027</span></div>
+          <div class="task-note">Unlock full NL ZZP market — coaches, therapists, life coaches. Architecture already supports this: just add NL strings to i18n.js. Claude builds.</div>
           <div class="task-tags"><span class="tag blue">Claude builds</span><span class="tag grey">2–3 days</span></div>
         </div>
       </div>
+
+      <div class="task" data-id="z10" data-month="2027">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Add iDEAL payment integration (Netherlands)</div><span class="task-deadline">Q1 2027</span></div>
+          <div class="task-note">iDEAL is the dominant Dutch payment method (70%+ of Dutch online payments). Dutch practitioners need to send iDEAL payment links to their Dutch clients. Available via Mollie (already integrated for our own subscriptions). Claude adds iDEAL payment link generation to the contacts/deals module.</div>
+          <div class="task-tags"><span class="tag blue">Claude builds</span><span class="tag grey">2–3 days — Mollie already connected</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category">
+      <div class="category-title">Product — Wave 2: Spain</div>
+
+      <div class="task" data-id="z11" data-month="2027">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Add Spanish language UI (ES)</div><span class="task-deadline">Q3 2027</span></div>
+          <div class="task-note">Russian-speaking practitioners in Spain + native Spanish speakers. Same pattern as Dutch — add ES strings to i18n.js. Claude builds.</div>
+          <div class="task-tags"><span class="tag blue">Claude builds</span><span class="tag grey">2–3 days</span></div>
+        </div>
+      </div>
+
+      <div class="task" data-id="z12" data-month="2027">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Add Bizum payment links (Spain)</div><span class="task-deadline">Q3 2027</span></div>
+          <div class="task-note">Bizum is Spain's dominant mobile payment — 20M+ users, most Spanish clients pay this way. Spanish practitioners need to send Bizum payment links to their clients from within AstroCRM. Available via Redsys or Stripe (Stripe supports Bizum in Spain). Claude adds as a new payments adapter — no architectural change, same plugin pattern.</div>
+          <div class="task-tags"><span class="tag blue">Claude builds</span><span class="tag grey">3–5 days</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category">
+      <div class="category-title">Product — Wave 2: Germany</div>
+
+      <div class="task" data-id="z13" data-month="2027">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Add German language UI (DE)</div><span class="task-deadline">Q4 2027</span></div>
+          <div class="task-note">Russian-speaking practitioners in Germany. Same pattern — add DE strings to i18n.js. Claude builds.</div>
+          <div class="task-tags"><span class="tag blue">Claude builds</span><span class="tag grey">2–3 days</span></div>
+        </div>
+      </div>
+
+      <div class="task" data-id="z14" data-month="2027">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Add SEPA bank transfer + Klarna payment links (Germany)</div><span class="task-deadline">Q4 2027</span></div>
+          <div class="task-note">Germans pay by SEPA bank transfer (standard for services) and increasingly Klarna. Practitioners need to send SEPA payment requests and Klarna links from within AstroCRM. Klarna available via Stripe. SEPA available via Mollie (already integrated). Claude adds as payment adapters.</div>
+          <div class="task-tags"><span class="tag blue">Claude builds</span><span class="tag grey">3–5 days — Mollie + Stripe already connected</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category">
+      <div class="category-title">Product — Core Features</div>
 
       <div class="task" data-id="z2" data-month="2027">
         <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
@@ -1020,8 +1131,8 @@
       <div class="task" data-id="z4" data-month="2027">
         <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <div class="task-body">
-          <div class="task-top"><div class="task-title">Launch Instagram / Facebook paid ads — EU diaspora</div><span class="task-deadline">Q1 2027</span></div>
-          <div class="task-note">Russian language + EU location + astrology/coaching. €250/month. Only start once you have testimonials. Claude writes ad copy and generates creatives.</div>
+          <div class="task-top"><div class="task-title">Launch Instagram / Facebook paid ads — EU diaspora (RU speakers)</div><span class="task-deadline">Q1 2027</span></div>
+          <div class="task-note">Russian language + EU location (NL, DE, ES, BE, CZ) + astrology/coaching interest. €250/month. Only start once you have 20+ testimonials. Claude writes ad copy and generates creatives.</div>
           <div class="task-tags"><span class="tag grey">€250/mo</span><span class="tag blue">Claude writes + generates</span></div>
         </div>
       </div>
@@ -1029,11 +1140,15 @@
       <div class="task" data-id="z5" data-month="2027">
         <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <div class="task-body">
-          <div class="task-top"><div class="task-title">Launch Google Ads — Dutch ZZP coaches and therapists</div><span class="task-deadline">2028</span></div>
+          <div class="task-top"><div class="task-title">Launch Google Ads — Dutch ZZP coaches and therapists</div><span class="task-deadline">Q2 2027</span></div>
           <div class="task-note">"CRM voor coaches", "CRM therapeuten Nederland". Requires Dutch UI first. €300/month budget. Claude writes all ad copy.</div>
-          <div class="task-tags"><span class="tag grey">€300/mo · 2028</span><span class="tag blue">Claude writes</span></div>
+          <div class="task-tags"><span class="tag grey">€300/mo</span><span class="tag blue">Claude writes</span></div>
         </div>
       </div>
+    </div>
+
+    <div class="category">
+      <div class="category-title">Legal</div>
 
       <div class="task" data-id="z7" data-month="2027">
         <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
