@@ -1,7 +1,11 @@
 User-agent: *
 Allow: /
 Disallow: /admin.html
+Disallow: /admin-video.html
 Disallow: /business-case.html
 Disallow: /tasks.html
+Disallow: /astrocrm-architecture.html
+Disallow: /amocrm-features.html
+Disallow: /developer-contract.html
 
 Sitemap: https://astrocrm.app/sitemap.xml

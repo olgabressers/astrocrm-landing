@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="robots" content="noindex, nofollow"/>
+  <title>AstroCRM Architecture — Internal Reference</title>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f1f5f9;color:#111827;line-height:1.6;padding:40px 24px 80px;}
+    .wrapper{max-width:1060px;margin:0 auto;}
+
+    .top-bar{background:#0f2340;color:white;border-radius:14px;padding:28px 36px;margin-bottom:12px;}
+    .top-bar h1{font-size:22px;font-weight:800;margin-bottom:6px;}
+    .top-bar p{font-size:13.5px;opacity:.75;}
+    .top-nav{display:flex;gap:12px;margin-bottom:32px;flex-wrap:wrap;}
+    .top-nav a{font-size:12px;font-weight:600;color:#6b7280;text-decoration:none;padding:6px 14px;background:white;border:1px solid #e5e7eb;border-radius:8px;}
+    .top-nav a:hover{color:#0f2340;border-color:#0f2340;}
+
+    .section{background:white;border-radius:14px;border:1px solid #e5e7eb;box-shadow:0 1px 6px rgba(0,0,0,.06);margin-bottom:24px;overflow:hidden;}
+    .section-header{padding:18px 24px;border-bottom:1px solid #f3f4f6;display:flex;align-items:center;gap:12px;background:#fafafa;}
+    .section-icon{font-size:20px;width:36px;text-align:center;flex-shrink:0;}
+    .section-title{font-size:15px;font-weight:800;color:#0f2340;}
+    .section-sub{font-size:11px;color:#9ca3af;margin-top:1px;}
+    .section-body{padding:20px 24px;}
+
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+    @media(max-width:700px){.two-col{grid-template-columns:1fr;}}
+
+    .principle-list{list-style:none;}
+    .principle-item{display:flex;gap:14px;padding:10px 0;border-bottom:1px solid #f3f4f6;}
+    .principle-item:last-child{border-bottom:none;}
+    .p-num{width:24px;height:24px;border-radius:50%;background:#0f2340;color:white;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+    .p-text{font-size:13.5px;color:#1f2937;}
+    .p-text strong{color:#0f2340;}
+
+    pre{background:#f3f4f6;border:1px solid #e5e7eb;border-radius:8px;padding:14px 18px;font-size:12px;overflow-x:auto;line-height:1.7;color:#1f2937;}
+
+    .phase-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;}
+    .phase-card{border-radius:12px;padding:16px 18px;border:1px solid;}
+    .phase-card h4{font-size:13px;font-weight:800;margin-bottom:8px;}
+    .phase-card ul{list-style:none;padding:0;}
+    .phase-card li{font-size:12px;padding:3px 0;color:#374151;}
+    .phase-card li::before{content:"→ ";color:#9ca3af;}
+    .phase1{background:#f0f9ff;border-color:#bae6fd;} .phase1 h4{color:#0369a1;}
+    .phase2{background:#fef9ee;border-color:#fde68a;} .phase2 h4{color:#92400e;}
+    .phase3{background:#fdf4ff;border-color:#e9d5ff;} .phase3 h4{color:#6b21a8;}
+    .phase4{background:#f0fdf4;border-color:#bbf7d0;} .phase4 h4{color:#14532d;}
+
+    .tag-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;}
+    .tag{display:inline-block;font-size:11px;font-weight:700;padding:3px 10px;border-radius:8px;white-space:nowrap;}
+    .tag-blue{background:#dbeafe;color:#1e40af;}
+    .tag-green{background:#d1fae5;color:#065f46;}
+    .tag-red{background:#fee2e2;color:#b91c1c;}
+    .tag-amber{background:#fef3c7;color:#92400e;}
+    .tag-purple{background:#ede9fe;color:#5b21b6;}
+    .tag-grey{background:#f3f4f6;color:#374151;}
+
+    .rule-list{list-style:none;}
+    .rule-item{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid #f3f4f6;font-size:13px;color:#374151;}
+    .rule-item:last-child{border-bottom:none;}
+    .rule-item::before{content:"✗";color:#dc2626;font-weight:800;flex-shrink:0;font-size:14px;}
+
+    table{width:100%;border-collapse:collapse;font-size:13px;}
+    th{text-align:left;padding:8px 12px;background:#f8fafc;color:#6b7280;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;border-bottom:2px solid #e5e7eb;}
+    td{padding:9px 12px;border-bottom:1px solid #f3f4f6;color:#374151;}
+    tr:last-child td{border-bottom:none;}
+    td:first-child{font-weight:600;color:#0f2340;}
+
+    .vision-stat{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:16px;}
+    .vstat{background:#f8fafc;border:1px solid #e5e7eb;border-radius:10px;padding:12px 16px;text-align:center;min-width:100px;}
+    .vstat-val{font-size:22px;font-weight:800;color:#0f2340;}
+    .vstat-lbl{font-size:11px;color:#6b7280;margin-top:2px;}
+
+    .info-box{background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:14px 18px;font-size:13px;color:#1e40af;margin-top:12px;}
+    .warn-box{background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:14px 18px;font-size:13px;color:#92400e;margin-top:12px;}
+  </style>
+</head>
+<body>
+<div class="wrapper">
+
+  <div class="top-bar">
+    <h1>🏗 AstroCRM — Architecture Reference</h1>
+    <p>Internal guide for Claude and developers. Read before making any structural decisions. All new features must fit this architecture.</p>
+  </div>
+
+  <div class="top-nav">
+    <a href="https://astrocrm.app/admin.html">← Admin Index</a>
+    <a href="https://astrocrm.app/amocrm-features.html">AmoCRM Feature Map →</a>
+  </div>
+
+  <!-- PRODUCT VISION -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">🎯</div>
+      <div>
+        <div class="section-title">Product Vision</div>
+        <div class="section-sub">What we're building and who it's for</div>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="vision-stat">
+        <div class="vstat"><div class="vstat-val">1000s</div><div class="vstat-lbl">Target users</div></div>
+        <div class="vstat"><div class="vstat-val">NL + RU</div><div class="vstat-lbl">Primary markets</div></div>
+        <div class="vstat"><div class="vstat-val">3</div><div class="vstat-lbl">Plan tiers</div></div>
+        <div class="vstat"><div class="vstat-val">AmoCRM</div><div class="vstat-lbl">Feature reference</div></div>
+      </div>
+      <p style="font-size:13.5px;color:#374151;margin-bottom:10px;"><strong>Target:</strong> Multi-tenant SaaS CRM for coaches, astrologers, therapists and holistic practitioners. Each user gets a fully isolated workspace.</p>
+      <p style="font-size:13.5px;color:#374151;margin-bottom:10px;"><strong>Markets:</strong> Netherlands (Dutch/EN) + Russia/CIS (RU). Pricing in EUR with Stripe (NL) and Mollie (NL-native).</p>
+      <p style="font-size:13.5px;color:#374151;"><strong>Reference product for feature direction:</strong> AmoCRM — see the <a href="https://trendsonfire.com/admin/amocrm-features.html" style="color:#1d4ed8;">full feature map</a>.</p>
+      <div class="tag-row">
+        <span class="tag tag-blue">FastAPI + Python</span>
+        <span class="tag tag-blue">PostgreSQL (prod)</span>
+        <span class="tag tag-blue">Vanilla JS ES Modules</span>
+        <span class="tag tag-green">Multi-tenant SaaS</span>
+        <span class="tag tag-amber">Subscription plans</span>
+        <span class="tag tag-purple">AmoCRM-level features</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CORE PRINCIPLES -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">📐</div>
+      <div>
+        <div class="section-title">Core Principles</div>
+        <div class="section-sub">Non-negotiable architectural rules</div>
+      </div>
+    </div>
+    <div class="section-body">
+      <ul class="principle-list">
+        <li class="principle-item">
+          <div class="p-num">1</div>
+          <div class="p-text"><strong>Multi-tenancy first.</strong> Every database table has <code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">tenant_id</code>. No data ever leaks between users. Enforce at query level, not just UI.</div>
+        </li>
+        <li class="principle-item">
+          <div class="p-num">2</div>
+          <div class="p-text"><strong>One source of truth.</strong> All API calls go through <code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">static/modules/core/api.js</code>. Never call <code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">fetch()</code> directly from feature modules.</div>
+        </li>
+        <li class="principle-item">
+          <div class="p-num">3</div>
+          <div class="p-text"><strong>Separation of concerns.</strong> Routers handle HTTP. Services handle business logic. Models handle data. Never mix them.</div>
+        </li>
+        <li class="principle-item">
+          <div class="p-num">4</div>
+          <div class="p-text"><strong>Background tasks for anything slow.</strong> Sending email, webhooks, notifications — always async via task queue. Never block an HTTP response.</div>
+        </li>
+        <li class="principle-item">
+          <div class="p-num">5</div>
+          <div class="p-text"><strong>Feature flags per plan.</strong> Every premium feature checks <code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">tenant.plan</code> before executing. Never hard-code plan logic in feature code.</div>
+        </li>
+        <li class="principle-item">
+          <div class="p-num">6</div>
+          <div class="p-text"><strong>No secrets in code.</strong> All credentials in <code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">.env</code>. Never commit <code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">.env</code>.</div>
+        </li>
+        <li class="principle-item">
+          <div class="p-num">7</div>
+          <div class="p-text"><strong>All user-visible strings through i18n.</strong> No hard-coded EN/RU/NL/DE/ES text in modules. Every string goes through <code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">i18n.js</code>.</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- BACKEND + FRONTEND STRUCTURE -->
+  <div class="two-col">
+
+    <!-- BACKEND -->
+    <div class="section" style="margin-bottom:0;">
+      <div class="section-header">
+        <div class="section-icon">⚙️</div>
+        <div>
+          <div class="section-title">Backend Structure</div>
+          <div class="section-sub">FastAPI + Python</div>
+        </div>
+      </div>
+      <div class="section-body">
+        <pre>app/
+  main.py        # FastAPI init, middleware
+  database.py    # SQLAlchemy engine
+  models.py      # ORM models
+  schemas.py     # Pydantic models
+  auth.py        # JWT + bcrypt
+  tenants.py     # Plan checks, feature gates
+  tasks.py       # Background task queue
+
+  routers/
+    auth.py      # /api/auth/*
+    tenants.py   # /api/tenant/*
+    contacts.py  # /api/contacts/*
+    deals.py     # /api/deals/*
+    pipelines.py # /api/pipelines/*
+    stages.py    # /api/stages/*
+    campaigns.py # /api/campaigns/*
+    automations.py
+    integrations.py
+    billing.py   # Stripe / Mollie
+    webhooks.py  # Telegram, WhatsApp
+
+  services/
+    email.py     # Gmail OAuth + SMTP + SendPulse
+    telegram.py  # Bot API
+    whatsapp.py  # Business API
+    payments.py  # Stripe + Mollie</pre>
+      </div>
+    </div>
+
+    <!-- FRONTEND -->
+    <div class="section" style="margin-bottom:0;">
+      <div class="section-header">
+        <div class="section-icon">🖥</div>
+        <div>
+          <div class="section-title">Frontend Structure</div>
+          <div class="section-sub">Vanilla JS ES Modules</div>
+        </div>
+      </div>
+      <div class="section-body">
+        <pre>static/
+  index.html       # HTML shell — no logic
+
+  modules/
+    core/
+      api.js       # ALL fetch calls
+      state.js     # Global app state
+      router.js    # View switching
+      auth.js      # Login/logout, tokens
+      i18n.js      # All translations
+
+    pipeline.js    # Kanban + drag/drop
+    contacts.js    # Contacts table
+    campaigns.js   # Campaign list + send
+    reports.js     # Charts + analytics
+    deadlines.js   # Deadlines view
+    settings.js    # Settings view
+    automations.js # Automation rules
+    integrations.js # Gmail, Telegram…
+    billing.js     # Plans + upgrade
+
+  style.css        # Single CSS file
+  app.js           # Entry point ~50 lines</pre>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- DATABASE & AUTH -->
+  <div class="section" style="margin-top:24px;">
+    <div class="section-header">
+      <div class="section-icon">🗄</div>
+      <div>
+        <div class="section-title">Database &amp; Authentication</div>
+        <div class="section-sub">SQLite (dev) → PostgreSQL (production) · JWT tokens</div>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="two-col">
+        <div>
+          <p style="font-size:13px;font-weight:700;color:#0f2340;margin-bottom:8px;">Multi-Tenancy Pattern</p>
+          <pre>-- Every table has tenant_id
+CREATE TABLE contacts (
+  id        UUID PRIMARY KEY,
+  tenant_id UUID NOT NULL,  -- always
+  name      TEXT,
+  ...
+);
+
+-- Every query filters by tenant
+db.query(Contact)
+  .filter(Contact.tenant_id == tenant_id)
+  .all()
+
+-- Never trust client to send tenant_id
+-- Always extract from JWT</pre>
+        </div>
+        <div>
+          <p style="font-size:13px;font-weight:700;color:#0f2340;margin-bottom:8px;">Authentication Flow</p>
+          <ul style="list-style:none;font-size:13px;color:#374151;">
+            <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;">🔐 JWT access token — short-lived (1 hour)</li>
+            <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;">🍪 Refresh token — httpOnly cookie (30 days)</li>
+            <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;">🔑 Password hashing: bcrypt</li>
+            <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;">📧 Email verification on registration</li>
+            <li style="padding:5px 0;">🔄 Password reset via email token</li>
+          </ul>
+          <p style="font-size:13px;font-weight:700;color:#0f2340;margin:14px 0 8px;">Database</p>
+          <ul style="list-style:none;font-size:13px;color:#374151;">
+            <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;">💻 Dev: SQLite (local, single developer)</li>
+            <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;">🚀 Prod: PostgreSQL (Supabase free tier)</li>
+            <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;">🔧 ORM: SQLAlchemy</li>
+            <li style="padding:5px 0;">🔄 Migrations: Alembic</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUBSCRIPTION PLANS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">💳</div>
+      <div>
+        <div class="section-title">Subscription Plans &amp; Feature Gating</div>
+        <div class="section-sub">Standard · Full · Enterprise</div>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="two-col">
+        <div>
+          <table>
+            <thead><tr><th>Plan</th><th>Price</th><th>Key Features</th></tr></thead>
+            <tbody>
+              <tr><td>Standard</td><td>€15 / €25</td><td>Pipeline, contacts, basic campaigns, reports</td></tr>
+              <tr><td>Full</td><td>€30 / €45</td><td>+ 2 businesses, automations, Telegram, WhatsApp</td></tr>
+              <tr><td>Enterprise</td><td>TBD</td><td>All features, API access, custom integrations</td></tr>
+            </tbody>
+          </table>
+          <div class="info-box" style="margin-top:12px;">Early access prices (left) locked in for life for users who join before launch. Regular prices (right) apply after launch.</div>
+        </div>
+        <div>
+          <pre>PLAN_FEATURES = {
+  "standard": [
+    "pipeline", "contacts",
+    "campaigns_basic", "reports"
+  ],
+  "full": [
+    "pipeline", "contacts",
+    "campaigns_advanced", "reports",
+    "two_businesses", "automations",
+    "telegram", "whatsapp"
+  ],
+  "enterprise": ["*"]  # all features
+}
+
+def require_feature(feature: str):
+  def dependency(tenant = Depends(...)):
+    if feature not in PLAN_FEATURES
+        .get(tenant.plan, []):
+      raise HTTPException(
+        403, "Upgrade your plan")
+  return Depends(dependency)</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INTEGRATIONS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">🔌</div>
+      <div>
+        <div class="section-title">Integration Architecture</div>
+        <div class="section-sub">Email · Telegram · WhatsApp · Payments</div>
+      </div>
+    </div>
+    <div class="section-body">
+      <table>
+        <thead><tr><th>Integration</th><th>Phase</th><th>Approach</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Gmail OAuth</td>
+            <td><span class="tag tag-amber">Phase 2</span></td>
+            <td>One-click connect, send emails from CRM and pipeline automations</td>
+            <td>Planned</td>
+          </tr>
+          <tr>
+            <td>SMTP (Yandex, Mail.ru, custom)</td>
+            <td><span class="tag tag-amber">Phase 2</span></td>
+            <td>App password setup for users with non-Gmail providers</td>
+            <td>Planned</td>
+          </tr>
+          <tr>
+            <td>SendPulse</td>
+            <td><span class="tag tag-amber">Phase 2</span></td>
+            <td>Bring-your-own API key, campaign sending with tracking</td>
+            <td>Planned</td>
+          </tr>
+          <tr>
+            <td>Telegram Bot</td>
+            <td><span class="tag tag-amber">Phase 2</span></td>
+            <td>Inbound messages → auto-create lead; per-tenant bot token, encrypted in DB</td>
+            <td>Planned</td>
+          </tr>
+          <tr>
+            <td>WhatsApp Business</td>
+            <td><span class="tag tag-purple">Phase 3</span></td>
+            <td>Meta Business API or WATI.io intermediary</td>
+            <td>Future</td>
+          </tr>
+          <tr>
+            <td>Stripe</td>
+            <td><span class="tag tag-amber">Phase 2</span></td>
+            <td>EU/NL subscribers, webhook updates tenant plan on payment</td>
+            <td>Planned</td>
+          </tr>
+          <tr>
+            <td>Mollie</td>
+            <td><span class="tag tag-amber">Phase 2</span></td>
+            <td>NL-native alternative to Stripe, popular with Dutch businesses</td>
+            <td>Planned</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="warn-box">Email provider decision: Gmail OAuth is Phase 2 primary (easiest for users, one click). SMTP added for Yandex/Mail.ru users. SendPulse for campaign tracking — each user creates free account and pastes API key into AstroCRM settings.</div>
+    </div>
+  </div>
+
+  <!-- HOSTING -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">☁️</div>
+      <div>
+        <div class="section-title">Hosting &amp; Infrastructure</div>
+        <div class="section-sub">Local dev → Railway/Render production</div>
+      </div>
+    </div>
+    <div class="section-body">
+      <table>
+        <thead><tr><th>Layer</th><th>Dev</th><th>Production</th></tr></thead>
+        <tbody>
+          <tr><td>App server</td><td>uvicorn local</td><td>Railway or Render (~€5–15/mo)</td></tr>
+          <tr><td>Database</td><td>SQLite</td><td>Supabase PostgreSQL (free tier)</td></tr>
+          <tr><td>File storage</td><td>Local disk</td><td>Cloudflare R2 or Supabase Storage</td></tr>
+          <tr><td>Domain</td><td>localhost:8000</td><td>app.astrocrm.app</td></tr>
+          <tr><td>Deploy</td><td>—</td><td>Docker container, env vars via hosting secrets</td></tr>
+          <tr><td>DB migrations</td><td>alembic upgrade head</td><td>Alembic runs on deploy</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- DEVELOPMENT PHASES -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">🗺</div>
+      <div>
+        <div class="section-title">Development Phases</div>
+        <div class="section-sub">Foundation must be solid before building features</div>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="phase-grid">
+        <div class="phase-card phase1">
+          <h4>Phase 1 — Foundation</h4>
+          <ul>
+            <li>Refactor app.js into modules</li>
+            <li>Refactor app.py into routers + services</li>
+            <li>JWT authentication (register, login)</li>
+            <li>Multi-tenancy (tenant_id all tables)</li>
+            <li>Switch to PostgreSQL (Supabase)</li>
+            <li>Deploy to Railway/Render</li>
+          </ul>
+        </div>
+        <div class="phase-card phase2">
+          <h4>Phase 2 — Integrations</h4>
+          <ul>
+            <li>Gmail OAuth connect</li>
+            <li>SMTP (Yandex, Mail.ru)</li>
+            <li>Pipeline automation emails</li>
+            <li>Campaign sends via connected email</li>
+            <li>Telegram lead capture bot</li>
+            <li>Stripe + Mollie payments</li>
+          </ul>
+        </div>
+        <div class="phase-card phase3">
+          <h4>Phase 3 — Monetisation</h4>
+          <ul>
+            <li>Subscription plans in database</li>
+            <li>Feature gating middleware</li>
+            <li>Plan upgrade/downgrade flow</li>
+            <li>WhatsApp integration</li>
+            <li>Advanced automations</li>
+          </ul>
+        </div>
+        <div class="phase-card phase4">
+          <h4>Phase 4 — Growth</h4>
+          <ul>
+            <li>Advanced analytics</li>
+            <li>Third-party API</li>
+            <li>Mobile-responsive UI</li>
+            <li>Admin dashboard (all tenants)</li>
+            <li>Marketplace / integrations hub</li>
+          </ul>
+        </div>
+      </div>
+      <div class="info-box" style="margin-top:16px;">Even though the final product targets AmoCRM-level complexity, Phase 1 still makes complete sense — in fact it's <strong>more important than ever</strong>. You cannot safely add 60+ features on top of a single-file app. The foundation (auth + multi-tenancy + module structure) is what makes every future feature possible without rewriting.</div>
+    </div>
+  </div>
+
+  <!-- WHAT NOT TO DO -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">🚫</div>
+      <div>
+        <div class="section-title">What NOT To Do</div>
+        <div class="section-sub">Common mistakes that will break the architecture</div>
+      </div>
+    </div>
+    <div class="section-body">
+      <ul class="rule-list">
+        <li class="rule-item">Add features to the single-file app.js — always create a module</li>
+        <li class="rule-item">Query the database without filtering by tenant_id</li>
+        <li class="rule-item">Store credentials or API keys anywhere except .env</li>
+        <li class="rule-item">Use SQLite in production</li>
+        <li class="rule-item">Send emails synchronously inside an HTTP request handler</li>
+        <li class="rule-item">Hard-code plan names or feature lists in feature code — use PLAN_FEATURES</li>
+        <li class="rule-item">Build authentication from scratch for each route — use the dependency</li>
+        <li class="rule-item">Call fetch() directly from feature modules — always use core/api.js</li>
+        <li class="rule-item">Hard-code EN/RU/NL text in modules — always use i18n.js</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- CODE STYLE -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">✏️</div>
+      <div>
+        <div class="section-title">Code Style Rules</div>
+        <div class="section-sub">For Claude and any developer working on AstroCRM</div>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="two-col">
+        <div>
+          <p style="font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">Python (Backend)</p>
+          <ul style="list-style:none;font-size:13px;color:#374151;">
+            <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;">Type hints on all function signatures</li>
+            <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;">Docstring on all service functions</li>
+            <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;">All DB-touching code in services/, never in routers/</li>
+            <li style="padding:5px 0;">API returns <code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">&#123; data: ... &#125;</code> or <code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">&#123; error: "..." &#125;</code></li>
+          </ul>
+        </div>
+        <div>
+          <p style="font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">JavaScript (Frontend)</p>
+          <ul style="list-style:none;font-size:13px;color:#374151;">
+            <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;">ES modules (import/export), no var, const by default</li>
+            <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;">No framework — vanilla JS only</li>
+            <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;">app.js entry point max ~50 lines</li>
+            <li style="padding:5px 0;">Global state only in core/state.js — no module-local copies</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:32px;text-align:center;">
+    <a href="https://astrocrm.app/admin.html" style="font-size:13px;color:#6b7280;text-decoration:none;">← Back to Admin Index</a>
+  </div>
+
+</div>
+</body>
+</html>
