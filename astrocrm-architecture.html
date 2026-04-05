@@ -132,7 +132,7 @@
       <ul class="principle-list">
         <li class="principle-item">
           <div class="p-num">1</div>
-          <div class="p-text"><strong>Multi-tenancy first.</strong> Every database table has <code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">tenant_id</code>. No data ever leaks between users. Enforce at query level, not just UI.</div>
+          <div class="p-text"><strong>Multi-tenancy first.</strong> Every database table has <code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">tenant_id</code>. Enforced at two independent layers: application query filter AND PostgreSQL Row Level Security (RLS) via Supabase. One missed filter in code cannot leak data — the database rejects it.</div>
         </li>
         <li class="principle-item">
           <div class="p-num">2</div>
@@ -196,6 +196,7 @@
     pipelines.py # /api/pipelines/*
     stages.py    # /api/stages/*
     campaigns.py # /api/campaigns/*
+    activities.py # /api/activities/* ← Phase 1
     automations.py
     integrations.py
     billing.py   # Stripe / Mollie
@@ -1462,6 +1463,178 @@ Preferred-Languages: en, ru, nl
           <div class="info-box" style="margin-top:12px;">At 500+ users add PgBouncer + Redis + second app instance (~€30/mo extra, no code changes). At 2,000+ users: Supabase Pro €25/mo + Resend paid ~€20/mo.</div>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- ACTIVITY / TIMELINE -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">📋</div>
+      <div>
+        <div class="section-title">Activity &amp; Interaction Timeline</div>
+        <div class="section-sub">The core CRM entity — without this, you have a contacts list, not a CRM</div>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="warn-box" style="margin-bottom:20px;">
+        <strong>Why this matters:</strong> Contacts, deals, and pipelines describe <em>state</em>. Activities describe <em>what happened</em> — the history of every interaction. This is the foundation of automations, analytics, and any future AI features. Missing from Phase 1 = building a CRM without the CRM core.
+      </div>
+      <div class="two-col">
+        <div>
+          <p style="font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">Activity data model</p>
+          <pre>class ActivityType(Enum):
+  note        = "note"      # Session notes
+  email_sent  = "email_sent"
+  email_recv  = "email_recv"
+  call        = "call"
+  meeting     = "meeting"   # Appointment
+  task        = "task"      # To-do item
+  deal_moved  = "deal_moved"# Auto on stage change
+  automation  = "automation"# Auto-triggered
+
+class Activity(Base):
+  id         UUID PK
+  tenant_id  UUID FK (indexed)
+  contact_id UUID FK nullable
+  deal_id    UUID FK nullable
+  type       ActivityType
+  content    Text  # note text, subject…
+  metadata   JSONB # flexible per type
+  created_by UUID FK
+  created_at DateTime
+  # No updated_at — append-only</pre>
+        </div>
+        <div>
+          <p style="font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">API endpoints (Phase 1)</p>
+          <pre>GET /api/v1/contacts/{id}/activities
+GET /api/v1/deals/{id}/activities
+POST /api/v1/activities</pre>
+          <p style="font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin:14px 0 10px;">What plugs into Activity</p>
+          <ul style="list-style:none;font-size:13px;color:#374151;">
+            <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;">📝 Session notes → <code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">type=note, contact_id=…</code></li>
+            <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;">🔄 Pipeline moves → <code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">type=deal_moved</code> auto-created</li>
+            <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;">📧 Email sends → <code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">type=email_sent</code> by email service</li>
+            <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;">⚡ Automations → <code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">type=automation</code> logged</li>
+            <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;">📊 Reports → query by type + date range</li>
+            <li style="padding:5px 0;">🤖 AI (Phase 4) → timestamped record of everything</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MULTI-TENANCY ENFORCEMENT: RLS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">🏢</div>
+      <div>
+        <div class="section-title">Multi-Tenancy Enforcement — Supabase Row Level Security</div>
+        <div class="section-sub">DB-level enforcement, not just application-level — one forgotten filter can't leak data</div>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="info-box" style="margin-bottom:20px;">
+        <strong>The problem with query-only enforcement:</strong> If every developer must remember to add <code style="font-size:12px;">.filter(tenant_id == ...)</code> to every query, one forgotten filter = data from another user's account is exposed. Discipline is not enough at scale. The database must enforce it independently.
+      </div>
+      <div class="two-col">
+        <div>
+          <p style="font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">PostgreSQL RLS policy (Supabase)</p>
+          <pre>-- Enable on every table
+ALTER TABLE contacts
+  ENABLE ROW LEVEL SECURITY;
+
+-- Policy: DB rejects rows from
+-- other tenants automatically
+CREATE POLICY tenant_isolation
+  ON contacts
+  USING (
+    tenant_id =
+    current_setting(
+      'app.current_tenant'
+    )::uuid
+  );
+
+-- In FastAPI: set context per request
+async def get_db_session(tenant_id):
+  db.execute(
+    "SET app.current_tenant = :tid",
+    {"tid": str(tenant_id)}
+  )
+  return db</pre>
+        </div>
+        <div>
+          <p style="font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">Why this matters</p>
+          <ul style="list-style:none;font-size:13px;color:#374151;">
+            <li style="padding:6px 0;border-bottom:1px solid #f3f4f6;">🔒 Query without tenant filter → DB returns zero rows, never wrong tenant's data</li>
+            <li style="padding:6px 0;border-bottom:1px solid #f3f4f6;">🔒 Developer forgets filter → still safe</li>
+            <li style="padding:6px 0;border-bottom:1px solid #f3f4f6;">🔒 Works at DB level, independently of application code</li>
+            <li style="padding:6px 0;border-bottom:1px solid #f3f4f6;">✅ Supabase has native RLS support — built-in, no extra cost</li>
+            <li style="padding:6px 0;">✅ Stacks on top of the application-level filter — two independent layers</li>
+          </ul>
+          <div class="warn-box" style="margin-top:16px;"><strong>Optimistic locking — concurrent edits</strong><br>When two sessions update the same record simultaneously, last write silently wins. Fix: compare <code style="font-size:12px;">updated_at</code> before writing. If it doesn't match, return 409 Conflict — "Reload and try again." Frontend sends the <code style="font-size:12px;">updated_at</code> it last saw. One check per write, zero lost data.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ARQ BACKGROUND JOBS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">⚙️</div>
+      <div>
+        <div class="section-title">Background Job System (ARQ) — Full Spec</div>
+        <div class="section-sub">Retry strategy · Idempotency · Dead-letter queue · Job types</div>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="two-col" style="margin-bottom:20px;">
+        <div>
+          <p style="font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">Worker configuration</p>
+          <pre>class WorkerSettings:
+  functions = [
+    send_welcome_email,
+    fire_automation,
+    process_webhook,
+  ]
+  redis_settings = RedisSettings
+    .from_dsn(settings.REDIS_URL)
+  max_tries = 3    # retry 3× on fail
+  retry_delay = 60 # 60s between retries
+  job_timeout = 300# kill if >5 min
+  keep_result = 86400 # 24h in Redis</pre>
+        </div>
+        <div>
+          <p style="font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">Idempotency — webhook safety</p>
+          <pre>async def process_stripe_webhook(
+    ctx, event_id: str, data: dict):
+
+  # Already processed? Skip safely
+  if await db.get(ProcessedWebhook,
+      event_id):
+    return  # not an error
+
+  await handle_payment_success(data)
+
+  # Mark processed (one-time only)
+  db.add(ProcessedWebhook(
+    id=event_id,
+    processed_at=datetime.utcnow()
+  ))
+  await db.commit()</pre>
+        </div>
+      </div>
+      <p style="font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">Job types — retry &amp; failure rules</p>
+      <table style="margin-bottom:16px;">
+        <thead><tr><th>Job</th><th>Max retries</th><th>Idempotency key</th><th>On final failure</th></tr></thead>
+        <tbody>
+          <tr><td>send_welcome_email</td><td>3</td><td>user_id</td><td>Sentry alert</td></tr>
+          <tr><td>send_campaign_email</td><td>3</td><td>campaign_id + contact_id</td><td>Mark failed in DB</td></tr>
+          <tr><td>process_stripe_webhook</td><td>5</td><td>Stripe event_id</td><td>Sentry + manual review</td></tr>
+          <tr><td>fire_automation</td><td>3</td><td>automation_id + trigger_id</td><td>Log + skip</td></tr>
+          <tr><td>telegram_message</td><td>3</td><td>message_id</td><td>Log + skip</td></tr>
+        </tbody>
+      </table>
+      <div class="warn-box">After <code style="font-size:12px;">max_tries</code> failures, the job is marked <strong>failed</strong> in Redis. Sentry captures the exception on each retry. Review failed jobs weekly — a silent failure here means a user never received their welcome email or their payment wasn't processed. Never let a failed job disappear without a trace.</div>
     </div>
   </div>
 
