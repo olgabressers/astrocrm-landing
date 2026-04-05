@@ -428,9 +428,10 @@ def require_feature(feature: str):
           <div style="font-size:12px;color:#374151;margin-bottom:10px;">Where Claude and developers write and test code. Never touched by real users.</div>
           <ul style="list-style:none;font-size:12px;color:#374151;">
             <li style="padding:3px 0;">🖥 <strong>URL:</strong> localhost:8000</li>
-            <li style="padding:3px 0;">🗄 <strong>DB:</strong> PostgreSQL via Docker</li>
+            <li style="padding:3px 0;">🗄 <strong>DB:</strong> Supabase <em>astrocrm-dev</em> project (free)</li>
             <li style="padding:3px 0;">🔑 <strong>.env:</strong> local secrets only</li>
             <li style="padding:3px 0;">👩‍💻 <strong>Deploy:</strong> uvicorn --reload</li>
+            <li style="padding:3px 0;color:#059669;font-weight:600;">✓ No Docker needed — saves ~4GB storage</li>
           </ul>
         </div>
 
@@ -493,12 +494,13 @@ def require_feature(feature: str):
         <thead><tr><th>Layer</th><th>Local (Dev)</th><th>Staging</th><th>Production</th></tr></thead>
         <tbody>
           <tr><td>App server</td><td>uvicorn --reload</td><td>Hetzner VPS (port 8001)</td><td>Hetzner VPS (port 80/443)</td></tr>
-          <tr><td>Database</td><td>PostgreSQL via Docker</td><td>Separate staging DB</td><td>Supabase PostgreSQL</td></tr>
+          <tr><td>Database</td><td>Supabase <em>astrocrm-dev</em> (free, no Docker)</td><td>Supabase <em>astrocrm-staging</em> (free)</td><td>Supabase <em>astrocrm-prod</em> (free)</td></tr>
           <tr><td>Deploy trigger</td><td>Manual</td><td>Automatic on git push</td><td>Manual approval only</td></tr>
           <tr><td>Domain</td><td>localhost:8000</td><td>staging.astrocrm.app</td><td>app.astrocrm.app</td></tr>
           <tr><td>Migrations</td><td>alembic upgrade head</td><td>Auto on deploy</td><td>Auto on deploy</td></tr>
           <tr><td>Error tracking</td><td>Console logs</td><td>Sentry (staging project)</td><td>Sentry (production project)</td></tr>
           <tr><td>Secrets</td><td>.env local file</td><td>GitHub Actions secrets</td><td>Hetzner server .env</td></tr>
+          <tr><td>Mac storage cost</td><td style="color:#059669;font-weight:600;">~1GB total</td><td>0 (server-side)</td><td>0 (server-side)</td></tr>
         </tbody>
       </table>
     </div>
@@ -621,6 +623,140 @@ def require_feature(feature: str):
           </ul>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- CYBERSECURITY -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">🔐</div>
+      <div>
+        <div class="section-title">Product Cybersecurity</div>
+        <div class="section-sub">All layers: authentication · data · server · payments · compliance</div>
+      </div>
+    </div>
+    <div class="section-body">
+
+      <!-- Overview boxes -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:24px;">
+        <div style="background:#f0fdf4;border:1px solid #86efac;border-radius:10px;padding:14px 16px;text-align:center;">
+          <div style="font-size:22px;margin-bottom:4px;">🔑</div>
+          <div style="font-size:12px;font-weight:800;color:#14532d;">Authentication</div>
+          <div style="font-size:11px;color:#374151;margin-top:4px;">JWT + bcrypt + rate limiting + in-memory tokens</div>
+        </div>
+        <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:14px 16px;text-align:center;">
+          <div style="font-size:22px;margin-bottom:4px;">🏢</div>
+          <div style="font-size:12px;font-weight:800;color:#1e40af;">Multi-tenancy</div>
+          <div style="font-size:11px;color:#374151;margin-top:4px;">tenant_id on every table, enforced by query layer, tested</div>
+        </div>
+        <div style="background:#fdf4ff;border:1px solid #e9d5ff;border-radius:10px;padding:14px 16px;text-align:center;">
+          <div style="font-size:22px;margin-bottom:4px;">🌐</div>
+          <div style="font-size:12px;font-weight:800;color:#6b21a8;">API security</div>
+          <div style="font-size:11px;color:#374151;margin-top:4px;">CORS, CSP headers, input validation, versioning</div>
+        </div>
+        <div style="background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;padding:14px 16px;text-align:center;">
+          <div style="font-size:22px;margin-bottom:4px;">💳</div>
+          <div style="font-size:12px;font-weight:800;color:#9a3412;">Payments</div>
+          <div style="font-size:11px;color:#374151;margin-top:4px;">Never store card data — Stripe/Mollie handle PCI DSS</div>
+        </div>
+        <div style="background:#fefce8;border:1px solid #fde68a;border-radius:10px;padding:14px 16px;text-align:center;">
+          <div style="font-size:22px;margin-bottom:4px;">🇪🇺</div>
+          <div style="font-size:12px;font-weight:800;color:#713f12;">GDPR</div>
+          <div style="font-size:11px;color:#374151;margin-top:4px;">Data export, right to delete, consent, retention policy</div>
+        </div>
+        <div style="background:#f0fdf4;border:1px solid #86efac;border-radius:10px;padding:14px 16px;text-align:center;">
+          <div style="font-size:22px;margin-bottom:4px;">🖥</div>
+          <div style="font-size:12px;font-weight:800;color:#14532d;">Server</div>
+          <div style="font-size:11px;color:#374151;margin-top:4px;">SSH keys only, firewall, HTTPS, no root login</div>
+        </div>
+      </div>
+
+      <!-- Authentication layer -->
+      <p style="font-size:12px;font-weight:800;color:#0f2340;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">Authentication &amp; Sessions</p>
+      <table style="margin-bottom:20px;">
+        <thead><tr><th>Threat</th><th>Protection</th><th>How</th></tr></thead>
+        <tbody>
+          <tr><td>Stolen password</td><td>bcrypt hashing</td><td>Passwords never stored in plain text. bcrypt is slow by design — brute-force takes years.</td></tr>
+          <tr><td>Brute-force login</td><td>Rate limiting</td><td>slowapi: 5 attempts/IP/minute. Account locked for 15 min after 10 failures.</td></tr>
+          <tr><td>Stolen session token</td><td>In-memory JWT</td><td>Access token stored in JS memory only — not localStorage, not cookies. Stolen only if attacker runs code in your browser.</td></tr>
+          <tr><td>Persistent session after logout</td><td>Short-lived tokens</td><td>Access token expires in 15 min. Refresh token (httpOnly cookie) expires in 30 days. Logout invalidates refresh token server-side.</td></tr>
+          <tr><td>Account takeover</td><td>Email verification</td><td>New accounts require email verification. Password reset only via verified email link.</td></tr>
+          <tr><td>Weak passwords</td><td>Password policy</td><td>Minimum 8 characters, at least 1 number. Enforced on both frontend and backend.</td></tr>
+        </tbody>
+      </table>
+
+      <!-- API security -->
+      <p style="font-size:12px;font-weight:800;color:#0f2340;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">API &amp; Frontend Security</p>
+      <table style="margin-bottom:20px;">
+        <thead><tr><th>Threat</th><th>Protection</th><th>How</th></tr></thead>
+        <tbody>
+          <tr><td>SQL injection</td><td>SQLAlchemy ORM</td><td>All DB queries use parameterized statements. Raw SQL is never written. ORM prevents injection by construction.</td></tr>
+          <tr><td>XSS (cross-site scripting)</td><td>CSP headers + no innerHTML</td><td>Content-Security-Policy header blocks inline scripts and untrusted sources. Frontend never uses innerHTML with user data.</td></tr>
+          <tr><td>CSRF (cross-site request forgery)</td><td>SameSite cookies + origin check</td><td>Refresh token cookie has SameSite=Strict. API checks Origin header on state-changing requests.</td></tr>
+          <tr><td>Unauthorised API access</td><td>JWT on every route</td><td>Every endpoint requires valid JWT via get_current_tenant dependency. No exceptions.</td></tr>
+          <tr><td>Cross-tenant data access</td><td>tenant_id enforcement</td><td>Every query filtered by tenant_id extracted from JWT — never from request body. Tested by automated isolation tests.</td></tr>
+          <tr><td>Scraping / abuse</td><td>Rate limiting</td><td>All public endpoints rate-limited. Auth endpoints stricter (R3).</td></tr>
+          <tr><td>Clickjacking</td><td>X-Frame-Options header</td><td>X-Frame-Options: DENY — prevents AstroCRM being embedded in a malicious iframe.</td></tr>
+          <tr><td>MIME type sniffing</td><td>X-Content-Type-Options</td><td>X-Content-Type-Options: nosniff — browser won't guess content type.</td></tr>
+        </tbody>
+      </table>
+
+      <!-- Data security -->
+      <p style="font-size:12px;font-weight:800;color:#0f2340;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">Data Security</p>
+      <table style="margin-bottom:20px;">
+        <thead><tr><th>What</th><th>Protection</th><th>Detail</th></tr></thead>
+        <tbody>
+          <tr><td>Data in transit</td><td>HTTPS/TLS everywhere</td><td>Let's Encrypt certificate. All traffic encrypted. HTTP redirects to HTTPS. HSTS header forces future connections to HTTPS.</td></tr>
+          <tr><td>Data at rest</td><td>Supabase encryption</td><td>Supabase encrypts all data at rest (AES-256). Backups also encrypted.</td></tr>
+          <tr><td>Sensitive session notes &amp; charts</td><td>Stored in DB (encrypted at rest)</td><td>Client's astrology charts, session notes, personal details — stored encrypted. Only the tenant who owns the data can retrieve it.</td></tr>
+          <tr><td>API keys &amp; secrets</td><td>.env — never in code</td><td>All credentials in .env on server. Never committed to GitHub. Never logged. Rotated if compromised.</td></tr>
+          <tr><td>Logs</td><td>PII scrubbed from logs</td><td>structlog configured to never log passwords, tokens, or personal data. Logs contain tenant_id (not name), endpoint, status code.</td></tr>
+          <tr><td>Dependency vulnerabilities</td><td>pip-audit + GitHub Dependabot</td><td>pip-audit runs weekly in CI. GitHub Dependabot alerts on known CVEs in dependencies. Fix within 7 days for critical issues.</td></tr>
+        </tbody>
+      </table>
+
+      <!-- Payment security -->
+      <p style="font-size:12px;font-weight:800;color:#0f2340;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">Payment Security</p>
+      <table style="margin-bottom:20px;">
+        <thead><tr><th>Concern</th><th>Approach</th></tr></thead>
+        <tbody>
+          <tr><td>Card data storage</td><td><strong>We never store card numbers.</strong> Stripe/Mollie handle all card processing and are PCI DSS Level 1 certified. AstroCRM only stores a customer_id reference.</td></tr>
+          <tr><td>Fake webhook attacks</td><td>Every inbound webhook verified with provider's HMAC signature before any action is taken. Reject unsigned requests with 401.</td></tr>
+          <tr><td>Duplicate payment processing</td><td>Webhooks are idempotent — processing the same event twice has no effect. Stripe/Mollie event IDs stored to detect duplicates.</td></tr>
+          <tr><td>Russian payment providers (YooKassa, Prodamus)</td><td>Same webhook signature verification. YooKassa uses SHA-1 HMAC. Prodamus provides its own signing method. Both verified before processing.</td></tr>
+        </tbody>
+      </table>
+
+      <!-- GDPR -->
+      <p style="font-size:12px;font-weight:800;color:#0f2340;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">GDPR Compliance (NL jurisdiction)</p>
+      <table style="margin-bottom:20px;">
+        <thead><tr><th>GDPR right</th><th>Implementation</th></tr></thead>
+        <tbody>
+          <tr><td>Right to access</td><td>GET /api/v1/tenant/export — returns ZIP of all their data as JSON/CSV</td></tr>
+          <tr><td>Right to erasure</td><td>DELETE /api/v1/tenant/account — wipes all data for that tenant. Self-serve, no email required.</td></tr>
+          <tr><td>Right to portability</td><td>Same export endpoint — structured JSON format, importable elsewhere</td></tr>
+          <tr><td>Data retention</td><td>Inactive accounts deleted after 24 months. User warned by email at 22 months.</td></tr>
+          <tr><td>Consent</td><td>Explicit consent checkbox on signup. Timestamp stored. Cannot pre-tick.</td></tr>
+          <tr><td>Data processor agreements</td><td>Supabase (DB), Stripe/Mollie (payments), Sentry (errors), Resend (email) — all are GDPR-compliant processors with DPAs available.</td></tr>
+          <tr><td>Breach notification</td><td>If a breach is detected, affected users and Dutch DPA (Autoriteit Persoonsgegevens) notified within 72 hours — as required by GDPR Article 33.</td></tr>
+        </tbody>
+      </table>
+
+      <!-- Server security -->
+      <p style="font-size:12px;font-weight:800;color:#0f2340;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">Server Security (Hetzner VPS)</p>
+      <table>
+        <thead><tr><th>Measure</th><th>Detail</th></tr></thead>
+        <tbody>
+          <tr><td>SSH access</td><td>Key-based only. Password login disabled. No root SSH login. Claude configures this on first deploy.</td></tr>
+          <tr><td>Firewall</td><td>Only ports 80 (HTTP→HTTPS redirect), 443 (HTTPS), and one non-standard SSH port open. Everything else blocked.</td></tr>
+          <tr><td>HTTPS</td><td>Let's Encrypt certificate. Auto-renews every 90 days. HSTS header forces HTTPS for all future visits.</td></tr>
+          <tr><td>OS updates</td><td>Unattended security upgrades enabled — OS patches install automatically.</td></tr>
+          <tr><td>Server backups</td><td>Hetzner daily snapshots (€2/mo). One-click restore. 7-day retention.</td></tr>
+          <tr><td>Fail2ban</td><td>Automatically bans IPs with repeated failed SSH attempts.</td></tr>
+          <tr><td>No production access for developers</td><td>External developers get access to private GitHub repo only — never to production server or production database credentials.</td></tr>
+        </tbody>
+      </table>
+
     </div>
   </div>
 
