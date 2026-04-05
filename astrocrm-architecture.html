@@ -253,7 +253,7 @@
       <div class="section-icon">🗄</div>
       <div>
         <div class="section-title">Database &amp; Authentication</div>
-        <div class="section-sub">SQLite (dev) → PostgreSQL (production) · JWT tokens</div>
+        <div class="section-sub">Supabase PostgreSQL · All environments · JWT tokens</div>
       </div>
     </div>
     <div class="section-body">
@@ -287,8 +287,9 @@ db.query(Contact)
           </ul>
           <p style="font-size:13px;font-weight:700;color:#0f2340;margin:14px 0 8px;">Database</p>
           <ul style="list-style:none;font-size:13px;color:#374151;">
-            <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;">💻 Dev: SQLite (local, single developer)</li>
-            <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;">🚀 Prod: PostgreSQL (Supabase free tier)</li>
+            <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;">💻 Dev: Supabase <em>astrocrm-dev</em> (free, no Docker)</li>
+            <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;">🧪 Staging: Supabase <em>astrocrm-staging</em> (free)</li>
+            <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;">🚀 Prod: Supabase <em>astrocrm-prod</em> (free tier)</li>
             <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;">🔧 ORM: SQLAlchemy</li>
             <li style="padding:5px 0;">🔄 Migrations: Alembic</li>
           </ul>
@@ -578,7 +579,7 @@ def require_feature(feature: str):
         <li class="rule-item">Add features to a single monolithic file — always create a module</li>
         <li class="rule-item">Query the database without filtering by <code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">tenant_id</code> — <strong>this leaks data between users</strong></li>
         <li class="rule-item">Store credentials or API keys anywhere except <code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">.env</code></li>
-        <li class="rule-item">Use SQLite in any environment — use PostgreSQL via Docker locally</li>
+        <li class="rule-item">Use SQLite in any environment — use Supabase PostgreSQL for all three environments (dev, staging, prod)</li>
         <li class="rule-item">Send emails or fire webhooks synchronously in an HTTP handler — use ARQ queue</li>
         <li class="rule-item">Hard-code plan names or feature lists — use <code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">PLAN_FEATURES</code> dict</li>
         <li class="rule-item">Build auth checks per route — use <code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">get_current_tenant</code> dependency</li>
@@ -926,7 +927,7 @@ def require_feature(feature: str):
           <p style="font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">Prerequisites</p>
           <ul style="list-style:none;font-size:13px;color:#374151;">
             <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;">Python 3.11+</li>
-            <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;">Docker (for local PostgreSQL)</li>
+            <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;">Supabase account — create free <em>astrocrm-dev</em> project</li>
             <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;">Node.js 18+ (ESLint / Vite Phase 2)</li>
             <li style="padding:5px 0;">Git</li>
           </ul>
@@ -951,16 +952,16 @@ def require_feature(feature: str):
       </div>
 
       <p style="font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">Local setup (copy-paste ready)</p>
-      <pre style="margin-bottom:16px;"># 1. Start local PostgreSQL
-docker run -d --name astrocrm-db -e POSTGRES_PASSWORD=dev -p 5432:5432 postgres
+      <pre style="margin-bottom:16px;"># 1. Create free Supabase project at supabase.com → name it "astrocrm-dev"
+# Copy the connection string from: Project Settings → Database → Connection string → URI
 
-# 2. Python environment
+# 2. Python environment (poetry preferred)
 python -m venv venv &amp;&amp; source venv/bin/activate
 pip install -r requirements.txt
 
 # 3. Create .env (never commit this)
 cp .env.example .env
-# Edit .env — set DATABASE_URL and JWT_SECRET at minimum
+# Edit .env — set DATABASE_URL (Supabase URI) and JWT_SECRET at minimum
 
 # 4. Run migrations
 alembic upgrade head
@@ -990,6 +991,477 @@ ruff check . &amp;&amp; ruff format --check . # lint + format check</pre>
         </tbody>
       </table>
 
+    </div>
+  </div>
+
+
+  <!-- DATABASE DESIGN STANDARDS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">🗃</div>
+      <div>
+        <div class="section-title">Database Design Standards</div>
+        <div class="section-sub">Indexes · Constraints · Soft delete · Zero-downtime migrations</div>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="two-col">
+        <div>
+          <p style="font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">Required indexes — every new table</p>
+          <pre>-- Add to every Alembic migration
+CREATE INDEX idx_contacts_tenant
+  ON contacts(tenant_id);
+CREATE INDEX idx_deals_tenant
+  ON deals(tenant_id);
+CREATE INDEX idx_contacts_email
+  ON contacts(tenant_id, email);
+CREATE INDEX idx_contacts_created
+  ON contacts(tenant_id, created_at DESC);
+-- Rule: index every WHERE, ORDER BY, JOIN column</pre>
+        </div>
+        <div>
+          <p style="font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">Required columns — every model</p>
+          <pre>tenant_id  = Column(UUID,
+  ForeignKey("tenants.id"),
+  nullable=False, index=True)
+created_at = Column(DateTime,
+  default=func.now(), nullable=False)
+updated_at = Column(DateTime,
+  default=func.now(),
+  onupdate=func.now(), nullable=False)
+# Soft delete — NEVER hard-delete user data
+deleted_at = Column(DateTime, nullable=True)
+# All queries add:
+# .filter(Model.deleted_at == None)</pre>
+        </div>
+      </div>
+      <div class="warn-box" style="margin-top:16px;">
+        <strong>Zero-downtime migration pattern (required for live tables):</strong><br>
+        1. <strong>Expand</strong> — add new column (nullable), deploy &nbsp;→&nbsp;
+        2. <strong>Migrate</strong> — backfill data in background, deploy &nbsp;→&nbsp;
+        3. <strong>Contract</strong> — remove old column, deploy<br>
+        Never rename or drop a column in a single step on a live table. This locks the table and causes downtime.
+      </div>
+    </div>
+  </div>
+
+  <!-- PERFORMANCE STANDARDS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">⚡</div>
+      <div>
+        <div class="section-title">Performance Standards</div>
+        <div class="section-sub">Response time targets · Redis caching · Load testing</div>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="two-col" style="margin-bottom:16px;">
+        <div>
+          <p style="font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">Response time targets</p>
+          <table>
+            <thead><tr><th>Operation</th><th>Target (p95)</th></tr></thead>
+            <tbody>
+              <tr><td>API reads (contacts, pipeline)</td><td>&lt; 200ms</td></tr>
+              <tr><td>API writes (create, move deal)</td><td>&lt; 300ms</td></tr>
+              <tr><td>Page load (4G mobile)</td><td>&lt; 2 seconds</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <p style="font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">Caching (Redis — Phase 2)</p>
+          <ul style="list-style:none;font-size:13px;color:#374151;">
+            <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;">Pipeline stages — rarely change, read every page load</li>
+            <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;">Tenant plan/features — read on every API call</li>
+            <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;">TTL: 5 minutes. Invalidate on write.</li>
+            <li style="padding:5px 0;">At 500+ users: add PgBouncer in front of Supabase</li>
+          </ul>
+        </div>
+      </div>
+      <div class="info-box">
+        <strong>Load testing with k6:</strong> Run before launch (100 concurrent users, 10 min). Run again at 500-user milestone. Test scenarios: pipeline view, contact search, deal creation. k6 is open source and free.
+      </div>
+    </div>
+  </div>
+
+  <!-- EMAIL DELIVERABILITY -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">📧</div>
+      <div>
+        <div class="section-title">Email Deliverability</div>
+        <div class="section-sub">Required before sending any email — without this, emails go to spam</div>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="two-col">
+        <div>
+          <p style="font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">DNS records (set in domain registrar)</p>
+          <pre>SPF:   TXT @
+  "v=spf1 include:resend.com ~all"
+
+DKIM:  TXT (key from Resend dashboard
+  on account setup)
+
+DMARC: TXT _dmarc
+  "v=DMARC1; p=quarantine;
+   rua=mailto:dmarc@astrocrm.app"</pre>
+        </div>
+        <div>
+          <p style="font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">Rules</p>
+          <ul style="list-style:none;font-size:13px;color:#374151;">
+            <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;">All transactional email through Resend</li>
+            <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;">Campaign email through SendPulse (user's account — their deliverability)</li>
+            <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;">Handle bounces: Resend webhook → mark email invalid in DB</li>
+            <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;">One-click unsubscribe in every email (GDPR required)</li>
+            <li style="padding:5px 0;">Send from <code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">hello@astrocrm.app</code> — never <code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">noreply@</code></li>
+          </ul>
+        </div>
+      </div>
+      <div class="warn-box" style="margin-top:12px;">SPF, DKIM, DMARC must be set up <strong>before</strong> the first transactional email is sent. Especially important for Russian email providers (Mail.ru, Yandex) which have strict filtering.</div>
+    </div>
+  </div>
+
+  <!-- DISASTER RECOVERY -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">🛟</div>
+      <div>
+        <div class="section-title">Disaster Recovery</div>
+        <div class="section-sub">RTO 4 hours · RPO 24 hours · Daily backups on all layers</div>
+      </div>
+    </div>
+    <div class="section-body">
+      <div style="display:flex;gap:16px;margin-bottom:20px;flex-wrap:wrap;">
+        <div style="background:#fee2e2;border:1px solid #fca5a5;border-radius:10px;padding:16px 20px;flex:1;min-width:160px;text-align:center;">
+          <div style="font-size:24px;font-weight:800;color:#b91c1c;">4 hours</div>
+          <div style="font-size:12px;color:#374151;margin-top:4px;font-weight:600;">RTO — max downtime</div>
+          <div style="font-size:11px;color:#6b7280;margin-top:2px;">Recovery Time Objective</div>
+        </div>
+        <div style="background:#fef3c7;border:1px solid #fde68a;border-radius:10px;padding:16px 20px;flex:1;min-width:160px;text-align:center;">
+          <div style="font-size:24px;font-weight:800;color:#92400e;">24 hours</div>
+          <div style="font-size:12px;color:#374151;margin-top:4px;font-weight:600;">RPO — max data loss</div>
+          <div style="font-size:11px;color:#6b7280;margin-top:2px;">Recovery Point Objective</div>
+        </div>
+        <div style="background:#f0fdf4;border:1px solid #86efac;border-radius:10px;padding:16px 20px;flex:1;min-width:160px;text-align:center;">
+          <div style="font-size:24px;font-weight:800;color:#14532d;">3 layers</div>
+          <div style="font-size:12px;color:#374151;margin-top:4px;font-weight:600;">Backup coverage</div>
+          <div style="font-size:11px;color:#6b7280;margin-top:2px;">VPS · DB · Code</div>
+        </div>
+      </div>
+      <table style="margin-bottom:16px;">
+        <thead><tr><th>Failure</th><th>Recovery steps</th></tr></thead>
+        <tbody>
+          <tr><td>Hetzner VPS down</td><td>Restore from Hetzner snapshot to new VPS (~30 min one-click restore)</td></tr>
+          <tr><td>Supabase outage</td><td>App shows maintenance page. Wait for Supabase (SLA 99.9% = max ~52 min/month downtime)</td></tr>
+          <tr><td>Accidental data deletion</td><td>Supabase point-in-time recovery (free tier: 7 days). Restore to exact minute before deletion.</td></tr>
+          <tr><td>Stripe / Mollie outage</td><td>Payments fail gracefully. Retry queued in ARQ. No data lost.</td></tr>
+          <tr><td>GitHub down</td><td>Code still on Hetzner server. Keep deploying from server.</td></tr>
+        </tbody>
+      </table>
+      <div class="info-box"><strong>Backups:</strong> Hetzner VPS snapshot daily (€2/mo, 7-day retention) · Supabase automatic daily backups + point-in-time recovery (included free) · Code on GitHub (every push)</div>
+    </div>
+  </div>
+
+  <!-- INCIDENT RESPONSE RUNBOOK -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">🚨</div>
+      <div>
+        <div class="section-title">Incident Response Runbook</div>
+        <div class="section-sub">When something breaks — follow this checklist. Don't guess.</div>
+      </div>
+    </div>
+    <div class="section-body">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:20px;">
+        <div style="background:#fef2f2;border:1px solid #fca5a5;border-radius:10px;padding:14px 16px;">
+          <div style="font-size:11px;font-weight:800;color:#b91c1c;text-transform:uppercase;margin-bottom:6px;">Step 1 — Detect</div>
+          <div style="font-size:12px;color:#374151;">Uptime Robot Telegram alert, Sentry error spike, or user report via Crisp</div>
+        </div>
+        <div style="background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;padding:14px 16px;">
+          <div style="font-size:11px;font-weight:800;color:#9a3412;text-transform:uppercase;margin-bottom:6px;">Step 2 — Status pages</div>
+          <div style="font-size:12px;color:#374151;">Check hetznerstatus.com, status.supabase.com, Stripe/Mollie. If provider is down → post status, wait.</div>
+        </div>
+        <div style="background:#fefce8;border:1px solid #fde68a;border-radius:10px;padding:14px 16px;">
+          <div style="font-size:11px;font-weight:800;color:#713f12;text-transform:uppercase;margin-bottom:6px;">Step 3 — Logs</div>
+          <pre style="background:none;border:none;padding:0;font-size:11px;color:#374151;">ssh astrocrm@hetzner-ip
+journalctl -u astrocrm \
+  --since "10 min ago" \
+  | tail -50</pre>
+        </div>
+        <div style="background:#f0fdf4;border:1px solid #86efac;border-radius:10px;padding:14px 16px;">
+          <div style="font-size:11px;font-weight:800;color:#14532d;text-transform:uppercase;margin-bottom:6px;">Step 5 — Communicate</div>
+          <div style="font-size:12px;color:#374151;">Post on status.astrocrm.app within 15 min. If &gt;30 min: email affected users. After fix: post resolution.</div>
+        </div>
+      </div>
+      <p style="font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">Step 4 — Common fixes</p>
+      <table>
+        <thead><tr><th>Symptom</th><th>Likely cause</th><th>Fix</th></tr></thead>
+        <tbody>
+          <tr><td>502 Bad Gateway</td><td>App process crashed</td><td><code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">systemctl restart astrocrm</code></td></tr>
+          <tr><td>Slow responses</td><td>DB query without index</td><td>Check structlog for slow queries, add missing index</td></tr>
+          <tr><td>Emails not sending</td><td>ARQ worker down</td><td><code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">systemctl restart astrocrm-worker</code></td></tr>
+          <tr><td>Login broken</td><td>JWT secret changed</td><td>Check .env, restart app</td></tr>
+          <tr><td>DB connection error</td><td>Pool exhausted</td><td>Restart app, check for connection leaks in code</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- OBSERVABILITY & METRICS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">📊</div>
+      <div>
+        <div class="section-title">Observability &amp; Metrics</div>
+        <div class="section-sub">Technical monitoring · Business KPIs · Product analytics</div>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="two-col">
+        <div>
+          <p style="font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">Technical monitoring (all free)</p>
+          <table>
+            <thead><tr><th>What</th><th>Tool</th><th>Alert</th></tr></thead>
+            <tbody>
+              <tr><td>Uptime</td><td>Uptime Robot</td><td>Down &gt;1 min → Telegram</td></tr>
+              <tr><td>Errors</td><td>Sentry (free 5K/mo)</td><td>New error type → email</td></tr>
+              <tr><td>Logs</td><td>structlog → Papertrail</td><td>Manual review weekly</td></tr>
+              <tr><td>Response time</td><td>structlog duration field</td><td>&gt;500ms → investigate</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <p style="font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">Business metrics (track weekly)</p>
+          <ul style="list-style:none;font-size:13px;color:#374151;">
+            <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;">MRR (monthly recurring revenue)</li>
+            <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;">Trial signups this week</li>
+            <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;">Trial → paid conversion rate</li>
+            <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;">Churned users this month</li>
+            <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;">Most-used features (PostHog)</li>
+            <li style="padding:5px 0;">Support tickets volume (Crisp)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="info-box" style="margin-top:16px;"><strong>PostHog</strong> — open source product analytics (free up to 1M events/mo). Tracks feature usage, funnel drop-off, retention cohorts. One JS snippet, added in Phase 1. Invaluable for product decisions. Must not load until cookie consent given.</div>
+    </div>
+  </div>
+
+  <!-- RELEASE MANAGEMENT -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">🚀</div>
+      <div>
+        <div class="section-title">Release Management</div>
+        <div class="section-sub">Branch strategy · Deployment process · CHANGELOG · Poetry</div>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="two-col">
+        <div>
+          <p style="font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">Branch strategy</p>
+          <pre>main       — always deployable,
+             mirrors production
+feature/xxx — one branch per feature
+hotfix/xxx  — urgent prod fixes only
+
+Rule: nothing merges to main without
+a pull request. Claude reviews all
+developer PRs (and vice versa).</pre>
+          <p style="font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin:14px 0 10px;">Deployment process</p>
+          <ol style="font-size:13px;color:#374151;padding-left:18px;">
+            <li style="padding:4px 0;">Feature branch → PR → reviewed → merged to main</li>
+            <li style="padding:4px 0;">GitHub Actions auto-deploys main to staging</li>
+            <li style="padding:4px 0;">Manual check on staging.astrocrm.app</li>
+            <li style="padding:4px 0;">One-click promote to production via GitHub Actions</li>
+          </ol>
+        </div>
+        <div>
+          <p style="font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">CHANGELOG.md format</p>
+          <pre>## [2026-07-15] — Launch v1.0
+### Added
+- User registration and login
+- Pipeline kanban view
+- Contact management
+
+## [2026-08-20] — v1.1
+### Added
+- Telegram lead capture bot
+### Fixed
+- Pipeline card not saving on mobile</pre>
+          <p style="font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin:14px 0 8px;">Dependency management</p>
+          <div style="font-size:13px;color:#374151;">Use <code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">poetry</code> instead of plain <code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">requirements.txt</code> — locks exact versions, separates dev/prod deps, reproducible builds in CI.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOCALISATION -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">🌐</div>
+      <div>
+        <div class="section-title">Localisation Process</div>
+        <div class="section-sub">EN · RU · NL · DE · ES — no feature ships with untranslated strings</div>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="two-col">
+        <div>
+          <p style="font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">Process for every feature</p>
+          <ol style="font-size:13px;color:#374151;padding-left:18px;">
+            <li style="padding:5px 0;">Claude writes feature with English strings first</li>
+            <li style="padding:5px 0;">Russian: Claude translates (native quality for RU)</li>
+            <li style="padding:5px 0;">Dutch: Claude translates — Olga reviews (NL native)</li>
+            <li style="padding:5px 0;">German / Spanish: Claude translates — native review before that market launches</li>
+          </ol>
+          <div class="warn-box" style="margin-top:12px;">Russian pluralisation is complex:<br><code style="font-size:12px;">1 клиент · 2 клиента · 5 клиентов</code><br>i18n.js must handle all three plural forms — not just singular/plural.</div>
+        </div>
+        <div>
+          <p style="font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">i18n.js structure (flat keys)</p>
+          <pre>// Flat keys, no nesting — easier to search
+export const t = {
+  en: {
+    contacts_title: "Contacts",
+    contacts_empty: "No contacts yet"
+  },
+  ru: {
+    contacts_title: "Контакты",
+    contacts_empty: "Клиентов пока нет"
+  },
+  nl: {
+    contacts_title: "Contacten",
+    contacts_empty: "Nog geen contacten"
+  },
+}
+// Russian plural forms:
+// contacts_count_1: "клиент"
+// contacts_count_2: "клиента"
+// contacts_count_5: "клиентов"</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACCESSIBILITY -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">♿</div>
+      <div>
+        <div class="section-title">Accessibility (a11y)</div>
+        <div class="section-sub">WCAG 2.1 Level AA — required from Phase 1</div>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="two-col">
+        <div>
+          <ul style="list-style:none;font-size:13px;color:#374151;">
+            <li style="padding:6px 0;border-bottom:1px solid #f3f4f6;">✓ All buttons/inputs have <code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">aria-label</code> if no visible text label</li>
+            <li style="padding:6px 0;border-bottom:1px solid #f3f4f6;">✓ Colour contrast ratio ≥ 4.5:1 for text, ≥ 3:1 for large text</li>
+            <li style="padding:6px 0;border-bottom:1px solid #f3f4f6;">✓ All interactive elements reachable by keyboard (Tab key)</li>
+            <li style="padding:6px 0;border-bottom:1px solid #f3f4f6;">✓ Focus visible on all elements — never <code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">outline: none</code></li>
+            <li style="padding:6px 0;border-bottom:1px solid #f3f4f6;">✓ Error messages linked to inputs via <code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">aria-describedby</code></li>
+            <li style="padding:6px 0;">✓ Icon-buttons have <code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">alt</code> text</li>
+          </ul>
+        </div>
+        <div>
+          <div class="info-box">
+            <strong>Why it matters:</strong> Practitioners with visual impairments are potential customers.<br><br>
+            <strong>Legal risk:</strong> The European Accessibility Act (June 2025) tightens requirements in EU markets. WCAG 2.1 AA compliance reduces legal exposure in NL and DE.<br><br>
+            <strong>Mobile benefit:</strong> Accessible UI is also better mobile UX — larger tap targets, clear labels, logical focus order.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECURITY EXTRAS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">🛡</div>
+      <div>
+        <div class="section-title">Security Extras</div>
+        <div class="section-sub">OWASP Top 10 · security.txt · Cookie consent</div>
+      </div>
+    </div>
+    <div class="section-body">
+      <p style="font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">OWASP Top 10 — verify before launch</p>
+      <table style="margin-bottom:20px;">
+        <thead><tr><th>#</th><th>Vulnerability</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>A01</td><td>Broken Access Control</td><td><span class="tag tag-green">✓ tenant_id enforcement + isolation tests</span></td></tr>
+          <tr><td>A02</td><td>Cryptographic Failures</td><td><span class="tag tag-green">✓ bcrypt + TLS + AES-256 at rest</span></td></tr>
+          <tr><td>A03</td><td>Injection</td><td><span class="tag tag-green">✓ SQLAlchemy ORM (parameterized queries)</span></td></tr>
+          <tr><td>A04</td><td>Insecure Design</td><td><span class="tag tag-green">✓ threat-modelled architecture</span></td></tr>
+          <tr><td>A05</td><td>Security Misconfiguration</td><td><span class="tag tag-green">✓ CSP, HSTS, X-Frame-Options headers</span></td></tr>
+          <tr><td>A06</td><td>Vulnerable Components</td><td><span class="tag tag-green">✓ pip-audit weekly + GitHub Dependabot</span></td></tr>
+          <tr><td>A07</td><td>Auth Failures</td><td><span class="tag tag-green">✓ rate limiting + short-lived tokens</span></td></tr>
+          <tr><td>A08</td><td>Software Integrity Failures</td><td><span class="tag tag-green">✓ poetry.lock pins all dependencies</span></td></tr>
+          <tr><td>A09</td><td>Logging Failures</td><td><span class="tag tag-green">✓ structlog + Sentry</span></td></tr>
+          <tr><td>A10</td><td>SSRF</td><td><span class="tag tag-amber">→ validate all user-supplied URLs server-side</span></td></tr>
+        </tbody>
+      </table>
+      <div class="two-col">
+        <div>
+          <p style="font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">Vulnerability disclosure (security.txt)</p>
+          <pre># Add at /.well-known/security.txt
+Contact: security@astrocrm.app
+Expires: 2027-01-01T00:00:00Z
+Preferred-Languages: en, ru, nl
+
+# Tells researchers how to report bugs
+# responsibly before going public</pre>
+        </div>
+        <div>
+          <p style="font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">Cookie consent (GDPR + ePrivacy)</p>
+          <div style="font-size:13px;color:#374151;">Required before placing GA4 or PostHog cookies. Simple banner: <em>"We use analytics cookies to improve AstroCRM. [Accept] [Decline]"</em><br><br>Rules: opt-in only (not opt-out), store consent in localStorage, do not load GA4/PostHog until accepted. Use Osano free tier or a simple custom banner.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COST MANAGEMENT -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">💰</div>
+      <div>
+        <div class="section-title">Cost Management</div>
+        <div class="section-sub">Free tiers · Cost alerts · Phase 1 estimate: ~€9/mo</div>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="two-col">
+        <div>
+          <p style="font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">Free tier limits to watch</p>
+          <table>
+            <thead><tr><th>Service</th><th>Free limit</th><th>Action when approaching</th></tr></thead>
+            <tbody>
+              <tr><td>Supabase</td><td>500MB DB, 2GB bw/mo</td><td>Upgrade to Pro €25/mo</td></tr>
+              <tr><td>Sentry</td><td>5,000 errors/mo</td><td>Upgrade or filter noise</td></tr>
+              <tr><td>Resend</td><td>3,000 emails/mo</td><td>Upgrade to €20/mo plan</td></tr>
+              <tr><td>GitHub Actions</td><td>2,000 min/mo</td><td>Sufficient for years</td></tr>
+              <tr><td>Hetzner bandwidth</td><td>20TB/mo</td><td>Extremely unlikely to hit</td></tr>
+            </tbody>
+          </table>
+          <div class="warn-box" style="margin-top:12px;"><strong>Set budget alerts</strong> in each service dashboard. Get email at 80% of free tier. Never get a surprise bill.</div>
+        </div>
+        <div>
+          <p style="font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">Phase 1 monthly cost</p>
+          <table>
+            <thead><tr><th>Item</th><th>Cost</th></tr></thead>
+            <tbody>
+              <tr><td>Hetzner CX21 VPS</td><td>€6/mo</td></tr>
+              <tr><td>Hetzner daily backups</td><td>€2/mo</td></tr>
+              <tr><td>Domain astrocrm.app</td><td>€1.25/mo (€15/yr)</td></tr>
+              <tr><td>Supabase (3 projects)</td><td>Free</td></tr>
+              <tr><td>Sentry</td><td>Free</td></tr>
+              <tr><td>Resend</td><td>Free</td></tr>
+              <tr><td>Uptime Robot</td><td>Free</td></tr>
+              <tr style="background:#f0fdf4;"><td><strong>Total</strong></td><td style="color:#14532d;font-weight:800;">~€9/mo</td></tr>
+            </tbody>
+          </table>
+          <div class="info-box" style="margin-top:12px;">At 500+ users add PgBouncer + Redis + second app instance (~€30/mo extra, no code changes). At 2,000+ users: Supabase Pro €25/mo + Resend paid ~€20/mo.</div>
+        </div>
+      </div>
     </div>
   </div>
 

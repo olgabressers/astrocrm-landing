@@ -365,6 +365,37 @@
         </div>
       </div>
     </div>
+
+    <div class="category">
+      <div class="category-title">Security & DevOps — Phase 1 Requirements</div>
+
+      <div class="task" data-id="a16" data-month="apr">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Set up email deliverability DNS — SPF + DKIM + DMARC</div><span class="task-deadline">30 Apr</span></div>
+          <div class="task-note">Required before sending any transactional email. Without these 3 DNS records, emails land in spam — especially on Mail.ru and Yandex (critical for Russian clients). Add in Namecheap Advanced DNS: SPF TXT record: "v=spf1 include:resend.com ~all". DKIM key provided by Resend after account setup. DMARC TXT on _dmarc: "v=DMARC1; p=quarantine; rua=mailto:dmarc@astrocrm.app". Takes 30 min, then 24h to propagate. Claude configures, you add records in Namecheap.</div>
+          <div class="task-tags"><span class="tag red">Before first email</span><span class="tag green">Free</span><span class="tag blue">Claude configures · you add DNS records</span><span class="tag grey">30 min</span></div>
+        </div>
+      </div>
+
+      <div class="task" data-id="a17" data-month="apr">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Set up Poetry for Python dependency management</div><span class="task-deadline">30 Apr</span></div>
+          <div class="task-note">Replaces plain requirements.txt. Poetry locks ALL dependencies to exact versions (poetry.lock) — so every developer and the CI server gets identical packages. Prevents "works on my machine" bugs. Separates dev-only packages (pytest, ruff) from production. Claude sets this up in Phase 1 before any developer joins the project. Cost: free.</div>
+          <div class="task-tags"><span class="tag amber">Phase 1</span><span class="tag green">Free</span><span class="tag blue">Claude sets up</span><span class="tag grey">1 hour</span></div>
+        </div>
+      </div>
+
+      <div class="task" data-id="a18" data-month="apr">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Add PostHog product analytics — free, open source</div><span class="task-deadline">30 Apr</span></div>
+          <div class="task-note">Tracks which features users actually use, where they drop off in signup, retention cohorts. Essential for product decisions ("are people using the pipeline or just contacts?"). Free up to 1M events/month. One JS snippet added to the frontend. Must not load until cookie consent is given. Claude adds it alongside GA4. Start in Phase 1 so data accumulates before launch.</div>
+          <div class="task-tags"><span class="tag amber">Phase 1</span><span class="tag green">Free · 1M events/mo</span><span class="tag blue">Claude adds</span><span class="tag grey">30 min</span></div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- ═══════════════════════════════ MAY ═══════════════════════════════ -->
@@ -577,6 +608,28 @@
         </div>
       </div>
     </div>
+
+    <div class="category">
+      <div class="category-title">Legal & Security — Pre-launch Requirements</div>
+
+      <div class="task" data-id="b19" data-month="may">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Add cookie consent banner (GDPR + ePrivacy)</div><span class="task-deadline">20 May</span></div>
+          <div class="task-note">Required by GDPR and EU ePrivacy Directive before placing any analytics cookies (GA4 or PostHog). Must be opt-in — you cannot load tracking until user clicks Accept. Banner: "We use analytics cookies to improve AstroCRM. [Accept] [Decline]". Store consent in localStorage. Only load GA4/PostHog after consent given. Use Osano free tier or a simple custom 20-line JS banner. Claude builds and connects to GA4/PostHog. Missing this = legal risk in NL before first paying client.</div>
+          <div class="task-tags"><span class="tag red">Before NL clients</span><span class="tag green">Free</span><span class="tag blue">Claude builds</span><span class="tag grey">2 hours</span></div>
+        </div>
+      </div>
+
+      <div class="task" data-id="b20" data-month="may">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Create CHANGELOG.md — start documenting every release</div><span class="task-deadline">15 May</span></div>
+          <div class="task-note">A running log of what changed and when. Format: ## [2026-07-15] — Launch v1.0 / ### Added / - Feature list. Serves two purposes: (1) Users can see what changed. (2) When a developer joins, they can understand what was added when and why. Claude creates the file and starts filling it from the first working feature. Zero cost, 10 minutes to set up.</div>
+          <div class="task-tags"><span class="tag amber">Dev hygiene</span><span class="tag green">Free</span><span class="tag blue">Claude creates</span><span class="tag grey">10 min</span></div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- ═══════════════════════════════ JUNE ═══════════════════════════════ -->
@@ -694,6 +747,28 @@
           <div class="task-top"><div class="task-title">Generate month 2 Instagram content (8 posts + images)</div><span class="task-deadline">5 Jun</span></div>
           <div class="task-note">Claude generates images + captions. Theme this month: "beta is live", "behind the scenes of building", social proof from beta testers. All Russian.</div>
           <div class="task-tags"><span class="tag green">Free</span><span class="tag blue">Claude generates</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category">
+      <div class="category-title">Security — Pre-launch Checklist</div>
+
+      <div class="task" data-id="c11" data-month="jun">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">OWASP Top 10 security checklist — verify all 10 before launch</div><span class="task-deadline">25 Jun</span></div>
+          <div class="task-note">The OWASP Top 10 is the industry-standard list of the 10 most common and critical web security vulnerabilities. AstroCRM's architecture is designed to cover all 10 — but they must be verified before going live. Claude runs through the checklist: (1) Access control — tenant isolation tests passing. (2) Cryptography — bcrypt + TLS + Supabase AES-256. (3) SQL injection — SQLAlchemy ORM throughout. (4) Security headers — CSP, HSTS, X-Frame-Options. (5) Rate limiting — slowapi on auth routes. (6) Dependencies — pip-audit clean. (7-10) remaining items. Claude does this review and fixes any gaps. 1 day.</div>
+          <div class="task-tags"><span class="tag red">Do not skip</span><span class="tag green">Free</span><span class="tag blue">Claude reviews + fixes</span><span class="tag grey">1 day</span></div>
+        </div>
+      </div>
+
+      <div class="task" data-id="c12" data-month="jun">
+        <div class="task-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="task-body">
+          <div class="task-top"><div class="task-title">Add security.txt — tell researchers how to report vulnerabilities</div><span class="task-deadline">30 Jun</span></div>
+          <div class="task-note">A tiny file at /.well-known/security.txt that tells security researchers who to contact if they find a bug. Without it, a researcher who finds a vulnerability has no option except going public. Content: "Contact: security@astrocrm.app / Expires: 2027-01-01". Industry standard. Claude adds it in 5 minutes. Required before launch — if someone finds something before you do, you want them to tell you privately first.</div>
+          <div class="task-tags"><span class="tag amber">Before launch</span><span class="tag green">Free</span><span class="tag blue">Claude adds</span><span class="tag grey">5 min</span></div>
         </div>
       </div>
     </div>
