@@ -407,25 +407,98 @@ def require_feature(feature: str):
     </div>
   </div>
 
-  <!-- HOSTING -->
+  <!-- ENVIRONMENTS -->
   <div class="section">
     <div class="section-header">
-      <div class="section-icon">☁️</div>
+      <div class="section-icon">🌍</div>
       <div>
-        <div class="section-title">Hosting &amp; Infrastructure</div>
-        <div class="section-sub">Local dev → Railway/Render production</div>
+        <div class="section-title">Environments — Development · Staging · Production</div>
+        <div class="section-sub">Three isolated environments. Nothing reaches users without passing staging first.</div>
       </div>
     </div>
     <div class="section-body">
+
+      <!-- Flow diagram -->
+      <div style="display:flex;align-items:stretch;gap:0;margin-bottom:28px;flex-wrap:wrap;">
+
+        <!-- LOCAL -->
+        <div style="flex:1;min-width:200px;background:#f0f9ff;border:2px solid #bae6fd;border-radius:12px 0 0 12px;padding:18px 20px;">
+          <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:#0369a1;margin-bottom:8px;">1 — Local</div>
+          <div style="font-size:14px;font-weight:800;color:#0f2340;margin-bottom:6px;">Development</div>
+          <div style="font-size:12px;color:#374151;margin-bottom:10px;">Where Claude and developers write and test code. Never touched by real users.</div>
+          <ul style="list-style:none;font-size:12px;color:#374151;">
+            <li style="padding:3px 0;">🖥 <strong>URL:</strong> localhost:8000</li>
+            <li style="padding:3px 0;">🗄 <strong>DB:</strong> PostgreSQL via Docker</li>
+            <li style="padding:3px 0;">🔑 <strong>.env:</strong> local secrets only</li>
+            <li style="padding:3px 0;">👩‍💻 <strong>Deploy:</strong> uvicorn --reload</li>
+          </ul>
+        </div>
+
+        <!-- ARROW -->
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 8px;background:#f8fafc;">
+          <div style="font-size:20px;color:#9ca3af;">→</div>
+          <div style="font-size:10px;color:#9ca3af;text-align:center;margin-top:4px;">git push<br>auto-deploy</div>
+        </div>
+
+        <!-- STAGING -->
+        <div style="flex:1;min-width:200px;background:#fffbeb;border:2px solid #fde68a;border-top:2px solid #fde68a;border-bottom:2px solid #fde68a;border-left:none;border-right:none;padding:18px 20px;">
+          <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:#92400e;margin-bottom:8px;">2 — Staging</div>
+          <div style="font-size:14px;font-weight:800;color:#0f2340;margin-bottom:6px;">Test Environment</div>
+          <div style="font-size:12px;color:#374151;margin-bottom:10px;">Exact mirror of production. Every change is tested here before users see it. Auto-deploys on every code push.</div>
+          <ul style="list-style:none;font-size:12px;color:#374151;">
+            <li style="padding:3px 0;">🌐 <strong>URL:</strong> staging.astrocrm.app</li>
+            <li style="padding:3px 0;">🗄 <strong>DB:</strong> Separate staging database</li>
+            <li style="padding:3px 0;">🔑 <strong>.env:</strong> staging secrets</li>
+            <li style="padding:3px 0;">🤖 <strong>Deploy:</strong> GitHub Actions (automatic)</li>
+          </ul>
+          <div style="margin-top:10px;background:#fef3c7;border-radius:8px;padding:8px 10px;font-size:11px;color:#92400e;font-weight:600;">✓ You review and approve here before production</div>
+        </div>
+
+        <!-- ARROW -->
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 8px;background:#f8fafc;">
+          <div style="font-size:20px;color:#9ca3af;">→</div>
+          <div style="font-size:10px;color:#9ca3af;text-align:center;margin-top:4px;">manual<br>approval</div>
+        </div>
+
+        <!-- PRODUCTION -->
+        <div style="flex:1;min-width:200px;background:#f0fdf4;border:2px solid #86efac;border-radius:0 12px 12px 0;padding:18px 20px;">
+          <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:#14532d;margin-bottom:8px;">3 — Production</div>
+          <div style="font-size:14px;font-weight:800;color:#0f2340;margin-bottom:6px;">Live — Real Users</div>
+          <div style="font-size:12px;color:#374151;margin-bottom:10px;">What paying customers see. Never deployed to directly. Only promoted from staging after approval.</div>
+          <ul style="list-style:none;font-size:12px;color:#374151;">
+            <li style="padding:3px 0;">🌐 <strong>URL:</strong> app.astrocrm.app</li>
+            <li style="padding:3px 0;">🗄 <strong>DB:</strong> Supabase PostgreSQL</li>
+            <li style="padding:3px 0;">🔑 <strong>.env:</strong> production secrets (Hetzner vault)</li>
+            <li style="padding:3px 0;">👆 <strong>Deploy:</strong> Manual one-click approval</li>
+          </ul>
+          <div style="margin-top:10px;background:#dcfce7;border-radius:8px;padding:8px 10px;font-size:11px;color:#14532d;font-weight:600;">🔒 Protected — requires explicit approval</div>
+        </div>
+      </div>
+
+      <!-- Staged rollout -->
+      <div style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:10px;padding:16px 20px;margin-bottom:20px;">
+        <div style="font-size:13px;font-weight:800;color:#5b21b6;margin-bottom:8px;">+ Staged Rollouts (Feature Flags)</div>
+        <div style="font-size:13px;color:#374151;">Even after reaching production, new features can be switched on for a subset of users first — for example 10% — before enabling for everyone. This is the last line of defence against failures reaching all users at once.</div>
+        <div style="display:flex;gap:12px;margin-top:12px;flex-wrap:wrap;">
+          <div style="background:white;border:1px solid #ddd6fe;border-radius:8px;padding:10px 14px;font-size:12px;flex:1;min-width:140px;"><strong>Step 1</strong><br>Deploy to production with feature flag OFF</div>
+          <div style="background:white;border:1px solid #ddd6fe;border-radius:8px;padding:10px 14px;font-size:12px;flex:1;min-width:140px;"><strong>Step 2</strong><br>Enable for 5–10 specific beta users</div>
+          <div style="background:white;border:1px solid #ddd6fe;border-radius:8px;padding:10px 14px;font-size:12px;flex:1;min-width:140px;"><strong>Step 3</strong><br>Monitor errors for 48h via Sentry</div>
+          <div style="background:white;border:1px solid #ddd6fe;border-radius:8px;padding:10px 14px;font-size:12px;flex:1;min-width:140px;"><strong>Step 4</strong><br>Enable for all users — or roll back</div>
+        </div>
+      </div>
+
+      <!-- Infrastructure table -->
+      <p style="font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">Infrastructure per environment</p>
       <table>
-        <thead><tr><th>Layer</th><th>Dev</th><th>Production</th></tr></thead>
+        <thead><tr><th>Layer</th><th>Local (Dev)</th><th>Staging</th><th>Production</th></tr></thead>
         <tbody>
-          <tr><td>App server</td><td>uvicorn local</td><td>Railway or Render (~€5–15/mo)</td></tr>
-          <tr><td>Database</td><td>SQLite</td><td>Supabase PostgreSQL (free tier)</td></tr>
-          <tr><td>File storage</td><td>Local disk</td><td>Cloudflare R2 or Supabase Storage</td></tr>
-          <tr><td>Domain</td><td>localhost:8000</td><td>app.astrocrm.app</td></tr>
-          <tr><td>Deploy</td><td>—</td><td>Docker container, env vars via hosting secrets</td></tr>
-          <tr><td>DB migrations</td><td>alembic upgrade head</td><td>Alembic runs on deploy</td></tr>
+          <tr><td>App server</td><td>uvicorn --reload</td><td>Hetzner VPS (port 8001)</td><td>Hetzner VPS (port 80/443)</td></tr>
+          <tr><td>Database</td><td>PostgreSQL via Docker</td><td>Separate staging DB</td><td>Supabase PostgreSQL</td></tr>
+          <tr><td>Deploy trigger</td><td>Manual</td><td>Automatic on git push</td><td>Manual approval only</td></tr>
+          <tr><td>Domain</td><td>localhost:8000</td><td>staging.astrocrm.app</td><td>app.astrocrm.app</td></tr>
+          <tr><td>Migrations</td><td>alembic upgrade head</td><td>Auto on deploy</td><td>Auto on deploy</td></tr>
+          <tr><td>Error tracking</td><td>Console logs</td><td>Sentry (staging project)</td><td>Sentry (production project)</td></tr>
+          <tr><td>Secrets</td><td>.env local file</td><td>GitHub Actions secrets</td><td>Hetzner server .env</td></tr>
         </tbody>
       </table>
     </div>
