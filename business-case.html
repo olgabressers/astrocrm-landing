@@ -393,6 +393,56 @@
   <h2 class="block-title">Financial Projections — 3 Years</h2>
   <p class="block-sub">Realistic (conservative) estimates. Pricing: Year 1 = €15/user/month (early adopter price). Year 2 = €25/user/month. Year 3 = 50% at €25 + 50% at €45. No paid ads assumed. Growth from personal network + organic Telegram/YouTube only.</p>
 
+  <!-- ═══ 3-YEAR SUMMARY — moved to top ═══ -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;margin:0 0 36px;">
+
+    <div class="card amber" style="padding:22px 24px;">
+      <div class="card-label">2026 — Year 1 · 40 users</div>
+      <div class="card-value">€2,100</div>
+      <div style="font-size:12px;color:var(--amber);margin-bottom:12px;">Total revenue</div>
+      <div style="border-top:1px solid rgba(184,134,11,0.25);padding-top:12px;">
+        <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text2);margin-bottom:6px;"><span>Total costs</span><span style="font-weight:600;">€2,430</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;"><span style="font-size:13px;color:var(--text3);">Net</span><span style="font-size:20px;font-weight:800;color:var(--red);">−€330</span></div>
+        <div style="font-size:11px;color:var(--text3);line-height:1.4;">Investment year. Every business starts here. 7 months of selling.</div>
+      </div>
+    </div>
+
+    <div class="card blue" style="padding:22px 24px;">
+      <div class="card-label">2027 — Year 2 · 200 users</div>
+      <div class="card-value">€32,900</div>
+      <div style="font-size:12px;color:var(--blue);margin-bottom:12px;">Total revenue</div>
+      <div style="border-top:1px solid rgba(26,95,180,0.25);padding-top:12px;">
+        <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text2);margin-bottom:6px;"><span>Total costs</span><span style="font-weight:600;">€15,216</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;"><span style="font-size:13px;color:var(--text3);">Net</span><span style="font-size:20px;font-weight:800;color:var(--green);">+€17,684</span></div>
+        <div style="font-size:11px;color:var(--text3);line-height:1.4;">54% margin. First real income. Business proven.</div>
+      </div>
+    </div>
+
+    <div class="card green" style="padding:22px 24px;">
+      <div class="card-label">2028 — Year 3 · 510 users</div>
+      <div class="card-value">€118,325</div>
+      <div style="font-size:12px;color:var(--green);margin-bottom:12px;">Total revenue</div>
+      <div style="border-top:1px solid rgba(26,143,76,0.25);padding-top:12px;">
+        <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text2);margin-bottom:6px;"><span>Total costs</span><span style="font-weight:600;">€30,828</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;"><span style="font-size:13px;color:var(--text3);">Net</span><span style="font-size:20px;font-weight:800;color:var(--green);">+€87,497</span></div>
+        <div style="font-size:11px;color:var(--text3);line-height:1.4;">74% margin. €17.8K MRR. Lifestyle business territory.</div>
+      </div>
+    </div>
+
+    <div class="card red" style="padding:22px 24px;">
+      <div class="card-label">3-Year Total · 2026–2028</div>
+      <div class="card-value">€153,325</div>
+      <div style="font-size:12px;color:var(--red);margin-bottom:12px;">Cumulative revenue</div>
+      <div style="border-top:1px solid rgba(192,33,34,0.25);padding-top:12px;">
+        <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text2);margin-bottom:6px;"><span>Total costs</span><span style="font-weight:600;">€48,474</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;"><span style="font-size:13px;color:var(--text3);">Net</span><span style="font-size:20px;font-weight:800;color:var(--green);">+€104,851</span></div>
+        <div style="font-size:11px;color:var(--text3);line-height:1.4;">68% overall margin. Organic only. No external funding.</div>
+      </div>
+    </div>
+
+  </div>
+  <p style="font-size:12px;color:var(--text3);margin-bottom:32px;">Costs updated to reflect full production architecture: Supabase PostgreSQL (3 environments), ARQ job queue + Redis (self-hosted), PostHog analytics (free up to 1M events/mo), Sentry error tracking (free), GDPR cookie consent, SPF/DKIM/DMARC email deliverability. Details below.</p>
+
   <h3>Pricing Rationale — Validated by Competition</h3>
   <div class="tbl-wrap" style="margin-bottom:24px">
     <table>
@@ -462,30 +512,6 @@
     </table>
   </div>
 
-  <h3>3-Year Revenue Summary</h3>
-  <div class="card-grid">
-    <div class="card amber">
-      <div class="card-label">2026 — Year 1</div>
-      <div class="card-value">€2,100</div>
-      <div class="card-desc">40 users @ €15/month. Proof of concept. 7 months of active selling.</div>
-    </div>
-    <div class="card blue">
-      <div class="card-label">2027 — Year 2</div>
-      <div class="card-value">€32,900</div>
-      <div class="card-desc">200 users @ €25/month by year end. Growing MRR. First meaningful income.</div>
-    </div>
-    <div class="card green">
-      <div class="card-label">2028 — Year 3</div>
-      <div class="card-value">€118,325</div>
-      <div class="card-desc">510 users, mixed pricing. €17.8K/month MRR. Lifestyle business territory.</div>
-    </div>
-    <div class="card red">
-      <div class="card-label">3-Year Total</div>
-      <div class="card-value">~€153K</div>
-      <div class="card-desc">Cumulative revenue. Without paid ads. Based on organic growth only.</div>
-    </div>
-  </div>
-
   <h3>Full Cost Table — All 3 Years</h3>
   <p style="margin-bottom:16px">Includes infrastructure, implementation, people, and tools. All figures are monthly unless noted.</p>
 
@@ -494,22 +520,25 @@
       <thead><tr><th>Cost Item</th><th>2026 (monthly)</th><th>2027 (monthly)</th><th>2028 (monthly)</th><th>Notes</th></tr></thead>
       <tbody>
         <tr><td colspan="5" style="background:var(--bg3);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--text3);padding:10px 14px;">Infrastructure</td></tr>
-        <tr><td>VPS hosting (Hetzner)</td><td>€6</td><td>€15</td><td>€30</td><td>Start CX11 (€6), upgrade as users grow</td></tr>
+        <tr><td>VPS hosting (Hetzner)</td><td>€6</td><td>€15</td><td>€30</td><td>CX21 (€6/mo). Upgrade to CX31 at ~100 users. At 500+ users: +€30/mo for second instance + load balancer.</td></tr>
         <tr><td>Domain (astrocrm.app)</td><td>€1</td><td>€1</td><td>€1</td><td>~€15/year, billed annually</td></tr>
-        <tr><td>SSL certificate</td><td>€0</td><td>€0</td><td>€0</td><td>Free via Let's Encrypt</td></tr>
-        <tr><td>Email sending (Resend)</td><td>€0</td><td>€20</td><td>€40</td><td>Free to 3K/month, then €20/month Pro</td></tr>
-        <tr><td>Backups / monitoring</td><td>€2</td><td>€5</td><td>€10</td><td>Hetzner snapshots (€2/mo from launch). Uptime Robot free tier.</td></tr>
+        <tr><td>SSL certificate</td><td>€0</td><td>€0</td><td>€0</td><td>Free via Let's Encrypt. Auto-renews every 90 days.</td></tr>
+        <tr><td>Supabase PostgreSQL (dev + staging + prod)</td><td class="green">€0</td><td class="green">€0</td><td class="green">€0–25</td><td>Three free Supabase projects (500MB each). No Docker needed. Upgrade to Pro (€25/mo) only if DB exceeds 500MB — unlikely before 1,000+ users. Eliminates SQLite/PostgreSQL mismatch risk.</td></tr>
+        <tr><td>Redis (ARQ job queue + rate limiting)</td><td class="green">€0</td><td class="green">€0</td><td class="green">€0</td><td>Self-hosted on same Hetzner VPS. No extra cost. Required for background jobs (email, webhooks, automations) — ARQ stores jobs in Redis so they survive server restarts.</td></tr>
+        <tr><td>Email sending (Resend)</td><td>€0</td><td>€20</td><td>€40</td><td>Free to 3K/month, then €20/month Pro. All transactional email (welcome, password reset, trial reminders). SPF/DKIM/DMARC configured for deliverability.</td></tr>
+        <tr><td>Backups / monitoring</td><td>€2</td><td>€5</td><td>€10</td><td>Hetzner daily snapshots €2/mo. Uptime Robot (free) — Telegram alert if site goes down. Papertrail (free tier) for structured logs.</td></tr>
         <tr><td colspan="5" style="background:var(--bg3);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--text3);padding:10px 14px;">Payment Processing</td></tr>
         <tr><td>Stripe fees</td><td>~€12</td><td>~€110</td><td>~€360</td><td>~2.9% + €0.30 per transaction. Est. on revenue.</td></tr>
         <tr><td colspan="5" style="background:var(--bg3);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--text3);padding:10px 14px;">Tools & Software</td></tr>
-        <tr><td>GitHub (code hosting)</td><td>€0</td><td>€0</td><td>€4</td><td>Free tier sufficient through 2027</td></tr>
+        <tr><td>GitHub (code + CI/CD)</td><td>€0</td><td>€0</td><td>€4</td><td>Free tier: 2,000 CI/CD minutes/month. Auto-deploys to staging on every push. Manual approval to production. Sufficient through 2027+.</td></tr>
+        <tr><td>Sentry (error tracking)</td><td class="green">€0</td><td class="green">€0</td><td class="green">€0</td><td>Free: 5,000 errors/month. Email alert on every new error type. Full stack trace. Essential for knowing when something breaks before users complain.</td></tr>
         <tr><td>Claude Code — build phase (Max $200 plan + 21% VAT)</td><td>€242/mo × 5 months</td><td>—</td><td>—</td><td>Jan–May 2026: heavy daily development. Max 20× plan needed for this volume.</td></tr>
         <tr><td>Claude Code — maintenance (Pro $20 plan + 21% VAT)</td><td>€24/mo × 7 months</td><td>€24/mo</td><td>€24/mo</td><td>Jun 2026 onward: bug fixes, small improvements. Pro plan sufficient. Upgrade to Max 5× (~€114/mo) for 1–2 months/year when building major features.</td></tr>
         <tr><td>Claude Code — feature sprints (Max 5× plan, occasional)</td><td>—</td><td>€114/mo × 2 months</td><td>€114/mo × 2 months</td><td>2 months/year for significant new features (Telegram integration, scheduling, etc.)</td></tr>
         <tr><td>Customer support chat (Crisp.chat)</td><td>€0</td><td>€25</td><td>€25</td><td>Free in 2026 (Telegram button). Crisp from Q1 2027 when user base grows.</td></tr>
         <tr><td>Status page (Instatus/Freshstatus)</td><td>€0</td><td>€0</td><td>€0</td><td>Free tier. Shows users system status during outages.</td></tr>
         <tr><td>Design tools (Figma etc.)</td><td>€0</td><td>€15</td><td>€15</td><td>Free tier in Year 1; upgrade when doing marketing</td></tr>
-        <tr><td>Analytics (Plausible/Posthog)</td><td>€0</td><td>€9</td><td>€9</td><td>Plausible free or €9/month for privacy-focused analytics</td></tr>
+        <tr><td>PostHog (product analytics)</td><td class="green">€0</td><td class="green">€0</td><td class="green">€0</td><td>Free up to 1M events/month — enough for thousands of users. Tracks which features users actually use, funnel drop-off, retention. Must not load until cookie consent given (GDPR). GA4 for website traffic alongside it.</td></tr>
         <tr><td colspan="5" style="background:var(--bg3);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--text3);padding:10px 14px;">People — Freelance</td></tr>
         <tr><td>Support — Russian-language (freelance, RU/BY/UA)</td><td>€0</td><td>€300</td><td>€600</td><td>Part-time from Q1 2027. Native Russian speaker. Hired via Deel or Upwork — invoiced to your NL company, fully deductible.</td></tr>
         <tr><td>Support — English-language (freelance)</td><td>€0</td><td>€150</td><td>€300</td><td>Part-time from Q2 2027 when EU user base grows. Same hiring model via Deel/Upwork.</td></tr>
@@ -527,8 +556,8 @@
         <tr><td>YouTube video production (editing)</td><td>€0</td><td>€200/mo</td><td>€400/mo</td><td>Already in People line — video editor. RU YouTube is primary organic channel.</td></tr>
         <tr><td>School/academy affiliate programme</td><td>€0</td><td>€0</td><td>€100/mo</td><td>20–30% commission on referred subscriptions. Cost only when it generates revenue.</td></tr>
         <tr><td>Canva Pro (social media design)</td><td>€0</td><td>€13/mo</td><td>€13/mo</td><td>Instagram posts, YouTube thumbnails, story templates. From Q2 2027.</td></tr>
-        <tr class="tr-total"><td><strong>Total monthly cost (blended)</strong></td><td><strong>~€191</strong></td><td><strong>~€1,277</strong></td><td><strong>~€2,578</strong></td><td>2026 blended: heavy Jan–May build (€242 Claude Max), light Jun–Dec maintenance (€24 Claude Pro)</td></tr>
-        <tr class="tr-total"><td><strong>Total annual cost</strong></td><td class="red"><strong>~€2,430</strong></td><td class="red"><strong>~€15,324</strong></td><td class="red"><strong>~€30,936</strong></td><td>Incl. €200 one-time legal + full Claude costs with VAT + paid marketing from Q1 2027</td></tr>
+        <tr class="tr-total"><td><strong>Total monthly cost (blended)</strong></td><td><strong>~€191</strong></td><td><strong>~€1,268</strong></td><td><strong>~€2,569</strong></td><td>2026 blended: heavy Jan–May build (€242 Claude Max), light Jun–Dec maintenance (€24 Claude Pro). Supabase, Redis, Sentry, PostHog all €0.</td></tr>
+        <tr class="tr-total"><td><strong>Total annual cost</strong></td><td class="red"><strong>~€2,430</strong></td><td class="red"><strong>~€15,216</strong></td><td class="red"><strong>~€30,828</strong></td><td>Architecture update: PostHog free (saves €108/yr vs prior estimate), Supabase free, Redis self-hosted. Incl. €200 one-time legal + full Claude costs with VAT + paid marketing from Q1 2027.</td></tr>
       </tbody>
     </table>
   </div>
@@ -536,12 +565,12 @@
   <h3>Profit / Loss Summary</h3>
   <div class="tbl-wrap">
     <table>
-      <thead><tr><th>Year</th><th>Revenue</th><th>Total Costs</th><th>Net Profit</th><th>Margin</th></tr></thead>
+      <thead><tr><th>Year</th><th>Revenue</th><th>Total Costs</th><th>Net Profit</th><th>Margin</th><th>Key cost driver</th></tr></thead>
       <tbody>
-        <tr><td>2026</td><td>€2,100</td><td>€2,430</td><td class="red">−€330</td><td>—</td></tr>
-        <tr><td>2027</td><td>€32,900</td><td>€15,324</td><td class="green">€17,576</td><td>53%</td></tr>
-        <tr><td>2028</td><td>€118,325</td><td>€30,936</td><td class="green">€87,389</td><td>74%</td></tr>
-        <tr class="tr-total"><td><strong>3-Year Total</strong></td><td><strong>€153,325</strong></td><td><strong>€48,690</strong></td><td class="red"><strong>€104,635</strong></td><td><strong>68%</strong></td></tr>
+        <tr><td>2026</td><td>€2,100</td><td>€2,430</td><td class="red">−€330</td><td>—</td><td>Claude Max build phase (€242/mo × 5 months)</td></tr>
+        <tr><td>2027</td><td>€32,900</td><td>€15,216</td><td class="green">€17,684</td><td>54%</td><td>Freelance support + video editor + paid ads</td></tr>
+        <tr><td>2028</td><td>€118,325</td><td>€30,828</td><td class="green">€87,497</td><td>74%</td><td>Scaled support team + EU market ads + VPS upgrade</td></tr>
+        <tr class="tr-total"><td><strong>3-Year Total</strong></td><td><strong>€153,325</strong></td><td><strong>€48,474</strong></td><td class="green"><strong>+€104,851</strong></td><td><strong>68%</strong></td><td>Infrastructure stays lean — architecture built for it</td></tr>
       </tbody>
     </table>
   </div>
@@ -1431,13 +1460,17 @@
   <h3>Technical Cost Summary for Financial Model</h3>
   <div class="tbl-wrap">
     <table>
-      <thead><tr><th>Item</th><th>2026</th><th>2027</th><th>Notes</th></tr></thead>
+      <thead><tr><th>Item</th><th>2026</th><th>2027</th><th>2028</th><th>Notes</th></tr></thead>
       <tbody>
-        <tr><td>Uptime Robot monitoring</td><td class="green">€0</td><td class="green">€0</td><td>Free plan sufficient through 500+ users</td></tr>
-        <tr><td>Hetzner backups</td><td>€2/mo</td><td>€2/mo</td><td>Already included in infrastructure line</td></tr>
-        <tr><td>Status page (Instatus/Freshstatus)</td><td class="green">€0</td><td class="green">€0</td><td>Free tier covers all needs in Year 1–2</td></tr>
-        <tr><td>Claude Code (bug fixes + features)</td><td>€20/mo</td><td>€20/mo</td><td>Already in tools line. Replaces €3,000–8,000/month developer salary.</td></tr>
-        <tr><td>Human IT consultant</td><td class="green">€0</td><td class="green">€0</td><td>Not needed. Claude handles all technical work.</td></tr>
+        <tr><td>Supabase PostgreSQL (3 environments)</td><td class="green">€0</td><td class="green">€0</td><td class="green">€0–25</td><td>Dev + staging + prod all on free tier. 500MB limit per project. No Docker needed. Supabase Pro (€25/mo) only if prod DB exceeds 500MB — unlikely before 1,000+ users.</td></tr>
+        <tr><td>Redis (ARQ background jobs)</td><td class="green">€0</td><td class="green">€0</td><td class="green">€0</td><td>Self-hosted on Hetzner VPS. Needed for ARQ job queue (email, webhooks, automations survive restarts) and rate limiting. No extra cost.</td></tr>
+        <tr><td>Sentry (error tracking)</td><td class="green">€0</td><td class="green">€0</td><td class="green">€0</td><td>Free: 5,000 errors/month. You get an email the moment something breaks. Stack trace + which user + which endpoint. Included in cost table.</td></tr>
+        <tr><td>Uptime Robot monitoring</td><td class="green">€0</td><td class="green">€0</td><td class="green">€0</td><td>Free plan. Checks site every 5 min. Telegram alert when down. Included in infrastructure line.</td></tr>
+        <tr><td>PostHog product analytics</td><td class="green">€0</td><td class="green">€0</td><td class="green">€0</td><td>Free: 1M events/month. Tracks feature usage, retention, funnel. Must wait for cookie consent. Included in cost table.</td></tr>
+        <tr><td>Hetzner daily backups</td><td>€2/mo</td><td>€2/mo</td><td>€2/mo</td><td>Included in infrastructure line. One-click server restore if VPS fails.</td></tr>
+        <tr><td>Status page (Instatus/Freshstatus)</td><td class="green">€0</td><td class="green">€0</td><td class="green">€0</td><td>Free tier. Public uptime history. Reduces support messages during downtime.</td></tr>
+        <tr><td>Claude Code (bug fixes + features)</td><td>€24–242/mo</td><td>€24–114/mo</td><td>€24–114/mo</td><td>Already in tools line. Replaces €3,000–8,000/month developer salary. Max plan for build sprints, Pro for maintenance.</td></tr>
+        <tr><td>Human IT consultant</td><td class="green">€0</td><td class="green">€0</td><td class="green">€0</td><td>Not needed. Claude handles all technical work. Architecture designed for solo AI-assisted development.</td></tr>
       </tbody>
     </table>
   </div>
