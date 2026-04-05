@@ -500,15 +500,19 @@ def require_feature(feature: str):
     </div>
     <div class="section-body">
       <ul class="rule-list">
-        <li class="rule-item">Add features to the single-file app.js — always create a module</li>
-        <li class="rule-item">Query the database without filtering by tenant_id</li>
-        <li class="rule-item">Store credentials or API keys anywhere except .env</li>
-        <li class="rule-item">Use SQLite in production</li>
-        <li class="rule-item">Send emails synchronously inside an HTTP request handler</li>
-        <li class="rule-item">Hard-code plan names or feature lists in feature code — use PLAN_FEATURES</li>
-        <li class="rule-item">Build authentication from scratch for each route — use the dependency</li>
-        <li class="rule-item">Call fetch() directly from feature modules — always use core/api.js</li>
-        <li class="rule-item">Hard-code EN/RU/NL text in modules — always use i18n.js</li>
+        <li class="rule-item">Add features to a single monolithic file — always create a module</li>
+        <li class="rule-item">Query the database without filtering by <code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">tenant_id</code> — <strong>this leaks data between users</strong></li>
+        <li class="rule-item">Store credentials or API keys anywhere except <code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">.env</code></li>
+        <li class="rule-item">Use SQLite in any environment — use PostgreSQL via Docker locally</li>
+        <li class="rule-item">Send emails or fire webhooks synchronously in an HTTP handler — use ARQ queue</li>
+        <li class="rule-item">Hard-code plan names or feature lists — use <code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">PLAN_FEATURES</code> dict</li>
+        <li class="rule-item">Build auth checks per route — use <code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">get_current_tenant</code> dependency</li>
+        <li class="rule-item">Call <code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">fetch()</code> directly from feature modules — always use <code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">core/api.js</code></li>
+        <li class="rule-item">Hard-code EN/RU/NL text in modules — always use <code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">i18n.js</code></li>
+        <li class="rule-item">Store JWT tokens in localStorage — keep in memory, refresh via httpOnly cookie</li>
+        <li class="rule-item">Accept payment webhooks without verifying the provider signature</li>
+        <li class="rule-item">Deploy to production without staging passing first</li>
+        <li class="rule-item">Create API endpoints without the <code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">/api/v1/</code> prefix</li>
       </ul>
     </div>
   </div>
@@ -519,7 +523,7 @@ def require_feature(feature: str):
       <div class="section-icon">✏️</div>
       <div>
         <div class="section-title">Code Style Rules</div>
-        <div class="section-sub">For Claude and any developer working on AstroCRM</div>
+        <div class="section-sub">Enforced by ruff (Python) and ESLint (JS) — zero warnings policy</div>
       </div>
     </div>
     <div class="section-body">
@@ -530,14 +534,15 @@ def require_feature(feature: str):
             <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;">Type hints on all function signatures</li>
             <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;">Docstring on all service functions</li>
             <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;">All DB-touching code in services/, never in routers/</li>
-            <li style="padding:5px 0;">API returns <code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">&#123; data: ... &#125;</code> or <code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">&#123; error: "..." &#125;</code></li>
+            <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;">API returns <code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">&#123; data: ... &#125;</code> or <code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">&#123; error: "..." &#125;</code></li>
+            <li style="padding:5px 0;">All routes under <code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">/api/v1/</code></li>
           </ul>
         </div>
         <div>
           <p style="font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">JavaScript (Frontend)</p>
           <ul style="list-style:none;font-size:13px;color:#374151;">
             <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;">ES modules (import/export), no var, const by default</li>
-            <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;">No framework — vanilla JS only</li>
+            <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;">No framework — vanilla JS only (Vite bundler in Phase 2)</li>
             <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;">app.js entry point max ~50 lines</li>
             <li style="padding:5px 0;">Global state only in core/state.js — no module-local copies</li>
           </ul>
@@ -546,6 +551,238 @@ def require_feature(feature: str):
     </div>
   </div>
 
+  <!-- KNOWN RISKS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">⚠️</div>
+      <div>
+        <div class="section-title">Known Risks &amp; Mitigations</div>
+        <div class="section-sub">Critical review — April 2026. Every risk has a fix and a deadline.</div>
+      </div>
+    </div>
+    <div class="section-body">
+
+      <p style="font-size:13px;font-weight:700;color:#dc2626;margin-bottom:12px;">🔴 Critical — Security &amp; Data Loss</p>
+
+      <table style="margin-bottom:24px;">
+        <thead><tr><th>#</th><th>Risk</th><th>Why it matters</th><th>Fix</th><th>When</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>R1</td>
+            <td>No multi-tenancy tests</td>
+            <td>One forgotten <code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">tenant_id</code> filter = user sees strangers' data</td>
+            <td>pytest: create 2 tenants, call API as tenant A, assert tenant B data never appears</td>
+            <td><span class="tag tag-red">Phase 1</span></td>
+          </tr>
+          <tr>
+            <td>R2</td>
+            <td>JWT token in localStorage</td>
+            <td>Any XSS vulnerability in any script = all users' tokens stolen</td>
+            <td>Store token in memory only. Silent refresh via httpOnly cookie on page load</td>
+            <td><span class="tag tag-red">Phase 1</span></td>
+          </tr>
+          <tr>
+            <td>R3</td>
+            <td>No rate limiting on auth</td>
+            <td>Login endpoint can be brute-forced — 100K password attempts in minutes</td>
+            <td><code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">slowapi</code> — 5 login attempts/IP/min, 3 password resets/hour</td>
+            <td><span class="tag tag-red">Phase 1</span></td>
+          </tr>
+          <tr>
+            <td>R4</td>
+            <td>Background tasks not persistent</td>
+            <td>Server restart during deploy = queued emails lost. Paid user gets no confirmation.</td>
+            <td>Replace FastAPI BackgroundTasks with ARQ (Redis-backed queue). Jobs survive restarts.</td>
+            <td><span class="tag tag-red">Phase 1</span></td>
+          </tr>
+          <tr>
+            <td>R5</td>
+            <td>Webhook signatures not verified</td>
+            <td>Anyone can POST to payment webhook and upgrade their account for free</td>
+            <td>Verify provider signature before acting on any webhook. One function per provider.</td>
+            <td><span class="tag tag-amber">Phase 2</span></td>
+          </tr>
+          <tr>
+            <td>R6</td>
+            <td>SQLite dev ≠ PostgreSQL prod</td>
+            <td>Different handling of dates, JSON, LIKE, case sensitivity. Bugs found only in production.</td>
+            <td>Run PostgreSQL locally via Docker: <code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">docker run -p 5432:5432 postgres</code></td>
+            <td><span class="tag tag-red">Phase 1</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p style="font-size:13px;font-weight:700;color:#d97706;margin-bottom:12px;">🟠 High — Operational Gaps</p>
+
+      <table style="margin-bottom:24px;">
+        <thead><tr><th>#</th><th>Risk</th><th>Why it matters</th><th>Fix</th><th>When</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>R7</td>
+            <td>No error tracking</td>
+            <td>Broken features go undetected. Most users don't complain — they just leave.</td>
+            <td>Sentry free tier — one line in main.py. Full stack trace + email on new errors.</td>
+            <td><span class="tag tag-red">Phase 1</span></td>
+          </tr>
+          <tr>
+            <td>R8</td>
+            <td>No structured logging</td>
+            <td>Can't debug production — no record of what happened, which user, which endpoint.</td>
+            <td><code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">structlog</code> — every request logs tenant_id, endpoint, duration, status. Ship to Papertrail (free).</td>
+            <td><span class="tag tag-red">Phase 1</span></td>
+          </tr>
+          <tr>
+            <td>R9</td>
+            <td>No GDPR export / delete</td>
+            <td>Legal requirement. Every user can demand data export or full deletion. Non-compliant before first NL client.</td>
+            <td><code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">GET /api/v1/tenant/export</code> (ZIP download) and <code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">DELETE /api/v1/tenant/account</code>. Self-serve.</td>
+            <td><span class="tag tag-amber">Pre-launch</span></td>
+          </tr>
+          <tr>
+            <td>R10</td>
+            <td>No API versioning</td>
+            <td>Changing any response field breaks existing clients. Impossible to fix after mobile app ships.</td>
+            <td>All routes under <code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">/api/v1/</code> now. Breaking changes go to /api/v2/. Zero cost to add now.</td>
+            <td><span class="tag tag-red">Phase 1</span></td>
+          </tr>
+          <tr>
+            <td>R11</td>
+            <td>No /health endpoint</td>
+            <td>Load balancer can't check if app is alive. Dead instance keeps receiving traffic.</td>
+            <td><code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">GET /health</code> returns <code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">&#123;"status":"ok","db":"ok"&#125;</code> — also pings DB.</td>
+            <td><span class="tag tag-red">Phase 1</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p style="font-size:13px;font-weight:700;color:#b45309;margin-bottom:12px;">🟡 Medium — Developer Handover</p>
+
+      <table>
+        <thead><tr><th>#</th><th>Risk</th><th>Why it matters</th><th>Fix</th><th>When</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>R12</td>
+            <td>No README / setup guide</td>
+            <td>No developer can run the project without reading all code first.</td>
+            <td>README.md — prerequisites, .env setup, run locally, run tests, deploy to staging.</td>
+            <td><span class="tag tag-red">Phase 1</span></td>
+          </tr>
+          <tr>
+            <td>R13</td>
+            <td>No linter / formatter</td>
+            <td>Code style drifts across sessions. Developer can't distinguish bugs from style choices.</td>
+            <td><code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">ruff</code> for Python, ESLint for JS. Both run in CI before every deploy. Zero warnings policy.</td>
+            <td><span class="tag tag-red">Phase 1</span></td>
+          </tr>
+          <tr>
+            <td>R14</td>
+            <td>No tests at all</td>
+            <td>No developer can change anything safely. Every modification might silently break something.</td>
+            <td>pytest for backend (auth, isolation, webhooks). Vitest for JS. Target 80% on services/.</td>
+            <td><span class="tag tag-red">Phase 1</span></td>
+          </tr>
+          <tr>
+            <td>R15</td>
+            <td>models.py as single file</td>
+            <td>At AmoCRM scope = 1,500+ lines. No developer can navigate it.</td>
+            <td>Split: models/contacts.py, models/deals.py, models/auth.py etc. with __init__.py.</td>
+            <td><span class="tag tag-blue">Phase 2</span></td>
+          </tr>
+          <tr>
+            <td>R16</td>
+            <td>No bundler (Vite)</td>
+            <td>15+ modules = 15+ browser requests per load. No minification. Performance degrades at scale.</td>
+            <td>Add Vite in Phase 2 — wraps existing ES modules with zero structural changes. 2 hours.</td>
+            <td><span class="tag tag-blue">Phase 2</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+
+  <!-- DEVELOPER ONBOARDING -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">👩‍💻</div>
+      <div>
+        <div class="section-title">Developer Onboarding</div>
+        <div class="section-sub">Any developer should be able to run this project within 15 minutes of reading this</div>
+      </div>
+    </div>
+    <div class="section-body">
+
+      <div class="two-col" style="margin-bottom:24px;">
+        <div>
+          <p style="font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">Prerequisites</p>
+          <ul style="list-style:none;font-size:13px;color:#374151;">
+            <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;">Python 3.11+</li>
+            <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;">Docker (for local PostgreSQL)</li>
+            <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;">Node.js 18+ (ESLint / Vite Phase 2)</li>
+            <li style="padding:5px 0;">Git</li>
+          </ul>
+          <p style="font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin:14px 0 10px;">Three environments</p>
+          <ul style="list-style:none;font-size:13px;color:#374151;">
+            <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;"><strong>Local</strong> — Claude develops here</li>
+            <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;"><strong>staging.astrocrm.app</strong> — mirrors prod, every change tested here first</li>
+            <li style="padding:5px 0;"><strong>app.astrocrm.app</strong> — production, manual approval to deploy</li>
+          </ul>
+        </div>
+        <div>
+          <p style="font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">Key files to read first</p>
+          <ul style="list-style:none;font-size:13px;color:#374151;">
+            <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;"><code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">app/main.py</code> — entry point, middleware, router registration</li>
+            <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;"><code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">app/models/</code> — full data model (understand data structure first)</li>
+            <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;"><code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">app/auth.py</code> — JWT logic, get_current_tenant dependency</li>
+            <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;"><code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">app/tenants.py</code> — plan checks, feature gating</li>
+            <li style="padding:5px 0;border-bottom:1px solid #f3f4f6;"><code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">static/modules/core/api.js</code> — all frontend HTTP calls</li>
+            <li style="padding:5px 0;"><code style="background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:11px;">static/modules/core/state.js</code> — global frontend state</li>
+          </ul>
+        </div>
+      </div>
+
+      <p style="font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">Local setup (copy-paste ready)</p>
+      <pre style="margin-bottom:16px;"># 1. Start local PostgreSQL
+docker run -d --name astrocrm-db -e POSTGRES_PASSWORD=dev -p 5432:5432 postgres
+
+# 2. Python environment
+python -m venv venv &amp;&amp; source venv/bin/activate
+pip install -r requirements.txt
+
+# 3. Create .env (never commit this)
+cp .env.example .env
+# Edit .env — set DATABASE_URL and JWT_SECRET at minimum
+
+# 4. Run migrations
+alembic upgrade head
+
+# 5. Start backend
+uvicorn app.main:app --reload
+# API docs: http://localhost:8000/docs
+
+# 6. Serve frontend
+python -m http.server 3000 --directory static</pre>
+
+      <p style="font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">Tests &amp; quality checks</p>
+      <pre style="margin-bottom:16px;">pytest                              # all tests
+pytest tests/test_isolation.py      # multi-tenancy tests only
+ruff check . &amp;&amp; ruff format --check . # lint + format check</pre>
+
+      <p style="font-size:12px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">Architecture decision log — why things are the way they are</p>
+      <table>
+        <thead><tr><th>Date</th><th>Decision</th><th>Reason</th></tr></thead>
+        <tbody>
+          <tr><td>Apr 2026</td><td>ARQ over Celery for background tasks</td><td>Async-native, simpler setup, Redis already needed for rate limiting</td></tr>
+          <tr><td>Apr 2026</td><td>Vanilla JS over React</td><td>Solo developer, no build complexity until Phase 2 (Vite added then)</td></tr>
+          <tr><td>Apr 2026</td><td>Supabase PostgreSQL over self-hosted</td><td>Managed backups, point-in-time recovery, free tier sufficient for Phase 1</td></tr>
+          <tr><td>Apr 2026</td><td>In-memory JWT + silent refresh</td><td>Prevent XSS token theft — localStorage is readable by any script</td></tr>
+          <tr><td>Apr 2026</td><td>Mobile-first CSS</td><td>All target users are practitioners on phones — 100% of audience</td></tr>
+          <tr><td>Apr 2026</td><td>/api/v1/ prefix on all routes</td><td>Allows non-breaking evolution to /api/v2/ without breaking existing clients</td></tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
 
 </div>
 </body>
