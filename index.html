@@ -67,8 +67,8 @@
     .lang-btn{background:transparent;border:none;color:var(--ink3);padding:4px 7px;font-family:var(--sans);font-size:10px;font-weight:500;letter-spacing:1.5px;cursor:pointer;transition:color .3s ease;text-transform:uppercase;}
     .lang-btn.active{color:var(--wine);}
     .lang-btn:hover{color:var(--ink);}
-    .nav-cta{background:var(--wine);color:var(--ivory);border:none;padding:12px 26px;border-radius:0;font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:2.2px;text-transform:uppercase;cursor:pointer;transition:background .3s ease;}
-    .nav-cta:hover{background:var(--wine2);}
+    .nav-cta{background:var(--wine);color:var(--ivory);border:none;padding:12px 26px;border-radius:0;font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:2.2px;text-transform:uppercase;cursor:pointer;transition:background .3s ease;display:inline-block;text-decoration:none;line-height:1.4;}
+    .nav-cta:hover{background:var(--wine2);color:var(--ivory);}
 
     /* HERO — editorial centerfold */
     .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:180px 32px 120px;background:var(--ivory);position:relative;}
@@ -216,13 +216,9 @@
     .cta-section::before{content:'';position:absolute;top:60px;left:50%;transform:translateX(-50%);width:1px;height:36px;background:var(--gold);}
     .cta-section h2{font-family:var(--serif);font-size:clamp(32px,4.2vw,56px);font-weight:500;letter-spacing:-1px;margin-bottom:20px;line-height:1.15;max-width:720px;margin-left:auto;margin-right:auto;}
     .cta-section p{font-family:var(--sans);font-size:13px;color:var(--ivory);opacity:.75;margin-bottom:48px;letter-spacing:2.5px;text-transform:uppercase;font-weight:500;}
-    .waitlist-form{display:flex;gap:0;justify-content:center;flex-wrap:wrap;max-width:520px;margin:0 auto;border-bottom:1px solid rgba(250,247,242,.25);padding-bottom:1px;}
-    .waitlist-input{flex:1;min-width:240px;background:transparent;border:none;border-radius:0;padding:18px 0;color:var(--ivory);font-family:var(--sans);font-size:14px;outline:none;transition:border-color .3s;font-weight:300;letter-spacing:.5px;}
-    .waitlist-input:focus{border-color:var(--gold);}
-    .waitlist-input::placeholder{color:rgba(250,247,242,.4);font-style:italic;}
-    .btn-white{background:transparent;color:var(--ivory);padding:18px 24px;border-radius:0;font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:2.8px;text-transform:uppercase;border:none;border-left:1px solid rgba(250,247,242,.2);cursor:pointer;transition:color .3s ease;}
-    .btn-white:hover{color:var(--gold);}
-    .waitlist-note{font-family:var(--sans);font-size:11px;opacity:.5;margin-top:26px;letter-spacing:1.5px;color:var(--ivory);font-weight:300;}
+    .cta-email{display:inline-block;margin:20px 0 8px;font-family:var(--serif);font-style:italic;font-size:clamp(28px,3.8vw,48px);font-weight:500;color:var(--ivory);text-decoration:none;letter-spacing:-.5px;line-height:1.2;border-bottom:1px solid rgba(250,247,242,.3);padding-bottom:8px;transition:border-color .3s ease,color .3s ease;}
+    .cta-email:hover{color:var(--gold);border-bottom-color:var(--gold);}
+    .waitlist-note{font-family:var(--sans);font-size:11px;opacity:.7;margin-top:26px;letter-spacing:2px;color:var(--ivory);font-weight:500;text-transform:uppercase;}
 
     /* FOOTER — editorial masthead */
     footer{border-top:1px solid var(--hair);padding:64px 56px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:28px;background:var(--ivory);}
@@ -278,7 +274,7 @@
       <button class="lang-btn" onclick="setLang('es')">ES</button>
     </div>
   </div>
-  <button class="nav-cta" onclick="document.getElementById('waitlist-email').focus()" data-i18n="nav_cta">Join Early Access</button>
+  <a class="nav-cta" href="mailto:contact@astrocrm.app?subject=Early%20Access%20Waitlist" data-i18n="nav_cta">Join Early Access</a>
 </nav>
 
 <!-- HERO -->
@@ -757,12 +753,9 @@
 <!-- CTA -->
 <section class="cta-section" id="waitlist">
   <h2 data-i18n="cta_title">Ready to grow your practice?</h2>
-  <p data-i18n="cta_sub">Join the waitlist. Early access opens May 2026.</p>
-  <div class="waitlist-form">
-    <input type="email" id="waitlist-email" class="waitlist-input" placeholder="your@email.com">
-    <button class="btn-white" onclick="joinWaitlist()" data-i18n="cta_btn">Join Waitlist →</button>
-  </div>
-  <p class="waitlist-note" data-i18n="cta_note">No spam. Just a heads-up when early access opens.</p>
+  <p data-i18n="cta_sub">Early access opens May 2026. Write to us to secure your place.</p>
+  <a href="mailto:contact@astrocrm.app?subject=Early%20Access%20Waitlist" class="cta-email">contact@astrocrm.app</a>
+  <p class="waitlist-note" data-i18n="cta_note">We personally reply to every message.</p>
 </section>
 
 <!-- FOOTER -->
@@ -779,7 +772,7 @@
     <a href="#why" data-i18n="nav_why">Why CRM</a>
     <a href="#features" data-i18n="nav_features">Features</a>
     <a href="#pricing" data-i18n="nav_pricing">Pricing</a>
-    <a href="mailto:hello@astrocrm.app">hello@astrocrm.app</a>
+    <a href="mailto:contact@astrocrm.app">contact@astrocrm.app</a>
   </div>
   <div class="footer-copy">© 2026 AstroCRM. Built for practitioners, by practitioners.</div>
 </footer>
@@ -821,7 +814,7 @@ const T = {
     biz_note:"Both workspaces are fully independent — separate pipelines, contacts, and automations — inside one subscription.",
     price_note:"Early adopter price of €30/mo is locked in for life — only for subscribers who join in 2026. Regular price from 2027: €45/mo.",
     mock_label:"See It In Action",mock_title:"Your client pipeline, beautifully organised",
-    cta_title:"Ready to grow your practice?",cta_sub:"Join the waitlist. Early access opens May 2026.",cta_btn:"Join Waitlist →",cta_note:"No spam. Just a heads-up when early access opens."
+    cta_title:"Ready to grow your practice?",cta_sub:"Early access opens May 2026. Write to us to secure your place.",cta_note:"We personally reply to every message."
   },
   ru:{
     nav_why:"Зачем CRM",nav_features:"Возможности",nav_compare:"Сравнение",nav_pricing:"Цены",nav_cta:"Ранний доступ",
@@ -858,7 +851,7 @@ const T = {
     biz_note:"Оба пространства полностью независимы — отдельные воронки, контакты и автоматизации — в рамках одной подписки.",
     price_note:"Цена €30/мес для ранних подписчиков фиксируется навсегда — только для тех, кто подключится в 2026 году. Обычная цена с 2027: €45/мес.",
     mock_label:"Посмотрите как это работает",mock_title:"Ваши клиенты — красиво организованы",
-    cta_title:"Готовы развивать свою практику?",cta_sub:"Встаньте в очередь. Ранний доступ открывается в мае 2026.",cta_btn:"Встать в очередь →",cta_note:"Никакого спама. Только уведомление, когда откроется доступ."
+    cta_title:"Готовы развивать свою практику?",cta_sub:"Ранний доступ открывается в мае 2026. Напишите нам, чтобы забронировать место.",cta_note:"Мы лично отвечаем на каждое письмо."
   }
 };
 
@@ -879,13 +872,6 @@ function setLang(lang){
   document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.textContent.toLowerCase()===lang));
 }
 
-function joinWaitlist(){
-  const email=document.getElementById('waitlist-email').value.trim();
-  if(!email||!email.includes('@')){document.getElementById('waitlist-email').style.borderColor='rgba(255,255,255,0.8)';return;}
-  const msgs={en:`Thank you! We'll notify ${email} when early access opens.`,ru:`Спасибо! Мы сообщим вам на ${email}.`,nl:`Bedankt! We sturen een bericht naar ${email}.`,de:`Danke! Wir benachrichtigen ${email}.`,es:`¡Gracias! Te avisaremos a ${email}.`};
-  alert(msgs[currentLang]||msgs.en);
-  document.getElementById('waitlist-email').value='';
-}
 </script>
 </body>
 </html>
