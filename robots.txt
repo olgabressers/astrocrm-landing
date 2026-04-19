@@ -8,5 +8,8 @@ Disallow: /astrocrm-architecture.html
 Disallow: /amocrm-features.html
 Disallow: /developer-contract.html
 Disallow: /bazi-ru.html
+Disallow: /marketing-deck.html
+Disallow: /pitch-designers.html
+Disallow: /pitch-astrologers-ru.html
 
 Sitemap: https://astrocrm.app/sitemap.xml

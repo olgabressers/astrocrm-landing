@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>AstroCRM — Один инструмент. Ваша практика в порядке.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ivory:#faf7f2;--cream:#f3ede2;--stone:#e6ddcd;--hair:#d9cfbb;
+    --ink:#1a1614;--ink2:#3a322c;--ink3:#6e6358;
+    --wine:#6b1a1a;--wine2:#4a1010;--gold:#a48656;
+    --serif:'Cormorant Garamond',Georgia,serif;
+    --sans:'Inter',-apple-system,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--sans);color:var(--ink2);background:var(--ivory);font-weight:500;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;min-height:100vh}
+
+  .page{max-width:1240px;margin:0 auto;padding:48px 48px 64px;text-align:center}
+
+  .label{font-family:var(--sans);font-size:13px;font-weight:700;color:var(--wine);text-transform:uppercase;letter-spacing:4px;margin-bottom:28px;display:inline-flex;align-items:center;gap:14px}
+  .label::before,.label::after{content:"";width:36px;height:1px;background:var(--wine);display:inline-block}
+  h1{font-family:var(--serif);font-weight:600;color:var(--ink);font-size:clamp(36px,5vw,60px);line-height:1.15;letter-spacing:-1px;margin-bottom:20px}
+  h1 em{font-style:italic;color:var(--wine);font-weight:600}
+  .lede{font-family:var(--serif);font-style:italic;font-size:clamp(20px,2.2vw,26px);color:var(--ink);max-width:none;margin:0 auto 48px;line-height:1.4;font-weight:500;white-space:nowrap}
+
+  .infographic{width:100%;max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:auto auto auto;column-gap:48px;row-gap:56px;align-items:center;justify-items:center}
+
+  .hub{grid-column:2;grid-row:2;width:200px;height:200px;border-radius:50%;background:var(--wine);color:var(--ivory);display:flex;align-items:center;justify-content:center;box-shadow:0 20px 50px -20px rgba(107,26,26,.5);text-align:center}
+  .hub-name{font-family:var(--serif);font-style:italic;font-weight:600;font-size:36px;letter-spacing:-1px;line-height:1}
+
+  .node{text-align:center;max-width:280px}
+  .node-circle{width:96px;height:96px;border-radius:50%;background:var(--ivory);border:1px solid var(--hair);display:flex;align-items:center;justify-content:center;margin:0 auto 18px;transition:all .3s ease;position:relative}
+  .node:hover .node-circle{border-color:var(--wine);background:var(--cream)}
+  .node-circle svg{width:40px;height:40px;stroke:var(--wine);fill:none;stroke-width:1.4}
+  .node-num{position:absolute;top:6px;right:6px;width:26px;height:26px;border-radius:50%;background:var(--wine);color:var(--ivory);font-family:var(--serif);font-style:italic;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;line-height:1;border:2px solid var(--ivory);box-shadow:0 1px 4px rgba(107,26,26,.3)}
+  .node-title{font-family:var(--sans);font-weight:700;font-size:19px;color:var(--ink);margin-bottom:10px;letter-spacing:-.2px;line-height:1.25}
+  .node-text{font-family:var(--sans);font-size:14px;color:var(--ink);line-height:1.55;font-weight:500;max-width:240px;margin:0 auto}
+
+  .n1{grid-column:1;grid-row:1}
+  .n2{grid-column:2;grid-row:1}
+  .n3{grid-column:3;grid-row:1}
+  .n4{grid-column:1;grid-row:3}
+  .n5{grid-column:2;grid-row:3}
+  .n6{grid-column:3;grid-row:3}
+
+  .hub-side-left,.hub-side-right{height:1px;background:var(--hair);align-self:center;width:80%}
+  .hub-side-left{grid-column:1;grid-row:2;justify-self:end}
+  .hub-side-right{grid-column:3;grid-row:2;justify-self:start}
+
+  .simple{margin:48px auto 0;max-width:760px;padding:32px 36px;background:var(--cream);border-top:2px solid var(--wine);border-bottom:1px solid var(--hair);text-align:center}
+  .simple-eyebrow{font-family:var(--sans);font-size:13px;font-weight:700;color:var(--wine);text-transform:uppercase;letter-spacing:3px;margin-bottom:14px}
+  .simple-title{font-family:var(--serif);font-style:italic;font-weight:600;font-size:clamp(26px,3vw,36px);color:var(--ink);line-height:1.35}
+  .simple-title em{color:var(--wine);font-weight:600}
+
+  .cta-row{margin-top:48px;text-align:center}
+  .cta-line{font-family:var(--serif);font-style:italic;font-size:clamp(22px,2.4vw,28px);color:var(--ink);margin-bottom:28px;font-weight:600}
+  .cta{display:inline-block;font-family:var(--sans);font-size:14px;font-weight:700;color:var(--ivory);background:var(--wine);padding:20px 44px;text-decoration:none;letter-spacing:2px;text-transform:uppercase;transition:background .2s}
+  .cta:hover{background:var(--wine2)}
+
+  footer{margin-top:56px;padding-top:24px;border-top:1px solid var(--hair);text-align:center;font-family:var(--sans);font-size:12px;color:var(--ink3);letter-spacing:2px;text-transform:uppercase;font-weight:500}
+
+  @media (max-width:780px){
+    .page{padding:48px 22px 60px}
+    .infographic{display:flex;flex-direction:column;gap:20px}
+    .hub{width:170px;height:170px;margin:8px auto}
+    .hub-name{font-size:30px}
+    .hub-side-left,.hub-side-right{display:none}
+    .node{width:100%;max-width:380px;margin:0 auto;display:flex;align-items:center;gap:18px;text-align:left;padding:18px;border:1px solid var(--hair);background:var(--ivory);max-width:none}
+    .node-circle{margin:0;flex-shrink:0;width:72px;height:72px}
+    .node-circle svg{width:32px;height:32px}
+    .node-text{max-width:none}
+    .simple{padding:28px 22px}
+    .lede{white-space:normal}
+  }
+</style>
+</head>
+<body>
+
+  <div class="page">
+
+    <div class="label">Для вашей практики</div>
+    <h1>Один инструмент. <em>Ваша практика в порядке.</em></h1>
+    <p class="lede">Всё, что нужно практику — <em>в одном месте.</em></p>
+
+    <div class="infographic">
+
+      <div class="node n1">
+        <div class="node-circle">
+          <div class="node-num">1</div>
+          <svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3-7 7-7s7 3 7 7"/><path d="M17 11l3 3M20 11l-3 3"/></svg>
+        </div>
+        <div class="node-title">Захватывайте заявки</div>
+        <div class="node-text">Каждое сообщение из Telegram, Instagram и WhatsApp — в одном месте.</div>
+      </div>
+
+      <div class="node n2">
+        <div class="node-circle">
+          <div class="node-num">2</div>
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="5" height="16"/><rect x="10" y="4" width="5" height="10"/><rect x="17" y="4" width="5" height="13"/></svg>
+        </div>
+        <div class="node-title">Видите воронку</div>
+        <div class="node-text">Перетаскивайте клиентов по этапам — никто не забыт.</div>
+      </div>
+
+      <div class="node n3">
+        <div class="node-circle">
+          <div class="node-num">3</div>
+          <svg viewBox="0 0 24 24"><path d="M9 11h6M9 15h4"/><path d="M5 3h11l4 4v14H5z"/><path d="M16 3v4h4"/></svg>
+        </div>
+        <div class="node-title">Помните всё</div>
+        <div class="node-text">Дата и время рождения, натальные карты, заметки по сессиям.</div>
+      </div>
+
+      <div class="hub-side-left"></div>
+      <div class="hub">
+        <div class="hub-name">AstroCRM</div>
+      </div>
+      <div class="hub-side-right"></div>
+
+      <div class="node n4">
+        <div class="node-circle">
+          <div class="node-num">4</div>
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        </div>
+        <div class="node-title">Авто-напоминания</div>
+        <div class="node-text">Напоминания, чтобы тёплые лиды не остывали.</div>
+      </div>
+
+      <div class="node n5">
+        <div class="node-circle">
+          <div class="node-num">5</div>
+          <svg viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg>
+        </div>
+        <div class="node-title">Видите что работает</div>
+        <div class="node-text">Откуда приходят клиенты. Кто становится постоянным.</div>
+      </div>
+
+      <div class="node n6">
+        <div class="node-circle">
+          <div class="node-num">6</div>
+          <svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-7-10a4 4 0 017-2.6A4 4 0 0119 11c0 5.5-7 10-7 10z"/></svg>
+        </div>
+        <div class="node-title">Возвращайте клиентов</div>
+        <div class="node-text">Прошлые клиенты — самые тёплые. Один клик и вы снова на связи.</div>
+      </div>
+
+    </div>
+
+    <div class="simple">
+      <div class="simple-eyebrow">Обещание</div>
+      <p class="simple-title">Никаких курсов. Никакого хлама. Настройка за <em>пять минут</em>.</p>
+    </div>
+
+    <div class="cta-row">
+      <p class="cta-line">Перестаньте терять заявки. Начните растить практику.</p>
+      <a href="https://astrocrm.app" target="_blank" rel="noopener" class="cta">Узнать больше →</a>
+    </div>
+
+    <footer>AstroCRM · Для астрологов и эзотериков</footer>
+
+  </div>
+
+</body>
+</html>
