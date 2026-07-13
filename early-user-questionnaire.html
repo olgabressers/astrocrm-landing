@@ -9,6 +9,13 @@
   <meta property="og:title" content="AstroCRM — Early-User Questionnaire">
   <meta property="og:description" content="Help shape AstroCRM. 10 minutes — every answer builds a feature.">
   <title>Early-User Questionnaire — AstroCRM</title>
+  <!-- AstroCRM favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="alternate icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <meta name="theme-color" content="#4a0e0e">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -83,7 +90,7 @@
     .form-wrap { width: 100%; max-width: 960px; padding: 32px 40px 72px; }
 
     /* INTRO */
-    .intro { background: var(--surface); border-top: 2px solid var(--wine); padding: 28px 32px; margin-bottom: 8px; font-family: 'Inter', sans-serif; font-style: normal; font-size: 19px; font-weight: 500; line-height: 1.7; color: var(--white); }
+    .intro { background: var(--surface); border-top: 2px solid var(--wine); padding: 30px 34px; margin-bottom: 8px; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 23px; font-weight: 600; line-height: 1.55; color: var(--white); }
     .intro p { margin-bottom: 12px; }
     .intro p:last-child { margin-bottom: 0; }
     .intro-sig { font-style: normal; font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 700; color: var(--wine); text-transform: uppercase; letter-spacing: 2px; margin-top: 14px; }
@@ -95,7 +102,7 @@
     .step-num::before { content: ''; display: inline-block; width: 26px; height: 1px; background: var(--wine); vertical-align: middle; margin-right: 12px; }
     .step-title { font-family: 'Cormorant Garamond', serif; font-size: 34px; font-weight: 500; margin-bottom: 8px; color: var(--white); }
     .step-title em { font-style: italic; color: var(--wine); }
-    .step-desc { font-size: 13px; font-style: italic; color: var(--muted); line-height: 1.65; margin-bottom: 32px; }
+    .step-desc { font-size: 14px; font-style: italic; color: var(--dim); line-height: 1.65; margin-bottom: 32px; }
 
     /* FIELDS */
     .field { margin-bottom: 30px; }
@@ -119,6 +126,38 @@
     select option { background: var(--surface); color: var(--white); }
     textarea { resize: vertical; min-height: 90px; line-height: 1.6; }
     .other-input { margin-top: 9px; }
+
+    /* CITY AUTOCOMPLETE */
+    .city-input-wrap { position: relative; }
+    .city-dropdown {
+      position: absolute; top: 100%; left: 0; right: 0; z-index: 100;
+      background: var(--surface2); border: 1px solid var(--gold2);
+      border-top: none; max-height: 260px; overflow-y: auto; display: none;
+    }
+    .city-dd-item { padding: 10px 14px; cursor: pointer; }
+    .city-dd-item + .city-dd-item { border-top: 1px solid var(--border); }
+    .city-dd-item:hover { background: var(--gold-dim); }
+    .city-dd-name { font-size: 14px; color: var(--white); line-height: 1.3; }
+    .city-dd-detail { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+    /* PROFESSION MULTI */
+    .prof-row { display: flex; gap: 10px; margin-top: 9px; align-items: center; }
+    .prof-row select { flex: 1; }
+    .btn-add {
+      background: none; border: 1px dashed var(--border);
+      color: var(--wine); font-family: 'Inter', sans-serif;
+      font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+      font-weight: 600; cursor: pointer; padding: 11px 20px;
+      width: 100%; transition: all .2s; margin-top: 10px;
+    }
+    .btn-add:hover { border-color: var(--wine); background: var(--gold-dim); }
+    .btn-remove {
+      width: 42px; height: 42px; flex: 0 0 42px;
+      background: transparent; border: 1px solid var(--border);
+      color: var(--muted); cursor: pointer; font-size: 18px; line-height: 1;
+      display: flex; align-items: center; justify-content: center; transition: all .2s; padding: 0;
+    }
+    .btn-remove:hover { border-color: var(--error); color: var(--error); }
 
     /* OPTIONS */
     .opts { display: flex; flex-direction: column; gap: 9px; margin-top: 12px; }
@@ -233,7 +272,9 @@
 
         <div class="field">
           <label class="field-label" for="profession"><span class="field-q">1.</span> What is your profession?</label>
-          <select id="profession" name="01_profession">
+          <p class="field-hint">Select up to 3 — many practitioners work across more than one modality.</p>
+          <div id="profession-rows">
+          <select id="profession" class="prof-select" name="01_profession_1">
             <option value="">Select…</option>
             <optgroup label="Metaphysics specialists">
               <option>Astrologer (Western)</option>
@@ -327,6 +368,8 @@
               <option>Other</option>
             </optgroup>
           </select>
+          </div>
+          <button type="button" class="btn-add" id="prof-add-btn" onclick="addProfession()">+ Add another (up to 3)</button>
           <input class="other-input" type="text" name="01_profession_other" placeholder="If other — please specify">
         </div>
 
@@ -353,7 +396,10 @@
 
         <div class="field">
           <label class="field-label" for="location"><span class="field-q">4.</span> Where are you based? <span style="color:var(--muted);font-weight:400;font-style:italic">(country / city)</span></label>
-          <input type="text" id="location" name="04_location" placeholder="e.g. Amsterdam, Netherlands">
+          <div class="city-input-wrap">
+            <input type="text" id="location" name="04_location" placeholder="Start typing your city…" oninput="onLocationInput()" autocomplete="off">
+            <div class="city-dropdown" id="location-dd"></div>
+          </div>
         </div>
 
         <div class="field">
@@ -388,18 +434,35 @@
         <p class="step-desc">Sizing, throughput, retention — informs pricing tiers and feature priorities.</p>
 
         <div class="field">
-          <label class="field-label"><span class="field-q">6.</span> How many active clients do you have right now?</label>
+          <label class="field-label"><span class="field-q">6.</span> How many clients have you had in total since you started your practice?</label>
+          <p class="field-hint">Everyone you've ever worked with, not just current ones.</p>
           <div class="opts two">
-            <label class="opt radio" onclick="pickOpt(this,'06_active')"><input type="radio" name="06_active" value="Fewer than 10"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Fewer than 10</span></span></label>
-            <label class="opt radio" onclick="pickOpt(this,'06_active')"><input type="radio" name="06_active" value="10–30"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">10–30</span></span></label>
-            <label class="opt radio" onclick="pickOpt(this,'06_active')"><input type="radio" name="06_active" value="30–100"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">30–100</span></span></label>
-            <label class="opt radio" onclick="pickOpt(this,'06_active')"><input type="radio" name="06_active" value="100–300"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">100–300</span></span></label>
-            <label class="opt radio" onclick="pickOpt(this,'06_active')"><input type="radio" name="06_active" value="300+"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">300+</span></span></label>
+            <label class="opt radio" onclick="pickOpt(this,'06_total_clients')"><input type="radio" name="06_total_clients" value="Fewer than 20"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Fewer than 20</span></span></label>
+            <label class="opt radio" onclick="pickOpt(this,'06_total_clients')"><input type="radio" name="06_total_clients" value="20–50"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">20–50</span></span></label>
+            <label class="opt radio" onclick="pickOpt(this,'06_total_clients')"><input type="radio" name="06_total_clients" value="50–100"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">50–100</span></span></label>
+            <label class="opt radio" onclick="pickOpt(this,'06_total_clients')"><input type="radio" name="06_total_clients" value="100–300"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">100–300</span></span></label>
+            <label class="opt radio" onclick="pickOpt(this,'06_total_clients')"><input type="radio" name="06_total_clients" value="300–700"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">300–700</span></span></label>
+            <label class="opt radio" onclick="pickOpt(this,'06_total_clients')"><input type="radio" name="06_total_clients" value="700–1500"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">700–1500</span></span></label>
+            <label class="opt radio" onclick="pickOpt(this,'06_total_clients')"><input type="radio" name="06_total_clients" value="1500+"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">1500+</span></span></label>
+            <label class="opt radio" onclick="pickOpt(this,'06_total_clients')"><input type="radio" name="06_total_clients" value="Too many to count"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Too many to count</span></span></label>
           </div>
         </div>
 
         <div class="field">
-          <label class="field-label"><span class="field-q">7.</span> How many new client inquiries do you typically get per month?</label>
+          <label class="field-label"><span class="field-q">7.</span> How many active clients do you have right now?</label>
+          <div class="opts two">
+            <label class="opt radio" onclick="pickOpt(this,'07_active_now')"><input type="radio" name="07_active_now" value="Fewer than 10"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Fewer than 10</span></span></label>
+            <label class="opt radio" onclick="pickOpt(this,'07_active_now')"><input type="radio" name="07_active_now" value="10–25"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">10–25</span></span></label>
+            <label class="opt radio" onclick="pickOpt(this,'07_active_now')"><input type="radio" name="07_active_now" value="25–50"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">25–50</span></span></label>
+            <label class="opt radio" onclick="pickOpt(this,'07_active_now')"><input type="radio" name="07_active_now" value="50–100"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">50–100</span></span></label>
+            <label class="opt radio" onclick="pickOpt(this,'07_active_now')"><input type="radio" name="07_active_now" value="100–200"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">100–200</span></span></label>
+            <label class="opt radio" onclick="pickOpt(this,'07_active_now')"><input type="radio" name="07_active_now" value="200–500"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">200–500</span></span></label>
+            <label class="opt radio" onclick="pickOpt(this,'07_active_now')"><input type="radio" name="07_active_now" value="500+"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">500+</span></span></label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label"><span class="field-q">8.</span> How many new client inquiries do you typically get per month?</label>
           <div class="opts two">
             <label class="opt radio" onclick="pickOpt(this,'07_inquiries')"><input type="radio" name="07_inquiries" value="0–5"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">0–5</span></span></label>
             <label class="opt radio" onclick="pickOpt(this,'07_inquiries')"><input type="radio" name="07_inquiries" value="5–15"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">5–15</span></span></label>
@@ -409,7 +472,7 @@
         </div>
 
         <div class="field">
-          <label class="field-label"><span class="field-q">8.</span> What share of your clients are returning vs one-time?</label>
+          <label class="field-label"><span class="field-q">9.</span> What share of your clients are returning vs one-time?</label>
           <div class="opts">
             <label class="opt radio" onclick="pickOpt(this,'08_returning')"><input type="radio" name="08_returning" value="Mostly one-time (under 25% returning)"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Mostly one-time (under 25% returning)</span></span></label>
             <label class="opt radio" onclick="pickOpt(this,'08_returning')"><input type="radio" name="08_returning" value="Mixed (25–50% returning)"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Mixed (25–50% returning)</span></span></label>
@@ -419,7 +482,7 @@
         </div>
 
         <div class="field">
-          <label class="field-label"><span class="field-q">9.</span> Do you offer recurring sessions, packages, or subscriptions?</label>
+          <label class="field-label"><span class="field-q">10.</span> Do you offer recurring sessions, packages, or subscriptions?</label>
           <p class="field-hint">Select all that apply.</p>
           <div class="opts">
             <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="09_offerings" value="Single sessions only"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Single sessions only</span></span></label>
@@ -444,7 +507,7 @@
         <p class="step-desc">Lead-capture integrations and source-attribution roadmap.</p>
 
         <div class="field">
-          <label class="field-label"><span class="field-q">10.</span> Where do new clients usually find you? <span style="color:var(--muted);font-weight:400;font-style:italic">(top 3)</span></label>
+          <label class="field-label"><span class="field-q">11.</span> Where do new clients usually find you? <span style="color:var(--muted);font-weight:400;font-style:italic">(top 3)</span></label>
           <p class="field-hint">Select up to 3.</p>
           <div class="opts two">
             <label class="opt check" onclick="toggleOpt(this,3)"><input type="checkbox" name="10_sources" value="Instagram"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Instagram</span></span></label>
@@ -462,7 +525,7 @@
         </div>
 
         <div class="field">
-          <label class="field-label"><span class="field-q">11.</span> Which channels do you use to communicate with clients day-to-day?</label>
+          <label class="field-label"><span class="field-q">12.</span> Which channels do you use to communicate with clients day-to-day?</label>
           <p class="field-hint">Select all that apply.</p>
           <div class="opts two">
             <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="11_comms" value="WhatsApp"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">WhatsApp</span></span></label>
@@ -490,7 +553,7 @@
         <p class="step-desc">Reveals the migration path and the competitive landscape.</p>
 
         <div class="field">
-          <label class="field-label"><span class="field-q">12.</span> What do you currently use to keep track of clients?</label>
+          <label class="field-label"><span class="field-q">13.</span> What do you currently use to keep track of clients?</label>
           <p class="field-hint">Select all that apply.</p>
           <div class="opts">
             <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="12_tracking" value="Paper notebook / journal"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Paper notebook / journal</span></span></label>
@@ -505,7 +568,7 @@
         </div>
 
         <div class="field">
-          <label class="field-label"><span class="field-q">13.</span> What format are your existing client records in?</label>
+          <label class="field-label"><span class="field-q">14.</span> What format are your existing client records in?</label>
           <p class="field-hint">Select all that apply.</p>
           <div class="opts">
             <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="13_format" value="Excel or Google Sheets"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Excel or Google Sheets</span></span></label>
@@ -518,7 +581,7 @@
         </div>
 
         <div class="field">
-          <label class="field-label"><span class="field-q">14.</span> How do you currently handle file attachments per client? <span style="color:var(--muted);font-weight:400;font-style:italic">(charts, photos, reports, briefs)</span></label>
+          <label class="field-label"><span class="field-q">15.</span> How do you currently handle file attachments per client? <span style="color:var(--muted);font-weight:400;font-style:italic">(charts, photos, reports, briefs)</span></label>
           <p class="field-hint">Select all that apply.</p>
           <div class="opts">
             <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="14_files" value="Google Drive folder per client"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Google Drive folder per client</span></span></label>
@@ -532,7 +595,7 @@
         </div>
 
         <div class="field">
-          <label class="field-label"><span class="field-q">15.</span> What do you use to send invoices and receive payments?</label>
+          <label class="field-label"><span class="field-q">16.</span> What do you use to send invoices and receive payments?</label>
           <p class="field-hint">Select all that apply.</p>
           <div class="opts two">
             <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="15_payments" value="Bank transfer (manual)"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Bank transfer (manual)</span></span></label>
@@ -547,7 +610,7 @@
         </div>
 
         <div class="field">
-          <label class="field-label"><span class="field-q">16.</span> Do you use a calendar / booking tool today?</label>
+          <label class="field-label"><span class="field-q">17.</span> Do you use a calendar / booking tool today?</label>
           <div class="opts two">
             <label class="opt radio" onclick="pickOpt(this,'16_booking')"><input type="radio" name="16_booking" value="Calendly"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Calendly</span></span></label>
             <label class="opt radio" onclick="pickOpt(this,'16_booking')"><input type="radio" name="16_booking" value="Google Calendar (manual)"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Google Calendar (manual)</span></span></label>
@@ -573,18 +636,18 @@
         <p class="step-desc">The most product-shaping section — drives the custom-fields data model.</p>
 
         <div class="field">
-          <label class="field-label"><span class="field-q">17.</span> What information do you ALWAYS record about a client?<span class="gold-flag">★ Gold</span></label>
+          <label class="field-label"><span class="field-q">18.</span> What information do you ALWAYS record about a client?<span class="gold-flag">★ Gold</span></label>
           <p class="field-hint">The more detail, the better.</p>
           <textarea name="17_always_record" style="min-height:120px" placeholder="e.g. name, birth data, what brought them, notes per session…"></textarea>
         </div>
 
         <div class="field">
-          <label class="field-label"><span class="field-q">18.</span> What would be useful to track, but you currently don't because it's too much hassle?</label>
+          <label class="field-label"><span class="field-q">19.</span> What would be useful to track, but you currently don't because it's too much hassle?</label>
           <textarea name="18_wish_track" style="min-height:100px" placeholder="Your answer"></textarea>
         </div>
 
         <div class="field">
-          <label class="field-label"><span class="field-q">19.</span> Do you record any of these for each client?</label>
+          <label class="field-label"><span class="field-q">20.</span> Do you record any of these for each client?</label>
           <p class="field-hint">Select all that apply.</p>
           <div class="opts two">
             <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="19_records" value="Birth date"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Birth date</span></span></label>
@@ -607,7 +670,7 @@
         </div>
 
         <div class="field">
-          <label class="field-label"><span class="field-q">20.</span> What kind of files do you most often share WITH your clients?</label>
+          <label class="field-label"><span class="field-q">21.</span> What kind of files do you most often share WITH your clients?</label>
           <p class="field-hint">Select all that apply.</p>
           <div class="opts">
             <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="20_shared" value="Reports / PDFs"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Reports / PDFs (readings, design proposals)</span></span></label>
@@ -636,12 +699,12 @@
         <p class="step-desc">Drives default pipeline stages and follow-up cadences per niche.</p>
 
         <div class="field">
-          <label class="field-label"><span class="field-q">21.</span> Walk me through the typical journey from a new inquiry to a completed engagement. What are the steps?<span class="gold-flag">★ Gold</span></label>
+          <label class="field-label"><span class="field-q">22.</span> Walk me through the typical journey from a new inquiry to a completed engagement. What are the steps?<span class="gold-flag">★ Gold</span></label>
           <textarea name="21_journey" style="min-height:120px" placeholder="e.g. inquiry on Instagram → send price list → book call → intake form → session → follow-up…"></textarea>
         </div>
 
         <div class="field">
-          <label class="field-label"><span class="field-q">22.</span> How long does it usually take from first inquiry to first paid session?</label>
+          <label class="field-label"><span class="field-q">23.</span> How long does it usually take from first inquiry to first paid session?</label>
           <div class="opts two">
             <label class="opt radio" onclick="pickOpt(this,'22_time')"><input type="radio" name="22_time" value="Same day"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Same day</span></span></label>
             <label class="opt radio" onclick="pickOpt(this,'22_time')"><input type="radio" name="22_time" value="1–3 days"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">1–3 days</span></span></label>
@@ -653,7 +716,7 @@
         </div>
 
         <div class="field">
-          <label class="field-label"><span class="field-q">23.</span> After a session ends, how do you typically follow up?</label>
+          <label class="field-label"><span class="field-q">24.</span> After a session ends, how do you typically follow up?</label>
           <p class="field-hint">Select all that apply.</p>
           <div class="opts">
             <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="23_followup" value="I send a recap or notes"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">I send a recap or notes</span></span></label>
@@ -665,7 +728,7 @@
         </div>
 
         <div class="field">
-          <label class="field-label"><span class="field-q">24.</span> Do you have a way to remind past clients to come back?</label>
+          <label class="field-label"><span class="field-q">25.</span> Do you have a way to remind past clients to come back?</label>
           <div class="opts">
             <label class="opt radio" onclick="pickOpt(this,'24_remind')"><input type="radio" name="24_remind" value="Yes, I have a system"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Yes, I have a system</span></span></label>
             <label class="opt radio" onclick="pickOpt(this,'24_remind')"><input type="radio" name="24_remind" value="I do it manually when I remember"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">I do it manually when I remember</span></span></label>
@@ -675,12 +738,12 @@
         </div>
 
         <div class="field">
-          <label class="field-label"><span class="field-q">25.</span> How do you handle no-shows or last-minute cancellations?</label>
+          <label class="field-label"><span class="field-q">26.</span> How do you handle no-shows or last-minute cancellations?</label>
           <textarea name="25_noshows" placeholder="Your answer"></textarea>
         </div>
 
         <div class="field">
-          <label class="field-label"><span class="field-q">26.</span> Do you ever delegate ANY part of client communication to someone else? <span style="color:var(--muted);font-weight:400;font-style:italic">(assistant, partner, family)</span></label>
+          <label class="field-label"><span class="field-q">27.</span> Do you ever delegate ANY part of client communication to someone else? <span style="color:var(--muted);font-weight:400;font-style:italic">(assistant, partner, family)</span></label>
           <div class="opts two">
             <label class="opt radio" onclick="pickOpt(this,'26_delegate')"><input type="radio" name="26_delegate" value="Yes, regularly"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Yes, regularly</span></span></label>
             <label class="opt radio" onclick="pickOpt(this,'26_delegate')"><input type="radio" name="26_delegate" value="Occasionally"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Occasionally</span></span></label>
@@ -702,13 +765,13 @@
         <p class="step-desc">The "why anyone would pay" gold. The wedge for messaging and homepage copy.</p>
 
         <div class="field">
-          <label class="field-label"><span class="field-q">27.</span> What is the SINGLE most painful or frustrating thing about how you manage your practice today?<span class="gold-flag">★ Gold</span></label>
+          <label class="field-label"><span class="field-q">28.</span> What is the SINGLE most painful or frustrating thing about how you manage your practice today?<span class="gold-flag">★ Gold</span></label>
           <p class="field-hint">The most important question in this entire form.</p>
           <textarea name="27_biggest_pain" style="min-height:120px" placeholder="Your answer"></textarea>
         </div>
 
         <div class="field">
-          <label class="field-label"><span class="field-q">28.</span> Have you ever lost a potential client because something fell through the cracks?</label>
+          <label class="field-label"><span class="field-q">29.</span> Have you ever lost a potential client because something fell through the cracks?</label>
           <div class="opts two">
             <label class="opt radio" onclick="pickOpt(this,'28_lost')"><input type="radio" name="28_lost" value="Yes, multiple times"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Yes, multiple times</span></span></label>
             <label class="opt radio" onclick="pickOpt(this,'28_lost')"><input type="radio" name="28_lost" value="Yes, once or twice"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Yes, once or twice</span></span></label>
@@ -718,17 +781,17 @@
         </div>
 
         <div class="field">
-          <label class="field-label"><span class="field-q">29.</span> What is the most TIME-CONSUMING administrative task in your week?</label>
+          <label class="field-label"><span class="field-q">30.</span> What is the most TIME-CONSUMING administrative task in your week?</label>
           <textarea name="29_time_consuming" placeholder="Your answer"></textarea>
         </div>
 
         <div class="field">
-          <label class="field-label"><span class="field-q">30.</span> What is something you wish you could see at a glance about your practice, but currently can't?</label>
+          <label class="field-label"><span class="field-q">31.</span> What is something you wish you could see at a glance about your practice, but currently can't?</label>
           <textarea name="30_glance" placeholder="Your answer"></textarea>
         </div>
 
         <div class="field">
-          <label class="field-label"><span class="field-q">31.</span> What stops you from growing your practice further?</label>
+          <label class="field-label"><span class="field-q">32.</span> What stops you from growing your practice further?</label>
           <textarea name="31_growth_blockers" placeholder="Your answer"></textarea>
         </div>
 
@@ -745,12 +808,12 @@
         <p class="step-desc">Killer-feature signals + tech-comfort calibration.</p>
 
         <div class="field">
-          <label class="field-label"><span class="field-q">32.</span> If you could wave a magic wand and have ONE feature that would change your work life, what would it be?<span class="gold-flag">★ Gold</span></label>
+          <label class="field-label"><span class="field-q">33.</span> If you could wave a magic wand and have ONE feature that would change your work life, what would it be?<span class="gold-flag">★ Gold</span></label>
           <textarea name="32_magic_wand" style="min-height:110px" placeholder="Your answer"></textarea>
         </div>
 
         <div class="field">
-          <label class="field-label"><span class="field-q">33.</span> Which of these would help you the most?</label>
+          <label class="field-label"><span class="field-q">34.</span> Which of these would help you the most?</label>
           <p class="field-hint">Select up to 3.</p>
           <div class="opts">
             <label class="opt check" onclick="toggleOpt(this,3)"><input type="checkbox" name="33_helpful" value="Capturing every Instagram / WhatsApp / Telegram inquiry automatically"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Capturing every Instagram / WhatsApp / Telegram inquiry automatically</span></span></label>
@@ -772,7 +835,7 @@
         </div>
 
         <div class="field">
-          <label class="field-label"><span class="field-q">34.</span> What devices would you most use the tool on?</label>
+          <label class="field-label"><span class="field-q">35.</span> What devices would you most use the tool on?</label>
           <p class="field-hint">Select all that apply.</p>
           <div class="opts two">
             <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="34_devices" value="Desktop / laptop"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Desktop / laptop</span></span></label>
@@ -783,7 +846,7 @@
         </div>
 
         <div class="field">
-          <label class="field-label"><span class="field-q">35.</span> How comfortable are you with new technology?</label>
+          <label class="field-label"><span class="field-q">36.</span> How comfortable are you with new technology?</label>
           <div class="opts">
             <label class="opt radio" onclick="pickOpt(this,'35_tech')"><input type="radio" name="35_tech" value="Very — I learn new tools quickly"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Very — I learn new tools quickly</span></span></label>
             <label class="opt radio" onclick="pickOpt(this,'35_tech')"><input type="radio" name="35_tech" value="Comfortable — give me a tutorial and I'm fine"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Comfortable — give me a tutorial and I'm fine</span></span></label>
@@ -793,7 +856,7 @@
         </div>
 
         <div class="field">
-          <label class="field-label"><span class="field-q">36.</span> Have you tried other CRMs or client-management tools before?</label>
+          <label class="field-label"><span class="field-q">37.</span> Have you tried other CRMs or client-management tools before?</label>
           <div class="opts">
             <label class="opt radio" onclick="pickOpt(this,'36_tried')"><input type="radio" name="36_tried" value="Yes, and I still use them"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Yes, and I still use them</span></span></label>
             <label class="opt radio" onclick="pickOpt(this,'36_tried')"><input type="radio" name="36_tried" value="Yes, but I quit"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Yes, but I quit</span></span></label>
@@ -815,7 +878,7 @@
         <p class="step-desc">Drives compliance and encryption priorities.</p>
 
         <div class="field">
-          <label class="field-label"><span class="field-q">37.</span> How sensitive is the client information you handle?</label>
+          <label class="field-label"><span class="field-q">38.</span> How sensitive is the client information you handle?</label>
           <div class="opts">
             <label class="opt radio" onclick="pickOpt(this,'37_sensitivity')"><input type="radio" name="37_sensitivity" value="Very sensitive (medical, therapeutic, legal)"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Very sensitive</span><span class="opt-sub">Medical, therapeutic, legal — strict confidentiality required.</span></span></label>
             <label class="opt radio" onclick="pickOpt(this,'37_sensitivity')"><input type="radio" name="37_sensitivity" value="Moderately sensitive (personal life, finances)"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Moderately sensitive</span><span class="opt-sub">Personal life, finances.</span></span></label>
@@ -824,7 +887,7 @@
         </div>
 
         <div class="field">
-          <label class="field-label"><span class="field-q">38.</span> Are you bound by any specific data-protection regulations?</label>
+          <label class="field-label"><span class="field-q">39.</span> Are you bound by any specific data-protection regulations?</label>
           <p class="field-hint">Select all that apply.</p>
           <div class="opts two">
             <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="38_regulations" value="GDPR (EU clients)"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">GDPR (EU clients)</span></span></label>
@@ -852,12 +915,12 @@
         <div class="note">Your answers are confidential and used only to build AstroCRM. Never shared with third parties.</div>
 
         <div class="field">
-          <label class="field-label" for="email"><span class="field-q">39.</span> Your email</label>
+          <label class="field-label" for="email"><span class="field-q">40.</span> Your email</label>
           <input type="email" id="email" name="39_email" placeholder="you@email.com" required>
         </div>
 
         <div class="field">
-          <label class="field-label"><span class="field-q">40.</span> Would you be open to a 20-minute call about your workflow?</label>
+          <label class="field-label"><span class="field-q">41.</span> Would you be open to a 20-minute call about your workflow?</label>
           <div class="opts two">
             <label class="opt radio" onclick="pickOpt(this,'40_call')"><input type="radio" name="40_call" value="Yes, anytime"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Yes, anytime</span></span></label>
             <label class="opt radio" onclick="pickOpt(this,'40_call')"><input type="radio" name="40_call" value="Yes, but only after launch"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Yes, but only after launch</span></span></label>
@@ -867,7 +930,7 @@
         </div>
 
         <div class="field">
-          <label class="field-label"><span class="field-q">41.</span> Anything else you'd like us to know, ask about, or build?</label>
+          <label class="field-label"><span class="field-q">42.</span> Anything else you'd like us to know, ask about, or build?</label>
           <textarea name="41_anything_else" style="min-height:100px" placeholder="Your answer"></textarea>
         </div>
 
