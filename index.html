@@ -96,6 +96,11 @@
     .btn-primary:hover{background:var(--wine2);}
     .btn-secondary{background:transparent;color:var(--ink);padding:18px 40px;border-radius:0;font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:2.8px;text-transform:uppercase;border:1px solid var(--ink);cursor:pointer;transition:all .3s ease;text-decoration:none;display:inline-block;}
     .btn-secondary:hover{background:var(--ink);color:var(--ivory);}
+    .btn-gold{position:relative;display:inline-block;background:linear-gradient(135deg,#d9bd82 0%,#b8975f 46%,#977844 100%);color:#3a0a0a;padding:18px 42px;border-radius:0;font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:2.8px;text-transform:uppercase;border:none;cursor:pointer;text-decoration:none;overflow:hidden;box-shadow:0 6px 22px rgba(164,134,86,.32);transition:transform .3s ease,box-shadow .3s ease,background .3s ease;}
+    .btn-gold::after{content:'';position:absolute;top:0;left:-120%;width:70%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg);transition:left .6s ease;}
+    .btn-gold:hover{background:linear-gradient(135deg,#e6cd91 0%,#c6a56c 46%,#a3844f 100%);box-shadow:0 10px 30px rgba(164,134,86,.48);transform:translateY(-2px);color:#3a0a0a;}
+    .btn-gold:hover::after{left:130%;}
+    .cta-section .btn-gold{margin-top:44px;box-shadow:0 8px 28px rgba(0,0,0,.28);}
     .hero-social-proof{margin-top:80px;display:flex;flex-direction:column;align-items:center;gap:18px;color:var(--ink2);font-size:11px;letter-spacing:2.5px;text-transform:uppercase;font-weight:500;}
     .hero-social-proof::before{content:'';width:40px;height:1px;background:var(--wine);}
     .avatars{display:none;}
@@ -297,6 +302,7 @@
   <div class="hero-actions">
     <a href="#waitlist" class="btn-primary" data-i18n="hero_cta1">Get Early Access →</a>
     <a href="#why" class="btn-secondary" data-i18n="hero_cta2">Why do I need a CRM?</a>
+    <a href="early-user-questionnaire.html" class="btn-gold" data-i18n="q_btn">Take the early-user questionnaire →</a>
   </div>
   <div class="hero-social-proof">
     <span data-i18n="hero_social">Trusted by practitioners across Europe & CIS</span>
@@ -764,6 +770,7 @@
   <h2 data-i18n="cta_title">Ready to grow your practice?</h2>
   <p data-i18n="cta_sub">Early access opens June 2026. Write to us to secure your place.</p>
   <a href="mailto:contact@astrocrm.app?subject=Early%20Access%20Waitlist" class="cta-email">contact@astrocrm.app</a>
+  <div><a href="early-user-questionnaire.html" class="btn-gold" data-i18n="q_btn">Take the early-user questionnaire →</a></div>
   <p class="waitlist-note" data-i18n="cta_note">We personally reply to every message.</p>
 </section>
 
@@ -823,7 +830,7 @@ const T = {
     biz_note:"Both workspaces are fully independent — separate pipelines, contacts, and automations — inside one subscription.",
     price_note:"Early adopter price of €30/mo is locked in for life — only for subscribers who join in 2026. Regular price from 2027: €45/mo.",
     mock_label:"See It In Action",mock_title:"Your client pipeline, beautifully organised",
-    cta_title:"Ready to grow your practice?",cta_sub:"Early access opens June 2026. Write to us to secure your place.",cta_note:"We personally reply to every message."
+    cta_title:"Ready to grow your practice?",cta_sub:"Early access opens June 2026. Write to us to secure your place.",cta_note:"We personally reply to every message.",q_btn:"Take the early-user questionnaire →"
   },
   ru:{
     nav_why:"Зачем CRM",nav_features:"Возможности",nav_compare:"Сравнение",nav_pricing:"Цены",nav_cta:"Ранний доступ",
@@ -860,7 +867,7 @@ const T = {
     biz_note:"Оба пространства полностью независимы — отдельные воронки, контакты и автоматизации — в рамках одной подписки.",
     price_note:"Цена €30/мес для ранних подписчиков фиксируется навсегда — только для тех, кто подключится в 2026 году. Обычная цена с 2027: €45/мес.",
     mock_label:"Посмотрите как это работает",mock_title:"Ваши клиенты — красиво организованы",
-    cta_title:"Готовы развивать свою практику?",cta_sub:"Ранний доступ открывается в июне 2026. Напишите нам, чтобы забронировать место.",cta_note:"Мы лично отвечаем на каждое письмо."
+    cta_title:"Готовы развивать свою практику?",cta_sub:"Ранний доступ открывается в июне 2026. Напишите нам, чтобы забронировать место.",cta_note:"Мы лично отвечаем на каждое письмо.",q_btn:"Пройти опрос для ранних пользователей →"
   }
 };
 
@@ -899,7 +906,7 @@ T.nl = {
     biz_note:"Beide werkruimtes zijn volledig onafhankelijk — aparte pijplijnen, contacten en automatiseringen — binnen één abonnement.",
     price_note:"De early-adopter-prijs van €30/mnd staat voor altijd vast — alleen voor abonnees die zich in 2026 aansluiten. Reguliere prijs vanaf 2027: €45/mnd.",
     mock_label:"Zie het in actie",mock_title:"Je klantpijplijn, prachtig georganiseerd",
-    cta_title:"Klaar om je praktijk te laten groeien?",cta_sub:"Vroege toegang opent in juni 2026. Schrijf ons om je plek te reserveren.",cta_note:"We beantwoorden persoonlijk elk bericht."
+    cta_title:"Klaar om je praktijk te laten groeien?",cta_sub:"Vroege toegang opent in juni 2026. Schrijf ons om je plek te reserveren.",cta_note:"We beantwoorden persoonlijk elk bericht.",q_btn:"Vul de vragenlijst voor vroege gebruikers in →"
 };
 
 let currentLang='en';
