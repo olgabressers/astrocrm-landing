@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="robots" content="noindex, nofollow"/>
+<title>Phase 1 Plan — From Laptop to Clients — AstroCRM Internal</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="alternate icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#4a0e0e">
+<style>
+  :root{
+    --ground:#f7f3ec; --panel:#fffdf9; --panel-2:#f2ebdf;
+    --ink:#241a1a; --ink-soft:#5c4f4a; --hair:#e4d9c8;
+    --wine:#7a1f2b; --wine-bright:#9c2a38; --gold:#a07b2d; --gold-soft:#c8a75a;
+    --good:#3f7d4e; --warn:#b06a12; --bad:#a32633;
+    --serif:Georgia,'Iowan Old Style','Palatino Linotype',serif;
+    --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    --maxw:820px;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --ground:#1a1315; --panel:#221a1c; --panel-2:#2b2023;
+      --ink:#f0e7df; --ink-soft:#bdaca4; --hair:#3a2c30;
+      --wine:#e0929b; --wine-bright:#eaa3ab; --gold:#d8b463; --gold-soft:#b8923f;
+      --good:#7fc08c; --warn:#e0a755; --bad:#e8949c;
+    }
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--sans);
+    line-height:1.6;-webkit-font-smoothing:antialiased;font-size:17px}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:clamp(28px,5vw,64px) clamp(20px,4vw,40px)}
+  .eyebrow{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);
+    font-weight:700;margin:0 0 14px}
+  h1{font-family:var(--serif);font-weight:600;font-size:clamp(30px,6vw,46px);line-height:1.08;
+    margin:0 0 16px;text-wrap:balance;letter-spacing:-.01em}
+  h1 em{font-style:italic;color:var(--wine)}
+  .lede{font-size:clamp(17px,2.4vw,20px);color:var(--ink-soft);max-width:60ch;margin:0 0 8px}
+  h2{font-family:var(--serif);font-weight:600;font-size:clamp(22px,3.6vw,29px);
+    margin:56px 0 6px;letter-spacing:-.01em;text-wrap:balance}
+  h2 .n{color:var(--gold-soft);font-style:italic;margin-right:.4em}
+  .sub{color:var(--ink-soft);margin:0 0 22px;max-width:62ch}
+  p{max-width:64ch}
+  strong{color:var(--ink);font-weight:650}
+  .grid{display:grid;gap:14px}
+  @media(min-width:620px){.two{grid-template-columns:1fr 1fr}}
+  .card{background:var(--panel);border:1px solid var(--hair);border-radius:14px;padding:20px 22px}
+  .card h3{margin:0 0 6px;font-size:16px;font-weight:700;display:flex;align-items:center;gap:9px}
+  .card p{margin:0;font-size:15px;color:var(--ink-soft)}
+  .dot{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
+  .dot.g{background:var(--good)} .dot.b{background:var(--bad)}
+  table{width:100%;border-collapse:collapse;font-size:15px;margin:6px 0}
+  .scroll{overflow-x:auto}
+  th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--hair);vertical-align:top}
+  th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);font-weight:700}
+  td.num{font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+  .tag{display:inline-block;font-size:12px;font-weight:700;padding:2px 9px;border-radius:20px;
+    letter-spacing:.02em;white-space:nowrap}
+  .tag.you{background:color-mix(in srgb,var(--gold) 20%,transparent);color:var(--gold)}
+  .tag.me{background:color-mix(in srgb,var(--wine) 16%,transparent);color:var(--wine-bright)}
+  ol.stages{list-style:none;counter-reset:s;padding:0;margin:0;display:grid;gap:16px}
+  ol.stages>li{counter-increment:s;position:relative;background:var(--panel);
+    border:1px solid var(--hair);border-radius:14px;padding:20px 22px 20px 66px}
+  ol.stages>li::before{content:counter(s,decimal-leading-zero);position:absolute;left:20px;top:19px;
+    font-family:var(--serif);font-style:italic;font-size:22px;color:var(--gold);font-weight:600}
+  ol.stages h3{margin:0 0 4px;font-size:17px;font-weight:700}
+  ol.stages .who{margin:0 0 10px;display:flex;gap:8px;flex-wrap:wrap}
+  ol.stages p{margin:0;font-size:15px;color:var(--ink-soft)}
+  .gate{background:linear-gradient(180deg,color-mix(in srgb,var(--wine) 10%,var(--panel)),var(--panel));
+    border:1px solid color-mix(in srgb,var(--wine) 35%,var(--hair));border-radius:14px;padding:22px 24px}
+  .gate h3{margin:0 0 8px;font-size:17px;color:var(--wine-bright)}
+  .callout{background:var(--panel-2);border-left:3px solid var(--gold);border-radius:0 10px 10px 0;
+    padding:16px 20px;margin:18px 0;font-size:15px;color:var(--ink-soft)}
+  .callout strong{color:var(--ink)}
+  .foot{margin-top:56px;padding-top:20px;border-top:1px solid var(--hair);font-size:13px;color:var(--ink-soft)}
+  .big{font-family:var(--serif);font-size:clamp(26px,5vw,38px);color:var(--wine);font-weight:600}
+  ul.lean{margin:6px 0 0;padding-left:18px;color:var(--ink-soft);font-size:15px}
+  ul.lean li{margin:5px 0}
+  .back{display:inline-block;margin-top:8px;font-size:13px;color:var(--ink-soft);text-decoration:none}
+  .back:hover{color:var(--wine-bright)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="back" href="admin.html">← Back to Admin Index</a>
+  <p class="eyebrow" style="margin-top:22px">AstroCRM · Build Plan · Lean Track</p>
+  <h1>From a tool on your laptop<br>to a product clients <em>log into</em></h1>
+  <p class="lede">The app is already built as a single-user tool. The one thing missing is the layer that lets many clients sign in and each see only their own data. This is the plan to add it — leanly, for about €1 a month.</p>
+
+  <h2><span class="n">1</span>Where things stand</h2>
+  <p class="sub">More is built than it feels like. The gap is narrow and specific.</p>
+
+  <div class="grid two">
+    <div class="card">
+      <h3><span class="dot g"></span>Already built &amp; working</h3>
+      <p>FastAPI app, 40+ endpoints: pipelines, deals, contacts (with import, profiles, file uploads), activity timeline, email templates, automations, campaigns via Resend, deadlines, export, lead capture. Plus the landing site, admin hub, and full business/architecture planning.</p>
+    </div>
+    <div class="card">
+      <h3><span class="dot b"></span>The missing piece</h3>
+      <p>No login. No user accounts. No <em>tenant</em> separation — nothing in the code keeps one client's data apart from another's. The database lives as a single file on your laptop. This is the whole job of Phase 1.</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>Why this is the cheapest it will ever be:</strong> the app holds only 3 test contacts. There's no real client data to migrate or risk — so we build the multi-user foundation cleanly now, instead of retrofitting it painfully after 50 clients are on board.
+  </div>
+
+  <h2><span class="n">2</span>Decisions locked</h2>
+  <p class="sub">Chosen for a solo founder on a budget with no full-time developer — lowest cost, lowest maintenance.</p>
+  <div class="scroll">
+  <table>
+    <thead><tr><th>Decision</th><th>Choice</th><th>In plain words</th></tr></thead>
+    <tbody>
+      <tr><td>Scope</td><td><strong>Lean Phase 1</strong></td><td>Build only what's needed for clients to log in safely. The enterprise architecture doc stays as the future target.</td></tr>
+      <tr><td>Database</td><td><strong>Supabase</strong></td><td>A real cloud database. Backs itself up daily — your "collapse" fear, handled.</td></tr>
+      <tr><td>Login</td><td><strong>Supabase Auth</strong></td><td>Sign-up, email verification, password reset, security — all done for you, free. Least code to maintain.</td></tr>
+      <tr><td>Hosting</td><td><strong>Render</strong></td><td>Runs the Python app 24/7, auto-updates from your GitHub. No server to babysit.</td></tr>
+      <tr><td>Isolation</td><td><strong>Row-Level Security</strong></td><td>The database itself blocks one client from ever seeing another's data — even if the app code slips.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2><span class="n">3</span>The build, in order</h2>
+  <p class="sub"><span class="tag you">You</span> = a quick, free account sign-up &nbsp; <span class="tag me">Me</span> = the coding. Nothing here touches real clients until Stage&nbsp;6 passes.</p>
+
+  <ol class="stages">
+    <li>
+      <h3>Create the accounts</h3>
+      <div class="who"><span class="tag you">You · ~15 min · free</span></div>
+      <p>Sign up for Supabase (database + login + backups) and Render (hosting), and connect Render to your GitHub. I'll walk you through each click.</p>
+    </li>
+    <li>
+      <h3>Rebuild the database with separation baked in</h3>
+      <div class="who"><span class="tag me">Me</span></div>
+      <p>Recreate your existing tables in Supabase, and add an <strong>account</strong> (workspace) to every one of them — so each row belongs to exactly one client. Switch on Row-Level Security so the database enforces it.</p>
+    </li>
+    <li>
+      <h3>Add login</h3>
+      <div class="who"><span class="tag me">Me</span> <span class="tag me">+ Supabase</span></div>
+      <p>A real sign-up and login screen. When someone registers, their private workspace is created automatically, with a starter pipeline. The app only opens after they log in.</p>
+    </li>
+    <li>
+      <h3>Make every feature account-aware</h3>
+      <div class="who"><span class="tag me">Me</span></div>
+      <p>Update all 40+ endpoints so each one only ever returns the logged-in client's own data. This is the largest coding step — it touches everything — but it's mechanical and low-risk.</p>
+    </li>
+    <li>
+      <h3>Put it online</h3>
+      <div class="who"><span class="tag me">Me</span> <span class="tag you">+ your GitHub</span></div>
+      <p>Move the app code to GitHub, connect Render so every change deploys itself, point it at Supabase, and set the address to <strong>app.astrocrm.app</strong>.</p>
+    </li>
+    <li>
+      <h3>Prove the walls hold</h3>
+      <div class="who"><span class="tag me">Me</span></div>
+      <p>Create two test clients, fill each with data, and confirm client A can <em>never</em> see client B — by any route. This is the go / no-go gate before anyone real touches it.</p>
+    </li>
+  </ol>
+
+  <div class="gate" style="margin-top:20px">
+    <h3>Then, before the first real client</h3>
+    <p style="margin:0;color:var(--ink-soft);font-size:15px">One paid, one-off <strong>security review</strong> (~€300) — an outside expert confirms the isolation and login are watertight before real client data goes in. This is the single highest-value spend in the whole project. Not a salary, not a retainer — one check.</p>
+  </div>
+
+  <h2><span class="n">4</span>What it costs</h2>
+  <p class="sub">Until you outgrow the free tiers — which won't happen at your first dozens of clients.</p>
+  <div class="scroll">
+  <table>
+    <thead><tr><th>Item</th><th>What it's for</th><th class="num">Per month</th></tr></thead>
+    <tbody>
+      <tr><td>Supabase</td><td>Database, login, daily backups</td><td class="num">Free</td></tr>
+      <tr><td>Render</td><td>Runs the app</td><td class="num">Free*</td></tr>
+      <tr><td>Domain</td><td>astrocrm.app</td><td class="num">~€1</td></tr>
+      <tr><td>Resend</td><td>Emails (already set up)</td><td class="num">Free</td></tr>
+      <tr><td style="font-weight:700">Total to run</td><td></td><td class="num" style="font-weight:700;color:var(--wine-bright)">~€1</td></tr>
+      <tr><td>Security review</td><td>One-off, before launch</td><td class="num">~€300 once</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p style="font-size:13px;color:var(--ink-soft);margin-top:4px">*Render's free tier sleeps when idle; a ~€7/mo upgrade keeps it always-on once you have active clients.</p>
+
+  <h2><span class="n">5</span>Deliberately deferred</h2>
+  <p class="sub">Your architecture doc calls for all of this. It's good — but it's for a funded team, not launch day. We add each piece <em>when paying clients justify it</em>, not before.</p>
+  <ul class="lean">
+    <li>Dedicated server (Hetzner VPS), Docker, Redis, background job queue</li>
+    <li>Automated test suite &amp; CI, error monitoring (Sentry), structured logging</li>
+    <li>Payment plans (Stripe/Mollie), Telegram &amp; WhatsApp, team members</li>
+  </ul>
+  <div class="callout" style="border-color:var(--wine)">
+    <strong>On hiring a developer:</strong> you don't need one to <em>build</em> this — we can. You need one paid security check before launch, and only a part-time developer later, once client revenue pays for it. Keep the budget.
+  </div>
+
+  <h2><span class="n">6</span>The one-line summary</h2>
+  <p class="big" style="max-width:20ch;margin:10px 0 0">Build the login &amp; data-separation layer. Everything else already works.</p>
+
+  <div class="foot">
+    AstroCRM Phase 1 plan · lean track · July 2026. Hand this to any future developer as the starting brief. Full technical target lives in the <strong>AstroCRM Architecture</strong> reference.
+  </div>
+
+  <a class="back" href="admin.html" style="margin-top:32px">← Back to Admin Index</a>
+
+</div>
+</body>
+</html>
