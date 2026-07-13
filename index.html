@@ -269,9 +269,7 @@
     <div class="lang-toggle">
       <button class="lang-btn active" onclick="setLang('en')">EN</button>
       <button class="lang-btn" onclick="setLang('nl')">NL</button>
-      <button class="lang-btn" onclick="setLang('de')">DE</button>
       <button class="lang-btn" onclick="setLang('ru')">RU</button>
-      <button class="lang-btn" onclick="setLang('es')">ES</button>
     </div>
   </div>
   <a class="nav-cta" href="#waitlist" data-i18n="nav_cta">Join Early Access</a>
@@ -298,7 +296,7 @@
 <div class="stats-bar">
   <div class="stat"><div class="stat-value">+40%</div><div class="stat-label" data-i18n="stat1">Average revenue growth<br>in first 6 months</div></div>
   <div class="stat"><div class="stat-value">2×</div><div class="stat-label" data-i18n="stat2">More clients handled<br>in the same hours</div></div>
-  <div class="stat"><div class="stat-value">5</div><div class="stat-label" data-i18n="stat3">Languages:<br>EN · NL · DE · RU · ES</div></div>
+  <div class="stat"><div class="stat-value">3</div><div class="stat-label" data-i18n="stat3">Languages:<br>EN · NL · RU</div></div>
   <div class="stat"><div class="stat-value">€30</div><div class="stat-label" data-i18n="stat4">Early adopter price<br>per month in 2026</div></div>
 </div>
 
@@ -467,10 +465,10 @@
         </ul>
       </div>
       <div class="feature-card">
-        <h3 data-i18n="f4t">5 languages — serve clients anywhere</h3>
-        <p data-i18n="f4b">Switch instantly between English, Dutch, German, Russian and Spanish. The only niche CRM with Russian language support.</p>
+        <h3 data-i18n="f4t">3 languages — serve clients anywhere</h3>
+        <p data-i18n="f4b">Switch instantly between English, Dutch and Russian. The only niche CRM with Russian language support.</p>
         <ul class="feature-list">
-          <li data-i18n="f4_1">Full UI in all 5 languages</li>
+          <li data-i18n="f4_1">Full UI in all 3 languages</li>
           <li data-i18n="f4_2">Import contacts from multilingual spreadsheets</li>
           <li data-i18n="f4_3">More languages coming</li>
         </ul>
@@ -539,7 +537,7 @@
           <tr><td data-i18n="c3">Session notes per client</td><td class="astro"><span class="check">✓</span></td><td><span class="partial">~</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td></tr>
           <tr><td data-i18n="c4">Kanban pipeline</td><td class="astro"><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
           <tr><td data-i18n="c5">Russian language</td><td class="astro"><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td></tr>
-          <tr><td data-i18n="c6">Dutch / German / Spanish</td><td class="astro"><span class="check">✓</span></td><td><span class="cross">✗</span></td><td><span class="partial">~</span></td><td><span class="cross">✗</span></td></tr>
+          <tr><td data-i18n="c6">Dutch language</td><td class="astro"><span class="check">✓</span></td><td><span class="cross">✗</span></td><td><span class="partial">~</span></td><td><span class="cross">✗</span></td></tr>
           <tr><td data-i18n="c7">Two businesses in one account</td><td class="astro"><span class="check">✓</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td></tr>
           <tr><td data-i18n="c8">CSV / Excel / vCard import</td><td class="astro"><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="partial">~</span></td></tr>
           <tr><td data-i18n="c9">Email campaigns</td><td class="astro"><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="partial">~</span></td><td><span class="cross">✗</span></td></tr>
@@ -784,7 +782,7 @@ const T = {
     hero_badge:"Now in early access — limited spots",hero_h1a:"Your practice deserves",hero_h1b:"more clients, more revenue",
     hero_sub:"AstroCRM is a simple client manager built for coaches, astrologers, therapists and beauty professionals. Stop losing leads in WhatsApp threads and spreadsheets — and start growing.",
     hero_cta1:"Get Early Access →",hero_cta2:"Why do I need a CRM?",hero_social:"Trusted by practitioners across Europe & CIS",
-    stat1:"Average revenue growth\nin first 6 months",stat2:"More clients handled\nin the same hours",stat3:"Languages:\nEN · NL · DE · RU · ES",stat4:"Starting price\nper month",
+    stat1:"Average revenue growth\nin first 6 months",stat2:"More clients handled\nin the same hours",stat3:"Languages:\nEN · NL · RU",stat4:"Starting price\nper month",
     why_label:"Why You Need a CRM",why_title:"Most solo practitioners lose 30–50% of potential revenue — without realising it",why_sub:"A CRM (Client Relationship Manager) is simply a tool that remembers every client, every conversation, and every follow-up — so you don't have to. Here's what changes when you use one:",
     w1t:"You're losing leads you forgot about",w1b:"Someone messaged you 3 weeks ago about a consultation. You meant to reply. You forgot. That's €150–500 gone. A CRM captures every inquiry and tracks it until it becomes a client or a clear 'no'.",w1r:"Result: 20–40% more conversions",
     w2t:"Returning clients are your biggest revenue source",w2b:"A client who came 6 months ago is your warmest lead for a follow-up session. Without a CRM you have no systematic way to reach them. With one, a single click sends a personalised follow-up to 50 past clients.",w2r:"Result: 2–3× more repeat bookings",
@@ -798,13 +796,13 @@ const T = {
     f1t:"Built for your niche",f1b:"The only CRM with fields designed for practitioners — not sales teams.",f1_1:"Upload natal charts, client photos & session docs",f1_2:"Session notes with timestamps",f1_3:"Birth date & birth time fields",f1_4:"Full consultation history per client",
     f2t:"Visual pipeline — see every client at a glance",f2b:"Drag clients through stages: Inquiry → Proposal → Paid → Done. Never lose track of where anyone is.",f2_1:"Kanban board — like Trello but built for practitioners",f2_2:"Multiple pipelines per business",f2_3:"Auto-send emails when a client moves to a new stage",f2_4:"Custom stage names in any language",
     f3t:"Email campaigns that bring clients back",f3b:"Send one personalised message to 100 past clients in 3 clicks.",f3_1:"Filter by source, stage, service type",f3_2:"Personal variables: name, last session, deal title",f3_3:"Stage automation: auto-send on deal movement",
-    f4t:"5 languages — serve clients anywhere",f4b:"Switch instantly between English, Dutch, German, Russian and Spanish. The only niche CRM with Russian language support.",f4_1:"Full UI in all 5 languages",f4_2:"Import contacts from multilingual spreadsheets",f4_3:"More languages coming",
+    f4t:"3 languages — serve clients anywhere",f4b:"Switch instantly between English, Dutch and Russian. The only niche CRM with Russian language support.",f4_1:"Full UI in all 3 languages",f4_2:"Import contacts from multilingual spreadsheets",f4_3:"More languages coming",
     f5t:"Reports that show you where the money is",f5b:"See conversion rates, revenue by service, best lead sources and top clients — updated in real time.",f5_1:"Revenue & deal count by period",f5_2:"Best performing lead sources",f5_3:"Pipeline conversion funnel",f5_4:"Filter by business, pipeline, time range",
     f6t:"Two businesses, one account",f6b:"Run your practices from one dashboard. Separate pipelines, contacts and reports — one subscription.",f6_1:"Isolated data per business",f6_2:"Switch with one click",f6_3:"Separate email campaigns per brand",
     f7t:"Import your existing clients in minutes",f7b:"Bring contacts from any spreadsheet, CRM or phone. We auto-map columns and catch duplicates.",f7_1:"CSV, Excel (.xlsx), vCard (.vcf)",f7_2:"Smart column auto-mapping (EN & RU headers)",f7_3:"Duplicate detection",
     f8t:"Never miss a follow-up or deadline",f8b:"Deadlines view shows every upcoming session, payment due and follow-up in one place.",f8_1:"Deadline tracker across all clients",f8_2:"Calendly & Google Meet integration",f8_3:"Telegram lead capture — coming soon",
     cmp_label:"Comparison",cmp_title:"AstroCRM vs the alternatives",cmp_sub:"How we compare to the tools practitioners actually use today.",
-    cmp_feat:"Feature",c1:"Built for spiritual / coaching niche",c2:"Client file attachments (charts, docs)",c3:"Session notes per client",c4:"Kanban pipeline",c5:"Russian language",c6:"Dutch / German / Spanish",c7:"Two businesses in one account",c8:"CSV / Excel / vCard import",c9:"Email campaigns",c10:"Simple setup — ready in 5 min",c11:"Starting price",
+    cmp_feat:"Feature",c1:"Built for spiritual / coaching niche",c2:"Client file attachments (charts, docs)",c3:"Session notes per client",c4:"Kanban pipeline",c5:"Russian language",c6:"Dutch language",c7:"Two businesses in one account",c8:"CSV / Excel / vCard import",c9:"Email campaigns",c10:"Simple setup — ready in 5 min",c11:"Starting price",
     price_label:"Pricing",price_title:"Simple pricing. No surprises.",price_sub:"Two business workspaces included. No per-seat fees. No hidden costs.",
     t1badge:"⚡ 2026 Early Adopter — Limited Spots",t1n:"Early Access",t1save:"Save €15/mo — locked in for life",t1d:"Join in 2026 and this price is yours forever. Same full product, 33% off — every single month, for as long as you stay.",t1f1:"2 business workspaces included",t1f2:"Unlimited contacts",t1f3:"Kanban pipeline + multiple stages",t1f4:"Session notes & file uploads",t1f5:"Email campaigns (3,000/mo)",t1f6:"Pipeline automations",t1f7:"Reports & analytics",t1f8:"Telegram lead capture (coming soon)",t1btn:"Get Early Access — €30/mo",
     t2n:"Full Package",t2d:"Standard price from 2027. Everything included — no limits, no add-ons, no surprises.",t2f1:"2 business workspaces included",t2f2:"Unlimited contacts",t2f3:"Kanban pipeline + multiple stages",t2f4:"Session notes & file uploads",t2f5:"Email campaigns (3,000/mo)",t2f6:"Pipeline automations",t2f7:"Reports & analytics",t2f8:"Telegram lead capture (coming soon)",t2btn:"Join Waitlist",
@@ -821,7 +819,7 @@ const T = {
     hero_badge:"Ранний доступ — ограниченное количество мест",hero_h1a:"Ваша практика заслуживает",hero_h1b:"больше клиентов и больше дохода",
     hero_sub:"AstroCRM — простой менеджер клиентов для коучей, астрологов, терапевтов и бьюти-мастеров. Перестаньте терять лиды в чатах и таблицах — начните расти.",
     hero_cta1:"Получить ранний доступ →",hero_cta2:"Зачем мне CRM?",hero_social:"Используют практики по всей Европе и СНГ",
-    stat1:"Рост выручки в среднем\nза первые 6 месяцев",stat2:"Больше клиентов\nза те же часы",stat3:"Языков:\nEN · NL · DE · RU · ES",stat4:"Стартовая цена\nв месяц",
+    stat1:"Рост выручки в среднем\nза первые 6 месяцев",stat2:"Больше клиентов\nза те же часы",stat3:"Языки:\nEN · NL · RU",stat4:"Стартовая цена\nв месяц",
     why_label:"Зачем вам CRM",why_title:"Большинство практиков теряют 30–50% потенциального дохода — и не замечают этого",why_sub:"CRM — это инструмент, который помнит каждого клиента, каждый разговор и каждый follow-up вместо вас. Вот что меняется когда вы его используете:",
     w1t:"Вы теряете лиды, о которых забыли",w1b:"Кто-то написал вам 3 недели назад насчёт консультации. Вы собирались ответить. Забыли. Это €150–500 потеряно. CRM фиксирует каждый запрос и отслеживает его до результата.",w1r:"Результат: на 20–40% больше конверсий",
     w2t:"Постоянные клиенты — ваш главный источник дохода",w2b:"Клиент, который приходил 6 месяцев назад — самый тёплый лид на следующую сессию. Без CRM нет системы для повторного контакта. С CRM — один клик и письмо уходит 50 клиентам.",w2r:"Результат: в 2–3 раза больше повторных записей",
@@ -835,13 +833,13 @@ const T = {
     f1t:"Создан для вашей ниши",f1b:"Единственный CRM с полями для практиков, а не для отделов продаж.",f1_1:"Загрузка натальных карт, фото и документов",f1_2:"Заметки по сессиям с временными метками",f1_3:"Поля для даты и времени рождения",f1_4:"Полная история консультаций",
     f2t:"Визуальная воронка — все клиенты как на ладони",f2b:"Перетаскивайте клиентов по этапам: Запрос → Предложение → Оплата → Готово.",f2_1:"Канбан-доска — как Trello, но для практиков",f2_2:"Несколько воронок на бизнес",f2_3:"Авторассылка при смене этапа",f2_4:"Названия этапов на вашем языке",
     f3t:"Email-кампании, которые возвращают клиентов",f3b:"Одно персонализированное письмо 100 прошлым клиентам — 3 клика.",f3_1:"Фильтр по источнику, этапу, типу услуги",f3_2:"Переменные: имя, последняя сессия, название сделки",f3_3:"Авто-триггер при движении сделки",
-    f4t:"5 языков — работайте с клиентами из любой страны",f4b:"Мгновенное переключение между EN, NL, DE, RU, ES. Единственный нишевый CRM с русским языком.",f4_1:"Полный интерфейс на всех 5 языках",f4_2:"Импорт из таблиц на русском и английском",f4_3:"Скоро добавим другие языки",
+    f4t:"3 языка — работайте с клиентами из любой страны",f4b:"Мгновенное переключение между EN, NL, RU. Единственный нишевый CRM с русским языком.",f4_1:"Полный интерфейс на всех 3 языках",f4_2:"Импорт из таблиц на русском и английском",f4_3:"Скоро добавим другие языки",
     f5t:"Отчёты, которые показывают где деньги",f5b:"Конверсии, выручка по услугам, лучшие источники лидов — в реальном времени.",f5_1:"Выручка и количество сделок по периодам",f5_2:"Лучшие источники лидов",f5_3:"Воронка конверсии",f5_4:"Фильтр по бизнесу, воронке, периоду",
     f6t:"Два бизнеса в одном аккаунте",f6b:"Управляйте несколькими практиками из одной панели. Раздельные данные — одна подписка.",f6_1:"Изолированные данные по бизнесам",f6_2:"Переключение в один клик",f6_3:"Отдельные рассылки для каждого бренда",
     f7t:"Импортируйте клиентов за несколько минут",f7b:"Контакты из любой таблицы, CRM или телефона. Автоматическое сопоставление колонок.",f7_1:"CSV, Excel (.xlsx), vCard (.vcf)",f7_2:"Умное сопоставление колонок (EN и RU)",f7_3:"Обнаружение дублей",
     f8t:"Никогда не пропустите follow-up или дедлайн",f8b:"Раздел дедлайнов показывает все предстоящие сессии, оплаты и follow-up в одном месте.",f8_1:"Трекер дедлайнов по всем клиентам",f8_2:"Интеграция Calendly и Google Meet",f8_3:"Захват лидов из Telegram — скоро",
     cmp_label:"Сравнение",cmp_title:"AstroCRM vs альтернативы",cmp_sub:"Как мы выглядим на фоне инструментов, которые практики используют сегодня.",
-    cmp_feat:"Функция",c1:"Создан для духовных практиков / коучей",c2:"Файлы клиента (карты, документы)",c3:"Заметки по сессиям",c4:"Канбан-воронка",c5:"Русский язык",c6:"Нидерландский / Немецкий / Испанский",c7:"Два бизнеса в одном аккаунте",c8:"Импорт CSV / Excel / vCard",c9:"Email-кампании",c10:"Простая настройка — готово за 5 мин",c11:"Стартовая цена",
+    cmp_feat:"Функция",c1:"Создан для духовных практиков / коучей",c2:"Файлы клиента (карты, документы)",c3:"Заметки по сессиям",c4:"Канбан-воронка",c5:"Русский язык",c6:"Нидерландский язык",c7:"Два бизнеса в одном аккаунте",c8:"Импорт CSV / Excel / vCard",c9:"Email-кампании",c10:"Простая настройка — готово за 5 мин",c11:"Стартовая цена",
     price_label:"Цены",price_title:"Простые цены. Без сюрпризов.",price_sub:"Два рабочих пространства включены. Без платы за пользователя. Без скрытых расходов.",
     t1badge:"⚡ Ранний подписчик 2026 — ограниченные места",t1n:"Ранний доступ",t1save:"Экономия €15/мес — зафиксирована навсегда",t1d:"Подключитесь в 2026 году — и эта цена ваша навсегда. Тот же полный продукт, скидка 33% — каждый месяц, пока вы с нами.",t1f1:"2 рабочих пространства включены",t1f2:"Неограниченное количество контактов",t1f3:"Канбан-воронка + несколько этапов",t1f4:"Заметки по сессиям и загрузка файлов",t1f5:"Email-кампании (3 000/мес)",t1f6:"Автоматизация воронки",t1f7:"Отчёты и аналитика",t1f8:"Захват лидов из Telegram (скоро)",t1btn:"Получить ранний доступ — €30/мес",
     t2n:"Полный пакет",t2d:"Стандартная цена с 2027 года. Всё включено — без лимитов, без надстроек, без сюрпризов.",t2f1:"2 рабочих пространства включены",t2f2:"Неограниченное количество контактов",t2f3:"Канбан-воронка + несколько этапов",t2f4:"Заметки по сессиям и загрузка файлов",t2f5:"Email-кампании (3 000/мес)",t2f6:"Автоматизация воронки",t2f7:"Отчёты и аналитика",t2f8:"Захват лидов из Telegram (скоро)",t2btn:"Встать в очередь",
@@ -855,11 +853,43 @@ const T = {
   }
 };
 
-// Copy EN keys to NL/DE/ES as fallback (full translations can be added later)
-['nl','de','es'].forEach(l => { T[l] = Object.assign({}, T.en); });
-T.nl.nav_why="Waarom CRM";T.nl.nav_features="Functies";T.nl.nav_compare="Vergelijk";T.nl.nav_pricing="Prijzen";T.nl.nav_cta="Vroege toegang";T.nl.hero_h1a="Jouw praktijk verdient";T.nl.hero_h1b="meer klanten, meer omzet";T.nl.cta_title="Klaar om je praktijk te laten groeien?";T.nl.cta_btn="Inschrijven →";
-T.de.nav_why="Warum CRM";T.de.nav_features="Funktionen";T.de.nav_compare="Vergleich";T.de.nav_pricing="Preise";T.de.nav_cta="Früher Zugang";T.de.hero_h1a="Deine Praxis verdient";T.de.hero_h1b:"mehr Kunden, mehr Umsatz";T.de.cta_title="Bereit, deine Praxis zu vergrößern?";T.de.cta_btn="Eintragen →";
-T.es.nav_why="Por qué CRM";T.es.nav_features="Funciones";T.es.nav_compare="Comparar";T.es.nav_pricing="Precios";T.es.nav_cta="Acceso anticipado";T.es.hero_h1a="Tu práctica merece";T.es.hero_h1b="más clientes, más ingresos";T.es.cta_title="¿Listo para hacer crecer tu práctica?";T.es.cta_btn="Unirse →";
+T.nl = {
+    nav_why:"Waarom CRM",nav_features:"Functies",nav_compare:"Vergelijk",nav_pricing:"Prijzen",nav_cta:"Vroege toegang",
+    hero_badge:"Nu in vroege toegang — beperkt aantal plekken",hero_h1a:"Jouw praktijk verdient",hero_h1b:"meer klanten, meer omzet",
+    hero_sub:"AstroCRM is een eenvoudige klantmanager gebouwd voor coaches, astrologen, therapeuten en beautyprofessionals. Verlies geen leads meer in WhatsApp-gesprekken en spreadsheets — en ga groeien.",
+    hero_cta1:"Vroege toegang krijgen →",hero_cta2:"Waarom heb ik een CRM nodig?",hero_social:"Vertrouwd door praktijkhouders in heel Europa en het GOS",
+    stat1:"Gemiddelde omzetgroei\nin de eerste 6 maanden",stat2:"Meer klanten geholpen\nin dezelfde uren",stat3:"Talen:\nEN · NL · RU",stat4:"Vanafprijs\nper maand",
+    why_label:"Waarom je een CRM nodig hebt",why_title:"De meeste zelfstandige praktijkhouders verliezen 30–50% van hun potentiële omzet — zonder het te merken",why_sub:"Een CRM (Client Relationship Manager) is simpelweg een tool die elke klant, elk gesprek en elke opvolging onthoudt — zodat jij dat niet hoeft. Dit verandert er als je er een gebruikt:",
+    w1t:"Je verliest leads die je bent vergeten",w1b:"Iemand stuurde je 3 weken geleden een bericht over een consult. Je wilde reageren. Je vergat het. Dat is €150–500 verdwenen. Een CRM legt elke aanvraag vast en volgt die tot het een klant of een duidelijke 'nee' wordt.",w1r:"Resultaat: 20–40% meer conversies",
+    w2t:"Terugkerende klanten zijn je grootste omzetbron",w2b:"Een klant die 6 maanden geleden kwam is je warmste lead voor een vervolgsessie. Zonder CRM heb je geen systematische manier om ze te bereiken. Met een CRM stuur je met één klik een persoonlijke opvolging naar 50 oude klanten.",w2r:"Resultaat: 2–3× meer herhaalboekingen",
+    w3t:"Je klantgeschiedenis staat overal verspreid",w3b:"Sessienotities in een schrift. Bestanden in Google Drive. Berichten in Telegram. Een CRM zet alles — notities, bestanden, kaarten, geschiedenis — op één plek per klant.",w3r:"Resultaat: 1–2 uur per dag bespaard",
+    w4t:"Je kunt niet laten groeien wat je niet meet",w4b:"Hoeveel nieuwe leads kreeg je deze maand? Wat is je conversieratio? Zonder CRM vlieg je blind. Met een CRM beantwoorden je rapporten deze vragen in 10 seconden.",w4r:"Resultaat: slimmere zakelijke beslissingen",
+    w5t:"Administratie vreet je factureerbare uren op",w5b:"Elk uur dat je betalingen najaagt of handmatig opvolgingen schrijft is een uur niet met een betalende klant. Een CRM automatiseert de repetitieve delen zodat je ze één keer doet, niet elke week.",w5r:"Resultaat: 5–8 uur per week terug",
+    w6t:"Klanten voelen meteen het verschil",w6b:"Wanneer je details van de vorige sessie onthoudt en precies op het juiste moment opvolgt — vertellen klanten het hun vrienden. Een CRM laat elke klant zich je enige klant voelen.",w6r:"Resultaat: meer aanbevelingen en reviews",
+    prof_label:"Voor wie",prof_title:"Gebouwd voor elke praktijkhouder die met mensen werkt",prof_sub:"Als je bedrijf draait op persoonlijke langdurige klantrelaties — dan is AstroCRM voor jou gebouwd.",
+    cat1:"Spiritueel & Esoterisch",cat2:"Coaching & Mentoring",cat3:"Psychologie & Therapie",cat4:"Lichaam & Welzijn",cat5:"Beauty & Esthetiek",cat6:"Creatief & Consulting",
+    feat_label:"Functies",feat_title:"Alles wat je nodig hebt. Niets wat je niet nodig hebt.",feat_sub:"Gebouwd voor eenmanszaken en kleine teams. Geen enterprise-complexiteit, geen IT nodig.",
+    f1t:"Gebouwd voor jouw niche",f1b:"De enige CRM met velden ontworpen voor praktijkhouders — niet voor salesteams.",f1_1:"Upload geboortehoroscopen, klantfoto's en sessiedocumenten",f1_2:"Sessienotities met tijdstempels",f1_3:"Velden voor geboortedatum en -tijd",f1_4:"Volledige consultgeschiedenis per klant",
+    f2t:"Visuele pijplijn — zie elke klant in één oogopslag",f2b:"Sleep klanten door fases: Aanvraag → Voorstel → Betaald → Klaar. Verlies nooit meer het overzicht.",f2_1:"Kanban-bord — als Trello maar gebouwd voor praktijkhouders",f2_2:"Meerdere pijplijnen per bedrijf",f2_3:"Automatisch e-mails sturen als een klant naar een nieuwe fase gaat",f2_4:"Eigen fasenamen in elke taal",
+    f3t:"E-mailcampagnes die klanten terugbrengen",f3b:"Stuur één persoonlijk bericht naar 100 oude klanten in 3 klikken.",f3_1:"Filter op bron, fase, soort dienst",f3_2:"Persoonlijke variabelen: naam, laatste sessie, deal-titel",f3_3:"Fase-automatisering: automatisch verzenden bij dealverplaatsing",
+    f4t:"3 talen — bedien klanten overal",f4b:"Wissel direct tussen Engels, Nederlands en Russisch. De enige niche-CRM met Russische taalondersteuning.",f4_1:"Volledige interface in alle 3 talen",f4_2:"Importeer contacten uit meertalige spreadsheets",f4_3:"Meer talen onderweg",
+    f5t:"Rapporten die laten zien waar het geld zit",f5b:"Zie conversieratio's, omzet per dienst, beste leadbronnen en topklanten — realtime bijgewerkt.",f5_1:"Omzet en aantal deals per periode",f5_2:"Best presterende leadbronnen",f5_3:"Conversietrechter van de pijplijn",f5_4:"Filter op bedrijf, pijplijn, periode",
+    f6t:"Twee bedrijven, één account",f6b:"Beheer je praktijken vanaf één dashboard. Aparte pijplijnen, contacten en rapporten — één abonnement.",f6_1:"Geïsoleerde data per bedrijf",f6_2:"Wissel met één klik",f6_3:"Aparte e-mailcampagnes per merk",
+    f7t:"Importeer je bestaande klanten in enkele minuten",f7b:"Haal contacten uit elke spreadsheet, CRM of telefoon. We koppelen kolommen automatisch en vangen duplicaten.",f7_1:"CSV, Excel (.xlsx), vCard (.vcf)",f7_2:"Slimme automatische kolomkoppeling (EN & RU headers)",f7_3:"Duplicaatdetectie",
+    f8t:"Mis nooit meer een opvolging of deadline",f8b:"Het deadline-overzicht toont elke aankomende sessie, betaling en opvolging op één plek.",f8_1:"Deadline-tracker over alle klanten",f8_2:"Calendly- en Google Meet-integratie",f8_3:"Telegram-leadcapture — binnenkort",
+    cmp_label:"Vergelijking",cmp_title:"AstroCRM vs de alternatieven",cmp_sub:"Hoe wij ons verhouden tot de tools die praktijkhouders vandaag echt gebruiken.",
+    cmp_feat:"Functie",c1:"Gebouwd voor de spirituele / coaching niche",c2:"Klantbestanden (kaarten, documenten)",c3:"Sessienotities per klant",c4:"Kanban-pijplijn",c5:"Russische taal",c6:"Nederlandse taal",c7:"Twee bedrijven in één account",c8:"CSV / Excel / vCard import",c9:"E-mailcampagnes",c10:"Simpele setup — klaar in 5 min",c11:"Vanafprijs",
+    price_label:"Prijzen",price_title:"Simpele prijzen. Geen verrassingen.",price_sub:"Twee bedrijfswerkruimtes inbegrepen. Geen kosten per gebruiker. Geen verborgen kosten.",
+    t1badge:"⚡ 2026 Early Adopter — beperkt aantal plekken",t1n:"Vroege toegang",t1save:"Bespaar €15/mnd — voor altijd vastgezet",t1d:"Sluit je aan in 2026 en deze prijs is voor altijd van jou. Hetzelfde volledige product, 33% korting — elke maand, zolang je blijft.",t1f1:"2 bedrijfswerkruimtes inbegrepen",t1f2:"Onbeperkt aantal contacten",t1f3:"Kanban-pijplijn + meerdere fases",t1f4:"Sessienotities & bestandsuploads",t1f5:"E-mailcampagnes (3.000/mnd)",t1f6:"Pijplijn-automatiseringen",t1f7:"Rapporten & analytics",t1f8:"Telegram-leadcapture (binnenkort)",t1btn:"Vroege toegang — €30/mnd",
+    t2n:"Volledig pakket",t2d:"Standaardprijs vanaf 2027. Alles inbegrepen — geen limieten, geen add-ons, geen verrassingen.",t2f1:"2 bedrijfswerkruimtes inbegrepen",t2f2:"Onbeperkt aantal contacten",t2f3:"Kanban-pijplijn + meerdere fases",t2f4:"Sessienotities & bestandsuploads",t2f5:"E-mailcampagnes (3.000/mnd)",t2f6:"Pijplijn-automatiseringen",t2f7:"Rapporten & analytics",t2f8:"Telegram-leadcapture (binnenkort)",t2btn:"Op de wachtlijst",
+    biz_unique_label:"Wat AstroCRM uniek maakt",biz_title:"Wat zijn de 2 bedrijfswerkruimtes?",biz_sub:"De meeste praktijkhouders runnen twee fundamenteel verschillende soorten werk — en die hebben verschillende pijplijnen nodig. AstroCRM houdt ze gescheiden in één account.",
+    biz1_label:"Werkruimte 1 — mensen- en relatiemodel",biz1_title:"De cyclus eindigt nooit bij één verkoop",biz1_desc:"Je klant betaalt, maar de relatie sluit niet — die verdiept. Ze komen terug voor de volgende sessie, de volgende reading, het volgende programma. Je volgt de hele reis: consultgeschiedenis, notities, opvolgingen, levensgebeurtenissen. De relatie zelf is het product.",biz1_ex:"Voorbeelden: astrologie- en ba-zi-consulten, coachingprogramma's, psychotherapie, energetisch werk, human design-sessies, numerologie, feng shui-projecten",
+    biz2_label:"Werkruimte 2 — standaard product- of dienstverkoop",biz2_title:"Klassiek lead → afsluiten → volgende",biz2_desc:"Klant vraagt aan, krijgt een offerte, betaalt, klaar. De deal sluit en je gaat verder. Je volgt kopers nog steeds en doet opvolging — maar elke verkoop is een eigen gebeurtenis, geen deel van een lange reis. Een standaard pijplijn: lead binnen, geld eruit, herhaal.",biz2_ex:"Voorbeelden: online cursussen, astrologierapporten, dienstpakketten, eenmalige workshops, digitale downloads, merchandise, beauty- of stylingdiensten met een vast menu",
+    biz_note:"Beide werkruimtes zijn volledig onafhankelijk — aparte pijplijnen, contacten en automatiseringen — binnen één abonnement.",
+    price_note:"De early-adopter-prijs van €30/mnd staat voor altijd vast — alleen voor abonnees die zich in 2026 aansluiten. Reguliere prijs vanaf 2027: €45/mnd.",
+    mock_label:"Zie het in actie",mock_title:"Je klantpijplijn, prachtig georganiseerd",
+    cta_title:"Klaar om je praktijk te laten groeien?",cta_sub:"Vroege toegang opent in juni 2026. Schrijf ons om je plek te reserveren.",cta_note:"We beantwoorden persoonlijk elk bericht."
+};
 
 let currentLang='en';
 function setLang(lang){
