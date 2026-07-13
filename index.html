@@ -82,7 +82,7 @@
     .nav-cta:hover{background:var(--wine2);color:var(--ivory);}
 
     /* HERO — editorial centerfold */
-    .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:180px 32px 120px;background:var(--ivory);position:relative;}
+    .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:180px 32px 56px;background:var(--ivory);position:relative;}
     .hero::before{content:'';position:absolute;top:120px;left:50%;transform:translateX(-50%);width:1px;height:42px;background:var(--wine);}
     .hero-badge{display:inline-flex;align-items:center;gap:12px;color:var(--wine);padding:0;border:none;background:none;font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:3.5px;text-transform:uppercase;margin-bottom:40px;margin-top:20px;}
     .hero-badge::before,.hero-badge::after{content:'';display:inline-block;width:32px;height:1px;background:var(--wine);}
@@ -101,6 +101,7 @@
     .btn-gold:hover{background:linear-gradient(135deg,#e6cd91 0%,#c6a56c 46%,#a3844f 100%);box-shadow:0 10px 30px rgba(164,134,86,.48);transform:translateY(-2px);color:#3a0a0a;}
     .btn-gold:hover::after{left:130%;}
     .cta-section .btn-gold{margin-top:44px;box-shadow:0 8px 28px rgba(0,0,0,.28);}
+    .hero-gold-row{display:flex;justify-content:center;margin-top:20px;}
     .hero-social-proof{margin-top:80px;display:flex;flex-direction:column;align-items:center;gap:18px;color:var(--ink2);font-size:11px;letter-spacing:2.5px;text-transform:uppercase;font-weight:500;}
     .hero-social-proof::before{content:'';width:40px;height:1px;background:var(--wine);}
     .avatars{display:none;}
@@ -303,6 +304,8 @@
   <div class="hero-actions">
     <a href="#waitlist" class="btn-primary" data-i18n="hero_cta1">Get Early Access →</a>
     <a href="#why" class="btn-secondary" data-i18n="hero_cta2">Why do I need a CRM?</a>
+  </div>
+  <div class="hero-gold-row">
     <a href="early-user-questionnaire.html" class="btn-gold" data-i18n="q_btn">Take the early-user questionnaire →</a>
   </div>
   <div class="hero-social-proof">
