@@ -108,7 +108,7 @@
     .field { margin-bottom: 30px; }
     .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
     label.field-label { display: block; font-size: 14px; font-weight: 600; color: var(--white); margin-bottom: 4px; line-height: 1.45; }
-    .field-q { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 17px; color: var(--wine); font-weight: 600; margin-right: 4px; }
+    .field-q { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 26px; color: var(--wine); font-weight: 700; margin-right: 7px; }
     .field-hint { font-size: 12px; font-style: italic; color: var(--muted); line-height: 1.5; margin-bottom: 10px; }
     .gold-flag { display: inline-block; font-size: 9px; font-weight: 700; color: var(--wine); background: var(--surface); padding: 3px 8px; letter-spacing: 1.5px; text-transform: uppercase; margin-left: 8px; border: 1px solid var(--wine); vertical-align: middle; }
     input[type="text"],
@@ -490,6 +490,14 @@
             <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="09_offerings" value="Monthly retainer / membership"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Monthly retainer / membership</span></span></label>
             <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="09_offerings" value="Subscription content (newsletter, course)"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Subscription content (newsletter, course)</span></span></label>
             <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="09_offerings" value="One-time long-form deliverable (e.g. full natal chart reading)"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">One-time long-form deliverable (e.g. full natal chart reading)</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="09_offerings" value="Annual consultation / yearly forecast (e.g. Ba Zi annual reading)"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Annual consultation / yearly forecast</span><span class="opt-sub">A reading clients renew each year — e.g. Ba Zi annual forecast.</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="09_offerings" value="Seasonal or quarterly check-ins"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Seasonal or quarterly check-ins</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="09_offerings" value="Follow-up / review sessions"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Follow-up / review sessions</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="09_offerings" value="VIP / 1:1 mentorship or long-term program"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">VIP / 1:1 mentorship or long-term program</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="09_offerings" value="Group programs, workshops or courses"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Group programs, workshops or courses</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="09_offerings" value="Written report only (no live session)"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Written report only (no live session)</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="09_offerings" value="On-demand chat / message support between sessions"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">On-demand chat / message support between sessions</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="09_offerings" value="Events, retreats or ceremonies"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Events, retreats or ceremonies</span></span></label>
           </div>
           <input class="other-input" type="text" name="09_offerings_other" placeholder="Other">
         </div>
@@ -517,7 +525,7 @@
             <label class="opt check" onclick="toggleOpt(this,3)"><input type="checkbox" name="10_sources" value="YouTube"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">YouTube</span></span></label>
             <label class="opt check" onclick="toggleOpt(this,3)"><input type="checkbox" name="10_sources" value="Personal website / blog"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Personal website / blog</span></span></label>
             <label class="opt check" onclick="toggleOpt(this,3)"><input type="checkbox" name="10_sources" value="Word of mouth / referrals"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Word of mouth / referrals</span></span></label>
-            <label class="opt check" onclick="toggleOpt(this,3)"><input type="checkbox" name="10_sources" value="Online directories"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Online directories</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this,3)"><input type="checkbox" name="10_sources" value="Online directories / listing sites"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Online directories / listing sites</span><span class="opt-sub">Marketplaces or catalogues where clients browse practitioners — e.g. astrology platforms, wellness or therapist directories, Google Business.</span></span></label>
             <label class="opt check" onclick="toggleOpt(this,3)"><input type="checkbox" name="10_sources" value="Paid ads (Meta / Google)"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Paid ads (Meta / Google)</span></span></label>
             <label class="opt check" onclick="toggleOpt(this,3)"><input type="checkbox" name="10_sources" value="Speaking / events"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Speaking / events</span></span></label>
           </div>
@@ -526,6 +534,7 @@
 
         <div class="field">
           <label class="field-label"><span class="field-q">12.</span> Which channels do you use to communicate with clients day-to-day?</label>
+          <p class="field-hint">This tells us which messaging integrations to build first — so AstroCRM can pull WhatsApp / Telegram / Instagram conversations into each client's record instead of you switching between apps.</p>
           <p class="field-hint">Select all that apply.</p>
           <div class="opts two">
             <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="11_comms" value="WhatsApp"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">WhatsApp</span></span></label>
@@ -590,6 +599,7 @@
             <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="14_files" value="Files attached to email threads"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Files attached to email threads</span></span></label>
             <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="14_files" value="Files in WhatsApp / Telegram chat"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Files in WhatsApp / Telegram chat with the client</span></span></label>
             <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="14_files" value="I print and keep paper"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">I print and keep paper</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="14_files" value="On my phone (Notes app, camera roll, or Files)"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">On my phone</span><span class="opt-sub">Notes app, camera roll / photos, or the phone's Files.</span></span></label>
             <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="14_files" value="I don't keep files per client"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">I don't keep files per client</span></span></label>
           </div>
         </div>
@@ -1070,6 +1080,72 @@
       alert('Network error. Please check your connection and try again.');
     }
   }
+
+  /* PROFESSION — allow up to 3 (clone the first dropdown, no long option list duplicated in JS) */
+  var profCount = 1;
+  function addProfession() {
+    if (profCount >= 3) return;
+    profCount++;
+    var first = document.querySelector('#profession-rows .prof-select');
+    var clone = first.cloneNode(true);
+    clone.removeAttribute('id');
+    clone.name = '01_profession_' + profCount;
+    clone.selectedIndex = 0;
+    var row = document.createElement('div');
+    row.className = 'prof-row';
+    row.appendChild(clone);
+    var rm = document.createElement('button');
+    rm.type = 'button'; rm.className = 'btn-remove'; rm.textContent = '×';
+    rm.onclick = function() {
+      row.remove(); profCount--;
+      document.getElementById('prof-add-btn').style.display = '';
+    };
+    row.appendChild(rm);
+    document.getElementById('profession-rows').appendChild(row);
+    if (profCount >= 3) document.getElementById('prof-add-btn').style.display = 'none';
+  }
+
+  /* LOCATION — type-ahead place autocomplete via OpenStreetMap (Nominatim, no API key) */
+  var _locTimer;
+  function onLocationInput() {
+    clearTimeout(_locTimer);
+    var val = document.getElementById('location').value.trim();
+    if (val.length < 2) { hideCityDd('location-dd'); return; }
+    _locTimer = setTimeout(function() { fetchCityDd(val, 'location-dd', 'location'); }, 380);
+  }
+  function fetchCityDd(query, ddId, inputId) {
+    var dd = document.getElementById(ddId);
+    fetch('https://nominatim.openstreetmap.org/search?q=' + encodeURIComponent(query) + '&format=json&limit=6&addressdetails=1',
+      { headers: { 'Accept-Language': 'en' } })
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (!data || !data.length) { hideCityDd(ddId); return; }
+        dd._data = data; dd._inputId = inputId;
+        dd.innerHTML = data.map(function(item, i) {
+          var parts = item.display_name.split(',');
+          var name = parts.slice(0, 2).join(',').trim();
+          var detail = parts.slice(2, 5).join(',').trim();
+          return '<div class="city-dd-item" onmousedown="selectCityItem(\'' + ddId + '\',' + i + ')">' +
+            '<div class="city-dd-name">' + name + '</div>' +
+            '<div class="city-dd-detail">' + detail + '</div></div>';
+        }).join('');
+        dd.style.display = 'block';
+      }).catch(function() { hideCityDd(ddId); });
+  }
+  function selectCityItem(ddId, idx) {
+    var dd = document.getElementById(ddId);
+    var item = dd._data[idx];
+    var parts = item.display_name.split(',');
+    document.getElementById(dd._inputId).value = parts.slice(0, 3).join(',').trim();
+    hideCityDd(ddId);
+  }
+  function hideCityDd(ddId) {
+    var dd = document.getElementById(ddId);
+    if (dd) dd.style.display = 'none';
+  }
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.city-input-wrap')) hideCityDd('location-dd');
+  });
 
   updateProgress(1);
 </script>
