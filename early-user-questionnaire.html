@@ -925,8 +925,21 @@
         </div>
 
         <div class="field">
-          <label class="field-label"><span class="field-q">39.</span> <span data-en="Your phone / WhatsApp / Telegram" data-ru="Ваш телефон / WhatsApp / Telegram">Your phone / WhatsApp / Telegram</span></label>
+          <label class="field-label"><span class="field-q">39.</span> <span data-en="Your phone number" data-ru="Ваш номер телефона">Your phone number</span></label>
+          <p class="field-hint" data-en="Optional — in case it's easier to reach you there than by email." data-ru="По желанию — если так с вами связаться удобнее, чем по email.">Optional — in case it's easier to reach you there than by email.</p>
           <input type="tel" id="phone" name="39_phone" data-en-ph="e.g. +31 6 12 34 56 78" data-ru-ph="напр. +7 900 123 45 67">
+          <p class="field-hint" style="margin-top:14px" data-en="Best way to reach you there?" data-ru="Как с вами лучше связаться по нему?">Best way to reach you there?</p>
+          <div class="opts two">
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="39_phone_apps" value="WhatsApp"><div class="opt-box"></div><span class="opt-text"><span class="opt-main" data-en="WhatsApp" data-ru="WhatsApp">WhatsApp</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="39_phone_apps" value="Telegram"><div class="opt-box"></div><span class="opt-text"><span class="opt-main" data-en="Telegram" data-ru="Telegram">Telegram</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="39_phone_apps" value="Signal"><div class="opt-box"></div><span class="opt-text"><span class="opt-main" data-en="Signal" data-ru="Signal">Signal</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="39_phone_apps" value="Viber"><div class="opt-box"></div><span class="opt-text"><span class="opt-main" data-en="Viber" data-ru="Viber">Viber</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="39_phone_apps" value="WeChat"><div class="opt-box"></div><span class="opt-text"><span class="opt-main" data-en="WeChat" data-ru="WeChat">WeChat</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="39_phone_apps" value="Facebook Messenger"><div class="opt-box"></div><span class="opt-text"><span class="opt-main" data-en="Facebook Messenger" data-ru="Facebook Messenger">Facebook Messenger</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="39_phone_apps" value="Phone call"><div class="opt-box"></div><span class="opt-text"><span class="opt-main" data-en="Phone call" data-ru="Телефонный звонок">Phone call</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="39_phone_apps" value="SMS"><div class="opt-box"></div><span class="opt-text"><span class="opt-main" data-en="SMS" data-ru="SMS">SMS</span></span></label>
+          </div>
+          <input class="other-input" type="text" name="39_phone_apps_other" data-en-ph="Other — please specify" data-ru-ph="Другое — уточните">
         </div>
 
         <div class="field">
