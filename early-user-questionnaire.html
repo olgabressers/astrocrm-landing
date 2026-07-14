@@ -823,7 +823,10 @@
             <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="31_devices" value="iPad"><div class="opt-box"></div><span class="opt-text"><span class="opt-main" data-en="iPad" data-ru="iPad">iPad</span></span></label>
             <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="31_devices" value="iPhone"><div class="opt-box"></div><span class="opt-text"><span class="opt-main" data-en="iPhone" data-ru="iPhone">iPhone</span></span></label>
             <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="31_devices" value="Android phone"><div class="opt-box"></div><span class="opt-text"><span class="opt-main" data-en="Android phone" data-ru="Android-телефон">Android phone</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="31_devices" value="Android tablet"><div class="opt-box"></div><span class="opt-text"><span class="opt-main" data-en="Android tablet" data-ru="Android-планшет">Android tablet</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="31_devices" value="Other"><div class="opt-box"></div><span class="opt-text"><span class="opt-main" data-en="Other (please specify)" data-ru="Другое (уточните)">Other (please specify)</span></span></label>
           </div>
+          <input class="other-input" type="text" name="31_devices_other" data-en-ph="Other device — please specify" data-ru-ph="Другое устройство — уточните">
         </div>
 
         <div class="field">
@@ -926,35 +929,13 @@
         </div>
 
         <div class="field">
-          <label class="field-label"><span class="field-q">39.</span> <span data-en="Your phone number" data-ru="Ваш номер телефона">Your phone number</span></label>
-          <p class="field-hint" data-en="Optional — in case it's easier to reach you there than by email." data-ru="По желанию — если так с вами связаться удобнее, чем по email.">Optional — in case it's easier to reach you there than by email.</p>
+          <label class="field-label"><span class="field-q">39.</span> <span data-en="Your phone / WhatsApp / Telegram" data-ru="Ваш телефон / WhatsApp / Telegram">Your phone / WhatsApp / Telegram</span></label>
+          <p class="field-hint" data-en="Optional." data-ru="По желанию.">Optional.</p>
           <input type="tel" id="phone" name="39_phone" data-en-ph="e.g. +31 6 12 34 56 78" data-ru-ph="напр. +7 900 123 45 67">
-          <p class="field-hint" style="margin-top:14px" data-en="Best way to reach you there?" data-ru="Как с вами лучше связаться по нему?">Best way to reach you there?</p>
-          <div class="opts two">
-            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="39_phone_apps" value="WhatsApp"><div class="opt-box"></div><span class="opt-text"><span class="opt-main" data-en="WhatsApp" data-ru="WhatsApp">WhatsApp</span></span></label>
-            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="39_phone_apps" value="Telegram"><div class="opt-box"></div><span class="opt-text"><span class="opt-main" data-en="Telegram" data-ru="Telegram">Telegram</span></span></label>
-            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="39_phone_apps" value="Signal"><div class="opt-box"></div><span class="opt-text"><span class="opt-main" data-en="Signal" data-ru="Signal">Signal</span></span></label>
-            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="39_phone_apps" value="Viber"><div class="opt-box"></div><span class="opt-text"><span class="opt-main" data-en="Viber" data-ru="Viber">Viber</span></span></label>
-            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="39_phone_apps" value="WeChat"><div class="opt-box"></div><span class="opt-text"><span class="opt-main" data-en="WeChat" data-ru="WeChat">WeChat</span></span></label>
-            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="39_phone_apps" value="Facebook Messenger"><div class="opt-box"></div><span class="opt-text"><span class="opt-main" data-en="Facebook Messenger" data-ru="Facebook Messenger">Facebook Messenger</span></span></label>
-            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="39_phone_apps" value="Phone call"><div class="opt-box"></div><span class="opt-text"><span class="opt-main" data-en="Phone call" data-ru="Телефонный звонок">Phone call</span></span></label>
-            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="39_phone_apps" value="SMS"><div class="opt-box"></div><span class="opt-text"><span class="opt-main" data-en="SMS" data-ru="SMS">SMS</span></span></label>
-          </div>
-          <input class="other-input" type="text" name="39_phone_apps_other" data-en-ph="Other — please specify" data-ru-ph="Другое — уточните">
         </div>
 
         <div class="field">
-          <label class="field-label"><span class="field-q">40.</span> <span data-en="Would you be open to a 20-minute call about your workflow?" data-ru="Готовы ли вы к 20-минутному разговору о ваших процессах?">Would you be open to a 20-minute call about your workflow?</span></label>
-          <div class="opts two">
-            <label class="opt radio" onclick="pickOpt(this,'39_call')"><input type="radio" name="39_call" value="Yes, anytime"><div class="opt-box"></div><span class="opt-text"><span class="opt-main" data-en="Yes, anytime" data-ru="Да, в любое время">Yes, anytime</span></span></label>
-            <label class="opt radio" onclick="pickOpt(this,'39_call')"><input type="radio" name="39_call" value="Yes, but only after launch"><div class="opt-box"></div><span class="opt-text"><span class="opt-main" data-en="Yes, but only after launch" data-ru="Да, но только после запуска">Yes, but only after launch</span></span></label>
-            <label class="opt radio" onclick="pickOpt(this,'39_call')"><input type="radio" name="39_call" value="Maybe later"><div class="opt-box"></div><span class="opt-text"><span class="opt-main" data-en="Maybe later" data-ru="Может быть позже">Maybe later</span></span></label>
-            <label class="opt radio" onclick="pickOpt(this,'39_call')"><input type="radio" name="39_call" value="No"><div class="opt-box"></div><span class="opt-text"><span class="opt-main" data-en="No" data-ru="Нет">No</span></span></label>
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="field-label"><span class="field-q">41.</span> <span data-en="Anything else you'd like us to know, ask about, or build?" data-ru="Что-то ещё, что хотите сказать, спросить или предложить построить?">Anything else you'd like us to know, ask about, or build?</span></label>
+          <label class="field-label"><span class="field-q">40.</span> <span data-en="Anything else you'd like us to know, ask about, or build?" data-ru="Что-то ещё, что хотите сказать, спросить или предложить построить?">Anything else you'd like us to know, ask about, or build?</span></label>
           <textarea name="40_anything_else" style="min-height:100px" data-en-ph="Your answer" data-ru-ph="Ваш ответ"></textarea>
         </div>
 
