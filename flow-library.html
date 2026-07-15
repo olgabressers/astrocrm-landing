@@ -146,6 +146,18 @@
       <td class="prof"><div class="tname"><a href="#creative">Project Creative</a></div><div class="plist">Wedding planners · Interior designers</div></td>
       <td><div class="flow small"><span class="fstep">Inquiry</span><span class="farrow">→</span><span class="fstep">Consultation</span><span class="farrow">→</span><span class="fstep">Proposal Sent</span><span class="farrow">→</span><span class="fstep">Contract Signed</span><span class="farrow">→</span><span class="fstep">Deposit Paid</span><span class="farrow">→</span><span class="fstep">In Progress</span><span class="farrow">→</span><span class="fstep">Final Delivery</span><span class="farrow">→</span><span class="fstep fend">Complete</span></div></td>
     </tr>
+    <tr>
+      <td class="prof"><div class="tname"><a href="#eventplanner">Event Planner</a></div><div class="plist">Event planners · Retreat &amp; ceremony organisers <em>(questionnaire respondent 1)</em></div></td>
+      <td><div class="flow small"><span class="fstep">Inquiry</span><span class="farrow">→</span><span class="fstep">Consultation</span><span class="farrow">→</span><span class="fstep">Quote / Proposal</span><span class="farrow">→</span><span class="fstep">Contract + Deposit</span><span class="farrow">→</span><span class="fstep">Planning &amp; Vendors</span><span class="farrow">→</span><span class="fstep">Event Day</span><span class="farrow">→</span><span class="fstep fend">Follow-up / Next Season</span></div></td>
+    </tr>
+    <tr>
+      <td class="prof"><div class="tname"><a href="#tcm">TCM / Health Practitioner</a></div><div class="plist">TCM doctors · Acupuncturists · Complementary-health clinics <em>(questionnaire respondent 3)</em></div></td>
+      <td><div class="flow small"><span class="fstep">Inquiry</span><span class="farrow">→</span><span class="fstep">Intake Consultation</span><span class="farrow">→</span><span class="fstep">Treatment Plan + Frequency</span><span class="farrow">→</span><span class="fstep">Recurring Sessions</span><span class="farrow">→</span><span class="fstep">Rebook Before Leaving</span><span class="farrow">→</span><span class="fstep fend">Check-in Weeks Later</span></div></td>
+    </tr>
+    <tr>
+      <td class="prof"><div class="tname"><a href="#winetrade">Wine Import &amp; Sales</a></div><div class="plist">Product trade / repeat-order businesses <em>(questionnaire respondent 1)</em></div></td>
+      <td><div class="flow small"><span class="fstep">Lead</span><span class="farrow">→</span><span class="fstep">Intro / Tasting</span><span class="farrow">→</span><span class="fstep">Quote</span><span class="farrow">→</span><span class="fstep">First Order</span><span class="farrow">→</span><span class="fstep">Delivery + Invoice</span><span class="farrow">→</span><span class="fstep fend">Seasonal Reorder Nudge</span></div></td>
+    </tr>
   </table></div>
 
   <div class="notice"><strong>How to read this page.</strong> Wine-outlined boxes = AstroCRM default flows (our design). Grey-outlined boxes = flows documented by the reference products, with the vendor named. Items vendors do not document publicly are marked <span class="nf">NOT PUBLIC</span>. Every sourced fact links to the official help documentation it came from.</div>
@@ -165,6 +177,7 @@
       <li><a href="#consultant">Expert Consultant</a></li>
       <li><a href="#tutor">Tutor / Teacher</a></li>
       <li><a href="#creative">Project Creative</a></li>
+      <li><a href="#questionnaire">Questionnaire professions (Event planner · TCM · Wine trade)</a></li>
       <li><a href="#market">Spiritual-CRM market scan</a></li>
     </ol>
   </div>
@@ -470,8 +483,76 @@
     </div>
   </div>
 
+  <!-- ============ QUESTIONNAIRE PROFESSIONS ============ -->
+  <h2 id="questionnaire">13 · Flows from the early-user questionnaire (July 2026)</h2>
+  <p class="h2-sub">Three responses received so far. Respondent 2 (interior designer / business coach) is already covered by the <a href="#creative">Project Creative</a> and <a href="#coach">Coach</a> templates. Respondents 1 and 3 bring three professions the library didn't cover — flows below are built from their actual questionnaire answers (source: AstroCRM Questionnaire Responses, 14–15 Jul 2026). No personal data is published here.</p>
+
+  <div class="card" id="eventplanner">
+    <div class="who"><strong>Event Planner</strong> — event planners · retreat &amp; ceremony organisers</div>
+    <div class="flowlabel">AstroCRM default flow</div>
+    <div class="flow"><span class="fstep">Inquiry</span><span class="farrow">→</span><span class="fstep">Consultation</span><span class="farrow">→</span><span class="fstep">Quote / Proposal</span><span class="farrow">→</span><span class="fstep">Contract + Deposit</span><span class="farrow">→</span><span class="fstep">Planning &amp; Vendors</span><span class="farrow">→</span><span class="fstep">Event Day</span><span class="farrow">→</span><span class="fstep fend">Follow-up / Next Season</span></div>
+    <div class="refs">Base: the <a href="#creative">Project Creative</a> flow shape (HoneyBook/Dubsado/17hats research) adapted with respondent 1's answers.</div>
+    <h3>What the questionnaire says (respondent 1, event planner)</h3>
+    <ul>
+      <li>Offers "single sessions, seasonal or quarterly check-ins, events, retreats or ceremonies" — the recurring unit is the <strong>event/season</strong>, not a weekly session.</li>
+      <li>Mostly returning clients (50–75%); new clients via word of mouth and work colleagues; day-to-day comms via WhatsApp and in person; no booking tool ("clients message me to schedule"); manual bank transfers.</li>
+      <li>Follow-up today: "I don't have a systematic follow-up" — and no way to remind past clients to come back, would want it via WhatsApp/Telegram. Biggest pain: <strong>accounting</strong> ("Бухгалтерия"); magic wand: automatic tax declarations; top features wanted: built-in invoicing and payments, data export.</li>
+    </ul>
+    <div class="proposal">
+      <span class="plabel">Proposed AstroCRM default</span>
+      <div class="tablewrap"><table>
+        <tr><th>Setting</th><th>Default value</th></tr>
+        <tr><td>Intake fields</td><td>Event type · event date · venue/location · guest count · budget range · preferences/theme</td></tr>
+        <tr><td>Automations ON</td><td>Inquiry auto-response · quote follow-up · deposit + payment reminders (invoicing was the stated pain) · planning-milestone checklist · post-event thank-you · seasonal "next event" nudge via WhatsApp-friendly message</td></tr>
+        <tr><td>Payments</td><td>Deposit on contract + balance before event day; every payment logged for accounting export</td></tr>
+        <tr><td>Vocabulary</td><td>"Event" · "Client" · "Quote" · "Deposit"</td></tr>
+      </table></div>
+    </div>
+  </div>
+
+  <div class="card" id="tcm">
+    <div class="who"><strong>TCM / Health Practitioner</strong> — TCM doctors · acupuncturists · complementary-health clinics</div>
+    <div class="flowlabel">AstroCRM default flow</div>
+    <div class="flow"><span class="fstep">Inquiry</span><span class="farrow">→</span><span class="fstep">Intake Consultation</span><span class="farrow">→</span><span class="fstep">Treatment Plan + Frequency</span><span class="farrow">→</span><span class="fstep">Recurring Sessions</span><span class="farrow">→</span><span class="fstep">Rebook Before Leaving</span><span class="farrow">→</span><span class="fstep fend">Check-in Weeks Later</span></div>
+    <div class="refs">Base: the <a href="#therapist">Therapist</a> and <a href="#nutrition">Nutrition</a> flow shapes, adapted with respondent 3's answers (a TCM doctor with 5000+ lifetime clients, 100–200 active, currently paying €20–40/mo for <a href="https://www.nookal.com/" target="_blank" rel="noopener">Nookal</a>, a clinic-management tool).</div>
+    <h3>What the questionnaire says (respondent 3, TCM doctor)</h3>
+    <ul>
+      <li>Their own journey, verbatim shape: "First intake talk, price list, choosing frequency and appointment booking" — intake sets the treatment <strong>frequency</strong> up front.</li>
+      <li>Almost all clients returning (75%+); follow-up: "I schedule the next session before they leave" + "I check in a few weeks later"; already has a reminder system and wants WhatsApp/Telegram reminders.</li>
+      <li>Records per client: full questionnaire incl. address, phone, <strong>insurance details</strong>, birth date/time/place, goals, health background — data is "very sensitive (medical)", GDPR applies. Shares reports/PDFs, session audio, video, worksheets with clients.</li>
+      <li>Wants: visual client board, reports showing where clients come from.</li>
+    </ul>
+    <div class="proposal">
+      <span class="plabel">Proposed AstroCRM default</span>
+      <div class="tablewrap"><table>
+        <tr><th>Setting</th><th>Default value</th></tr>
+        <tr><td>Intake fields</td><td>Health history questionnaire · medications · insurance details · birth date · consent (medical-grade sensitivity, GDPR)</td></tr>
+        <tr><td>Automations ON</td><td>Reminder 24h · "book next session" prompt at checkout (their actual habit) · check-in message a few weeks after a treatment course ends · lapsed-client WhatsApp-friendly reminder</td></tr>
+        <tr><td>Recurring</td><td>Treatment course = recurring sessions at the frequency chosen at intake; session notes + files (PDF/audio/video) per client</td></tr>
+        <tr><td>Vocabulary</td><td>"Treatment" / "Session" · "Patient" · "Course"</td></tr>
+      </table></div>
+    </div>
+  </div>
+
+  <div class="card" id="winetrade">
+    <div class="who"><strong>Wine Import &amp; Sales</strong> — product trade / repeat-order businesses (respondent 1's second business)</div>
+    <div class="flowlabel">AstroCRM default flow</div>
+    <div class="flow"><span class="fstep">Lead</span><span class="farrow">→</span><span class="fstep">Intro / Tasting</span><span class="farrow">→</span><span class="fstep">Quote</span><span class="farrow">→</span><span class="fstep">First Order</span><span class="farrow">→</span><span class="fstep">Delivery + Invoice</span><span class="farrow">→</span><span class="fstep fend">Seasonal Reorder Nudge</span></div>
+    <div class="refs">This is an order/reorder business, not a session business — the "session" concept is replaced by the <strong>order</strong>. Built from respondent 1's answers: explicitly "not selling sessions" ("Я не продаю сессии"), mostly returning customers, WhatsApp + in-person comms, manual bank transfers, pain = accounting.</div>
+    <div class="proposal">
+      <span class="plabel">Proposed AstroCRM default</span>
+      <div class="tablewrap"><table>
+        <tr><th>Setting</th><th>Default value</th></tr>
+        <tr><td>Intake fields</td><td>Customer type (private / restaurant / retail) · taste preferences · typical volumes · delivery address</td></tr>
+        <tr><td>Automations ON</td><td>Quote follow-up · invoice + payment-received tracking (accounting pain) · seasonal reorder nudge via WhatsApp-friendly message · new-arrivals announcement to past buyers</td></tr>
+        <tr><td>Packages</td><td>OFF — orders instead of sessions; order history per customer is the core record</td></tr>
+        <tr><td>Vocabulary</td><td>"Order" · "Customer" · "Tasting" · "Delivery"</td></tr>
+      </table></div>
+    </div>
+  </div>
+
   <!-- ============ MARKET SCAN ============ -->
-  <h2 id="market">13 · Spiritual-practitioner CRM market scan (15 July 2026)</h2>
+  <h2 id="market">14 · Spiritual-practitioner CRM market scan (15 July 2026)</h2>
   <p class="h2-sub"><strong>Verdict: no dominant incumbent exists.</strong> For astrologers there are ~4 small dedicated tools; for healers 2–3; tarot tooling is marketplace-shaped. Nothing at all targets feng shui / Ba-Zi / Chinese-metaphysics consultants. Roundup articles tell these practitioners to use generic schedulers (Calendly, Acuity, Square) or generic CRMs (HubSpot, Zoho). Only AstrologyPro — at $97+/mo — combines birth-data intake, astrological follow-up triggers, booking and payments.</p>
   <div class="card">
     <div class="tablewrap"><table>
