@@ -6,6 +6,7 @@ Disallow: /business-case.html
 Disallow: /tasks.html
 Disallow: /astrocrm-architecture.html
 Disallow: /amocrm-features.html
+Disallow: /flow-library.html
 Disallow: /developer-contract.html
 Disallow: /bazi-ru.html
 Disallow: /marketing-deck.html
