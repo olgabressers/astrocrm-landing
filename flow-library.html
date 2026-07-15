@@ -16,7 +16,7 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #FBF8F2; color: #1a1a1a; line-height: 1.65; padding: 40px 24px 80px; font-size: 16px; }
-    .wrapper { max-width: 1000px; margin: 0 auto; }
+    .wrapper { max-width: 1080px; margin: 0 auto; }
 
     .top { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
     .logo-astro { font-size: 20px; font-weight: 800; color: #8B0000; font-style: italic; font-family: Georgia, serif; }
@@ -25,33 +25,51 @@
     .back:hover { text-decoration: underline; }
 
     h1 { font-family: Georgia, "Times New Roman", serif; font-size: 34px; font-weight: 700; color: #8B0000; line-height: 1.25; margin: 8px 0 10px; }
-    .subtitle { font-size: 18px; color: #1a1a1a; max-width: 820px; margin-bottom: 14px; }
+    .subtitle { font-size: 18px; color: #1a1a1a; max-width: 860px; margin-bottom: 14px; }
     .meta { font-size: 13px; color: #6b7280; margin-bottom: 28px; }
-    .notice { background: #FDF6E3; border: 1px solid #E5D9B6; border-left: 4px solid #C9A227; border-radius: 8px; padding: 14px 18px; font-size: 15px; color: #1a1a1a; margin-bottom: 36px; max-width: 900px; }
 
     h2 { font-family: Georgia, "Times New Roman", serif; font-size: 26px; font-weight: 700; color: #8B0000; margin: 52px 0 6px; scroll-margin-top: 20px; }
     h3 { font-family: Georgia, "Times New Roman", serif; font-size: 19px; font-weight: 700; color: #4a0e0e; margin: 26px 0 8px; }
-    .h2-sub { font-size: 16px; color: #52525b; margin-bottom: 18px; max-width: 860px; }
+    .h2-sub { font-size: 16px; color: #52525b; margin-bottom: 18px; max-width: 900px; }
 
-    p { margin-bottom: 12px; max-width: 900px; }
-    ul { margin: 0 0 14px 22px; max-width: 880px; }
+    p { margin-bottom: 12px; max-width: 920px; }
+    ul { margin: 0 0 14px 22px; max-width: 900px; }
     li { margin-bottom: 7px; }
+
+    /* ===== PROCESS FLOW BOXES ===== */
+    .flow { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 5px; margin: 10px 0 18px; }
+    .fstep { border: 2px solid #8B0000; background: #ffffff; color: #4a0e0e; border-radius: 9px; padding: 8px 14px; font-weight: 700; font-size: 15px; box-shadow: 0 1.5px 4px rgba(139,0,0,.12); }
+    .farrow { color: #C9A227; font-weight: 800; font-size: 19px; padding: 0 2px; flex-shrink: 0; }
+    .fend { border-style: dashed; background: #FDF6E3; }
+    .flow.sourced .fstep { border-color: #94a3b8; color: #334155; font-weight: 600; box-shadow: 0 1px 3px rgba(0,0,0,.07); }
+    .flow.sourced .farrow { color: #94a3b8; }
+    .flow.small { gap: 6px 4px; margin: 6px 0; }
+    .flow.small .fstep { padding: 5px 10px; font-size: 13px; border-width: 2px; border-radius: 7px; }
+    .flow.small .farrow { font-size: 15px; }
+    .flowlabel { font-size: 12px; font-weight: 800; letter-spacing: .7px; text-transform: uppercase; color: #8B0000; margin: 14px 0 2px; }
+    .flowlabel.grey { color: #64748b; }
 
     .card { background: #ffffff; border: 1px solid #e8e2d6; border-radius: 14px; box-shadow: 0 1px 5px rgba(0,0,0,.05); padding: 26px 28px; margin: 18px 0 34px; }
     .card .who { font-size: 15px; margin-bottom: 4px; }
     .card .who strong { color: #4a0e0e; }
-    .card .refs { font-size: 14px; color: #52525b; margin-bottom: 16px; }
+    .card .refs { font-size: 14px; color: #52525b; margin-bottom: 6px; }
 
     .tablewrap { overflow-x: auto; margin: 12px 0 18px; }
-    table { border-collapse: collapse; width: 100%; min-width: 640px; font-size: 15px; background: #fff; }
-    th { background: #4a0e0e; color: #FBF8F2; text-align: left; padding: 9px 12px; font-size: 13.5px; letter-spacing: .3px; }
-    td { border: 1px solid #e8e2d6; padding: 9px 12px; vertical-align: top; }
+    table { border-collapse: collapse; width: 100%; min-width: 680px; font-size: 15px; background: #fff; }
+    th { background: #4a0e0e; color: #FBF8F2; text-align: left; padding: 10px 14px; font-size: 13.5px; letter-spacing: .3px; }
+    td { border: 1px solid #e8e2d6; padding: 11px 14px; vertical-align: middle; }
     tr:nth-child(even) td { background: #FBF8F2; }
+
+    /* summary table */
+    .summary td.prof { width: 240px; min-width: 210px; background: #FDF6E3 !important; border-right: 2px solid #C9A227; }
+    .summary td.prof .tname { font-family: Georgia, serif; font-weight: 700; color: #8B0000; font-size: 15.5px; margin-bottom: 3px; }
+    .summary td.prof .plist { font-size: 13.5px; color: #1a1a1a; line-height: 1.5; }
+    .summary table { min-width: 900px; }
 
     .proposal { background: #FDF6E3; border: 1px solid #E5D9B6; border-radius: 10px; padding: 16px 20px; margin-top: 16px; }
     .proposal .plabel { display: inline-block; background: #C9A227; color: #fff; font-size: 11px; font-weight: 800; letter-spacing: .8px; text-transform: uppercase; border-radius: 10px; padding: 3px 10px; margin-bottom: 10px; }
     .proposal table { min-width: 560px; background: transparent; }
-    .proposal td { background: #fff; }
+    .proposal td { background: #fff; vertical-align: top; }
     .proposal tr:nth-child(even) td { background: #fff; }
 
     a { color: #8B0000; }
@@ -64,7 +82,7 @@
     .toc a { text-decoration: none; font-weight: 600; }
     .toc a:hover { text-decoration: underline; }
 
-    .stagechain { font-size: 15.5px; background: #fff; border: 1px dashed #C9A227; border-radius: 8px; padding: 10px 14px; margin: 8px 0 14px; display: inline-block; font-weight: 600; color: #4a0e0e; }
+    .notice { background: #FDF6E3; border: 1px solid #E5D9B6; border-left: 4px solid #C9A227; border-radius: 8px; padding: 14px 18px; font-size: 15px; color: #1a1a1a; margin-bottom: 36px; max-width: 940px; }
 
     @media (max-width: 640px) { .toc ol { columns: 1; } h1 { font-size: 27px; } }
   </style>
@@ -79,16 +97,64 @@
   <a class="back" href="admin.html">← Back to Admin Index</a>
 
   <h1>Flow Library — Standard Client Flows per Profession</h1>
-  <p class="subtitle">Research-backed default configurations for the AstroCRM template library: 10 flow templates covering all 8 profession categories on the landing page (30+ professions). Every stage name, timing and field below is extracted from the public documentation of the leading vertical CRM in each niche.</p>
+  <p class="subtitle">The 10 default process flows for the AstroCRM template library, covering all 8 profession categories on the landing page (30+ professions). Each flow is mapped in boxes below; stage names, timings and fields are extracted from the public documentation of the leading vertical CRM in each niche.</p>
   <div class="meta">Internal · delisted (noindex, robots.txt) · Research date: 15 July 2026 · Compiled from official help-center documentation of 20 vertical CRMs + a dedicated spiritual-practitioner market scan</div>
 
-  <div class="notice"><strong>How to read this page.</strong> Facts in the main sections are sourced — the product name is stated and the source is the product's official help documentation (linked). Items the vendors do not document publicly are marked <span class="nf">NOT PUBLIC</span> (we decide those values ourselves). Gold boxes marked <em>Proposed AstroCRM default</em> are our own design decisions informed by the research — they are proposals, not sourced facts.</div>
+  <!-- ============ SUMMARY: PROFESSION → FLOW ============ -->
+  <h2 id="summary">1 · Summary — process flow per profession</h2>
+  <p class="h2-sub">Wine boxes = the AstroCRM default flow the user gets when they pick their profession. Full detail (intake fields, automation timings, packages, sources) in the sections below.</p>
+
+  <div class="tablewrap summary"><table>
+    <tr><th style="width:240px">Profession</th><th>Process flow</th></tr>
+    <tr>
+      <td class="prof"><div class="tname"><a href="#astrologer">Astrologer / Metaphysics</a></div><div class="plist">Astrologers (Western &amp; Vedic) · Numerologists · Ba-Zi masters · Human Design</div></td>
+      <td><div class="flow small"><span class="fstep">Inquiry</span><span class="farrow">→</span><span class="fstep">Birth Data Received</span><span class="farrow">→</span><span class="fstep">Chart Prepared</span><span class="farrow">→</span><span class="fstep">Session Held</span><span class="farrow">→</span><span class="fstep">Report Delivered</span><span class="farrow">→</span><span class="fstep fend">Follow-up / Rebook</span></div></td>
+    </tr>
+    <tr>
+      <td class="prof"><div class="tname"><a href="#reader">Reader / Healer</a></div><div class="plist">Tarot &amp; oracle readers · Psychics · Mediums · Reiki &amp; energy healers</div></td>
+      <td><div class="flow small"><span class="fstep">Inquiry</span><span class="farrow">→</span><span class="fstep">Booked</span><span class="farrow">→</span><span class="fstep">Session Held</span><span class="farrow">→</span><span class="fstep">Aftercare Sent</span><span class="farrow">→</span><span class="fstep fend">Repeat Booking</span></div></td>
+    </tr>
+    <tr>
+      <td class="prof"><div class="tname"><a href="#coach">Coach</a></div><div class="plist">Life coaches · Business coaches · Executive coaches · Career coaches</div></td>
+      <td><div class="flow small"><span class="fstep">Inquiry</span><span class="farrow">→</span><span class="fstep">Discovery Call</span><span class="farrow">→</span><span class="fstep">Package Proposed</span><span class="farrow">→</span><span class="fstep">Package Purchased</span><span class="farrow">→</span><span class="fstep">Coaching Active (X of Y)</span><span class="farrow">→</span><span class="fstep fend">Completed / Renewal</span></div></td>
+    </tr>
+    <tr>
+      <td class="prof"><div class="tname"><a href="#therapist">Therapist</a></div><div class="plist">Psychologists · Psychotherapists · CBT therapists · Family therapists</div></td>
+      <td><div class="flow small"><span class="fstep">Inquiry</span><span class="farrow">→</span><span class="fstep">Intake Sent</span><span class="farrow">→</span><span class="fstep">Intake Complete</span><span class="farrow">→</span><span class="fstep">Active — Weekly Sessions</span><span class="farrow">→</span><span class="fstep fend">Inactive / Closed</span></div></td>
+    </tr>
+    <tr>
+      <td class="prof"><div class="tname"><a href="#nutrition">Nutrition / Training</a></div><div class="plist">Nutritionists · Dietitians · Personal trainers</div></td>
+      <td><div class="flow small"><span class="fstep">Prospect</span><span class="farrow">→</span><span class="fstep">Consult Booked</span><span class="farrow">→</span><span class="fstep">Plan Delivered</span><span class="farrow">→</span><span class="fstep">Active — Check-ins</span><span class="farrow">→</span><span class="fstep fend">Renewal Due</span></div></td>
+    </tr>
+    <tr>
+      <td class="prof"><div class="tname"><a href="#studio">Studio / Class</a></div><div class="plist">Yoga instructors · Massage therapists</div></td>
+      <td><div class="flow small"><span class="fstep">Booked</span><span class="farrow">→</span><span class="fstep">Waitlist (if full)</span><span class="farrow">→</span><span class="fstep">Checked-in</span><span class="farrow">→</span><span class="fstep">Completed</span><span class="farrow">→</span><span class="fstep fend">Pass Renewal / Win-back</span></div></td>
+    </tr>
+    <tr>
+      <td class="prof"><div class="tname"><a href="#beauty">Beauty Appointment</a></div><div class="plist">Lash &amp; brow artists · Nail artists · Tattoo artists · Hair stylists</div></td>
+      <td><div class="flow small"><span class="fstep">Booked</span><span class="farrow">→</span><span class="fstep">Confirmed</span><span class="farrow">→</span><span class="fstep">Done (Checkout)</span><span class="farrow">→</span><span class="fstep">Thank-you</span><span class="farrow">→</span><span class="fstep fend">Rebook Nudge 4–6 wks</span></div></td>
+    </tr>
+    <tr>
+      <td class="prof"><div class="tname"><a href="#consultant">Expert Consultant</a></div><div class="plist">Financial advisors · Tax &amp; accounting consultants · Legal advisors</div></td>
+      <td><div class="flow small"><span class="fstep">Inquiry</span><span class="farrow">→</span><span class="fstep">Qualification</span><span class="farrow">→</span><span class="fstep">Engagement Letter</span><span class="farrow">→</span><span class="fstep">Engaged</span><span class="farrow">→</span><span class="fstep">Work in Progress</span><span class="farrow">→</span><span class="fstep">Delivered</span><span class="farrow">→</span><span class="fstep fend">Annual Review</span></div></td>
+    </tr>
+    <tr>
+      <td class="prof"><div class="tname"><a href="#tutor">Tutor / Teacher</a></div><div class="plist">Music teachers · Language tutors</div></td>
+      <td><div class="flow small"><span class="fstep">Lead</span><span class="farrow">→</span><span class="fstep">Trial Lesson</span><span class="farrow">→</span><span class="fstep">Enrolled — Weekly Slot</span><span class="farrow">→</span><span class="fstep">Monthly Auto-Invoice</span><span class="farrow">→</span><span class="fstep fend">Term Renewal</span></div></td>
+    </tr>
+    <tr>
+      <td class="prof"><div class="tname"><a href="#creative">Project Creative</a></div><div class="plist">Wedding planners · Interior designers</div></td>
+      <td><div class="flow small"><span class="fstep">Inquiry</span><span class="farrow">→</span><span class="fstep">Consultation</span><span class="farrow">→</span><span class="fstep">Proposal Sent</span><span class="farrow">→</span><span class="fstep">Contract Signed</span><span class="farrow">→</span><span class="fstep">Deposit Paid</span><span class="farrow">→</span><span class="fstep">In Progress</span><span class="farrow">→</span><span class="fstep">Final Delivery</span><span class="farrow">→</span><span class="fstep fend">Complete</span></div></td>
+    </tr>
+  </table></div>
+
+  <div class="notice"><strong>How to read this page.</strong> Wine-outlined boxes = AstroCRM default flows (our design). Grey-outlined boxes = flows documented by the reference products, with the vendor named. Items vendors do not document publicly are marked <span class="nf">NOT PUBLIC</span>. Every sourced fact links to the official help documentation it came from.</div>
 
   <div class="toc">
     <strong>Contents</strong>
     <ol>
-      <li><a href="#matrix">The library at a glance</a></li>
-      <li><a href="#universal">Universal patterns (all verticals)</a></li>
+      <li><a href="#summary">Summary — flow per profession</a></li>
+      <li><a href="#universal">Universal patterns</a></li>
       <li><a href="#astrologer">Astrologer / Metaphysics</a></li>
       <li><a href="#reader">Reader / Healer</a></li>
       <li><a href="#coach">Coach</a></li>
@@ -103,49 +169,36 @@
     </ol>
   </div>
 
-  <!-- ============ 1. MATRIX ============ -->
-  <h2 id="matrix">1 · The library at a glance</h2>
-  <p class="h2-sub">The user picks their <em>profession</em> in onboarding; behind the scenes it loads one of 10 flow configurations. Every template shares the same feature set (recurring clients, packages, reminders, intake forms, pipelines) — templates only pre-set names, fields, defaults and cadences.</p>
-  <div class="tablewrap"><table>
-    <tr><th>#</th><th>Template</th><th>Professions it loads for (from astrocrm.app)</th><th>Reference products studied</th></tr>
-    <tr><td>1</td><td><strong>Astrologer / Metaphysics</strong></td><td>Western &amp; Vedic astrologers, numerologists, Ba-Zi masters, Human Design</td><td>Astrolium, AstrologyPro, DKSCORE + own Successcode practice</td></tr>
-    <tr><td>2</td><td><strong>Reader / Healer</strong></td><td>Tarot &amp; oracle readers, psychics, mediums, Reiki &amp; energy healers</td><td>Heallist, Riverd, Moonlight (+ template 1)</td></tr>
-    <tr><td>3</td><td><strong>Coach</strong></td><td>Life, business, executive, career coaches</td><td>Paperbell, CoachAccountable, Delenta</td></tr>
-    <tr><td>4</td><td><strong>Therapist</strong></td><td>Psychologists, psychotherapists, CBT &amp; family therapists</td><td>SimplePractice, TherapyNotes</td></tr>
-    <tr><td>5</td><td><strong>Nutrition / Training</strong></td><td>Nutritionists, dietitians, personal trainers</td><td>Practice Better, Trainerize, Healthie</td></tr>
-    <tr><td>6</td><td><strong>Studio / Class</strong></td><td>Yoga instructors, massage therapists</td><td>Mindbody, Momence, Walla</td></tr>
-    <tr><td>7</td><td><strong>Beauty Appointment</strong></td><td>Lash &amp; brow artists, nail artists, tattoo artists, hair stylists</td><td>Fresha, GlossGenius, Booksy</td></tr>
-    <tr><td>8</td><td><strong>Expert Consultant</strong></td><td>Financial advisors, tax &amp; accounting consultants, legal advisors</td><td>Wealthbox, Clio Grow, TaxDome</td></tr>
-    <tr><td>9</td><td><strong>Tutor / Teacher</strong></td><td>Music teachers, language tutors</td><td>My Music Staff, TutorBird, Teachworks</td></tr>
-    <tr><td>10</td><td><strong>Project Creative</strong></td><td>Wedding planners, interior designers</td><td>HoneyBook, Dubsado, 17hats</td></tr>
-  </table></div>
-
-  <!-- ============ 2. UNIVERSAL ============ -->
-  <h2 id="universal">2 · Universal patterns — build these once, into every template</h2>
+  <!-- ============ UNIVERSAL ============ -->
+  <h2 id="universal">2 · Universal patterns — build once, into every template</h2>
   <p class="h2-sub">Patterns that repeat across all 20 products studied. These belong to the platform layer, not to any single template.</p>
   <div class="card">
+    <div class="flowlabel">The universal skeleton every vertical follows</div>
+    <div class="flow"><span class="fstep">Lead phase</span><span class="farrow">→</span><span class="fstep">Booked = contract / first payment</span><span class="farrow">→</span><span class="fstep">Delivery phase</span><span class="farrow">→</span><span class="fstep fend">Rebook / Renewal / Win-back</span></div>
     <ul>
-      <li><strong>Two-phase pipeline: lead stages, then delivery stages.</strong> HoneyBook (Inquiry → Follow Up → Proposal Sent → then booked stages), Dubsado (separate "Lead statuses" and "Job statuses" sections), SimplePractice (Prospective → Active), Clio Grow (fixed buckets: Intake / Hired / Not hired). "Booked" is defined by contract signed and/or first payment everywhere.</li>
-      <li><strong>24 hours before is the universal reminder anchor.</strong> Fresha default reminder 24h (range 2–72h, optional second at 1h); GlossGenius reminder 24h + separate confirmation request 72h before; Booksy 24h free text; Delenta factory defaults 24h + 1h + 15min; Paperbell's suggested template "1 day before"; TherapyNotes sends email reminders in a 60–24h window.</li>
-      <li><strong>Rebooking / win-back nudges are default or near-default.</strong> GlossGenius: 6 weeks after last appointment by default (customizable 1–12 weeks, suppressed if the client rebooks); Booksy template: 3 weeks after last visit; Fresha "Reminder to rebook" is on by default; Walla win-back fires day 5 and day 20 after a plan expires; CoachAccountable "Schedule Nudge" fires after N days with no upcoming appointment.</li>
-      <li><strong>Package = N sessions with a visible "sessions remaining" counter.</strong> Paperbell (remaining bookable appointments), CoachAccountable (allocation + progress bar + "you have 3 appointments left" notices), Delenta ("Outstanding Sessions"), Healthie (1 credit = 1 session). Memberships/subscriptions are a separate recurring construct with freeze/pause and automatic payment-retry (Momence: 3 retries then inactive; Trainerize: fixed dunning messages at failure, +3 days, +5 days).</li>
-      <li><strong>Minimum intake = name + email.</strong> Dubsado requires first name, last name, email; HoneyBook's two non-deletable fields are Full Name and Email; My Music Staff requires only first + last name. Everything else is optional/custom. Intake forms attach to trigger events (booking made, package purchased, first session) — not sent manually.</li>
-      <li><strong>No-show economics, one shape everywhere:</strong> deposit at booking OR card-on-file cancellation fee, a business-defined cancellation window, fee charged when marked no-show. No vendor publishes a default fee % — the mechanism is standard, the number is the practitioner's choice.</li>
-      <li><strong>Client-chase reminders:</strong> TaxDome's global default for any pending item (form, e-signature, invoice) is 1 reminder, 3 days after sending. 17hats invoices: 1 day before due + monthly when past due. HoneyBook ships all automatic payment reminders ON by default.</li>
-      <li><strong>Stage moves are event-driven, not manual:</strong> contract signed / payment made / form submitted advance the pipeline automatically (HoneyBook, Dubsado, Clio Grow workflows, TaxDome automations).</li>
-      <li><strong>Vocabulary:</strong> "client" is near-universal on the business side (never "customer", except Momence). Client-facing language says "session"; operational/calendar language says "appointment". Tutoring says "student" + "family"; legal says "matter"; tax says "job".</li>
-      <li><strong>Nobody deletes clients with history</strong> — deactivation/archiving preserves records everywhere (My Music Staff, TherapyNotes auto-inactive after 4 months since last appointment, SimplePractice Archive).</li>
+      <li><strong>Two-phase pipeline: lead stages, then delivery stages.</strong> HoneyBook (Inquiry → Follow Up → Proposal Sent → booked stages), Dubsado (separate "Lead statuses" and "Job statuses"), SimplePractice (Prospective → Active), Clio Grow (Intake / Hired / Not hired). "Booked" is defined by contract signed and/or first payment everywhere.</li>
+      <li><strong>24 hours before is the universal reminder anchor.</strong> Fresha default 24h (range 2–72h, optional second at 1h); GlossGenius reminder 24h + confirmation request 72h; Booksy 24h free text; Delenta factory defaults 24h + 1h + 15min; Paperbell's template suggests "1 day before"; TherapyNotes emails in a 60–24h window.</li>
+      <li><strong>Rebooking / win-back nudges are default or near-default.</strong> GlossGenius: 6 weeks after last appointment (customizable 1–12, suppressed if client rebooks); Booksy: 3 weeks after last visit; Fresha "Reminder to rebook" on by default; Walla win-back on day 5 and day 20 after plan expiry; CoachAccountable "Schedule Nudge" after N days with nothing upcoming.</li>
+      <li><strong>Package = N sessions with a visible "sessions remaining" counter.</strong> Paperbell, CoachAccountable (allocation + "3 appointments left" notices), Delenta ("Outstanding Sessions"), Healthie (1 credit = 1 session). Memberships/subscriptions are separate: recurring billing, freeze/pause, automatic payment retries (Momence: 3 retries then inactive; Trainerize dunning at failure, +3d, +5d).</li>
+      <li><strong>Minimum intake = name + email.</strong> Dubsado requires first/last/email; HoneyBook's non-deletable fields are Full Name + Email; My Music Staff requires only first + last name. Intake forms attach to trigger events (booking, purchase, first session) — never sent manually.</li>
+      <li><strong>No-show economics, one shape everywhere:</strong> deposit at booking OR card-on-file cancellation fee + business-defined window. No vendor publishes a default fee %.</li>
+      <li><strong>Client-chase reminders:</strong> TaxDome default for any pending item = 1 reminder, 3 days after sending. 17hats invoices: 1 day before due + monthly past-due. HoneyBook ships all automatic payment reminders ON.</li>
+      <li><strong>Stage moves are event-driven:</strong> contract signed / payment made / form submitted advance the pipeline automatically (HoneyBook, Dubsado, Clio Grow, TaxDome).</li>
+      <li><strong>Vocabulary:</strong> "client" is near-universal on the business side. Client-facing language says "session"; operational language says "appointment". Tutoring says "student" + "family"; legal "matter"; tax "job".</li>
+      <li><strong>Nobody deletes clients with history</strong> — archive/deactivate preserves records (TherapyNotes even auto-inactivates 4 months after the last appointment).</li>
     </ul>
   </div>
 
-  <!-- ============ 3. ASTROLOGER ============ -->
-  <h2 id="astrologer">3 · Template 1 — Astrologer / Metaphysics</h2>
+  <!-- ============ ASTROLOGER ============ -->
+  <h2 id="astrologer">3 · Astrologer / Metaphysics</h2>
   <div class="card">
     <div class="who"><strong>Loads for:</strong> Western &amp; Vedic astrologers · numerologists · Ba-Zi (Four Pillars) masters · Human Design</div>
-    <div class="refs">No dominant incumbent exists (see <a href="#market">market scan</a>). Sourced features below come from the three dedicated tools that do exist; the proposed default is our own design built on the Successcode practice.</div>
+    <div class="flowlabel">AstroCRM default flow</div>
+    <div class="flow"><span class="fstep">Inquiry</span><span class="farrow">→</span><span class="fstep">Birth Data Received</span><span class="farrow">→</span><span class="fstep">Chart Prepared</span><span class="farrow">→</span><span class="fstep">Session Held</span><span class="farrow">→</span><span class="fstep">Report Delivered</span><span class="farrow">→</span><span class="fstep fend">Follow-up / Rebook</span></div>
+    <div class="refs">No dominant incumbent exists (see <a href="#market">market scan</a>). Sourced features below come from the three dedicated tools that do exist; the default flow is our own design built on the Successcode practice.</div>
     <h3>What the niche tools do (sourced)</h3>
     <ul>
-      <li><strong><a href="https://www.astrologypro.com/features" target="_blank" rel="noopener">AstrologyPro</a></strong> (from $97/mo): "Birth date, time, and location collection at booking"; "Custom intake questionnaires per service type"; "Secure birth data storage for every client"; session history with notes and recordings; "Relationship tracking and follow-up reminders"; <strong>"Automatic solar return birthday reminders", "Saturn and Jupiter return notifications", "Significant transit alerts based on natal chart"</strong>; Stripe checkout with automatic overage billing for extended sessions.</li>
+      <li><strong><a href="https://www.astrologypro.com/features" target="_blank" rel="noopener">AstrologyPro</a></strong> (from $97/mo): "Birth date, time, and location collection at booking"; "Custom intake questionnaires per service type"; "Secure birth data storage for every client"; session history with notes and recordings; "Relationship tracking and follow-up reminders"; <strong>"Automatic solar return birthday reminders", "Saturn and Jupiter return notifications", "Significant transit alerts based on natal chart"</strong>; Stripe checkout with automatic overage billing.</li>
       <li><strong><a href="https://astrolium.com/" target="_blank" rel="noopener">Astrolium</a></strong> (free–$79/mo): client profile with session history, intake forms, <strong>Rodden ratings</strong> (birth-time accuracy), tags, next-session reminders; AI session-prep sheets summarising prior notes, active transits, open follow-up threads. No booking, no payments.</li>
       <li><strong><a href="https://www.dkscore.com/dkscore" target="_blank" rel="noopener">DKSCORE</a></strong> (Vedic, India): video consultations with WhatsApp integration and recordings; family-tree client organisation; AI alerts for planetary transits, moon phases, eclipses and appointments.</li>
     </ul>
@@ -153,7 +206,6 @@
       <span class="plabel">Proposed AstroCRM default</span>
       <div class="tablewrap"><table>
         <tr><th>Setting</th><th>Default value</th></tr>
-        <tr><td>Pipeline stages</td><td>Inquiry → Birth Data Received → Chart Prepared → Session Held → Report Delivered → Follow-up</td></tr>
         <tr><td>Intake fields</td><td>Birth date · exact birth time · birth place · birth-time accuracy (Rodden-style rating, per Astrolium) · question/focus of the reading</td></tr>
         <tr><td>Automations ON</td><td>Booking confirmation (immediate) · reminder 24h before · intake form sent at booking (birth data required before "Chart Prepared") · report-delivery follow-up · solar-return / birthday nudge (AstrologyPro precedent) · rebook nudge 3–6 months after last session</td></tr>
         <tr><td>Packages</td><td>ON — reading bundles (e.g. 3-session series), sessions-remaining counter</td></tr>
@@ -162,21 +214,22 @@
     </div>
   </div>
 
-  <!-- ============ 4. READER ============ -->
-  <h2 id="reader">4 · Template 2 — Reader / Healer</h2>
+  <!-- ============ READER ============ -->
+  <h2 id="reader">4 · Reader / Healer</h2>
   <div class="card">
     <div class="who"><strong>Loads for:</strong> tarot &amp; oracle readers · psychics · mediums · Reiki / Theta / energy healers</div>
+    <div class="flowlabel">AstroCRM default flow</div>
+    <div class="flow"><span class="fstep">Inquiry</span><span class="farrow">→</span><span class="fstep">Booked</span><span class="farrow">→</span><span class="fstep">Session Held</span><span class="farrow">→</span><span class="fstep">Aftercare Sent</span><span class="farrow">→</span><span class="fstep fend">Repeat Booking</span></div>
     <div class="refs">No dedicated CRM incumbent (roundup articles recommend generic Calendly/Acuity — see <a href="#market">market scan</a>). Sourced patterns from the closest holistic platforms:</div>
     <ul>
-      <li><strong><a href="https://www.riverd.app/for/holistic-healers" target="_blank" rel="noopener">Riverd</a></strong> (free ≤20 sessions/mo): 24/7 online booking from a practice page; multiple modalities as separate services; encrypted session notes building a full client history; automated email reminders; records payment, method and tip per session.</li>
-      <li><strong><a href="https://www.heallist.com/" target="_blank" rel="noopener">Heallist</a></strong> ($0 + 10% booking commission, or $24–40/mo): practitioner directory + booking (virtual/in-person), payments, client messaging, client portal, secure client records on the paid tier.</li>
+      <li><strong><a href="https://www.riverd.app/for/holistic-healers" target="_blank" rel="noopener">Riverd</a></strong> (free ≤20 sessions/mo): 24/7 online booking; multiple modalities as separate services; encrypted session notes building a full client history; automated email reminders; records payment, method and tip per session.</li>
+      <li><strong><a href="https://www.heallist.com/" target="_blank" rel="noopener">Heallist</a></strong> ($0 + 10% booking commission, or $24–40/mo): directory + booking (virtual/in-person), payments, client messaging, client portal, secure client records on the paid tier.</li>
       <li><strong><a href="https://moonlight.world/" target="_blank" rel="noopener">Moonlight</a></strong> (tarot): marketplace-shaped, not practice-management — video reading rooms, pro sessions $50–150/30min set by readers.</li>
     </ul>
     <div class="proposal">
       <span class="plabel">Proposed AstroCRM default</span>
       <div class="tablewrap"><table>
         <tr><th>Setting</th><th>Default value</th></tr>
-        <tr><td>Pipeline stages</td><td>Inquiry → Booked → Session Held → Aftercare Sent → Repeat Booking</td></tr>
         <tr><td>Intake fields</td><td>Question / intention for the session · how they found you · consent note (readings are guidance, not medical/legal advice)</td></tr>
         <tr><td>Automations ON</td><td>Booking confirmation · reminder 24h before · aftercare/thank-you message after session · rebook nudge 4–8 weeks after last session</td></tr>
         <tr><td>Packages</td><td>ON — session bundles; modality list as service menu (per Riverd's multiple-modality pattern)</td></tr>
@@ -185,26 +238,27 @@
     </div>
   </div>
 
-  <!-- ============ 5. COACH ============ -->
-  <h2 id="coach">5 · Template 3 — Coach</h2>
+  <!-- ============ COACH ============ -->
+  <h2 id="coach">5 · Coach</h2>
   <div class="card">
     <div class="who"><strong>Loads for:</strong> life coaches · business coaches · executive coaches · career coaches</div>
+    <div class="flowlabel">AstroCRM default flow</div>
+    <div class="flow"><span class="fstep">Inquiry</span><span class="farrow">→</span><span class="fstep">Discovery Call</span><span class="farrow">→</span><span class="fstep">Package Proposed</span><span class="farrow">→</span><span class="fstep">Package Purchased</span><span class="farrow">→</span><span class="fstep">Coaching Active (X of Y)</span><span class="farrow">→</span><span class="fstep fend">Completed / Renewal</span></div>
     <div class="refs">Sources: <a href="https://paperbell.com/support/knowledge-base/paperbell-client-experience/" target="_blank" rel="noopener">Paperbell</a> · <a href="https://www.coachaccountable.com/knowledgeBase/offerings" target="_blank" rel="noopener">CoachAccountable</a> · <a href="https://docs.delenta.com/en/articles/8232164-how-to-customise-your-email-reminders" target="_blank" rel="noopener">Delenta</a> help docs.</div>
-    <h3>Default client journey (sourced)</h3>
-    <div class="stagechain">Discovery (free package) → Package purchase → Contract signed → Payment → Intake survey → Sessions from allocation → Final session</div>
+    <div class="flowlabel grey">Paperbell's documented client journey</div>
+    <div class="flow sourced"><span class="fstep">Package page</span><span class="farrow">→</span><span class="fstep">Schedule session(s)</span><span class="farrow">→</span><span class="fstep">Sign contract</span><span class="farrow">→</span><span class="fstep">Pay</span><span class="farrow">→</span><span class="fstep">Complete survey</span><span class="farrow">→</span><span class="fstep">Client portal</span></div>
     <ul>
-      <li><strong>Paperbell's documented 8-step client flow:</strong> package page → review → schedule session(s) → sign contract → pay → complete survey → notification emails → client portal. New accounts ship with two pre-built packages: <strong>"Free Discovery" (1 × 30-min session)</strong> and <strong>"$100 Breakthrough" (1 × 60-min session)</strong>. Free discovery calls are handled as a free package so leads enter the same system.</li>
-      <li><strong>Package structure:</strong> one-time payment, monthly subscription (N sessions/month), or payment plan. CoachAccountable "Engagements" track an allocation (e.g. 12 sessions or 10 hours) with a progress bar; Delenta shows "Outstanding Sessions" on the client card.</li>
-      <li><strong>Reminders:</strong> Delenta factory defaults = 24h, 1h and 15min before each session. Paperbell by default sends only a purchase receipt — everything else is opt-in (its template suggests a reminder "1 day before"; SMS options 1 day / 1 hour).</li>
-      <li><strong>Book-your-next-session nudges:</strong> Paperbell "Reminder to Book" (fires when unbooked sessions remain in a package); CoachAccountable "Schedule Nudge" (N days since last appointment with nothing upcoming) and allocation notices ("you have 3 appointments left").</li>
+      <li><strong>Paperbell ships two pre-built packages:</strong> "Free Discovery" (1 × 30-min session) and "$100 Breakthrough" (1 × 60-min session). Free discovery calls are a free package, so leads enter the same system.</li>
+      <li><strong>Package structure:</strong> one-time payment, monthly subscription (N sessions/month), or payment plan. CoachAccountable "Engagements" track an allocation (e.g. 12 sessions / 10 hours) with a progress bar; Delenta shows "Outstanding Sessions" on the client card.</li>
+      <li><strong>Reminders:</strong> Delenta factory defaults = 24h, 1h and 15min before each session. Paperbell by default sends only a purchase receipt — everything else opt-in (template suggests "1 day before"; SMS 1 day / 1 hour).</li>
+      <li><strong>Book-your-next-session nudges:</strong> Paperbell "Reminder to Book" (fires when unbooked sessions remain); CoachAccountable "Schedule Nudge" (N days since last appointment) and allocation notices ("you have 3 appointments left").</li>
       <li><strong>Completion touchpoint:</strong> Paperbell's "Final Appointment" email template explicitly asks for a testimonial and referrals.</li>
-      <li><strong>Intake:</strong> no vendor ships default questions — forms attach to triggers (Purchase / Appointment / Final Appointment in Paperbell; intake worksheet inside a CoachAccountable Offering). <span class="nf">Default question set: NOT PUBLIC anywhere — ours to define.</span></li>
+      <li><strong>Intake:</strong> no vendor ships default questions — forms attach to triggers (Purchase / Appointment / Final Appointment). <span class="nf">Default question set: NOT PUBLIC anywhere — ours to define.</span></li>
     </ul>
     <div class="proposal">
       <span class="plabel">Proposed AstroCRM default</span>
       <div class="tablewrap"><table>
         <tr><th>Setting</th><th>Default value</th></tr>
-        <tr><td>Pipeline stages</td><td>Inquiry → Discovery Call → Package Proposed → Package Purchased → Coaching Active (X of Y sessions) → Completed / Renewal</td></tr>
         <tr><td>Intake fields</td><td>Goal for coaching · current situation · how they found you</td></tr>
         <tr><td>Automations ON</td><td>Purchase receipt · session reminder 24h · reminder-to-book when sessions remain unbooked · "sessions remaining" notice near end of package · final-session testimonial/renewal message</td></tr>
         <tr><td>Packages</td><td>ON, front and centre — incl. a pre-built free Discovery package (Paperbell precedent)</td></tr>
@@ -213,26 +267,28 @@
     </div>
   </div>
 
-  <!-- ============ 6. THERAPIST ============ -->
-  <h2 id="therapist">6 · Template 4 — Therapist</h2>
+  <!-- ============ THERAPIST ============ -->
+  <h2 id="therapist">6 · Therapist</h2>
   <div class="card">
     <div class="who"><strong>Loads for:</strong> psychologists · psychotherapists · CBT therapists · family therapists</div>
+    <div class="flowlabel">AstroCRM default flow</div>
+    <div class="flow"><span class="fstep">Inquiry</span><span class="farrow">→</span><span class="fstep">Intake Sent</span><span class="farrow">→</span><span class="fstep">Intake Complete</span><span class="farrow">→</span><span class="fstep">Active — Weekly Sessions</span><span class="farrow">→</span><span class="fstep fend">Inactive / Closed</span></div>
     <div class="refs">Sources: <a href="https://support.simplepractice.com/hc/en-us/articles/33726366744589-Managing-prospective-clients-on-the-Inquiries-page" target="_blank" rel="noopener">SimplePractice</a> · <a href="https://support.therapynotes.com/hc/en-us/articles/30661340094619-Automated-Patient-Appointment-Reminders" target="_blank" rel="noopener">TherapyNotes</a> help docs.</div>
-    <h3>Default lifecycle (sourced)</h3>
-    <div class="stagechain">Inquiry (Prospective) → Intake documents → Active, recurring weekly sessions → Inactive / Terminated</div>
+    <div class="flowlabel grey">SimplePractice's documented client statuses</div>
+    <div class="flow sourced"><span class="fstep">Prospective</span><span class="farrow">→</span><span class="fstep">Active</span><span class="farrow">→</span><span class="fstep">Inactive</span><span class="farrow">→</span><span class="fstep">Archived</span></div>
+    <div class="flowlabel grey">Documented clinical notes chain (both vendors)</div>
+    <div class="flow sourced"><span class="fstep">Intake Note</span><span class="farrow">→</span><span class="fstep">Treatment Plan</span><span class="farrow">→</span><span class="fstep">Progress Notes (SOAP/DAP)</span><span class="farrow">→</span><span class="fstep">Termination Note</span></div>
     <ul>
-      <li><strong>SimplePractice client statuses (exact):</strong> Prospective · Active · Inactive · Archived · Waitlist. New contact-form inquiries auto-create a Prospective client on an "Inquiries" page with an intake checklist (prescreener → intake documents → appointment). Conversion to Active is manual.</li>
-      <li><strong>TherapyNotes auto-transitions:</strong> new clients with no appointments become inactive after 1 month; active clients auto-inactive 4 months after their last appointment, or on signing a Termination Note.</li>
-      <li><strong>Default intake packet ships in the box.</strong> TherapyNotes includes by default: Client Information Form, Client History Form, Consent for Services, Client Insurance Form, Release of Information. SimplePractice pre-loads consent templates by specialty (Informed Consent for Psychotherapy, Privacy Practices, Practice Policies…) plus built-in Demographics and Credit-card forms; intake package auto-sends with the Welcome email when a client is added.</li>
-      <li><strong>Reminders:</strong> SimplePractice offers 24/36/48/72h lead times (email/text/voice, per-client consent). TherapyNotes: email sent 60–24h before; SMS 28–2h before ($0.14); queued 1h after the appointment is created.</li>
-      <li><strong>Cancellation policy options (SimplePractice, exact):</strong> phone-call-only / 24h / 48h / 72h; cancelling inside the window → status "Late Canceled", invoiced by default.</li>
-      <li><strong>Notes chain (both vendors):</strong> Intake Note → Treatment Plan → per-session Progress Notes (SOAP / DAP / BIRP templates) → Termination/Discharge note. Notes are generated from the scheduled appointment.</li>
+      <li><strong>New inquiries auto-create a Prospective client</strong> on SimplePractice's "Inquiries" page with an intake checklist (prescreener → intake documents → appointment); conversion to Active is manual.</li>
+      <li><strong>TherapyNotes auto-transitions:</strong> new clients with no appointments become inactive after 1 month; active clients auto-inactive 4 months after their last appointment, or on a Termination Note.</li>
+      <li><strong>Default intake packet ships in the box:</strong> TherapyNotes includes Client Information Form, Client History Form, Consent for Services, Insurance Form, Release of Information. SimplePractice pre-loads consent templates by specialty plus Demographics and Credit-card forms; the packet auto-sends with the Welcome email.</li>
+      <li><strong>Reminders:</strong> SimplePractice lead times 24/36/48/72h (email/text/voice, per-client consent). TherapyNotes: email 60–24h before; SMS 28–2h ($0.14); queued 1h after the appointment is created.</li>
+      <li><strong>Cancellation options (SimplePractice, exact):</strong> phone-only / 24h / 48h / 72h; inside the window → "Late Canceled", invoiced by default.</li>
     </ul>
     <div class="proposal">
       <span class="plabel">Proposed AstroCRM default</span>
       <div class="tablewrap"><table>
         <tr><th>Setting</th><th>Default value</th></tr>
-        <tr><td>Pipeline stages</td><td>Inquiry → Intake Sent → Intake Complete → Active (recurring) → Inactive</td></tr>
         <tr><td>Intake fields</td><td>Contact + demographics · reason for seeking help / history · consent checkbox · emergency contact</td></tr>
         <tr><td>Automations ON</td><td>Welcome email with intake at client creation · reminder 24h · incomplete-intake chaser · auto-flag "inactive?" 4 months after last session (TherapyNotes precedent)</td></tr>
         <tr><td>Recurring</td><td>Weekly recurring session slot as the primary scheduling object; session notes attached per appointment</td></tr>
@@ -241,25 +297,26 @@
     </div>
   </div>
 
-  <!-- ============ 7. NUTRITION ============ -->
-  <h2 id="nutrition">7 · Template 5 — Nutrition / Training</h2>
+  <!-- ============ NUTRITION ============ -->
+  <h2 id="nutrition">7 · Nutrition / Training</h2>
   <div class="card">
     <div class="who"><strong>Loads for:</strong> nutritionists · dietitians · personal trainers</div>
+    <div class="flowlabel">AstroCRM default flow</div>
+    <div class="flow"><span class="fstep">Prospect</span><span class="farrow">→</span><span class="fstep">Consult Booked</span><span class="farrow">→</span><span class="fstep">Plan Delivered</span><span class="farrow">→</span><span class="fstep">Active — Check-ins</span><span class="farrow">→</span><span class="fstep fend">Renewal Due</span></div>
     <div class="refs">Sources: <a href="https://help.practicebetter.io/hc/en-us/articles/232318688-Adding-New-and-Prospective-Clients" target="_blank" rel="noopener">Practice Better</a> · <a href="https://help.trainerize.com/hc/en-us/articles/360035040012-Business-level-Automated-Messages-and-Events" target="_blank" rel="noopener">Trainerize</a> · <a href="https://help.gethealthie.com/article/1162-getting-started-intake-flows-v2" target="_blank" rel="noopener">Healthie</a> help docs.</div>
-    <div class="stagechain">Prospect → Invitation / activation → Intake flow → Consult → Program with check-ins → Renewal</div>
+    <div class="flowlabel grey">Documented onboarding pattern (all three vendors)</div>
+    <div class="flow sourced"><span class="fstep">Prospect</span><span class="farrow">→</span><span class="fstep">Invitation / activation email</span><span class="farrow">→</span><span class="fstep">Intake flow</span><span class="farrow">→</span><span class="fstep">Sessions + program</span><span class="farrow">→</span><span class="fstep">Renewal / billing events</span></div>
     <ul>
-      <li><strong>Lead state:</strong> Practice Better auto-creates a "Prospective Client" from any public form or booking request (they receive no automated messages until converted via "Review &amp; Add"); Trainerize has a "Prospect" client type with its own booking link.</li>
-      <li><strong>Intake ships on by default:</strong> Trainerize's E-Consultation form is "turned on by default" plus a generic PARQ PDF in the welcome email. Healthie auto-sends a Default Intake Flow when a client is added, and ships a large named form library out of the box (New Patient Assessment, Health History, cancellation policies, liability waiver, PHQ-9/GAD-7, Pre-Coaching Questionnaire…).</li>
-      <li><strong>Default message sequences:</strong> Trainerize ships a pre-written, default-ON "first 14-day" auto-message sequence checking in on new clients, plus milestone messages (first workout, birthdays) and a fixed payment-failure dunning sequence (on failure, +3 days, +5 days).</li>
-      <li><strong>Check-in cadence:</strong> Trainerize schedules progress photos + weigh-ins "at the start and end of each training phase" by default; programs are built in 7-day weeks (example in docs: 4 phases × 4 weeks).</li>
-      <li><strong>Reminders:</strong> Healthie offers 1h / 2h / 1–4 days before (email + SMS); Practice Better up to 3 reminders per session.</li>
-      <li><strong>Programs:</strong> drip content by calendar date, elapsed time, or module completion (Practice Better fixed-date / evergreen / self-paced); packages: 1 credit = 1 session (Healthie).</li>
+      <li><strong>Lead state:</strong> Practice Better auto-creates a "Prospective Client" from any public form or booking request (no automated messages until converted via "Review &amp; Add"); Trainerize has a "Prospect" type with its own booking link.</li>
+      <li><strong>Intake ships on by default:</strong> Trainerize's E-Consultation form is on by default + generic PARQ PDF in the welcome email. Healthie auto-sends a Default Intake Flow when a client is added and ships a large named form library (New Patient Assessment, Health History, PHQ-9/GAD-7, liability waiver, Pre-Coaching Questionnaire…).</li>
+      <li><strong>Default sequences:</strong> Trainerize ships a default-ON "first 14-day" check-in message sequence, milestone messages (first workout, birthdays), and a fixed payment-failure dunning sequence (on failure, +3 days, +5 days).</li>
+      <li><strong>Check-in cadence:</strong> Trainerize schedules progress photos + weigh-ins at the start and end of each training phase by default (programs in 7-day weeks; docs example 4 phases × 4 weeks).</li>
+      <li><strong>Reminders:</strong> Healthie options 1h / 2h / 1–4 days before (email + SMS); Practice Better up to 3 per session.</li>
     </ul>
     <div class="proposal">
       <span class="plabel">Proposed AstroCRM default</span>
       <div class="tablewrap"><table>
         <tr><th>Setting</th><th>Default value</th></tr>
-        <tr><td>Pipeline stages</td><td>Prospect → Consult Booked → Plan Delivered → Active (check-ins) → Renewal Due</td></tr>
         <tr><td>Intake fields</td><td>Health/activity questionnaire · goals · dietary restrictions/allergies · consent</td></tr>
         <tr><td>Automations ON</td><td>Intake at signup · reminder 24h · first-14-days check-in sequence (Trainerize precedent) · progress check-in at plan midpoint and end · renewal notice</td></tr>
         <tr><td>Packages</td><td>ON — plan/program with duration + session credits</td></tr>
@@ -268,25 +325,26 @@
     </div>
   </div>
 
-  <!-- ============ 8. STUDIO ============ -->
-  <h2 id="studio">8 · Template 6 — Studio / Class</h2>
+  <!-- ============ STUDIO ============ -->
+  <h2 id="studio">8 · Studio / Class</h2>
   <div class="card">
     <div class="who"><strong>Loads for:</strong> yoga instructors · massage therapists (class- and pass-based practices)</div>
+    <div class="flowlabel">AstroCRM default flow</div>
+    <div class="flow"><span class="fstep">Booked</span><span class="farrow">→</span><span class="fstep">Waitlist (if full)</span><span class="farrow">→</span><span class="fstep">Checked-in</span><span class="farrow">→</span><span class="fstep">Completed</span><span class="farrow">→</span><span class="fstep fend">Pass Renewal / Win-back</span></div>
     <div class="refs">Sources: <a href="https://www.mindbodyonline.com/business/education/product-waitlist-improvements" target="_blank" rel="noopener">Mindbody</a> · <a href="https://help.momence.com/en/articles/7869547-momence-term-glossary" target="_blank" rel="noopener">Momence</a> · <a href="https://www.hellowalla.com/blog/marketing-automations-client-attention" target="_blank" rel="noopener">Walla</a> docs.</div>
-    <div class="stagechain">Booked → Waitlisted (auto-promote) → Checked-in → or Early cancel / Late cancel / No-show</div>
+    <div class="flowlabel grey">Documented class lifecycle (all three vendors)</div>
+    <div class="flow sourced"><span class="fstep">Booked</span><span class="farrow">→</span><span class="fstep">Waitlisted (auto-promote via SMS)</span><span class="farrow">→</span><span class="fstep">Checked-in</span><span class="farrow">→</span><span class="fstep">Early / Late cancel / No-show</span></div>
     <ul>
-      <li><strong>No-show is time-derived, not manual:</strong> Mindbody auto-marks "absent" at class start; Momence gives 24h after class end to check in before no-show; Walla delays fee collection 12–24h so staff can reverse charges.</li>
-      <li><strong>Waitlist auto-promotion with SMS is the default pattern:</strong> Mindbody "Auto-add" / "First to Claim"; Momence first-come-first-serve / double-opt-in (10 min to reply) / fast-fingers; Walla auto-add with position visible to the client.</li>
-      <li><strong>Win-back defaults (Walla, exact):</strong> contact clients on day 5 and day 20 after their plan expires. Momence ships 8 pre-built "Sequences" incl. Winback, Customer Birthday, Milestones (25th/50th/75th visit), Intro Offer Funnel, Abandoned Checkout. Mindbody has a "Visits Remaining Low" auto email.</li>
-      <li><strong>Passes:</strong> class credits with expiry (Momence: 6 months / 1 year / infinite; "Activate on First Use" delays the clock until first use), optional auto-refill; subscriptions with usage limits, rollover credits, freezes and 3 payment retries before deactivation.</li>
-      <li><strong>Waivers</strong> are business-configured (not preloaded), signed at booking or check-in, stored on the profile with timestamp.</li>
-      <li><span class="nf">Class-reminder default hours: NOT PUBLIC in all three — ours to set.</span></li>
+      <li><strong>No-show is time-derived, not manual:</strong> Mindbody auto-marks "absent" at class start; Momence gives 24h after class end to check in; Walla delays fee collection 12–24h so staff can reverse charges.</li>
+      <li><strong>Waitlist auto-promotion with SMS is the default:</strong> Mindbody "Auto-add" / "First to Claim"; Momence first-come / double-opt-in (10 min to reply) / fast-fingers; Walla auto-add with position visible.</li>
+      <li><strong>Win-back defaults (Walla, exact):</strong> day 5 and day 20 after plan expiry. Momence ships 8 pre-built sequences incl. Winback, Birthday, Milestones (25th/50th/75th visit), Intro Offer, Abandoned Checkout. Mindbody has a "Visits Remaining Low" auto email.</li>
+      <li><strong>Passes:</strong> class credits with expiry (Momence: 6 months / 1 year / infinite; "Activate on First Use" delays the clock), optional auto-refill; subscriptions with rollover credits, freezes, 3 payment retries before deactivation.</li>
+      <li><strong>Waivers</strong> are business-configured, signed at booking or check-in, stored on the profile with timestamp. <span class="nf">Class-reminder default hours: NOT PUBLIC in all three — ours to set.</span></li>
     </ul>
     <div class="proposal">
       <span class="plabel">Proposed AstroCRM default</span>
       <div class="tablewrap"><table>
         <tr><th>Setting</th><th>Default value</th></tr>
-        <tr><td>Booking states</td><td>Booked → Checked-in → or Late Cancel / No-show (auto after session start); waitlist with auto-promotion</td></tr>
         <tr><td>Intake fields</td><td>Contact · injuries/conditions note · waiver signature</td></tr>
         <tr><td>Automations ON</td><td>Booking confirmation · reminder 24h · pass-expiry warning · credits-running-low notice · win-back day 5 + day 20 after pass expiry (Walla precedent)</td></tr>
         <tr><td>Packages</td><td>ON — class pass (N credits, expiry, activate-on-first-use) + recurring membership</td></tr>
@@ -295,26 +353,27 @@
     </div>
   </div>
 
-  <!-- ============ 9. BEAUTY ============ -->
-  <h2 id="beauty">9 · Template 7 — Beauty Appointment</h2>
+  <!-- ============ BEAUTY ============ -->
+  <h2 id="beauty">9 · Beauty Appointment</h2>
   <div class="card">
     <div class="who"><strong>Loads for:</strong> lash &amp; brow artists · nail artists · tattoo artists · hair stylists</div>
+    <div class="flowlabel">AstroCRM default flow</div>
+    <div class="flow"><span class="fstep">Booked</span><span class="farrow">→</span><span class="fstep">Confirmed</span><span class="farrow">→</span><span class="fstep">Done (Checkout)</span><span class="farrow">→</span><span class="fstep">Thank-you</span><span class="farrow">→</span><span class="fstep fend">Rebook Nudge 4–6 wks</span></div>
     <div class="refs">Sources: <a href="https://www.fresha.com/help-center/knowledge-base/calendar/600-update-appointment-statuses" target="_blank" rel="noopener">Fresha</a> · <a href="https://glossgenius.elevio.help/en/articles/1117-how-to-customize-the-timing-of-client-appointment-notifications" target="_blank" rel="noopener">GlossGenius</a> · <a href="https://support.booksy.com/hc/en-us/articles/16463854228114-Does-Booksy-send-clients-reminders-of-their-upcoming-appointments" target="_blank" rel="noopener">Booksy</a> help docs.</div>
-    <h3>Fresha's exact default appointment statuses</h3>
-    <div class="stagechain">Booked → Confirmed → Completed (at checkout) · Cancelled · No-show (+ custom, e.g. "Arrived", "Started")</div>
+    <div class="flowlabel grey">Fresha's exact default appointment statuses (cannot be edited or deleted)</div>
+    <div class="flow sourced"><span class="fstep">Booked</span><span class="farrow">→</span><span class="fstep">Confirmed</span><span class="farrow">→</span><span class="fstep">Completed (at checkout)</span><span class="farrow">→</span><span class="fstep">Cancelled / No-show</span></div>
     <ul>
-      <li><strong>Reminder defaults:</strong> GlossGenius sends a confirmation request 72h before + reminder 24h before (all notifications on by default at account creation); Fresha ships two reminders by default, first at 24h (range 2–72h, optional second 1h before); Booksy sends a free 24h text.</li>
-      <li><strong>Rebooking nudge:</strong> GlossGenius default = 6 weeks after the last appointment (customizable 1–12 weeks, text-only, offered at checkout, suppressed if the client rebooks); Booksy template = 3 weeks after last visit; Fresha's "Reminder to rebook" is on by default with a per-service timescale.</li>
-      <li><strong>Post-visit:</strong> Fresha "Thank you for visiting" sends at checkout with review prompt, tip and invoice; GlossGenius sends a thank-you email with the booking URL. Birthday and win-back-lapsed-clients messages exist as opt-in automations with attachable discount deals (Fresha).</li>
-      <li><strong>No-show protection:</strong> deposits at booking OR card-on-file cancellation fee within a set window (all three). Booksy auto-charges no-show fees at end of business day. Fresha has a dedicated patch-test record (Pending/Passed/Failed, valid 6 months, checked at online booking).</li>
-      <li><strong>Intake:</strong> service-linked forms sent automatically at booking, completed before arrival; Booksy's own example question: "Do you have any allergies?"; frequency controls = once / once a year / every appointment (GlossGenius). Booksy seeds the service menu automatically from the business category chosen at signup.</li>
-      <li><strong>Packages/memberships:</strong> package = prepaid N sessions with optional expiry (GlossGenius example: "5 facials over 6 months"); membership = recurring credits/discounts.</li>
+      <li><strong>Reminder defaults:</strong> GlossGenius confirmation request 72h + reminder 24h (all notifications ON at account creation); Fresha ships two reminders by default, first at 24h (range 2–72h, optional second 1h); Booksy free 24h text.</li>
+      <li><strong>Rebooking nudge:</strong> GlossGenius default 6 weeks after last appointment (1–12 weeks, text-only, offered at checkout, suppressed if client rebooks); Booksy template 3 weeks; Fresha "Reminder to rebook" on by default, per-service timescale.</li>
+      <li><strong>Post-visit:</strong> Fresha "Thank you for visiting" sends at checkout with review prompt, tip and invoice; GlossGenius thank-you email with booking URL. Birthday + win-back-lapsed are opt-in with attachable discount deals (Fresha).</li>
+      <li><strong>No-show protection:</strong> deposits at booking OR card-on-file cancellation fee within a set window (all three); Booksy auto-charges no-show fees at end of business day. Fresha has a dedicated patch-test record (Pending/Passed/Failed, valid 6 months, checked at online booking).</li>
+      <li><strong>Intake:</strong> service-linked forms auto-sent at booking; Booksy's own example question: "Do you have any allergies?"; frequency once / once a year / every appointment (GlossGenius). Booksy seeds the service menu from the business category at signup.</li>
+      <li><strong>Packages:</strong> prepaid N sessions with optional expiry (GlossGenius example: "5 facials over 6 months"); membership = recurring credits/discounts.</li>
     </ul>
     <div class="proposal">
       <span class="plabel">Proposed AstroCRM default</span>
       <div class="tablewrap"><table>
         <tr><th>Setting</th><th>Default value</th></tr>
-        <tr><td>Pipeline stages</td><td>Booked → Confirmed → Done → (Cancelled / No-show)</td></tr>
         <tr><td>Intake fields</td><td>Allergies · patch-test date (lash/brow/colour) · service preferences / reference photos note</td></tr>
         <tr><td>Automations ON</td><td>Booking confirmation · confirmation request 72h · reminder 24h · thank-you after visit · rebook nudge 4–6 weeks (service-dependent)</td></tr>
         <tr><td>Packages</td><td>Available, OFF by default (single appointments dominate); deposits per service available</td></tr>
@@ -323,26 +382,28 @@
     </div>
   </div>
 
-  <!-- ============ 10. CONSULTANT ============ -->
-  <h2 id="consultant">10 · Template 8 — Expert Consultant</h2>
+  <!-- ============ CONSULTANT ============ -->
+  <h2 id="consultant">10 · Expert Consultant</h2>
   <div class="card">
     <div class="who"><strong>Loads for:</strong> financial advisors · tax &amp; accounting consultants · legal advisors</div>
+    <div class="flowlabel">AstroCRM default flow</div>
+    <div class="flow"><span class="fstep">Inquiry</span><span class="farrow">→</span><span class="fstep">Qualification</span><span class="farrow">→</span><span class="fstep">Engagement Letter Sent</span><span class="farrow">→</span><span class="fstep">Engaged</span><span class="farrow">→</span><span class="fstep">Work in Progress</span><span class="farrow">→</span><span class="fstep">Delivered</span><span class="farrow">→</span><span class="fstep fend">Annual Review</span></div>
     <div class="refs">Sources: <a href="https://help.wealthbox.com/hc/en-us/articles/29980449946523-What-are-the-Opportunity-Stages-common-questions" target="_blank" rel="noopener">Wealthbox</a> · <a href="https://help.clio.com/hc/en-us/articles/9286134468507-Clio-Grow-Pipeline" target="_blank" rel="noopener">Clio Grow</a> · <a href="https://help.taxdome.com/article/105-tasks-pipelines-jobs-explained" target="_blank" rel="noopener">TaxDome</a> help docs.</div>
-    <h3>Documented default stages</h3>
+    <div class="flowlabel grey">Wealthbox's exact factory default stages</div>
+    <div class="flow sourced"><span class="fstep">Evaluation</span><span class="farrow">→</span><span class="fstep">Identify Decision Makers</span><span class="farrow">→</span><span class="fstep">Qualification</span><span class="farrow">→</span><span class="fstep">Needs Analysis</span><span class="farrow">→</span><span class="fstep">Review</span><span class="farrow">→</span><span class="fstep">Proposal</span></div>
+    <div class="flowlabel grey">TaxDome's documented 1040 tax-return pipeline</div>
+    <div class="flow sourced"><span class="fstep">Review Docs</span><span class="farrow">→</span><span class="fstep">Prepare Engagement Letter</span><span class="farrow">→</span><span class="fstep">Prepare Return</span><span class="farrow">→</span><span class="fstep">Review</span></div>
     <ul>
-      <li><strong>Wealthbox (exact factory defaults):</strong> <span class="stagechain" style="margin:6px 0">Evaluation → Identify Decision Makers → Qualification → Needs Analysis → Review → Proposal</span> — Won/Lost are terminal statuses hidden from the board.</li>
       <li><strong>Clio Grow:</strong> three fixed buckets — Intake / Hired / Not hired — with editable starter statuses; Clio's recommended example: First contact → Schedule Appointment → Send Intake Form → Follow Up → Send Fee Agreement.</li>
-      <li><strong>TaxDome (documented 1040 pipeline example):</strong> Review Docs → Prepare Engagement Letter → Prepare Return → Review; marketplace templates for Tax Return, Bookkeeping, Payroll ship with automations included.</li>
       <li><strong>The engagement letter sits at the front of delivery</strong> in all three — between "agreed to work together" and "doing the work".</li>
-      <li><strong>Client-chase default (TaxDome, exact):</strong> every pending item (organizer/questionnaire, e-signature, invoice, proposal) gets 1 automatic reminder, 3 days after sending. Clio supports up to 5 appointment reminders per appointment (email + text).</li>
-      <li><strong>Recurring cycle is job-level:</strong> TaxDome re-spawns recurring jobs (annually, quarterly, monthly, custom) into the same pipeline; Wealthbox handles annual reviews via recurring tasks + "Last Review Date" custom fields; Wealthbox ships a library of 10 pre-built workflow templates (lead-gen, onboarding, client review…).</li>
+      <li><strong>Client-chase default (TaxDome, exact):</strong> every pending item (organizer, e-signature, invoice, proposal) gets 1 automatic reminder, 3 days after sending. Clio supports up to 5 appointment reminders per appointment.</li>
+      <li><strong>Recurring cycle is job-level:</strong> TaxDome re-spawns recurring jobs (annually, quarterly, monthly, custom) into the same pipeline; Wealthbox handles annual reviews via recurring tasks + "Last Review Date" fields, and ships a library of 10 pre-built workflow templates.</li>
       <li><strong>Data collection is a pipeline step:</strong> Clio intake forms auto-create a matter in a chosen status; TaxDome organizers auto-send on stage entry and auto-advance the job on submission.</li>
     </ul>
     <div class="proposal">
       <span class="plabel">Proposed AstroCRM default</span>
       <div class="tablewrap"><table>
         <tr><th>Setting</th><th>Default value</th></tr>
-        <tr><td>Pipeline stages</td><td>Inquiry → Qualification → Engagement Letter Sent → Engaged → Work in Progress → Delivered → (Annual Review)</td></tr>
         <tr><td>Intake fields</td><td>Company/entity · matter description · documents checklist</td></tr>
         <tr><td>Automations ON</td><td>Appointment reminder 24h · pending-item chaser 3 days after send (TaxDome precedent) · annual-review recurrence per client</td></tr>
         <tr><td>Packages</td><td>OFF — engagements/retainers instead; recurring annual jobs ON</td></tr>
@@ -351,26 +412,26 @@
     </div>
   </div>
 
-  <!-- ============ 11. TUTOR ============ -->
-  <h2 id="tutor">11 · Template 9 — Tutor / Teacher</h2>
+  <!-- ============ TUTOR ============ -->
+  <h2 id="tutor">11 · Tutor / Teacher</h2>
   <div class="card">
     <div class="who"><strong>Loads for:</strong> music teachers · language tutors</div>
+    <div class="flowlabel">AstroCRM default flow</div>
+    <div class="flow"><span class="fstep">Lead</span><span class="farrow">→</span><span class="fstep">Trial Lesson</span><span class="farrow">→</span><span class="fstep">Enrolled — Weekly Slot</span><span class="farrow">→</span><span class="fstep">Monthly Auto-Invoice</span><span class="farrow">→</span><span class="fstep fend">Term Renewal</span></div>
     <div class="refs">Sources: <a href="https://support.mymusicstaff.com/en/articles/991-what-do-the-different-student-statuses-mean" target="_blank" rel="noopener">My Music Staff</a> · <a href="https://support.tutorbird.com/en/articles/381-what-do-the-different-student-statuses-mean" target="_blank" rel="noopener">TutorBird</a> · <a href="https://www.teachworks.com/tutorials/students" target="_blank" rel="noopener">Teachworks</a> docs.</div>
-    <h3>Default student statuses (My Music Staff / TutorBird, exact)</h3>
-    <div class="stagechain">Lead → Waiting → Trial → Active → Inactive</div>
+    <div class="flowlabel grey">My Music Staff / TutorBird's exact default student statuses</div>
+    <div class="flow sourced"><span class="fstep">Lead</span><span class="farrow">→</span><span class="fstep">Waiting</span><span class="farrow">→</span><span class="fstep">Trial</span><span class="farrow">→</span><span class="fstep">Active</span><span class="farrow">→</span><span class="fstep">Inactive</span></div>
     <ul>
-      <li>Lead and Waiting students cannot be scheduled but can be emailed; Trial behaves exactly like Active (a segmentation label); Inactive preserves attendance, notes and financial history and revokes portal access. Teachworks collapses pre-enrollment into one "Prospective" status.</li>
-      <li><strong>The payer is a separate entity — the "Family" account.</strong> Students are Child (billed via parent) or Adult/Independent. Only first + last name are required to create a student. Family status auto-follows student status.</li>
-      <li><strong>Billing modes (exact):</strong> per lesson · per month · hourly (My Music Staff/TutorBird); Teachworks adds prepaid Package and Flat Fee. Both MMS and TutorBird seed a default rate of <strong>$30 per 30-minute lesson</strong>. Auto-invoicing generates and emails invoices on a schedule, with a heads-up summary to the teacher a few days before.</li>
-      <li><strong>Make-up credit engine (MMS/TutorBird):</strong> the attendance dropdown simultaneously records presence, decides billing, and issues/consumes duration-based make-up credits (statuses incl. "Absent, Issue Make-Up", "Present, Use Make-Up Credit", "Absent, Notice Given"); credits are per-teacher with an optional cap.</li>
-      <li><strong>Trial lessons:</strong> bookable from the sign-up form; free trial = price override to $0 (TutorBird).</li>
-      <li><strong>Reminders:</strong> hours-before value set per event category, opt-in per student (email + SMS); overdue-invoice reminder is a checkbox with user-set days-after-due. <span class="nf">Vendor default hours: NOT PUBLIC.</span></li>
+      <li>Lead and Waiting students cannot be scheduled but can be emailed; Trial behaves exactly like Active; Inactive preserves attendance, notes and financial history. Teachworks collapses pre-enrollment into one "Prospective" status.</li>
+      <li><strong>The payer is a separate entity — the "Family" account.</strong> Students are Child (billed via parent) or Adult/Independent. Only first + last name required. Family status auto-follows student status.</li>
+      <li><strong>Billing modes (exact):</strong> per lesson · per month · hourly; both MMS and TutorBird seed a default rate of <strong>$30 per 30-minute lesson</strong>. Auto-invoicing emails invoices on a schedule with a heads-up summary to the teacher days before.</li>
+      <li><strong>Make-up credit engine:</strong> the attendance dropdown records presence, decides billing, and issues/consumes duration-based make-up credits ("Absent, Issue Make-Up", "Present, Use Make-Up Credit", "Absent, Notice Given"…); credits per-teacher with optional cap.</li>
+      <li><strong>Trial lessons:</strong> bookable from the sign-up form; free trial = price override to $0 (TutorBird). Overdue-invoice reminder is a checkbox with user-set days-after-due. <span class="nf">Vendor default reminder hours: NOT PUBLIC.</span></li>
     </ul>
     <div class="proposal">
       <span class="plabel">Proposed AstroCRM default</span>
       <div class="tablewrap"><table>
         <tr><th>Setting</th><th>Default value</th></tr>
-        <tr><td>Student statuses</td><td>Lead → Trial → Active → Inactive (+ Waiting list)</td></tr>
         <tr><td>Intake fields</td><td>Student name · age/level · instrument/language · parent contact (if minor) · goals</td></tr>
         <tr><td>Automations ON</td><td>Lesson reminder 24h · monthly auto-invoice · overdue-invoice reminder · term/renewal notice</td></tr>
         <tr><td>Recurring</td><td>Weekly lesson slot as primary object; make-up credit ledger per student</td></tr>
@@ -379,26 +440,28 @@
     </div>
   </div>
 
-  <!-- ============ 12. CREATIVE ============ -->
-  <h2 id="creative">12 · Template 10 — Project Creative</h2>
+  <!-- ============ CREATIVE ============ -->
+  <h2 id="creative">12 · Project Creative</h2>
   <div class="card">
     <div class="who"><strong>Loads for:</strong> wedding planners · interior designers (project-based, milestone-billed work)</div>
+    <div class="flowlabel">AstroCRM default flow</div>
+    <div class="flow"><span class="fstep">Inquiry</span><span class="farrow">→</span><span class="fstep">Consultation</span><span class="farrow">→</span><span class="fstep">Proposal Sent</span><span class="farrow">→</span><span class="fstep">Contract Signed</span><span class="farrow">→</span><span class="fstep">Deposit Paid</span><span class="farrow">→</span><span class="fstep">In Progress</span><span class="farrow">→</span><span class="fstep">Final Delivery</span><span class="farrow">→</span><span class="fstep fend">Complete</span></div>
     <div class="refs">Sources: <a href="https://help.honeybook.com/en/articles/9584871-tips-to-pick-which-projects-to-work-on" target="_blank" rel="noopener">HoneyBook</a> · <a href="https://help.dubsado.com/en/articles/13554205-project-statuses" target="_blank" rel="noopener">Dubsado</a> · <a href="https://help.17hats.com/en/articles/1046329-workflow-overview" target="_blank" rel="noopener">17hats</a> help docs.</div>
-    <h3>Documented default stages</h3>
+    <div class="flowlabel grey">HoneyBook's default pipeline stages (named in official docs)</div>
+    <div class="flow sourced"><span class="fstep">Inquiry</span><span class="farrow">→</span><span class="fstep">Follow Up</span><span class="farrow">→</span><span class="fstep">Proposal Sent</span><span class="farrow">→</span><span class="fstep">Proposal Signed</span><span class="farrow">→</span><span class="fstep">Retainer Paid</span><span class="farrow">→</span><span class="fstep">Proposal Paid</span></div>
+    <div class="flowlabel grey">Dubsado's documented example statuses (Lead → Job)</div>
+    <div class="flow sourced"><span class="fstep">Inquiry</span><span class="farrow">→</span><span class="fstep">Consultation Booked</span><span class="farrow">→</span><span class="fstep">Proposal Sent</span><span class="farrow">→</span><span class="fstep">Contract Pending</span><span class="farrow">→</span><span class="fstep">Active Project</span><span class="farrow">→</span><span class="fstep">Revisions</span><span class="farrow">→</span><span class="fstep">Final Delivery</span><span class="farrow">→</span><span class="fstep">Complete</span></div>
     <ul>
-      <li><strong>HoneyBook (named in official docs):</strong> <span class="stagechain" style="margin:6px 0">Inquiry → Follow Up → Proposal Sent → Proposal Signed → Retainer Paid → Proposal Paid</span> New leads land in "Inquiry" automatically.</li>
-      <li><strong>Dubsado's documented example set:</strong> Lead statuses — Inquiry, Consultation Booked, Proposal Sent, Contract Pending; Job statuses — Active Project, Revisions, Final Delivery, Complete.</li>
       <li><strong>17hats frames the process as four phases:</strong> Lead Management → Booking → Onboarding → Fulfillment; contacts auto-convert Hot Lead → Client when a quote is accepted, invoice sent, or contract signed.</li>
-      <li><strong>The proposal is one interactive document:</strong> service selection + contract + invoice combined (HoneyBook smart file; Dubsado proposal auto-generates the invoice from the chosen package; 17hats "3-in-1" — invoice appears only after quote accepted and contract signed).</li>
-      <li><strong>Payment plans are anchored to the contract-signing date and the event date</strong> (Dubsado's documented examples: pay-in-full · fixed deposit due on signing + remainder X days before project start · equal monthly payments after signing · milestone/deliverable-based).</li>
-      <li><strong>Payment reminders ship ON:</strong> HoneyBook enables all automatic payment reminders by default (except milestone-based); 17hats defaults: 1 day before a payment is due + monthly for past-due.</li>
-      <li><strong>Inquiry form minimum:</strong> name + email (non-deletable in HoneyBook); recommended extras (17hats): phone, service interested in, event date, referral source.</li>
+      <li><strong>The proposal is one interactive document:</strong> service selection + contract + invoice combined (HoneyBook smart file; Dubsado proposal auto-generates the invoice; 17hats "3-in-1" — invoice appears only after quote accepted + contract signed).</li>
+      <li><strong>Payment plans anchor to the contract-signing date and the event date</strong> (Dubsado documented examples: pay-in-full · fixed deposit on signing + remainder X days before project start · equal monthly payments after signing · milestone-based).</li>
+      <li><strong>Payment reminders ship ON:</strong> HoneyBook enables all automatic payment reminders by default (except milestone-based); 17hats defaults: 1 day before due + monthly past-due.</li>
+      <li><strong>Inquiry form minimum:</strong> name + email (non-deletable in HoneyBook); recommended extras (17hats): phone, service, event date, referral source.</li>
     </ul>
     <div class="proposal">
       <span class="plabel">Proposed AstroCRM default</span>
       <div class="tablewrap"><table>
         <tr><th>Setting</th><th>Default value</th></tr>
-        <tr><td>Pipeline stages</td><td>Inquiry → Consultation → Proposal Sent → Contract Signed → Deposit Paid → In Progress → Final Delivery → Complete</td></tr>
         <tr><td>Intake fields</td><td>Name · email · phone · event/project date · service interested in · referral source · budget range</td></tr>
         <tr><td>Automations ON</td><td>Inquiry auto-response · proposal follow-up · payment reminders (1 day before due + past-due) · milestone notifications</td></tr>
         <tr><td>Payments</td><td>Deposit on signing + milestone installments anchored to project date</td></tr>
@@ -407,7 +470,7 @@
     </div>
   </div>
 
-  <!-- ============ 13. MARKET SCAN ============ -->
+  <!-- ============ MARKET SCAN ============ -->
   <h2 id="market">13 · Spiritual-practitioner CRM market scan (15 July 2026)</h2>
   <p class="h2-sub"><strong>Verdict: no dominant incumbent exists.</strong> For astrologers there are ~4 small dedicated tools; for healers 2–3; tarot tooling is marketplace-shaped. Nothing at all targets feng shui / Ba-Zi / Chinese-metaphysics consultants. Roundup articles tell these practitioners to use generic schedulers (Calendly, Acuity, Square) or generic CRMs (HubSpot, Zoho). Only AstrologyPro — at $97+/mo — combines birth-data intake, astrological follow-up triggers, booking and payments.</p>
   <div class="card">
