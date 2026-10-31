@@ -97,6 +97,37 @@
     <a href="https://astrocrm.app/amocrm-features.html">AmoCRM Feature Map →</a>
   </div>
 
+  <!-- CURRENT BUILD -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon">✅</div>
+      <div>
+        <div class="section-title">Current build — 31 October 2026</div>
+        <div class="section-sub">What is built and running today. The sections below are the target design; where they differ, the code follows this table.</div>
+      </div>
+    </div>
+    <div class="section-body">
+      <table>
+        <thead><tr><th>Part</th><th>What runs today</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Live URL</strong></td><td><a href="https://astrocrm-rho.vercel.app" target="_blank" rel="noopener" style="color:#1d4ed8;">astrocrm-rho.vercel.app</a> (Vercel project <code>astrocrm</code>). <code>app.astrocrm.app</code> is attached to the project but has no DNS record yet</td></tr>
+          <tr><td><strong>Code</strong></td><td>One FastAPI file <code>app.py</code> (49 endpoints) + <code>db.py</code>, <code>auth.py</code>; frontend <code>static/index.html</code>, <code>app.js</code>, <code>style.css</code>, <code>login.html</code>, SortableJS for drag. Repo <code>olgabressers/astrocrm</code>, branch <code>main</code></td></tr>
+          <tr><td><strong>Database</strong></td><td>Supabase Postgres, Central EU (Frankfurt). Tables: <code>tenants</code>, <code>tenant_users</code>, <code>pipelines</code>, <code>stages</code>, <code>contacts</code>, <code>deals</code>, <code>activities</code>, <code>email_templates</code>, <code>automations</code>, <code>campaigns</code>, <code>campaign_sends</code>, <code>contact_profiles</code>. SQLite retired</td></tr>
+          <tr><td><strong>Tenant isolation</strong></td><td>Every data table has <code>tenant_id</code>; Row Level Security enabled <strong>and forced</strong>, policy <code>tenant_isolation</code>. <code>db.py</code> sets the tenant on every connection</td></tr>
+          <tr><td><strong>Database roles</strong></td><td>App connects as <code>astrocrm_app</code> (cannot bypass RLS). <code>postgres</code> bypasses RLS and is used only for migrations</td></tr>
+          <tr><td><strong>Sign-in</strong></td><td>Supabase Auth, email + password. <code>login.html</code> → <code>POST /api/login</code> → server calls Supabase → tokens kept in <code>localStorage</code> → <code>Authorization: Bearer</code> on every call. <code>auth.py</code> verifies tokens against Supabase's published keys and finds the workspace via <code>tenant_users</code>. Accounts with no workspace are refused</td></tr>
+          <tr><td><strong>Access gate</strong></td><td>Everything needs a valid token except <code>/static</code>, <code>/login</code>, <code>/api/login</code>, <code>/api/config</code>, <code>/api/leads</code>, <code>/favicon</code>. Switch: <code>AUTH_REQUIRED</code></td></tr>
+          <tr><td><strong>Website leads</strong></td><td><code>POST /api/leads</code> — accepted with <code>LEADS_TOKEN</code> or from successcode.net. The <code>source</code> field picks the pipeline via <code>LEAD_ROUTES</code> in <code>app.py</code>. Senders: successcode.net forms and the successcode.net personal-cabinet purchase endpoint</td></tr>
+          <tr><td><strong>Email</strong></td><td>Per-stage email templates (shared library), sent through a real mailbox over SMTP</td></tr>
+          <tr><td><strong>Files</strong></td><td>Uploads go to <code>/tmp/uploads</code> on Vercel and are not kept between restarts — needs Supabase Storage or R2</td></tr>
+          <tr><td><strong>Deploy</strong></td><td>Vercel CLI from the <code>CRM/</code> folder (<code>vercel deploy --prod</code>). The Vercel project is not linked to GitHub, so a push alone does not deploy. <code>vercel.json</code> builds <code>app.py</code> with <code>@vercel/python</code>; Python 3.12</td></tr>
+          <tr><td><strong>Secrets</strong></td><td><code>CRM/.env</code> locally (gitignored) and the Vercel project's environment variables</td></tr>
+          <tr><td><strong>Not built yet</strong></td><td>Shared entitlement table with successcode.net; persistent file storage; split of <code>app.py</code>/<code>app.js</code> into modules; migrations tool; staging environment</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
   <!-- PRODUCT VISION -->
   <div class="section">
     <div class="section-header">
@@ -532,10 +563,10 @@ def require_feature(feature: str):
           <ul>
             <li>Refactor app.js into modules</li>
             <li>Refactor app.py into routers + services</li>
-            <li>JWT authentication (register, login)</li>
-            <li>Multi-tenancy (tenant_id all tables)</li>
-            <li>Switch to PostgreSQL (Supabase)</li>
-            <li>Deploy to Railway/Render</li>
+            <li>✅ Login — Supabase Auth (Sep 2026); self-registration not built</li>
+            <li>✅ Multi-tenancy (tenant_id all tables, forced RLS)</li>
+            <li>✅ Switch to PostgreSQL (Supabase)</li>
+            <li>✅ Deployed — Vercel instead of Railway/Render</li>
             <li><strong>Mobile-first CSS ★</strong></li>
           </ul>
         </div>
@@ -997,6 +1028,10 @@ ruff check . &amp;&amp; ruff format --check . # lint + format check</pre>
           <tr><td>Apr 2026</td><td>In-memory JWT + silent refresh</td><td>Prevent XSS token theft — localStorage is readable by any script</td></tr>
           <tr><td>Apr 2026</td><td>Mobile-first CSS</td><td>All target users are practitioners on phones — 100% of audience</td></tr>
           <tr><td>Apr 2026</td><td>/api/v1/ prefix on all routes</td><td>Allows non-breaking evolution to /api/v2/ without breaking existing clients</td></tr>
+          <tr><td>Sep 2026</td><td>Supabase Auth instead of own JWT/bcrypt</td><td>Login, password reset and token signing handled by Supabase; server verifies tokens against Supabase's published keys</td></tr>
+          <tr><td>Sep 2026</td><td>App connects as <code>astrocrm_app</code>, not <code>postgres</code></td><td><code>postgres</code> bypasses RLS, which would silently switch tenant isolation off</td></tr>
+          <tr><td>Sep 2026</td><td>Vercel instead of Railway/Render</td><td>Deployed with the Vercel CLI; <code>render.yaml</code> kept but unused</td></tr>
+          <tr><td>Sep 2026</td><td>Tokens in <code>localStorage</code> (differs from the in-memory target)</td><td>Built that way with the sign-in; target still stands</td></tr>
         </tbody>
       </table>
 
